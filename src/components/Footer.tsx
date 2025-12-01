@@ -23,7 +23,7 @@ export function Footer() {
             {/* Social Media */}
             <div className="flex space-x-3 mb-6">
               <a 
-                href="https://linkedin.com/company/delever" 
+                href="https://www.linkedin.com/company/98819489" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors"
