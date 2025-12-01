@@ -940,11 +940,18 @@ export function PricingCalculator() {
           </div>
 
           {/* Итого */}
-          <div className="bg-white/20 rounded-xl p-6 text-center">
-            <div className="text-sm text-white/70 mb-2">{t('calc.monthlyTotal')}</div>
-            <div className="text-4xl font-bold">{formatPrice(totals.monthly)}</div>
-            <div className="text-sm text-white/70 mt-2">
-              {selectedModules.length > 0 ? `${selectedModules.length} ${t('calc.aggregatorsSelected')} × ${branches} ${t('calc.branchesShort')}` : t('calc.selectAggregatorHint')}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-white/20 rounded-xl p-6 text-center">
+              <div className="text-sm text-white/70 mb-2">{t('calc.monthlyTotal')}</div>
+              <div className="text-3xl font-bold">{formatPrice(totals.monthly)}</div>
+              <div className="text-sm text-white/70 mt-2">
+                {selectedModules.length > 0 ? `${selectedModules.length} ${t('calc.aggregatorsSelected')} × ${branches} ${t('calc.branchesShort')}` : t('calc.selectAggregatorHint')}
+              </div>
+            </div>
+            <div className="bg-yellow-500/30 rounded-xl p-6 text-center">
+              <div className="text-sm text-white/70 mb-2">{t('calc.requiredDeposit')}</div>
+              <div className="text-3xl font-bold">{formatPrice(3900000)}</div>
+              <div className="text-sm text-white/70 mt-2">{t('calc.depositUsedForPayment')}</div>
             </div>
           </div>
         </motion.div>
@@ -993,11 +1000,18 @@ export function PricingCalculator() {
           </div>
 
           {/* Итого */}
-          <div className="bg-white/20 rounded-xl p-6 text-center">
-            <div className="text-sm text-white/70 mb-2">{t('calc.monthlyTotal')}</div>
-            <div className="text-4xl font-bold">{formatPrice(totals.monthly)}</div>
-            <div className="text-sm text-white/70 mt-2">
-              {kiosks} {t('calc.kiosksShort')} × {formatPrice(910000)}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-white/20 rounded-xl p-6 text-center">
+              <div className="text-sm text-white/70 mb-2">{t('calc.monthlyTotal')}</div>
+              <div className="text-3xl font-bold">{formatPrice(totals.monthly)}</div>
+              <div className="text-sm text-white/70 mt-2">
+                {kiosks} {t('calc.kiosksShort')} × {formatPrice(910000)}
+              </div>
+            </div>
+            <div className="bg-yellow-500/30 rounded-xl p-6 text-center">
+              <div className="text-sm text-white/70 mb-2">{t('calc.requiredPayment')}</div>
+              <div className="text-3xl font-bold">{formatPrice(6500000)}</div>
+              <div className="text-sm text-white/70 mt-2">{t('calc.oneTimePayment')}</div>
             </div>
           </div>
         </motion.div>

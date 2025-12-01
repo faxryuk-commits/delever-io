@@ -660,6 +660,12 @@ export const translations: Record<Language, Record<string, string>> = {
     'calc.perKiosk': 'киоск',
     'calc.kiosksShort': 'киосков',
     
+    // Deposits
+    'calc.requiredDeposit': 'Обязательный депозит',
+    'calc.requiredPayment': 'Обязательный платёж',
+    'calc.depositUsedForPayment': 'Используется на оплату подписки',
+    'calc.oneTimePayment': 'Единоразовый платёж',
+    
     // Switch expenses
     'calc.switchExpenses': 'Расходы при переходе на свою доставку',
     'calc.marketingBudget': 'Маркетинг/мес',
@@ -1334,6 +1340,12 @@ export const translations: Record<Language, Record<string, string>> = {
     'calc.kiosksCount': 'Number of kiosks',
     'calc.perKiosk': 'kiosk',
     'calc.kiosksShort': 'kiosks',
+    
+    // Deposits
+    'calc.requiredDeposit': 'Required Deposit',
+    'calc.requiredPayment': 'Required Payment',
+    'calc.depositUsedForPayment': 'Used towards subscription',
+    'calc.oneTimePayment': 'One-time payment',
     
     // Switch expenses
     'calc.switchExpenses': 'Expenses when switching to own delivery',
