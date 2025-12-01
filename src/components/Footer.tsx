@@ -113,22 +113,22 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/integrations" className="text-white/60 hover:text-white transition-colors">
+                <Link to="/integrations#pos" className="text-white/60 hover:text-white transition-colors">
                   POS-системы
                 </Link>
               </li>
               <li>
-                <Link to="/integrations" className="text-white/60 hover:text-white transition-colors">
+                <Link to="/integrations#aggregators" className="text-white/60 hover:text-white transition-colors">
                   Агрегаторы
                 </Link>
               </li>
               <li>
-                <Link to="/integrations" className="text-white/60 hover:text-white transition-colors">
+                <Link to="/integrations#payments" className="text-white/60 hover:text-white transition-colors">
                   Платёжные системы
                 </Link>
               </li>
               <li>
-                <Link to="/integrations" className="text-white/60 hover:text-white transition-colors">
+                <Link to="/integrations#delivery" className="text-white/60 hover:text-white transition-colors">
                   Службы доставки
                 </Link>
               </li>

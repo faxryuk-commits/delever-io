@@ -82,10 +82,11 @@ export function Integrations() {
               return (
                 <motion.div
                   key={category.id}
+                  id={category.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: idx * 0.1 }}
-                  className="bg-white rounded-xl p-5 border border-brand-lightTeal/30"
+                  className="bg-white rounded-xl p-5 border border-brand-lightTeal/30 scroll-mt-32"
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 rounded-lg bg-brand-lightBlue flex items-center justify-center text-brand-darkBlue">
