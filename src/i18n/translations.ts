@@ -700,6 +700,11 @@ export const translations: Record<Language, Record<string, string>> = {
     'calc.brandsShort': 'бр.',
     'calc.yourSavings': 'Ваша экономия',
     
+    // Architecture
+    'architecture.title': 'Архитектура платформы',
+    'architecture.subtitle': 'Модульная система, которая адаптируется под любой бизнес',
+    'architecture.hint': 'Наведите на модуль чтобы увидеть все функции',
+    
     // Common
     'common.learnMore': 'Подробнее',
     'common.getDemo': 'Получить демо',
@@ -1380,6 +1385,11 @@ export const translations: Record<Language, Record<string, string>> = {
     'calc.downloadInvoice': 'Download Invoice',
     'calc.brandsShort': 'brands',
     'calc.yourSavings': 'Your Savings',
+    
+    // Architecture
+    'architecture.title': 'Platform Architecture',
+    'architecture.subtitle': 'Modular system that adapts to any business',
+    'architecture.hint': 'Hover over a module to see all features',
     
     // Common
     'common.learnMore': 'Learn More',
