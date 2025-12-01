@@ -4,6 +4,8 @@ import { Menu, X, ShoppingCart, Truck, BarChart3, Megaphone, Plug, ChevronDown }
 import { Button } from './ui/Button'
 import { ContactForm } from './ContactForm'
 import { Logo } from './Logo'
+import { LocaleSwitcher } from './LocaleSwitcher'
+import { useLocale } from '@/i18n/LocaleContext'
 import { cn } from '@/lib/utils'
 import {
   DropdownMenu,
@@ -16,6 +18,7 @@ export function Header() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const [productsMenuOpen, setProductsMenuOpen] = useState(false)
   const location = useLocation()
+  const { t } = useLocale()
 
   const productCategories = [
     {
@@ -183,6 +186,11 @@ export function Header() {
 
             {/* Right side controls */}
             <div className="flex items-center gap-2">
+              {/* Language Switcher */}
+              <div className="hidden md:block">
+                <LocaleSwitcher />
+              </div>
+
               {/* CTA Buttons */}
               <div className="hidden md:flex items-center gap-2">
                 <Button 
@@ -191,14 +199,14 @@ export function Header() {
                   onClick={() => window.open('https://admin.delever.uz/#/login', '_blank')}
                   className="h-9 px-4 text-sm font-medium"
                 >
-                  Войти
+                  {t('nav.login')}
                 </Button>
                 <Button 
                   size="sm" 
                   onClick={() => setContactFormOpen(true)}
                   className="h-9 px-4 text-sm font-medium bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600"
                 >
-                  Начать бесплатно
+                  {t('nav.start')}
                 </Button>
               </div>
 
@@ -275,13 +283,18 @@ export function Header() {
                 ))}
               </div>
               
-              <div className="pt-6 space-y-2 border-t border-brand-lightTeal/20 mt-6">
+              {/* Mobile Language Switcher */}
+              <div className="pt-4 mt-4 border-t border-brand-lightTeal/20">
+                <LocaleSwitcher />
+              </div>
+              
+              <div className="pt-4 space-y-2">
                 <Button
                   variant="outline"
                   className="w-full h-11 font-medium"
                   onClick={() => window.open('https://admin.delever.uz/#/login', '_blank')}
                 >
-                  Войти в систему
+                  {t('nav.login')}
                 </Button>
                 <Button
                   className="w-full h-11 font-medium bg-gradient-to-r from-emerald-500 to-teal-500"
@@ -290,7 +303,7 @@ export function Header() {
                     setMobileMenuOpen(false)
                   }}
                 >
-                  Начать бесплатно
+                  {t('nav.start')}
                 </Button>
               </div>
             </nav>

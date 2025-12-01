@@ -1,0 +1,751 @@
+export type Language = 'ru' | 'uz' | 'en' | 'kz' | 'ar' | 'tr' | 'ka'
+
+export type Country = 'uz' | 'kz' | 'kg' | 'az' | 'ge' | 'tr' | 'ae' | 'other'
+
+export interface CountryConfig {
+  code: Country
+  name: Record<Language, string>
+  currency: string
+  currencySymbol: string
+  priceMultiplier: number // 1 для UZ, 1.2 для остальных
+  flag: string
+}
+
+export const countries: CountryConfig[] = [
+  {
+    code: 'uz',
+    name: { ru: 'Узбекистан', uz: 'O\'zbekiston', en: 'Uzbekistan', kz: 'Өзбекстан', ar: 'أوزبكستان', tr: 'Özbekistan', ka: 'უზბეკეთი' },
+    currency: 'UZS',
+    currencySymbol: 'soʼm',
+    priceMultiplier: 1,
+    flag: '🇺🇿'
+  },
+  {
+    code: 'kz',
+    name: { ru: 'Казахстан', uz: 'Qozog\'iston', en: 'Kazakhstan', kz: 'Қазақстан', ar: 'كازاخستان', tr: 'Kazakistan', ka: 'ყაზახეთი' },
+    currency: 'KZT',
+    currencySymbol: '₸',
+    priceMultiplier: 1.2,
+    flag: '🇰🇿'
+  },
+  {
+    code: 'kg',
+    name: { ru: 'Кыргызстан', uz: 'Qirg\'iziston', en: 'Kyrgyzstan', kz: 'Қырғызстан', ar: 'قيرغيزستان', tr: 'Kırgızistan', ka: 'ყირგიზეთი' },
+    currency: 'KGS',
+    currencySymbol: 'сом',
+    priceMultiplier: 1.2,
+    flag: '🇰🇬'
+  },
+  {
+    code: 'az',
+    name: { ru: 'Азербайджан', uz: 'Ozarbayjon', en: 'Azerbaijan', kz: 'Әзірбайжан', ar: 'أذربيجان', tr: 'Azerbaycan', ka: 'აზერბაიჯანი' },
+    currency: 'AZN',
+    currencySymbol: '₼',
+    priceMultiplier: 1.2,
+    flag: '🇦🇿'
+  },
+  {
+    code: 'ge',
+    name: { ru: 'Грузия', uz: 'Gruziya', en: 'Georgia', kz: 'Грузия', ar: 'جورجيا', tr: 'Gürcistan', ka: 'საქართველო' },
+    currency: 'GEL',
+    currencySymbol: '₾',
+    priceMultiplier: 1.2,
+    flag: '🇬🇪'
+  },
+  {
+    code: 'tr',
+    name: { ru: 'Турция', uz: 'Turkiya', en: 'Turkey', kz: 'Түркия', ar: 'تركيا', tr: 'Türkiye', ka: 'თურქეთი' },
+    currency: 'TRY',
+    currencySymbol: '₺',
+    priceMultiplier: 1.2,
+    flag: '🇹🇷'
+  },
+  {
+    code: 'ae',
+    name: { ru: 'ОАЭ', uz: 'BAA', en: 'UAE', kz: 'БАЭ', ar: 'الإمارات', tr: 'BAE', ka: 'აეე' },
+    currency: 'AED',
+    currencySymbol: 'د.إ',
+    priceMultiplier: 1.2,
+    flag: '🇦🇪'
+  },
+]
+
+export const languageNames: Record<Language, string> = {
+  ru: 'Русский',
+  uz: 'O\'zbek',
+  en: 'English',
+  kz: 'Қазақша',
+  ar: 'العربية',
+  tr: 'Türkçe',
+  ka: 'ქართული',
+}
+
+export const rtlLanguages: Language[] = ['ar']
+
+export const translations: Record<Language, Record<string, string>> = {
+  ru: {
+    // Header
+    'nav.products': 'Продукты',
+    'nav.integrations': 'Интеграции',
+    'nav.pricing': 'Тарифы',
+    'nav.partners': 'Партнёрам',
+    'nav.about': 'О нас',
+    'nav.login': 'Войти',
+    'nav.register': 'Регистрация',
+    'nav.start': 'Начать бесплатно',
+    
+    // Hero
+    'hero.badge': 'Единая платформа для доставки',
+    'hero.title': 'Запустите свою доставку',
+    'hero.titleHighlight': 'за неделю',
+    'hero.description': 'Управляйте всеми каналами продаж из одного окна. Собственное приложение, сайт и Telegram-бот без комиссий агрегаторов.',
+    'hero.cta': 'Начать бесплатно',
+    'hero.demo': 'Смотреть демо',
+    
+    // Stats
+    'stats.businesses': 'Бизнесов',
+    'stats.countries': 'Стран',
+    'stats.integrations': 'Интеграций',
+    'stats.orders': 'Заказов',
+    'stats.uptime': 'Uptime',
+    
+    // ROI Calculator
+    'roi.title': 'Калькулятор экономии',
+    'roi.subtitle': 'Узнайте, сколько вы сэкономите, перейдя на Delever',
+    'roi.ordersMonth': 'Заказов в месяц',
+    'roi.avgCheck': 'Средний чек',
+    'roi.aggregatorFee': 'Комиссия агрегатора',
+    'roi.currentExpenses': 'Текущие расходы на агрегаторы',
+    'roi.withDelever': 'С Delever (0% комиссии)',
+    'roi.savings': 'Ваша экономия',
+    'roi.perMonth': '/месяц',
+    'roi.perYear': '/год',
+    'roi.cta': 'Начать экономить',
+    
+    // Comparison
+    'comparison.title': 'Delever vs Агрегаторы',
+    'comparison.subtitle': 'Почему собственная доставка выгоднее',
+    'comparison.feature': 'Функция',
+    'comparison.delever': 'Delever',
+    'comparison.aggregators': 'Агрегаторы',
+    'comparison.commission': 'Комиссия',
+    'comparison.commissionDelever': '0%',
+    'comparison.commissionAggregator': '15-30%',
+    'comparison.customerData': 'Данные клиентов',
+    'comparison.customerDataDelever': 'Ваши',
+    'comparison.customerDataAggregator': 'У агрегатора',
+    'comparison.branding': 'Свой бренд',
+    'comparison.brandingDelever': '100%',
+    'comparison.brandingAggregator': 'Минимально',
+    'comparison.pushNotifications': 'Push-уведомления',
+    'comparison.loyalty': 'Программа лояльности',
+    'comparison.analytics': 'Полная аналитика',
+    'comparison.yes': 'Да',
+    'comparison.no': 'Нет',
+    'comparison.limited': 'Ограничено',
+    
+    // Pricing
+    'pricing.title': 'Тарифы',
+    'pricing.subtitle': 'Выберите план с учётом количества заказов в месяц',
+    'pricing.ordersLimit': 'до {count} заказов',
+    'pricing.month': '/мес',
+    'pricing.popular': 'Популярный',
+    'pricing.choose': 'Выбрать',
+    'pricing.deposit': 'Депозит',
+    'pricing.depositDesc': 'используется на оплату подписки',
+    'pricing.discounts': 'Скидки',
+    'pricing.discountsDesc': '10% за 6 мес · 15% за 12 мес',
+    'pricing.whiteLabel': 'White Label приложение',
+    'pricing.whiteLabelDesc': 'Собственное приложение под вашим брендом',
+    'pricing.oneTime': 'единоразово',
+    'pricing.learnMore': 'Подробнее',
+    
+    // Footer
+    'footer.description': 'Операционная система для доставки. Управляйте всеми каналами продаж из одного окна.',
+    'footer.products': 'Продукты',
+    'footer.integrations': 'Интеграции',
+    'footer.resources': 'Ресурсы',
+    'footer.contacts': 'Контакты',
+    'footer.allRights': 'Все права защищены',
+    'footer.terms': 'Условия использования',
+    'footer.privacy': 'Политика конфиденциальности',
+    
+    // Common
+    'common.learnMore': 'Подробнее',
+    'common.getDemo': 'Получить демо',
+    'common.contact': 'Связаться',
+    'common.country': 'Страна',
+    'common.language': 'Язык',
+  },
+  
+  uz: {
+    // Header
+    'nav.products': 'Mahsulotlar',
+    'nav.integrations': 'Integratsiyalar',
+    'nav.pricing': 'Tariflar',
+    'nav.partners': 'Hamkorlar',
+    'nav.about': 'Biz haqimizda',
+    'nav.login': 'Kirish',
+    'nav.register': 'Ro\'yxatdan o\'tish',
+    'nav.start': 'Bepul boshlash',
+    
+    // Hero
+    'hero.badge': 'Yetkazib berish uchun yagona platforma',
+    'hero.title': 'O\'z yetkazib berishingizni',
+    'hero.titleHighlight': 'bir haftada ishga tushiring',
+    'hero.description': 'Barcha savdo kanallarini bitta oynadan boshqaring. O\'z ilovangiz, veb-saytingiz va Telegram-botingiz aggregator komissiyalarisiz.',
+    'hero.cta': 'Bepul boshlash',
+    'hero.demo': 'Demo ko\'rish',
+    
+    // Stats
+    'stats.businesses': 'Bizneslar',
+    'stats.countries': 'Mamlakatlar',
+    'stats.integrations': 'Integratsiyalar',
+    'stats.orders': 'Buyurtmalar',
+    'stats.uptime': 'Uptime',
+    
+    // ROI Calculator
+    'roi.title': 'Tejamkorlik kalkulyatori',
+    'roi.subtitle': 'Deleverga o\'tish bilan qancha tejashingizni bilib oling',
+    'roi.ordersMonth': 'Oylik buyurtmalar',
+    'roi.avgCheck': 'O\'rtacha chek',
+    'roi.aggregatorFee': 'Aggregator komissiyasi',
+    'roi.currentExpenses': 'Aggregatorlarga joriy xarajatlar',
+    'roi.withDelever': 'Delever bilan (0% komissiya)',
+    'roi.savings': 'Sizning tejamingiz',
+    'roi.perMonth': '/oy',
+    'roi.perYear': '/yil',
+    'roi.cta': 'Tejashni boshlash',
+    
+    // Comparison
+    'comparison.title': 'Delever vs Aggregatorlar',
+    'comparison.subtitle': 'Nima uchun o\'z yetkazib berishingiz foydaliroq',
+    'comparison.feature': 'Funksiya',
+    'comparison.delever': 'Delever',
+    'comparison.aggregators': 'Aggregatorlar',
+    'comparison.commission': 'Komissiya',
+    'comparison.commissionDelever': '0%',
+    'comparison.commissionAggregator': '15-30%',
+    'comparison.customerData': 'Mijozlar ma\'lumotlari',
+    'comparison.customerDataDelever': 'Sizniki',
+    'comparison.customerDataAggregator': 'Aggregatorda',
+    'comparison.branding': 'O\'z brendi',
+    'comparison.brandingDelever': '100%',
+    'comparison.brandingAggregator': 'Minimal',
+    'comparison.pushNotifications': 'Push-bildirishnomalar',
+    'comparison.loyalty': 'Sodiqlik dasturi',
+    'comparison.analytics': 'To\'liq tahlil',
+    'comparison.yes': 'Ha',
+    'comparison.no': 'Yo\'q',
+    'comparison.limited': 'Cheklangan',
+    
+    // Pricing
+    'pricing.title': 'Tariflar',
+    'pricing.subtitle': 'Oylik buyurtmalar soniga qarab rejani tanlang',
+    'pricing.ordersLimit': '{count} gacha buyurtma',
+    'pricing.month': '/oy',
+    'pricing.popular': 'Mashhur',
+    'pricing.choose': 'Tanlash',
+    'pricing.deposit': 'Depozit',
+    'pricing.depositDesc': 'obuna to\'lovi uchun ishlatiladi',
+    'pricing.discounts': 'Chegirmalar',
+    'pricing.discountsDesc': '6 oy uchun 10% · 12 oy uchun 15%',
+    'pricing.whiteLabel': 'White Label ilova',
+    'pricing.whiteLabelDesc': 'O\'z brendingiz ostida shaxsiy ilova',
+    'pricing.oneTime': 'bir martalik',
+    'pricing.learnMore': 'Batafsil',
+    
+    // Footer
+    'footer.description': 'Yetkazib berish uchun operatsion tizim. Barcha savdo kanallarini bitta oynadan boshqaring.',
+    'footer.products': 'Mahsulotlar',
+    'footer.integrations': 'Integratsiyalar',
+    'footer.resources': 'Resurslar',
+    'footer.contacts': 'Kontaktlar',
+    'footer.allRights': 'Barcha huquqlar himoyalangan',
+    'footer.terms': 'Foydalanish shartlari',
+    'footer.privacy': 'Maxfiylik siyosati',
+    
+    // Common
+    'common.learnMore': 'Batafsil',
+    'common.getDemo': 'Demo olish',
+    'common.contact': 'Bog\'lanish',
+    'common.country': 'Mamlakat',
+    'common.language': 'Til',
+  },
+  
+  en: {
+    // Header
+    'nav.products': 'Products',
+    'nav.integrations': 'Integrations',
+    'nav.pricing': 'Pricing',
+    'nav.partners': 'Partners',
+    'nav.about': 'About',
+    'nav.login': 'Sign In',
+    'nav.register': 'Sign Up',
+    'nav.start': 'Start Free',
+    
+    // Hero
+    'hero.badge': 'Unified Delivery Platform',
+    'hero.title': 'Launch your delivery',
+    'hero.titleHighlight': 'in one week',
+    'hero.description': 'Manage all sales channels from one dashboard. Your own app, website and Telegram bot without aggregator fees.',
+    'hero.cta': 'Start Free',
+    'hero.demo': 'Watch Demo',
+    
+    // Stats
+    'stats.businesses': 'Businesses',
+    'stats.countries': 'Countries',
+    'stats.integrations': 'Integrations',
+    'stats.orders': 'Orders',
+    'stats.uptime': 'Uptime',
+    
+    // ROI Calculator
+    'roi.title': 'Savings Calculator',
+    'roi.subtitle': 'See how much you\'ll save by switching to Delever',
+    'roi.ordersMonth': 'Orders per month',
+    'roi.avgCheck': 'Average order value',
+    'roi.aggregatorFee': 'Aggregator commission',
+    'roi.currentExpenses': 'Current aggregator expenses',
+    'roi.withDelever': 'With Delever (0% commission)',
+    'roi.savings': 'Your savings',
+    'roi.perMonth': '/month',
+    'roi.perYear': '/year',
+    'roi.cta': 'Start Saving',
+    
+    // Comparison
+    'comparison.title': 'Delever vs Aggregators',
+    'comparison.subtitle': 'Why own delivery is more profitable',
+    'comparison.feature': 'Feature',
+    'comparison.delever': 'Delever',
+    'comparison.aggregators': 'Aggregators',
+    'comparison.commission': 'Commission',
+    'comparison.commissionDelever': '0%',
+    'comparison.commissionAggregator': '15-30%',
+    'comparison.customerData': 'Customer data',
+    'comparison.customerDataDelever': 'Yours',
+    'comparison.customerDataAggregator': 'Aggregator\'s',
+    'comparison.branding': 'Your brand',
+    'comparison.brandingDelever': '100%',
+    'comparison.brandingAggregator': 'Minimal',
+    'comparison.pushNotifications': 'Push notifications',
+    'comparison.loyalty': 'Loyalty program',
+    'comparison.analytics': 'Full analytics',
+    'comparison.yes': 'Yes',
+    'comparison.no': 'No',
+    'comparison.limited': 'Limited',
+    
+    // Pricing
+    'pricing.title': 'Pricing',
+    'pricing.subtitle': 'Choose a plan based on your monthly orders',
+    'pricing.ordersLimit': 'up to {count} orders',
+    'pricing.month': '/mo',
+    'pricing.popular': 'Popular',
+    'pricing.choose': 'Choose',
+    'pricing.deposit': 'Deposit',
+    'pricing.depositDesc': 'applied to subscription payments',
+    'pricing.discounts': 'Discounts',
+    'pricing.discountsDesc': '10% for 6 mo · 15% for 12 mo',
+    'pricing.whiteLabel': 'White Label App',
+    'pricing.whiteLabelDesc': 'Your own branded mobile app',
+    'pricing.oneTime': 'one-time',
+    'pricing.learnMore': 'Learn More',
+    
+    // Footer
+    'footer.description': 'Operating system for delivery. Manage all sales channels from one dashboard.',
+    'footer.products': 'Products',
+    'footer.integrations': 'Integrations',
+    'footer.resources': 'Resources',
+    'footer.contacts': 'Contacts',
+    'footer.allRights': 'All rights reserved',
+    'footer.terms': 'Terms of Service',
+    'footer.privacy': 'Privacy Policy',
+    
+    // Common
+    'common.learnMore': 'Learn More',
+    'common.getDemo': 'Get Demo',
+    'common.contact': 'Contact',
+    'common.country': 'Country',
+    'common.language': 'Language',
+  },
+  
+  kz: {
+    // Header
+    'nav.products': 'Өнімдер',
+    'nav.integrations': 'Интеграциялар',
+    'nav.pricing': 'Тарифтер',
+    'nav.partners': 'Серіктестерге',
+    'nav.about': 'Біз туралы',
+    'nav.login': 'Кіру',
+    'nav.register': 'Тіркелу',
+    'nav.start': 'Тегін бастау',
+    
+    // Hero
+    'hero.badge': 'Жеткізу үшін бірыңғай платформа',
+    'hero.title': 'Өз жеткізуіңізді',
+    'hero.titleHighlight': 'бір аптада іске қосыңыз',
+    'hero.description': 'Барлық сату арналарын бір терезеден басқарыңыз. Агрегатор комиссияларынсыз өз қосымшаңыз, сайтыңыз және Telegram-ботыңыз.',
+    'hero.cta': 'Тегін бастау',
+    'hero.demo': 'Демо көру',
+    
+    // Stats
+    'stats.businesses': 'Бизнестер',
+    'stats.countries': 'Елдер',
+    'stats.integrations': 'Интеграциялар',
+    'stats.orders': 'Тапсырыстар',
+    'stats.uptime': 'Uptime',
+    
+    // ROI Calculator
+    'roi.title': 'Үнемдеу калькуляторы',
+    'roi.subtitle': 'Delever-ге ауысу арқылы қанша үнемдейтініңізді біліңіз',
+    'roi.ordersMonth': 'Айлық тапсырыстар',
+    'roi.avgCheck': 'Орташа чек',
+    'roi.aggregatorFee': 'Агрегатор комиссиясы',
+    'roi.currentExpenses': 'Агрегаторларға ағымдағы шығындар',
+    'roi.withDelever': 'Delever-мен (0% комиссия)',
+    'roi.savings': 'Сіздің үнеміңіз',
+    'roi.perMonth': '/ай',
+    'roi.perYear': '/жыл',
+    'roi.cta': 'Үнемдеуді бастау',
+    
+    // Comparison
+    'comparison.title': 'Delever vs Агрегаторлар',
+    'comparison.subtitle': 'Неліктен өз жеткізуіңіз тиімдірек',
+    'comparison.feature': 'Функция',
+    'comparison.delever': 'Delever',
+    'comparison.aggregators': 'Агрегаторлар',
+    'comparison.commission': 'Комиссия',
+    'comparison.commissionDelever': '0%',
+    'comparison.commissionAggregator': '15-30%',
+    'comparison.customerData': 'Клиенттер деректері',
+    'comparison.customerDataDelever': 'Сіздікі',
+    'comparison.customerDataAggregator': 'Агрегаторда',
+    'comparison.branding': 'Өз бренді',
+    'comparison.brandingDelever': '100%',
+    'comparison.brandingAggregator': 'Минималды',
+    'comparison.pushNotifications': 'Push-хабарламалар',
+    'comparison.loyalty': 'Адалдық бағдарламасы',
+    'comparison.analytics': 'Толық аналитика',
+    'comparison.yes': 'Иә',
+    'comparison.no': 'Жоқ',
+    'comparison.limited': 'Шектелген',
+    
+    // Pricing
+    'pricing.title': 'Тарифтер',
+    'pricing.subtitle': 'Айлық тапсырыстар санына қарай жоспарды таңдаңыз',
+    'pricing.ordersLimit': '{count} дейін тапсырыс',
+    'pricing.month': '/ай',
+    'pricing.popular': 'Танымал',
+    'pricing.choose': 'Таңдау',
+    'pricing.deposit': 'Депозит',
+    'pricing.depositDesc': 'жазылым төлеміне пайдаланылады',
+    'pricing.discounts': 'Жеңілдіктер',
+    'pricing.discountsDesc': '6 ай үшін 10% · 12 ай үшін 15%',
+    'pricing.whiteLabel': 'White Label қосымша',
+    'pricing.whiteLabelDesc': 'Өз брендіңізбен жеке қосымша',
+    'pricing.oneTime': 'бір реттік',
+    'pricing.learnMore': 'Толығырақ',
+    
+    // Footer
+    'footer.description': 'Жеткізу үшін операциялық жүйе. Барлық сату арналарын бір терезеден басқарыңыз.',
+    'footer.products': 'Өнімдер',
+    'footer.integrations': 'Интеграциялар',
+    'footer.resources': 'Ресурстар',
+    'footer.contacts': 'Байланыстар',
+    'footer.allRights': 'Барлық құқықтар қорғалған',
+    'footer.terms': 'Пайдалану шарттары',
+    'footer.privacy': 'Құпиялылық саясаты',
+    
+    // Common
+    'common.learnMore': 'Толығырақ',
+    'common.getDemo': 'Демо алу',
+    'common.contact': 'Байланысу',
+    'common.country': 'Ел',
+    'common.language': 'Тіл',
+  },
+  
+  ar: {
+    // Header
+    'nav.products': 'المنتجات',
+    'nav.integrations': 'التكاملات',
+    'nav.pricing': 'الأسعار',
+    'nav.partners': 'الشركاء',
+    'nav.about': 'عنا',
+    'nav.login': 'تسجيل الدخول',
+    'nav.register': 'التسجيل',
+    'nav.start': 'ابدأ مجانًا',
+    
+    // Hero
+    'hero.badge': 'منصة التوصيل الموحدة',
+    'hero.title': 'أطلق خدمة التوصيل الخاصة بك',
+    'hero.titleHighlight': 'خلال أسبوع',
+    'hero.description': 'أدر جميع قنوات المبيعات من لوحة تحكم واحدة. تطبيقك الخاص وموقعك وبوت تيليجرام بدون عمولات المجمعين.',
+    'hero.cta': 'ابدأ مجانًا',
+    'hero.demo': 'شاهد العرض',
+    
+    // Stats
+    'stats.businesses': 'الشركات',
+    'stats.countries': 'البلدان',
+    'stats.integrations': 'التكاملات',
+    'stats.orders': 'الطلبات',
+    'stats.uptime': 'وقت التشغيل',
+    
+    // ROI Calculator
+    'roi.title': 'حاسبة التوفير',
+    'roi.subtitle': 'اكتشف كم ستوفر عند التحول إلى Delever',
+    'roi.ordersMonth': 'الطلبات شهريًا',
+    'roi.avgCheck': 'متوسط قيمة الطلب',
+    'roi.aggregatorFee': 'عمولة المجمع',
+    'roi.currentExpenses': 'النفقات الحالية على المجمعين',
+    'roi.withDelever': 'مع Delever (عمولة 0%)',
+    'roi.savings': 'توفيرك',
+    'roi.perMonth': '/شهر',
+    'roi.perYear': '/سنة',
+    'roi.cta': 'ابدأ التوفير',
+    
+    // Comparison
+    'comparison.title': 'Delever مقابل المجمعين',
+    'comparison.subtitle': 'لماذا التوصيل الخاص أكثر ربحية',
+    'comparison.feature': 'الميزة',
+    'comparison.delever': 'Delever',
+    'comparison.aggregators': 'المجمعون',
+    'comparison.commission': 'العمولة',
+    'comparison.commissionDelever': '0%',
+    'comparison.commissionAggregator': '15-30%',
+    'comparison.customerData': 'بيانات العملاء',
+    'comparison.customerDataDelever': 'ملكك',
+    'comparison.customerDataAggregator': 'للمجمع',
+    'comparison.branding': 'علامتك التجارية',
+    'comparison.brandingDelever': '100%',
+    'comparison.brandingAggregator': 'الحد الأدنى',
+    'comparison.pushNotifications': 'الإشعارات',
+    'comparison.loyalty': 'برنامج الولاء',
+    'comparison.analytics': 'تحليلات كاملة',
+    'comparison.yes': 'نعم',
+    'comparison.no': 'لا',
+    'comparison.limited': 'محدود',
+    
+    // Pricing
+    'pricing.title': 'الأسعار',
+    'pricing.subtitle': 'اختر خطة بناءً على طلباتك الشهرية',
+    'pricing.ordersLimit': 'حتى {count} طلب',
+    'pricing.month': '/شهر',
+    'pricing.popular': 'شائع',
+    'pricing.choose': 'اختر',
+    'pricing.deposit': 'الإيداع',
+    'pricing.depositDesc': 'يُطبق على مدفوعات الاشتراك',
+    'pricing.discounts': 'الخصومات',
+    'pricing.discountsDesc': '10% لـ 6 أشهر · 15% لـ 12 شهر',
+    'pricing.whiteLabel': 'تطبيق White Label',
+    'pricing.whiteLabelDesc': 'تطبيقك الخاص بعلامتك التجارية',
+    'pricing.oneTime': 'لمرة واحدة',
+    'pricing.learnMore': 'اعرف المزيد',
+    
+    // Footer
+    'footer.description': 'نظام تشغيل للتوصيل. أدر جميع قنوات المبيعات من لوحة تحكم واحدة.',
+    'footer.products': 'المنتجات',
+    'footer.integrations': 'التكاملات',
+    'footer.resources': 'الموارد',
+    'footer.contacts': 'الاتصال',
+    'footer.allRights': 'جميع الحقوق محفوظة',
+    'footer.terms': 'شروط الخدمة',
+    'footer.privacy': 'سياسة الخصوصية',
+    
+    // Common
+    'common.learnMore': 'اعرف المزيد',
+    'common.getDemo': 'احصل على عرض',
+    'common.contact': 'اتصل',
+    'common.country': 'البلد',
+    'common.language': 'اللغة',
+  },
+  
+  tr: {
+    // Header
+    'nav.products': 'Ürünler',
+    'nav.integrations': 'Entegrasyonlar',
+    'nav.pricing': 'Fiyatlandırma',
+    'nav.partners': 'Ortaklar',
+    'nav.about': 'Hakkımızda',
+    'nav.login': 'Giriş',
+    'nav.register': 'Kayıt Ol',
+    'nav.start': 'Ücretsiz Başla',
+    
+    // Hero
+    'hero.badge': 'Birleşik Teslimat Platformu',
+    'hero.title': 'Teslimatınızı',
+    'hero.titleHighlight': 'bir haftada başlatın',
+    'hero.description': 'Tüm satış kanallarını tek panelden yönetin. Agregator komisyonu olmadan kendi uygulamanız, web siteniz ve Telegram botunuz.',
+    'hero.cta': 'Ücretsiz Başla',
+    'hero.demo': 'Demo İzle',
+    
+    // Stats
+    'stats.businesses': 'İşletme',
+    'stats.countries': 'Ülke',
+    'stats.integrations': 'Entegrasyon',
+    'stats.orders': 'Sipariş',
+    'stats.uptime': 'Uptime',
+    
+    // ROI Calculator
+    'roi.title': 'Tasarruf Hesaplayıcı',
+    'roi.subtitle': 'Delever\'e geçerek ne kadar tasarruf edeceğinizi görün',
+    'roi.ordersMonth': 'Aylık sipariş',
+    'roi.avgCheck': 'Ortalama sepet tutarı',
+    'roi.aggregatorFee': 'Agregator komisyonu',
+    'roi.currentExpenses': 'Mevcut agregator giderleri',
+    'roi.withDelever': 'Delever ile (0% komisyon)',
+    'roi.savings': 'Tasarrufunuz',
+    'roi.perMonth': '/ay',
+    'roi.perYear': '/yıl',
+    'roi.cta': 'Tasarruf Etmeye Başla',
+    
+    // Comparison
+    'comparison.title': 'Delever vs Agregatörler',
+    'comparison.subtitle': 'Kendi teslimatınız neden daha karlı',
+    'comparison.feature': 'Özellik',
+    'comparison.delever': 'Delever',
+    'comparison.aggregators': 'Agregatörler',
+    'comparison.commission': 'Komisyon',
+    'comparison.commissionDelever': '0%',
+    'comparison.commissionAggregator': '%15-30',
+    'comparison.customerData': 'Müşteri verileri',
+    'comparison.customerDataDelever': 'Sizin',
+    'comparison.customerDataAggregator': 'Agregatörün',
+    'comparison.branding': 'Kendi markanız',
+    'comparison.brandingDelever': '%100',
+    'comparison.brandingAggregator': 'Minimum',
+    'comparison.pushNotifications': 'Push bildirimleri',
+    'comparison.loyalty': 'Sadakat programı',
+    'comparison.analytics': 'Tam analitik',
+    'comparison.yes': 'Evet',
+    'comparison.no': 'Hayır',
+    'comparison.limited': 'Sınırlı',
+    
+    // Pricing
+    'pricing.title': 'Fiyatlandırma',
+    'pricing.subtitle': 'Aylık siparişlerinize göre plan seçin',
+    'pricing.ordersLimit': '{count} siparişe kadar',
+    'pricing.month': '/ay',
+    'pricing.popular': 'Popüler',
+    'pricing.choose': 'Seç',
+    'pricing.deposit': 'Depozito',
+    'pricing.depositDesc': 'abonelik ödemelerine uygulanır',
+    'pricing.discounts': 'İndirimler',
+    'pricing.discountsDesc': '6 ay için %10 · 12 ay için %15',
+    'pricing.whiteLabel': 'White Label Uygulama',
+    'pricing.whiteLabelDesc': 'Kendi markalı mobil uygulamanız',
+    'pricing.oneTime': 'tek seferlik',
+    'pricing.learnMore': 'Daha Fazla',
+    
+    // Footer
+    'footer.description': 'Teslimat için işletim sistemi. Tüm satış kanallarını tek panelden yönetin.',
+    'footer.products': 'Ürünler',
+    'footer.integrations': 'Entegrasyonlar',
+    'footer.resources': 'Kaynaklar',
+    'footer.contacts': 'İletişim',
+    'footer.allRights': 'Tüm hakları saklıdır',
+    'footer.terms': 'Kullanım Şartları',
+    'footer.privacy': 'Gizlilik Politikası',
+    
+    // Common
+    'common.learnMore': 'Daha Fazla',
+    'common.getDemo': 'Demo Al',
+    'common.contact': 'İletişim',
+    'common.country': 'Ülke',
+    'common.language': 'Dil',
+  },
+  
+  ka: {
+    // Header
+    'nav.products': 'პროდუქტები',
+    'nav.integrations': 'ინტეგრაციები',
+    'nav.pricing': 'ტარიფები',
+    'nav.partners': 'პარტნიორებს',
+    'nav.about': 'ჩვენს შესახებ',
+    'nav.login': 'შესვლა',
+    'nav.register': 'რეგისტრაცია',
+    'nav.start': 'უფასოდ დაწყება',
+    
+    // Hero
+    'hero.badge': 'ერთიანი მიწოდების პლატფორმა',
+    'hero.title': 'გაუშვით თქვენი მიწოდება',
+    'hero.titleHighlight': 'ერთ კვირაში',
+    'hero.description': 'მართეთ ყველა გაყიდვის არხი ერთი პანელიდან. თქვენი აპლიკაცია, ვებსაიტი და Telegram-ბოტი აგრეგატორის საკომისიოების გარეშე.',
+    'hero.cta': 'უფასოდ დაწყება',
+    'hero.demo': 'დემოს ნახვა',
+    
+    // Stats
+    'stats.businesses': 'ბიზნესები',
+    'stats.countries': 'ქვეყნები',
+    'stats.integrations': 'ინტეგრაციები',
+    'stats.orders': 'შეკვეთები',
+    'stats.uptime': 'Uptime',
+    
+    // ROI Calculator
+    'roi.title': 'დანაზოგის კალკულატორი',
+    'roi.subtitle': 'ნახეთ რამდენს დაზოგავთ Delever-ზე გადასვლით',
+    'roi.ordersMonth': 'თვიური შეკვეთები',
+    'roi.avgCheck': 'საშუალო ჩეკი',
+    'roi.aggregatorFee': 'აგრეგატორის საკომისიო',
+    'roi.currentExpenses': 'მიმდინარე ხარჯები აგრეგატორებზე',
+    'roi.withDelever': 'Delever-ით (0% საკომისიო)',
+    'roi.savings': 'თქვენი დანაზოგი',
+    'roi.perMonth': '/თვე',
+    'roi.perYear': '/წელი',
+    'roi.cta': 'დაზოგვის დაწყება',
+    
+    // Comparison
+    'comparison.title': 'Delever vs აგრეგატორები',
+    'comparison.subtitle': 'რატომ არის საკუთარი მიწოდება უფრო მომგებიანი',
+    'comparison.feature': 'ფუნქცია',
+    'comparison.delever': 'Delever',
+    'comparison.aggregators': 'აგრეგატორები',
+    'comparison.commission': 'საკომისიო',
+    'comparison.commissionDelever': '0%',
+    'comparison.commissionAggregator': '15-30%',
+    'comparison.customerData': 'კლიენტების მონაცემები',
+    'comparison.customerDataDelever': 'თქვენი',
+    'comparison.customerDataAggregator': 'აგრეგატორის',
+    'comparison.branding': 'თქვენი ბრენდი',
+    'comparison.brandingDelever': '100%',
+    'comparison.brandingAggregator': 'მინიმალური',
+    'comparison.pushNotifications': 'Push-შეტყობინებები',
+    'comparison.loyalty': 'ლოიალობის პროგრამა',
+    'comparison.analytics': 'სრული ანალიტიკა',
+    'comparison.yes': 'დიახ',
+    'comparison.no': 'არა',
+    'comparison.limited': 'შეზღუდული',
+    
+    // Pricing
+    'pricing.title': 'ტარიფები',
+    'pricing.subtitle': 'აირჩიეთ გეგმა თვიური შეკვეთების მიხედვით',
+    'pricing.ordersLimit': '{count} შეკვეთამდე',
+    'pricing.month': '/თვე',
+    'pricing.popular': 'პოპულარული',
+    'pricing.choose': 'არჩევა',
+    'pricing.deposit': 'დეპოზიტი',
+    'pricing.depositDesc': 'გამოიყენება გამოწერის გადახდისთვის',
+    'pricing.discounts': 'ფასდაკლებები',
+    'pricing.discountsDesc': '10% 6 თვისთვის · 15% 12 თვისთვის',
+    'pricing.whiteLabel': 'White Label აპლიკაცია',
+    'pricing.whiteLabelDesc': 'თქვენი ბრენდით პერსონალური აპლიკაცია',
+    'pricing.oneTime': 'ერთჯერადი',
+    'pricing.learnMore': 'ვრცლად',
+    
+    // Footer
+    'footer.description': 'მიწოდების ოპერაციული სისტემა. მართეთ ყველა გაყიდვის არხი ერთი პანელიდან.',
+    'footer.products': 'პროდუქტები',
+    'footer.integrations': 'ინტეგრაციები',
+    'footer.resources': 'რესურსები',
+    'footer.contacts': 'კონტაქტები',
+    'footer.allRights': 'ყველა უფლება დაცულია',
+    'footer.terms': 'მომსახურების პირობები',
+    'footer.privacy': 'კონფიდენციალურობის პოლიტიკა',
+    
+    // Common
+    'common.learnMore': 'ვრცლად',
+    'common.getDemo': 'დემოს მიღება',
+    'common.contact': 'კონტაქტი',
+    'common.country': 'ქვეყანა',
+    'common.language': 'ენა',
+  },
+}
+

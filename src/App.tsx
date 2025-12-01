@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Toaster } from 'sonner'
 import * as Tooltip from '@radix-ui/react-tooltip'
+import { LocaleProvider } from './i18n/LocaleContext'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { ScrollToTop } from './components/ScrollToTop'
@@ -20,8 +21,9 @@ import { NotFound } from './pages/NotFound'
 
 function App() {
   return (
-    <Tooltip.Provider>
-      <BrowserRouter>
+    <LocaleProvider>
+      <Tooltip.Provider>
+        <BrowserRouter>
         <ScrollToTop />
         <div className="min-h-screen flex flex-col bg-white">
             <Header />
@@ -43,10 +45,11 @@ function App() {
             </main>
             <Footer />
           </div>
-        <ChatWidget />
-        <Toaster position="top-right" />
-      </BrowserRouter>
-    </Tooltip.Provider>
+          <ChatWidget />
+          <Toaster position="top-right" />
+        </BrowserRouter>
+      </Tooltip.Provider>
+    </LocaleProvider>
   )
 }
 
