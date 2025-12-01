@@ -17,6 +17,7 @@ import { Integrations } from './pages/Integrations'
 import { Partners } from './pages/Partners'
 import { About } from './pages/About'
 import { WhiteLabel } from './pages/WhiteLabel'
+import { Aggregators } from './pages/Aggregators'
 import { NotFound } from './pages/NotFound'
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
                 <Route path="/partners" element={<Partners />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/white-label" element={<WhiteLabel />} />
+                <Route path="/aggregators" element={<Aggregators />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>

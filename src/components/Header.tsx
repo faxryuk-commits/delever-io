@@ -58,9 +58,10 @@ export function Header() {
   ]
 
   const navItems = [
-    { path: '/pricing', label: 'Тарифы' },
-    { path: '/partners', label: 'Партнёрам' },
-    { path: '/about', label: 'О компании' },
+    { path: '/aggregators', labelKey: 'nav.aggregators' },
+    { path: '/pricing', labelKey: 'nav.pricing' },
+    { path: '/partners', labelKey: 'nav.partners' },
+    { path: '/about', labelKey: 'nav.about' },
   ]
 
   const isProductActive = () => {
@@ -179,7 +180,7 @@ export function Header() {
                       : 'text-brand-darkBlue/70 hover:text-brand-darkBlue hover:bg-brand-lightBlue/40'
                   )}
                 >
-                  {item.label}
+                  {t(item.labelKey)}
                 </Link>
               ))}
             </nav>
@@ -278,7 +279,7 @@ export function Header() {
                         : 'text-brand-darkBlue/70 hover:bg-brand-lightBlue/40 hover:text-brand-darkBlue'
                     )}
                   >
-                    {item.label}
+                    {t(item.labelKey)}
                   </Link>
                 ))}
               </div>

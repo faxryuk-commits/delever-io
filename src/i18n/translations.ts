@@ -94,6 +94,7 @@ export const translations: Record<Language, Record<string, string>> = {
   ru: {
     // Header
     'nav.products': 'Продукты',
+    'nav.aggregators': 'Агрегаторы',
     'nav.integrations': 'Интеграции',
     'nav.pricing': 'Тарифы',
     'nav.partners': 'Партнёрам',
@@ -299,6 +300,72 @@ export const translations: Record<Language, Record<string, string>> = {
     'screenshots.customersDesc': 'RFM-анализ и сегментация',
     'screenshots.integrations': 'Интеграции',
     'screenshots.integrationsDesc': '40+ подключений',
+    
+    // Aggregators Page (Second Core Product)
+    'aggregators.badge': 'Интеграция с агрегаторами',
+    'aggregators.title': 'Все агрегаторы в одном окне',
+    'aggregators.subtitle': 'Wolt, Glovo, Yandex Eats, Uzum Tezkor — принимайте заказы без хаоса и ручной работы',
+    'aggregators.cta': 'Подключить агрегаторы',
+    
+    // Problem section
+    'aggregators.problemTitle': 'Знакомо?',
+    'aggregators.problem1': '5 планшетов на кассе',
+    'aggregators.problem1Desc': 'Для каждого агрегатора свой планшет, путаница и потерянные заказы',
+    'aggregators.problem2': 'Ручной ввод в кассу',
+    'aggregators.problem2Desc': 'Оператор вручную переносит заказы — ошибки и потеря времени',
+    'aggregators.problem3': 'Разное меню везде',
+    'aggregators.problem3Desc': 'Обновлять цены и позиции в 5 местах — ад для менеджера',
+    'aggregators.problem4': 'Нет единой аналитики',
+    'aggregators.problem4Desc': 'Непонятно какой канал приносит прибыль, а какой убытки',
+    
+    // Solution section
+    'aggregators.solutionTitle': 'Решение: единая платформа',
+    'aggregators.solutionSubtitle': 'Все заказы → один экран → автоматическая синхронизация с кассой',
+    
+    // Features
+    'aggregators.feature1': 'Единое окно заказов',
+    'aggregators.feature1Desc': 'Все заказы со всех агрегаторов в одном интерфейсе. Больше не нужно держать 5 планшетов',
+    'aggregators.feature2': 'Авто-синхронизация с кассой',
+    'aggregators.feature2Desc': 'Заказы автоматически попадают в iiko, R-Keeper, Poster. Никакого ручного ввода',
+    'aggregators.feature3': 'Единое меню',
+    'aggregators.feature3Desc': 'Загрузите меню один раз — оно обновится во всех агрегаторах автоматически',
+    'aggregators.feature4': 'Управление стопами',
+    'aggregators.feature4Desc': 'Закончился товар? Один клик — и он скрыт во всех агрегаторах сразу',
+    'aggregators.feature5': 'Единая аналитика',
+    'aggregators.feature5Desc': 'Сравнивайте выручку, маржу и эффективность каждого агрегатора',
+    'aggregators.feature6': 'Управление зонами',
+    'aggregators.feature6Desc': 'Разные цены и меню для разных зон доставки — гибко и просто',
+    
+    // Results
+    'aggregators.resultsTitle': 'Результаты клиентов',
+    'aggregators.result1': '-90%',
+    'aggregators.result1Label': 'Ручной работы',
+    'aggregators.result2': '-70%',
+    'aggregators.result2Label': 'Ошибок в заказах',
+    'aggregators.result3': '+25%',
+    'aggregators.result3Label': 'Скорость обработки',
+    'aggregators.result4': '+15%',
+    'aggregators.result4Label': 'Рост выручки',
+    
+    // Supported aggregators
+    'aggregators.supportedTitle': 'Поддерживаемые агрегаторы',
+    'aggregators.supportedSubtitle': 'Интеграция за 1-2 дня без остановки работы',
+    
+    // How it works
+    'aggregators.howItWorksTitle': 'Как это работает',
+    'aggregators.step1': 'Подключение',
+    'aggregators.step1Desc': 'Подключаем ваши аккаунты агрегаторов за 1-2 дня',
+    'aggregators.step2': 'Синхронизация',
+    'aggregators.step2Desc': 'Настраиваем связь с вашей кассой и меню',
+    'aggregators.step3': 'Запуск',
+    'aggregators.step3Desc': 'Заказы начинают приходить в единое окно',
+    'aggregators.step4': 'Рост',
+    'aggregators.step4Desc': 'Экономите время и увеличиваете выручку',
+    
+    // CTA
+    'aggregators.ctaTitle': 'Избавьтесь от хаоса',
+    'aggregators.ctaSubtitle': 'Подключите все агрегаторы к единой платформе за 1-2 дня',
+    'aggregators.ctaButton': 'Получить демо',
     
     // WhiteLabel Page
     'whitelabel.badge': 'Ваш бренд',
@@ -645,6 +712,7 @@ export const translations: Record<Language, Record<string, string>> = {
   en: {
     // Header
     'nav.products': 'Products',
+    'nav.aggregators': 'Aggregators',
     'nav.integrations': 'Integrations',
     'nav.pricing': 'Pricing',
     'nav.partners': 'Partners',
@@ -850,6 +918,72 @@ export const translations: Record<Language, Record<string, string>> = {
     'screenshots.customersDesc': 'RFM analysis and segmentation',
     'screenshots.integrations': 'Integrations',
     'screenshots.integrationsDesc': '40+ connections',
+    
+    // Aggregators Page (Second Core Product)
+    'aggregators.badge': 'Aggregator Integration',
+    'aggregators.title': 'All Aggregators in One Window',
+    'aggregators.subtitle': 'Wolt, Glovo, Yandex Eats, Uzum Tezkor — accept orders without chaos and manual work',
+    'aggregators.cta': 'Connect Aggregators',
+    
+    // Problem section
+    'aggregators.problemTitle': 'Sound Familiar?',
+    'aggregators.problem1': '5 tablets at the counter',
+    'aggregators.problem1Desc': 'Separate tablet for each aggregator, confusion and lost orders',
+    'aggregators.problem2': 'Manual POS entry',
+    'aggregators.problem2Desc': 'Operator manually transfers orders — errors and time waste',
+    'aggregators.problem3': 'Different menus everywhere',
+    'aggregators.problem3Desc': 'Updating prices in 5 places — nightmare for managers',
+    'aggregators.problem4': 'No unified analytics',
+    'aggregators.problem4Desc': 'Unclear which channel is profitable and which is losing money',
+    
+    // Solution section
+    'aggregators.solutionTitle': 'Solution: Unified Platform',
+    'aggregators.solutionSubtitle': 'All orders → one screen → automatic POS sync',
+    
+    // Features
+    'aggregators.feature1': 'Single Order Dashboard',
+    'aggregators.feature1Desc': 'All orders from all aggregators in one interface. No more 5 tablets',
+    'aggregators.feature2': 'Auto POS Sync',
+    'aggregators.feature2Desc': 'Orders automatically go to iiko, R-Keeper, Poster. No manual entry',
+    'aggregators.feature3': 'Unified Menu',
+    'aggregators.feature3Desc': 'Upload menu once — it updates across all aggregators automatically',
+    'aggregators.feature4': 'Stock Management',
+    'aggregators.feature4Desc': 'Out of stock? One click — item hidden across all aggregators',
+    'aggregators.feature5': 'Unified Analytics',
+    'aggregators.feature5Desc': 'Compare revenue, margin and efficiency of each aggregator',
+    'aggregators.feature6': 'Zone Management',
+    'aggregators.feature6Desc': 'Different prices and menus for different delivery zones — flexible and simple',
+    
+    // Results
+    'aggregators.resultsTitle': 'Client Results',
+    'aggregators.result1': '-90%',
+    'aggregators.result1Label': 'Manual Work',
+    'aggregators.result2': '-70%',
+    'aggregators.result2Label': 'Order Errors',
+    'aggregators.result3': '+25%',
+    'aggregators.result3Label': 'Processing Speed',
+    'aggregators.result4': '+15%',
+    'aggregators.result4Label': 'Revenue Growth',
+    
+    // Supported aggregators
+    'aggregators.supportedTitle': 'Supported Aggregators',
+    'aggregators.supportedSubtitle': 'Integration in 1-2 days without stopping operations',
+    
+    // How it works
+    'aggregators.howItWorksTitle': 'How It Works',
+    'aggregators.step1': 'Connection',
+    'aggregators.step1Desc': 'We connect your aggregator accounts in 1-2 days',
+    'aggregators.step2': 'Synchronization',
+    'aggregators.step2Desc': 'Set up connection with your POS and menu',
+    'aggregators.step3': 'Launch',
+    'aggregators.step3Desc': 'Orders start coming to single dashboard',
+    'aggregators.step4': 'Growth',
+    'aggregators.step4Desc': 'Save time and increase revenue',
+    
+    // CTA
+    'aggregators.ctaTitle': 'Eliminate the Chaos',
+    'aggregators.ctaSubtitle': 'Connect all aggregators to unified platform in 1-2 days',
+    'aggregators.ctaButton': 'Get Demo',
     
     // WhiteLabel Page
     'whitelabel.badge': 'Your Brand',
