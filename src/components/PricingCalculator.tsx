@@ -31,10 +31,10 @@ import { useLocale } from '@/i18n/LocaleContext'
 
 // Базовые тарифы
 const basePlans = [
-  { name: 'Start', orders: 1000, priceUZS: 1300000, perOrderUZS: 1950 },
-  { name: 'Medium', orders: 3000, priceUZS: 3250000, perOrderUZS: 1950 },
-  { name: 'Big', orders: 6000, priceUZS: 6500000, perOrderUZS: 1950 },
-  { name: 'Enterprise', orders: 10000, priceUZS: 13000000, perOrderUZS: 1950 },
+  { name: 'Start', orders: 1000, priceUZS: 1875000, perOrderUZS: 2500 },
+  { name: 'Medium', orders: 3000, priceUZS: 3500000, perOrderUZS: 2500 },
+  { name: 'Big', orders: 6000, priceUZS: 7250000, perOrderUZS: 2500 },
+  { name: 'Enterprise', orders: 10000, priceUZS: 13750000, perOrderUZS: 2500 },
 ]
 
 // Полный функционал платформы

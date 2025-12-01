@@ -1,12 +1,23 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { MapPin, Linkedin, Send, Instagram, Phone, Mail, BookOpen, Code, Bell, Activity, Users } from 'lucide-react'
 import { Logo } from './Logo'
 import { LocaleSwitcher } from './LocaleSwitcher'
 import { useLocale } from '@/i18n/LocaleContext'
+import { DocumentViewer } from './DocumentViewer'
 
 export function Footer() {
   const { t } = useLocale()
   const mapLink = 'https://maps.app.goo.gl/1iobehkkfP83hAMj6'
+  
+  // Для просмотра документов
+  const [docViewerOpen, setDocViewerOpen] = useState(false)
+  const [currentDoc, setCurrentDoc] = useState({ url: '', title: '' })
+  
+  const openDocument = (url: string, title: string) => {
+    setCurrentDoc({ url, title })
+    setDocViewerOpen(true)
+  }
 
   const stats = [
     { value: '1000+', labelKey: 'stats.businesses' },
@@ -260,25 +271,48 @@ export function Footer() {
               © {new Date().getFullYear()} Delever. {t('footer.allRights')}
             </p>
             <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6 text-xs text-white/50">
-              <a href="/docs/TERMS%20OF%20SERVICE%20AGREEMENT.docx" target="_blank" className="hover:text-white transition-colors">
+              <button 
+                onClick={() => openDocument('/docs/TERMS%20OF%20SERVICE%20AGREEMENT.docx', t('footer.terms'))}
+                className="hover:text-white transition-colors"
+              >
                 {t('footer.terms')}
-              </a>
-              <a href="/docs/PRIVACY%20POLICY.docx" target="_blank" className="hover:text-white transition-colors">
+              </button>
+              <button 
+                onClick={() => openDocument('/docs/PRIVACY%20POLICY.docx', t('footer.privacy'))}
+                className="hover:text-white transition-colors"
+              >
                 {t('footer.privacy')}
-              </a>
-              <a href="/docs/ACCEPTABLE%20USE%20POLICY.docx" target="_blank" className="hover:text-white transition-colors">
+              </button>
+              <button 
+                onClick={() => openDocument('/docs/ACCEPTABLE%20USE%20POLICY.docx', t('footer.acceptableUse'))}
+                className="hover:text-white transition-colors"
+              >
                 {t('footer.acceptableUse')}
-              </a>
-              <a href="/docs/SERVICE%20LEVEL%20AGREEMENT.docx" target="_blank" className="hover:text-white transition-colors">
+              </button>
+              <button 
+                onClick={() => openDocument('/docs/SERVICE%20LEVEL%20AGREEMENT.docx', t('footer.sla'))}
+                className="hover:text-white transition-colors"
+              >
                 {t('footer.sla')}
-              </a>
-              <a href="/docs/SUPPORT%20POLICY.docx" target="_blank" className="hover:text-white transition-colors">
+              </button>
+              <button 
+                onClick={() => openDocument('/docs/SUPPORT%20POLICY.docx', t('footer.supportPolicy'))}
+                className="hover:text-white transition-colors"
+              >
                 {t('footer.supportPolicy')}
-              </a>
+              </button>
             </div>
           </div>
         </div>
       </div>
+      
+      {/* Document Viewer Modal */}
+      <DocumentViewer 
+        isOpen={docViewerOpen}
+        onClose={() => setDocViewerOpen(false)}
+        documentUrl={currentDoc.url}
+        title={currentDoc.title}
+      />
     </footer>
   )
 }
