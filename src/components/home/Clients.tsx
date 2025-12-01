@@ -6,8 +6,6 @@ const clients = [
   'GIPPO',
   'MAXWAY',
   'Yaponamama',
-  'Oqtepa Lavash',
-  'KFC',
 ]
 
 export function Clients() {

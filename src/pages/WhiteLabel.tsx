@@ -9,8 +9,6 @@ import {
   Rocket, 
   Shield, 
   Star,
-  TrendingUp,
-  Users,
   Clock,
   Check,
   ChevronDown,
