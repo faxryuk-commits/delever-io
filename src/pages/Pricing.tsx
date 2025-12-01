@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
 import { PageNavigation } from '@/components/PageNavigation'
@@ -335,14 +336,15 @@ export function Pricing() {
                       ))}
                     </div>
 
-                    <Button 
-                      size="lg" 
-                      className="w-full mt-6 bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-brand-darkBlue font-bold shadow-lg"
-                      onClick={() => setContactFormOpen(true)}
-                    >
-                      Заказать приложение
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
+                    <Link to="/white-label" className="block w-full mt-6">
+                      <Button 
+                        size="lg" 
+                        className="w-full bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-brand-darkBlue font-bold shadow-lg"
+                      >
+                        Подробнее о приложении
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </div>
