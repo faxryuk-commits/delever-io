@@ -110,7 +110,7 @@ export default async function handler(req: Request): Promise<Response> {
         'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model: 'gpt-3.5-turbo',
         messages: fullMessages,
         max_tokens: 500,
         temperature: 0.7,
@@ -118,9 +118,15 @@ export default async function handler(req: Request): Promise<Response> {
     })
 
     if (!response.ok) {
-      const error = await response.json()
-      console.error('OpenAI API error:', error)
-      return new Response(JSON.stringify({ error: 'Failed to get response from AI' }), {
+      const errorText = await response.text()
+      console.error('OpenAI API error status:', response.status)
+      console.error('OpenAI API error body:', errorText)
+      
+      // Возвращаем более информативную ошибку
+      return new Response(JSON.stringify({ 
+        error: 'Failed to get response from AI',
+        details: `Status: ${response.status}`,
+      }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
       })
