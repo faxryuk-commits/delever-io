@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
 import { MessageSquare, X, Send, User, Bot, Phone, Loader2 } from 'lucide-react'
-import { Button } from './ui/Button'
 
 interface Message {
   role: 'user' | 'assistant'
