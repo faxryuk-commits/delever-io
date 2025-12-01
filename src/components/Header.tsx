@@ -22,39 +22,39 @@ export function Header() {
 
   const productCategories = [
     {
-      category: 'Собственные каналы',
+      categoryKey: 'header.ownChannels',
       items: [
-        { path: '/products/channels', label: 'Каналы продаж', icon: <ShoppingCart className="h-5 w-5" />, desc: 'Сайт, приложение, Telegram-бот' },
+        { path: '/products/channels', labelKey: 'header.channels', icon: <ShoppingCart className="h-5 w-5" />, descKey: 'header.channelsDesc' },
       ],
     },
     {
-      category: 'Операции',
+      categoryKey: 'header.operations',
       items: [
-        { path: '/products/operations', label: 'Операции доставки', icon: <Truck className="h-5 w-5" />, desc: 'Диспетчеризация и курьеры' },
+        { path: '/products/operations', labelKey: 'header.operationsItem', icon: <Truck className="h-5 w-5" />, descKey: 'header.operationsDesc' },
       ],
     },
     {
-      category: 'Аналитика',
+      categoryKey: 'header.analytics',
       items: [
-        { path: '/products/analytics', label: 'Аналитика и отчёты', icon: <BarChart3 className="h-5 w-5" />, desc: 'Дашборды и AI-прогнозы' },
+        { path: '/products/analytics', labelKey: 'header.analyticsItem', icon: <BarChart3 className="h-5 w-5" />, descKey: 'header.analyticsDesc' },
       ],
     },
     {
-      category: 'Маркетинг',
+      categoryKey: 'header.marketing',
       items: [
-        { path: '/products/marketing', label: 'Маркетинг и лояльность', icon: <Megaphone className="h-5 w-5" />, desc: 'RFM-анализ и рассылки' },
-        { path: '/integrations', label: 'Интеграции', icon: <Plug className="h-5 w-5" />, desc: 'Агрегаторы и POS-системы' },
+        { path: '/products/marketing', labelKey: 'header.marketingItem', icon: <Megaphone className="h-5 w-5" />, descKey: 'header.marketingDesc' },
+        { path: '/integrations', labelKey: 'nav.integrations', icon: <Plug className="h-5 w-5" />, descKey: 'header.integrationsDesc' },
       ],
     },
   ]
 
   const productItems = [
-    { path: '/products', label: 'Все продукты' },
-    { path: '/products/channels', label: 'Каналы продаж' },
-    { path: '/products/operations', label: 'Операции' },
-    { path: '/products/analytics', label: 'Аналитика' },
-    { path: '/products/marketing', label: 'Маркетинг' },
-    { path: '/integrations', label: 'Интеграции' },
+    { path: '/products', labelKey: 'header.allProducts' },
+    { path: '/products/channels', labelKey: 'header.channels' },
+    { path: '/products/operations', labelKey: 'header.operationsShort' },
+    { path: '/products/analytics', labelKey: 'header.analyticsShort' },
+    { path: '/products/marketing', labelKey: 'header.marketingShort' },
+    { path: '/integrations', labelKey: 'nav.integrations' },
   ]
 
   const navItems = [
@@ -98,7 +98,7 @@ export function Header() {
                       : 'text-brand-darkBlue/70 hover:text-brand-darkBlue hover:bg-brand-lightBlue/40'
                   )}
                 >
-                  Продукты
+                  {t('nav.products')}
                   <ChevronDown className={cn('h-3.5 w-3.5 transition-transform duration-200', productsMenuOpen && 'rotate-180')} />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-[680px] p-8 mt-2 shadow-lg border border-brand-lightTeal/30 bg-white">
@@ -106,7 +106,7 @@ export function Header() {
                     {productCategories.map((category, catIdx) => (
                       <div key={catIdx} className="space-y-4">
                         <h4 className="text-[10px] font-bold text-brand-darkBlue/50 uppercase tracking-widest mb-4">
-                          {category.category}
+                          {t(category.categoryKey)}
                         </h4>
                         {category.items.map((item) => (
                           <Link
@@ -130,10 +130,10 @@ export function Header() {
                                   'text-sm font-semibold text-brand-darkBlue mb-1.5 leading-tight',
                                   isActive(item.path) && 'text-brand-darkBlue'
                                 )}>
-                                  {item.label}
+                                  {t(item.labelKey)}
                                 </div>
                                 <div className="text-xs text-brand-darkBlue/55 leading-relaxed">
-                                  {item.desc}
+                                  {t(item.descKey)}
                                 </div>
                               </div>
                             </div>
@@ -148,7 +148,7 @@ export function Header() {
                       onClick={() => setProductsMenuOpen(false)}
                       className="text-sm font-semibold text-brand-darkBlue hover:text-brand-darkBlue/70 transition-colors flex items-center gap-2 group/link"
                     >
-                      Все продукты
+                      {t('header.allProducts')}
                       <ChevronDown className="h-4 w-4 rotate-[-90deg] group-hover/link:translate-x-0.5 transition-transform" />
                     </Link>
                   </div>
@@ -232,7 +232,7 @@ export function Header() {
               {/* Products Section */}
               <div className="mb-6">
                 <div className="px-3 py-2.5 text-xs font-bold text-brand-darkBlue/50 uppercase tracking-wider mb-3">
-                  Продукты
+                  {t('nav.products')}
                 </div>
                 <div className="space-y-1">
                   {productItems.map((item) => (
@@ -247,7 +247,7 @@ export function Header() {
                           : 'text-brand-darkBlue/70 hover:bg-brand-lightBlue/40 hover:text-brand-darkBlue'
                       )}
                     >
-                      {item.label}
+                      {t(item.labelKey)}
                     </Link>
                   ))}
                 </div>

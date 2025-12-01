@@ -9,66 +9,59 @@ import {
   Package,
   ArrowRight
 } from 'lucide-react'
-
-interface FlowStep {
-  id: string
-  title: string
-  icon: React.ReactNode
-  items: string[]
-  color: string
-  bgColor: string
-}
+import { useLocale } from '@/i18n/LocaleContext'
 
 export function ProcessFlow() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const { t } = useLocale()
 
-  const flowSteps: FlowStep[] = [
+  const flowSteps = [
     {
       id: 'channels',
-      title: 'Каналы продаж',
+      titleKey: 'flow.channels',
       icon: <ShoppingCart className="h-6 w-6" />,
-      items: ['Агрегаторы', 'Telegram-бот', 'Веб-сайт', 'Приложение'],
+      itemKeys: ['flow.channelsItem1', 'flow.channelsItem2', 'flow.channelsItem3', 'flow.channelsItem4'],
       color: 'text-blue-600',
       bgColor: 'bg-blue-50',
     },
     {
       id: 'delever',
-      title: 'Delever',
+      titleKey: 'flow.delever',
       icon: <Zap className="h-6 w-6" />,
-      items: ['Единая платформа', 'Автоматизация', 'Синхронизация'],
+      itemKeys: ['flow.deleverItem1', 'flow.deleverItem2', 'flow.deleverItem3'],
       color: 'text-brand-darkBlue',
       bgColor: 'bg-brand-lightBlue',
     },
     {
       id: 'integrations',
-      title: 'Интеграции',
+      titleKey: 'flow.integrations',
       icon: <Monitor className="h-6 w-6" />,
-      items: ['POS-системы', 'Платежи', 'Кухня'],
+      itemKeys: ['flow.integrationsItem1', 'flow.integrationsItem2', 'flow.integrationsItem3'],
       color: 'text-green-600',
       bgColor: 'bg-green-50',
     },
     {
       id: 'operations',
-      title: 'Операции',
+      titleKey: 'flow.operations',
       icon: <Package className="h-6 w-6" />,
-      items: ['Диспетчеризация', 'Курьеры', 'Статусы'],
+      itemKeys: ['flow.operationsItem1', 'flow.operationsItem2', 'flow.operationsItem3'],
       color: 'text-purple-600',
       bgColor: 'bg-purple-50',
     },
     {
       id: 'delivery',
-      title: 'Доставка',
+      titleKey: 'flow.delivery',
       icon: <Truck className="h-6 w-6" />,
-      items: ['Свои курьеры', 'Яндекс', 'Трекинг'],
+      itemKeys: ['flow.deliveryItem1', 'flow.deliveryItem2', 'flow.deliveryItem3'],
       color: 'text-orange-600',
       bgColor: 'bg-orange-50',
     },
     {
       id: 'analytics',
-      title: 'Аналитика',
+      titleKey: 'flow.analytics',
       icon: <BarChart3 className="h-6 w-6" />,
-      items: ['Дашборды', 'Отчёты', 'AI-прогнозы'],
+      itemKeys: ['flow.analyticsItem1', 'flow.analyticsItem2', 'flow.analyticsItem3'],
       color: 'text-indigo-600',
       bgColor: 'bg-indigo-50',
     },
@@ -106,10 +99,10 @@ export function ProcessFlow() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl lg:text-4xl font-bold text-brand-darkBlue mb-3 tracking-tight">
-            Как это работает
+            {t('flow.title')}
           </h2>
           <p className="text-lg text-brand-darkBlue/70 max-w-2xl mx-auto">
-            Полная цепочка от заказа до аналитики в единой платформе
+            {t('flow.subtitle')}
           </p>
         </motion.div>
 
@@ -151,12 +144,12 @@ export function ProcessFlow() {
 
                 {/* Title */}
                 <h3 className="text-sm font-semibold text-brand-darkBlue mb-2">
-                  {step.title}
+                  {t(step.titleKey)}
                 </h3>
 
                 {/* Items */}
                 <ul className="space-y-1">
-                  {step.items.map((item, itemIdx) => (
+                  {step.itemKeys.map((itemKey, itemIdx) => (
                     <motion.li
                       key={itemIdx}
                       className="text-xs text-brand-darkBlue/60"
@@ -164,7 +157,7 @@ export function ProcessFlow() {
                       animate={isInView ? { opacity: 1, x: 0 } : {}}
                       transition={{ delay: 0.3 + idx * 0.1 + itemIdx * 0.05 }}
                     >
-                      • {item}
+                      • {t(itemKey)}
                     </motion.li>
                   ))}
                 </ul>
@@ -181,7 +174,7 @@ export function ProcessFlow() {
           transition={{ delay: 0.8, duration: 0.5 }}
         >
           <p className="text-brand-darkBlue font-medium">
-            Все этапы автоматизированы и синхронизированы в реальном времени
+            {t('flow.summary')}
           </p>
         </motion.div>
       </div>
