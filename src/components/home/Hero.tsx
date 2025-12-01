@@ -80,29 +80,6 @@ export function Hero() {
             ))}
           </motion.div>
 
-          {/* Integrations */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-center"
-          >
-            <p className="text-xs text-brand-darkBlue/50 mb-4 uppercase tracking-wider font-medium">
-              {t('nav.integrations')}
-            </p>
-            <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-3">
-              {['iiko', 'R-Keeper', 'Poster', 'Uzum Tezkor', 'Glovo', 'Yandex Eats', 'Wolt'].map(
-                (brand) => (
-                  <span 
-                    key={brand} 
-                    className="text-sm font-medium text-brand-darkBlue/40"
-                  >
-                    {brand}
-                  </span>
-                )
-              )}
-            </div>
-          </motion.div>
         </div>
       </section>
 
