@@ -17,8 +17,7 @@ import {
   Receipt,
   Zap,
   ArrowRightLeft,
-  CheckCircle2,
-  Play
+  CheckCircle2
 } from 'lucide-react'
 
 // Категории интеграций с иконками и цветами
@@ -100,13 +99,11 @@ const categories = [
 // Анимированный хаб в центре
 function IntegrationHub() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null)
-  const [isAnimating, setIsAnimating] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
 
   useEffect(() => {
     if (!isInView) return
-    setIsAnimating(true)
     
     const interval = setInterval(() => {
       const categoryIds = categories.map(c => c.id)
@@ -206,7 +203,6 @@ function IntegrationHub() {
                 background: `linear-gradient(135deg, var(--tw-gradient-stops))`,
               }}
               onMouseEnter={() => {
-                setIsAnimating(false)
                 setActiveCategory(category.id)
               }}
               whileHover={{ scale: 1.1 }}
