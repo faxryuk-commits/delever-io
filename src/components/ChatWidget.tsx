@@ -146,12 +146,19 @@ export function ChatWidget() {
                 }`}>
                   {message.role === 'user' ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
                 </div>
-                <div className={`max-w-[75%] rounded-2xl px-4 py-3 ${
-                  message.role === 'user'
-                    ? 'bg-brand-darkBlue text-white rounded-br-md'
-                    : 'bg-white text-brand-darkBlue shadow-sm rounded-bl-md'
-                }`}>
-                  <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                <div 
+                  className={`max-w-[75%] rounded-2xl px-4 py-3 ${
+                    message.role === 'user'
+                      ? 'bg-brand-darkBlue rounded-br-md'
+                      : 'bg-white text-brand-darkBlue shadow-sm rounded-bl-md'
+                  }`}
+                >
+                  <p 
+                    className="text-sm whitespace-pre-wrap"
+                    style={{ color: message.role === 'user' ? '#FFFFFF' : '#002A47' }}
+                  >
+                    {message.content}
+                  </p>
                 </div>
               </div>
             ))}
