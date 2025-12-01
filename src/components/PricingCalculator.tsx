@@ -66,21 +66,21 @@ const platformFeatures = [
   },
 ]
 
-// Дополнительные модули
+// Дополнительные модули с ключами перевода
 const additionalModules = [
-  { id: 'uzum', name: 'Uzum Tezkor', priceUZS: 260000, icon: Layers, perType: 'branch', label: 'за филиал', category: 'aggregator' },
-  { id: 'wolt', name: 'Wolt', priceUZS: 260000, icon: Layers, perType: 'branch', label: 'за филиал', category: 'aggregator' },
-  { id: 'yandex', name: 'Яндекс Еда', priceUZS: 260000, icon: Layers, perType: 'branch', label: 'за филиал', category: 'aggregator' },
-  { id: 'allAggregators', name: 'Агрегатор (все)', priceUZS: 650000, icon: Layers, perType: 'branch', label: 'за филиал', category: 'aggregator' },
-  { id: 'courier', name: 'Курьер сервис', priceUZS: 195000, icon: Truck, perType: 'fixed', label: '', category: 'operations' },
-  { id: 'kiosk', name: 'Киоск', priceUZS: 910000, icon: Monitor, perType: 'kiosk', label: 'за шт.', category: 'operations' },
-  { id: 'marketing', name: 'Маркетинг', priceUZS: 390000, icon: Megaphone, perType: 'brand', label: 'за бренд', category: 'marketing' },
-  { id: 'booking', name: 'Бронь', priceUZS: 130000, icon: Calendar, perType: 'brand', label: 'за бренд', category: 'operations' },
-  { id: 'courierApp', name: 'Курьерское приложение', priceUZS: 260000, icon: Smartphone, perType: 'brand', label: 'за бренд', category: 'operations' },
-  { id: 'kds', name: 'Кухня (KDS)', priceUZS: 65000, icon: ChefHat, perType: 'branch', label: 'за филиал', category: 'operations' },
-  { id: 'callCenter', name: 'Колл-центр', priceUZS: 0, icon: Headphones, perType: 'fixed', label: '', category: 'operations' },
-  { id: 'manager', name: 'Выделенный менеджер', priceUZS: 1300000, icon: UserCog, perType: 'brand', label: 'за бренд', category: 'support' },
-  { id: 'dashboard', name: 'Дашборд', priceUZS: 130000, icon: LayoutDashboard, perType: 'brand', label: 'за бренд', category: 'analytics' },
+  { id: 'uzum', nameKey: 'calc.module.uzum', priceUZS: 260000, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
+  { id: 'wolt', nameKey: 'calc.module.wolt', priceUZS: 260000, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
+  { id: 'yandex', nameKey: 'calc.module.yandex', priceUZS: 260000, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
+  { id: 'allAggregators', nameKey: 'calc.module.allAggregators', priceUZS: 650000, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
+  { id: 'courier', nameKey: 'calc.module.courier', priceUZS: 195000, icon: Truck, perType: 'fixed', labelKey: '', category: 'operations' },
+  { id: 'kiosk', nameKey: 'calc.module.kiosk', priceUZS: 910000, icon: Monitor, perType: 'kiosk', labelKey: 'calc.perPiece', category: 'operations' },
+  { id: 'marketing', nameKey: 'calc.module.marketing', priceUZS: 390000, icon: Megaphone, perType: 'brand', labelKey: 'calc.perBrand', category: 'marketing' },
+  { id: 'booking', nameKey: 'calc.module.booking', priceUZS: 130000, icon: Calendar, perType: 'brand', labelKey: 'calc.perBrand', category: 'operations' },
+  { id: 'courierApp', nameKey: 'calc.module.courierApp', priceUZS: 260000, icon: Smartphone, perType: 'brand', labelKey: 'calc.perBrand', category: 'operations' },
+  { id: 'kds', nameKey: 'calc.module.kds', priceUZS: 65000, icon: ChefHat, perType: 'branch', labelKey: 'calc.perBranch', category: 'operations' },
+  { id: 'callCenter', nameKey: 'calc.module.callCenter', priceUZS: 0, icon: Headphones, perType: 'fixed', labelKey: '', category: 'operations' },
+  { id: 'manager', nameKey: 'calc.module.manager', priceUZS: 1300000, icon: UserCog, perType: 'brand', labelKey: 'calc.perBrand', category: 'support' },
+  { id: 'dashboard', nameKey: 'calc.module.dashboard', priceUZS: 130000, icon: LayoutDashboard, perType: 'brand', labelKey: 'calc.perBrand', category: 'analytics' },
 ]
 
 // Единоразовые платежи
@@ -359,12 +359,12 @@ export function PricingCalculator() {
       if (!module) return ''
       const price = getModulePrice(module)
       let multiplier = ''
-      if (module.perType === 'branch' && branches > 1) multiplier = ` × ${branches} фил.`
-      if (module.perType === 'brand' && brands > 1) multiplier = ` × ${brands} бр.`
-      if (module.perType === 'kiosk' && kiosks > 1) multiplier = ` × ${kiosks} шт.`
+      if (module.perType === 'branch' && branches > 1) multiplier = ` × ${branches}`
+      if (module.perType === 'brand' && brands > 1) multiplier = ` × ${brands}`
+      if (module.perType === 'kiosk' && kiosks > 1) multiplier = ` × ${kiosks}`
       return `
     <div class="row">
-      <span class="label">${module.name}${multiplier}</span>
+      <span class="label">${t(module.nameKey)}${multiplier}</span>
       <span class="value">${formatPrice(price)}</span>
     </div>`
     }).join('')}
@@ -402,14 +402,14 @@ export function PricingCalculator() {
 
   ${selectedModules.length > 0 ? `
   <div class="section">
-    <div class="section-title">Выбранные агрегаторы</div>
+    <div class="section-title">${t('calc.selectedAggregators')}</div>
     ${selectedModules.map(moduleId => {
       const module = additionalModules.find(m => m.id === moduleId)
       if (!module) return ''
       const price = getModulePrice(module)
       return `
     <div class="row">
-      <span class="label">${module.name} × ${branches} филиалов</span>
+      <span class="label">${t(module.nameKey)} × ${branches}</span>
       <span class="value">${formatPrice(price)}</span>
     </div>`
     }).join('')}
@@ -912,16 +912,16 @@ export function PricingCalculator() {
         {scenario === 'switch' && (
           <>
             {/* Сравнение: Агрегаторы vs Своя доставка */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               {/* Агрегаторы */}
-              <div className="bg-red-500/20 rounded-xl p-4">
+              <div className="bg-red-500/20 rounded-xl p-5">
                 <div className="text-sm text-white/80 font-medium mb-3">{t('calc.withAggregators')}</div>
                 <div className="text-2xl font-bold text-red-200 mb-1">-{formatPrice(roi.aggregatorCost)}/мес</div>
                 <div className="text-xs text-white/60">{aggregatorFee}% {t('calc.fromRevenue')}</div>
               </div>
 
               {/* Своя доставка - детализация */}
-              <div className="bg-white/10 rounded-xl p-4">
+              <div className="bg-white/10 rounded-xl p-5">
                 <div className="text-sm text-white/80 font-medium mb-3">{t('calc.withOwnDelivery')}</div>
                 <div className="space-y-1.5 text-sm">
                   <div className="flex justify-between">
@@ -1042,7 +1042,7 @@ export function PricingCalculator() {
                         : 'bg-white/20 hover:bg-white/30'
                     }`}
                   >
-                    <span>{module.name}</span>
+                    <span>{t(module.nameKey)}</span>
                     <span>{formatPrice(module.priceUZS)}/{t('calc.perBranch')}</span>
                   </button>
                 ))}
@@ -1325,10 +1325,10 @@ export function PricingCalculator() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className={`font-medium text-sm ${isSelected ? 'text-white' : 'text-brand-darkBlue'}`}>
-                        {module.name}
+                        {t(module.nameKey)}
                       </div>
                       <div className={`text-xs ${isSelected ? 'text-white/70' : 'text-brand-darkBlue/50'}`}>
-                        {formatPrice(module.priceUZS)} {module.label}
+                        {formatPrice(module.priceUZS)} {module.labelKey ? t(module.labelKey) : ''}
                         {multiplier > 1 && <span className="font-medium"> × {multiplier} = {formatPrice(totalPrice)}</span>}
                       </div>
                     </div>
@@ -1439,7 +1439,7 @@ export function PricingCalculator() {
                     return (
                       <div key={moduleId} className="flex justify-between text-sm">
                         <span className="text-brand-darkBlue/70">
-                          {module.name}
+                          {t(module.nameKey)}
                           {multiplier && <span className="text-xs ml-1 text-brand-darkBlue/40">{multiplier}</span>}
                         </span>
                         <span className="text-brand-darkBlue font-medium">{formatPrice(price)}</span>
