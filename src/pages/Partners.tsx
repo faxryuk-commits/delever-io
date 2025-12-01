@@ -1,48 +1,50 @@
 import { useState, useRef } from 'react'
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
+import { useLocale } from '@/i18n/LocaleContext'
 import { motion, useInView } from 'framer-motion'
 import { Users2, Percent, Users, Headphones, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react'
-
-const benefits = [
-  {
-    icon: Percent,
-    title: 'Комиссия до 30%',
-    description: 'За каждого приведённого клиента',
-    color: 'from-emerald-500 to-emerald-600',
-  },
-  {
-    icon: Users,
-    title: 'Маркетинговые материалы',
-    description: 'Готовые презентации и брендбук',
-    color: 'from-blue-500 to-blue-600',
-  },
-  {
-    icon: Headphones,
-    title: 'Поддержка партнёров',
-    description: 'Персональный менеджер и обучение',
-    color: 'from-purple-500 to-purple-600',
-  },
-]
-
-const steps = [
-  { step: '1', title: 'Заполните заявку', description: 'Расскажите о себе и опыте' },
-  { step: '2', title: 'Пройдите обучение', description: 'Изучите продукт за 2-3 часа' },
-  { step: '3', title: 'Начните продавать', description: 'Получайте комиссию с продаж' },
-]
-
-const partnerTypes = [
-  'Интеграторы POS-систем',
-  'Агентства digital-маркетинга',
-  'IT-консультанты',
-  'Бизнес-консультанты',
-  'Франчайзи сетей',
-]
 
 export function Partners() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const { t } = useLocale()
+
+  const benefits = [
+    {
+      icon: Percent,
+      titleKey: 'partners.commission',
+      descKey: 'partners.commissionDesc',
+      color: 'from-emerald-500 to-emerald-600',
+    },
+    {
+      icon: Users,
+      titleKey: 'partners.materials',
+      descKey: 'partners.materialsDesc',
+      color: 'from-blue-500 to-blue-600',
+    },
+    {
+      icon: Headphones,
+      titleKey: 'partners.partnerSupport',
+      descKey: 'partners.partnerSupportDesc',
+      color: 'from-purple-500 to-purple-600',
+    },
+  ]
+
+  const steps = [
+    { step: '1', titleKey: 'partners.step1', descKey: 'partners.step1Desc' },
+    { step: '2', titleKey: 'partners.step2', descKey: 'partners.step2Desc' },
+    { step: '3', titleKey: 'partners.step3', descKey: 'partners.step3Desc' },
+  ]
+
+  const partnerTypeKeys = [
+    'partners.posIntegrators',
+    'partners.digitalAgencies',
+    'partners.itConsultants',
+    'partners.bizConsultants',
+    'partners.franchisees',
+  ]
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -79,17 +81,17 @@ export function Partners() {
               transition={{ delay: 0.2 }}
             >
               <Sparkles className="w-4 h-4" />
-              Партнёрская программа
+              {t('partners.badge')}
             </motion.span>
             <h1 className="text-4xl lg:text-5xl font-bold text-brand-darkBlue mb-4 tracking-tight">
-              Зарабатывайте с Delever
+              {t('partners.title')}
             </h1>
             <p className="text-lg text-brand-darkBlue/70 max-w-xl mx-auto mb-8">
-              Приводите клиентов и получайте до 30% комиссии
+              {t('partners.subtitle')}
             </p>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button size="lg" onClick={() => setContactFormOpen(true)}>
-                Стать партнёром
+                {t('partners.become')}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </motion.div>
@@ -119,8 +121,8 @@ export function Partners() {
                   >
                     <Icon className="h-7 w-7" />
                   </motion.div>
-                  <h3 className="font-semibold text-brand-darkBlue mb-2">{benefit.title}</h3>
-                  <p className="text-sm text-brand-darkBlue/60">{benefit.description}</p>
+                  <h3 className="font-semibold text-brand-darkBlue mb-2">{t(benefit.titleKey)}</h3>
+                  <p className="text-sm text-brand-darkBlue/60">{t(benefit.descKey)}</p>
                 </motion.div>
               )
             })}
@@ -135,7 +137,7 @@ export function Partners() {
             transition={{ delay: 0.4 }}
             className="bg-brand-lightBlue/30 rounded-2xl p-8"
           >
-            <h3 className="text-xl font-bold text-brand-darkBlue mb-8 text-center">Как это работает</h3>
+            <h3 className="text-xl font-bold text-brand-darkBlue mb-8 text-center">{t('partners.howItWorks')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {steps.map((step, idx) => (
                 <motion.div 
@@ -152,8 +154,8 @@ export function Partners() {
                   >
                     {step.step}
                   </motion.div>
-                  <h4 className="font-semibold text-brand-darkBlue mb-1">{step.title}</h4>
-                  <p className="text-sm text-brand-darkBlue/60">{step.description}</p>
+                  <h4 className="font-semibold text-brand-darkBlue mb-1">{t(step.titleKey)}</h4>
+                  <p className="text-sm text-brand-darkBlue/60">{t(step.descKey)}</p>
                 </motion.div>
               ))}
             </div>
@@ -170,10 +172,10 @@ export function Partners() {
           >
             <div className="flex items-center gap-3 mb-6 justify-center">
               <Users2 className="h-6 w-6 text-brand-darkBlue" />
-              <h3 className="text-xl font-bold text-brand-darkBlue">Кого мы ищем</h3>
+              <h3 className="text-xl font-bold text-brand-darkBlue">{t('partners.whoWeSeek')}</h3>
             </div>
             <div className="flex flex-wrap justify-center gap-3">
-              {partnerTypes.map((type, idx) => (
+              {partnerTypeKeys.map((typeKey, idx) => (
                 <motion.div 
                   key={idx}
                   className="flex items-center gap-2 bg-white border border-brand-lightTeal/30 text-brand-darkBlue px-4 py-2 rounded-full"
@@ -183,7 +185,7 @@ export function Partners() {
                   whileHover={{ scale: 1.05 }}
                 >
                   <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-                  <span className="text-sm font-medium">{type}</span>
+                  <span className="text-sm font-medium">{t(typeKey)}</span>
                 </motion.div>
               ))}
             </div>
@@ -201,13 +203,13 @@ export function Partners() {
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
             <div className="relative z-10">
               <h2 className="text-2xl lg:text-3xl font-bold mb-3 text-white tracking-tight">
-                Готовы начать?
+                {t('partners.readyToStart')}
               </h2>
               <p className="text-white/70 mb-6">
-                Заполните заявку — свяжемся в течение дня
+                {t('partners.contactInDay')}
               </p>
               <Button size="lg" variant="secondary" onClick={() => setContactFormOpen(true)}>
-                Оставить заявку
+                {t('partners.submitApplication')}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>

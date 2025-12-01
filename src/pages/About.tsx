@@ -1,52 +1,62 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { MapPin, Users, Rocket, Award, Globe, Target } from 'lucide-react'
-
-const stats = [
-  { value: '1000+', label: 'Бизнесов' },
-  { value: '5', label: 'Стран' },
-  { value: '13M+', label: 'Заказов' },
-  { value: '40+', label: 'Интеграций' },
-]
-
-const values = [
-  {
-    icon: Rocket,
-    title: 'Скорость',
-    description: 'Запуск за неделю, внедрение без простоев',
-    color: 'from-blue-500 to-blue-600',
-  },
-  {
-    icon: Award,
-    title: 'Качество',
-    description: '99.9% uptime, надёжная инфраструктура',
-    color: 'from-purple-500 to-purple-600',
-  },
-  {
-    icon: Users,
-    title: 'Поддержка',
-    description: '24/7 техподдержка на русском языке',
-    color: 'from-emerald-500 to-emerald-600',
-  },
-  {
-    icon: Target,
-    title: 'Результат',
-    description: 'Рост выручки, снижение издержек',
-    color: 'from-orange-500 to-orange-600',
-  },
-]
-
-const countries = [
-  { name: 'Узбекистан', flag: '🇺🇿', status: 'main' },
-  { name: 'Казахстан', flag: '🇰🇿', status: 'active' },
-  { name: 'Кыргызстан', flag: '🇰🇬', status: 'active' },
-  { name: 'Азербайджан', flag: '🇦🇿', status: 'active' },
-  { name: 'Грузия', flag: '🇬🇪', status: 'active' },
-]
+import { useLocale } from '@/i18n/LocaleContext'
 
 export function About() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const { t, language } = useLocale()
+
+  const stats = [
+    { value: '1000+', labelKey: 'stats.businesses' },
+    { value: '5', labelKey: 'stats.countries' },
+    { value: '13M+', labelKey: 'stats.orders' },
+    { value: '40+', labelKey: 'stats.integrations' },
+  ]
+
+  const values = [
+    {
+      icon: Rocket,
+      titleKey: 'about.speed',
+      descKey: 'about.speedDesc',
+      color: 'from-blue-500 to-blue-600',
+    },
+    {
+      icon: Award,
+      titleKey: 'about.quality',
+      descKey: 'about.qualityDesc',
+      color: 'from-purple-500 to-purple-600',
+    },
+    {
+      icon: Users,
+      titleKey: 'about.support',
+      descKey: 'about.supportDesc',
+      color: 'from-emerald-500 to-emerald-600',
+    },
+    {
+      icon: Target,
+      titleKey: 'about.result',
+      descKey: 'about.resultDesc',
+      color: 'from-orange-500 to-orange-600',
+    },
+  ]
+
+  const countries = [
+    { nameKey: 'uz', flag: '🇺🇿', status: 'main' },
+    { nameKey: 'kz', flag: '🇰🇿', status: 'active' },
+    { nameKey: 'kg', flag: '🇰🇬', status: 'active' },
+    { nameKey: 'az', flag: '🇦🇿', status: 'active' },
+    { nameKey: 'ge', flag: '🇬🇪', status: 'active' },
+  ]
+
+  const countryNames: Record<string, Record<string, string>> = {
+    uz: { ru: 'Узбекистан', en: 'Uzbekistan' },
+    kz: { ru: 'Казахстан', en: 'Kazakhstan' },
+    kg: { ru: 'Кыргызстан', en: 'Kyrgyzstan' },
+    az: { ru: 'Азербайджан', en: 'Azerbaijan' },
+    ge: { ru: 'Грузия', en: 'Georgia' },
+  }
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -82,13 +92,13 @@ export function About() {
             transition={{ delay: 0.2 }}
           >
             <Globe className="w-4 h-4" />
-            О компании
+            {t('about.badge')}
           </motion.span>
           <h1 className="text-4xl lg:text-5xl font-bold text-brand-darkBlue mb-4 tracking-tight">
-            Delever — операционная система для доставки
+            {t('about.title')}
           </h1>
           <p className="text-lg text-brand-darkBlue/70 max-w-2xl mx-auto">
-            Помогаем бизнесам запустить собственную доставку и управлять всеми каналами продаж из единой платформы
+            {t('about.subtitle')}
           </p>
         </motion.div>
       </section>
@@ -119,7 +129,7 @@ export function About() {
                 >
                   {stat.value}
                 </motion.div>
-                <div className="text-sm text-white/60">{stat.label}</div>
+                <div className="text-sm text-white/60">{t(stat.labelKey)}</div>
               </motion.div>
             ))}
           </div>
@@ -134,7 +144,7 @@ export function About() {
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: 0.5 }}
         >
-          Наши ценности
+          {t('about.values')}
         </motion.h2>
         <motion.div 
           className="grid grid-cols-1 md:grid-cols-2 gap-4"
@@ -159,8 +169,8 @@ export function About() {
                     <Icon className="h-6 w-6" />
                   </motion.div>
                   <div>
-                    <h3 className="font-semibold text-brand-darkBlue mb-1">{value.title}</h3>
-                    <p className="text-sm text-brand-darkBlue/60">{value.description}</p>
+                    <h3 className="font-semibold text-brand-darkBlue mb-1">{t(value.titleKey)}</h3>
+                    <p className="text-sm text-brand-darkBlue/60">{t(value.descKey)}</p>
                   </div>
                 </div>
               </motion.div>
@@ -179,7 +189,7 @@ export function About() {
         >
           <div className="flex items-center gap-3 mb-6 justify-center">
             <MapPin className="h-6 w-6 text-brand-darkBlue" />
-            <h3 className="text-xl font-bold text-brand-darkBlue">География</h3>
+            <h3 className="text-xl font-bold text-brand-darkBlue">{t('about.geography')}</h3>
           </div>
           <div className="flex flex-wrap justify-center gap-3">
             {countries.map((country, idx) => (
@@ -196,7 +206,9 @@ export function About() {
                 whileHover={{ scale: 1.05 }}
               >
                 <span className="text-lg">{country.flag}</span>
-                <span className="text-sm font-medium">{country.name}</span>
+                <span className="text-sm font-medium">
+                  {countryNames[country.nameKey]?.[language] || countryNames[country.nameKey]?.['en']}
+                </span>
               </motion.div>
             ))}
           </div>
@@ -212,10 +224,10 @@ export function About() {
           transition={{ delay: 0.8 }}
         >
           <h2 className="text-2xl font-bold text-brand-darkBlue mb-3">
-            Офис в Ташкенте
+            {t('about.office')}
           </h2>
           <p className="text-brand-darkBlue/70 mb-4">
-            Проспект Амира Темура 129Б, БЦ Анор Плаза, 2 этаж
+            {t('footer.address')}
           </p>
           <motion.a 
             href="https://maps.app.goo.gl/1iobehkkfP83hAMj6"
@@ -225,7 +237,7 @@ export function About() {
             whileHover={{ scale: 1.02 }}
           >
             <MapPin className="h-4 w-4" />
-            Открыть на карте
+            {t('about.openMap')}
           </motion.a>
         </motion.div>
       </section>
