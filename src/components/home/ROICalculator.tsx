@@ -6,7 +6,7 @@ import { ContactForm } from '@/components/ContactForm'
 import { useLocale } from '@/i18n/LocaleContext'
 
 export function ROICalculator() {
-  const { t, formatPrice, countryConfig } = useLocale()
+  const { t, formatPrice } = useLocale()
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const [orders, setOrders] = useState(1000)
   const [avgCheck, setAvgCheck] = useState(100000) // В сумах
@@ -126,13 +126,6 @@ export function ROICalculator() {
                 </div>
               </div>
 
-              {/* Current country indicator */}
-              {countryConfig && (
-                <div className="flex items-center gap-2 text-xs text-brand-darkBlue/50 mt-4 pt-4 border-t border-brand-lightTeal/20">
-                  <span>{countryConfig.flag}</span>
-                  <span>{countryConfig.currency}</span>
-                </div>
-              )}
             </motion.div>
 
             {/* Results */}
