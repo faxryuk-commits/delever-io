@@ -9,12 +9,14 @@ import { Clients } from '@/components/home/Clients'
 import { SocialProof } from '@/components/home/SocialProof'
 import { FAQ } from '@/components/home/FAQ'
 import { CallToAction } from '@/components/home/CallToAction'
+import { LaunchTimeline } from '@/components/home/LaunchTimeline'
 
 export function Home() {
   return (
     <div className="min-h-screen">
       <Hero />
       <Clients />
+      <LaunchTimeline />
       <ProductOverview />
       <ProcessFlow />
       <FeaturesShowcase />
