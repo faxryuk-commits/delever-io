@@ -273,6 +273,19 @@ export const translations: Record<Language, Record<string, string>> = {
     // Clients Component
     'clients.title': 'Нам доверяют',
     
+    // Contact Form
+    'form.title': 'Получить демо',
+    'form.subtitle': 'Оставьте заявку и мы свяжемся с вами в ближайшее время',
+    'form.name': 'Ваше имя',
+    'form.phone': 'Телефон',
+    'form.email': 'Email',
+    'form.company': 'Компания',
+    'form.message': 'Сообщение (необязательно)',
+    'form.submit': 'Отправить заявку',
+    'form.sending': 'Отправка...',
+    'form.success': 'Спасибо! Мы свяжемся с вами в ближайшее время.',
+    'form.error': 'Произошла ошибка при отправке. Попробуйте позже или свяжитесь с нами напрямую через Telegram: @deleverme',
+    
     // Product Screenshots Component
     'screenshots.title': 'Интерфейс платформы',
     'screenshots.subtitle': 'Современный и понятный интерфейс для управления доставкой',
@@ -810,6 +823,19 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Clients Component
     'clients.title': 'Trusted By',
+    
+    // Contact Form
+    'form.title': 'Get Demo',
+    'form.subtitle': 'Leave a request and we\'ll contact you shortly',
+    'form.name': 'Your name',
+    'form.phone': 'Phone',
+    'form.email': 'Email',
+    'form.company': 'Company',
+    'form.message': 'Message (optional)',
+    'form.submit': 'Submit Request',
+    'form.sending': 'Sending...',
+    'form.success': 'Thank you! We\'ll contact you shortly.',
+    'form.error': 'An error occurred. Please try again later or contact us directly via Telegram: @deleverme',
     
     // Product Screenshots Component
     'screenshots.title': 'Platform Interface',

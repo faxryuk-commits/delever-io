@@ -9,6 +9,7 @@ import {
 import { Input } from './ui/Input'
 import { Textarea } from './ui/Textarea'
 import { Button } from './ui/Button'
+import { useLocale } from '@/i18n/LocaleContext'
 
 interface ContactFormProps {
   open: boolean
@@ -17,6 +18,7 @@ interface ContactFormProps {
 }
 
 export function ContactForm({ open, onOpenChange, tag }: ContactFormProps) {
+  const { t } = useLocale()
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -41,15 +43,15 @@ export function ContactForm({ open, onOpenChange, tag }: ContactFormProps) {
 
       if (!response.ok) {
         const error = await response.json()
-        throw new Error(error.error || 'Ошибка отправки')
+        throw new Error(error.error || 'Error sending')
       }
 
-      alert('Спасибо! Мы свяжемся с вами в ближайшее время.')
+      alert(t('form.success'))
       setFormData({ name: '', phone: '', email: '', company: '', message: '' })
       onOpenChange(false)
     } catch (error) {
       console.error('Error submitting form:', error)
-      alert('Произошла ошибка при отправке. Попробуйте позже или свяжитесь с нами напрямую через Telegram: @delever_sales_bot')
+      alert(t('form.error'))
     } finally {
       setIsSubmitting(false)
     }
@@ -64,96 +66,73 @@ export function ContactForm({ open, onOpenChange, tag }: ContactFormProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Запрос демо / Связаться с нами</DialogTitle>
+          <DialogTitle className="text-2xl">{t('form.title')}</DialogTitle>
           <DialogDescription>
-            Заполните форму, и мы свяжемся с вами в ближайшее время
+            {t('form.subtitle')}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium mb-1">
-              Имя *
-            </label>
             <Input
-              id="name"
               name="name"
-              required
+              placeholder={t('form.name')}
               value={formData.name}
               onChange={handleChange}
-              placeholder="Ваше имя"
+              required
+              className="w-full"
             />
           </div>
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium mb-1">
-              Телефон *
-            </label>
             <Input
-              id="phone"
               name="phone"
               type="tel"
-              required
+              placeholder={t('form.phone')}
               value={formData.phone}
               onChange={handleChange}
-              placeholder="+998 90 123 45 67"
+              required
+              className="w-full"
             />
           </div>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium mb-1">
-              Email *
-            </label>
             <Input
-              id="email"
               name="email"
               type="email"
-              required
+              placeholder={t('form.email')}
               value={formData.email}
               onChange={handleChange}
-              placeholder="your@email.com"
+              className="w-full"
             />
           </div>
           <div>
-            <label htmlFor="company" className="block text-sm font-medium mb-1">
-              Компания
-            </label>
             <Input
-              id="company"
               name="company"
+              placeholder={t('form.company')}
               value={formData.company}
               onChange={handleChange}
-              placeholder="Название компании"
+              className="w-full"
             />
           </div>
           <div>
-            <label htmlFor="message" className="block text-sm font-medium mb-1">
-              Сообщение
-            </label>
             <Textarea
-              id="message"
               name="message"
+              placeholder={t('form.message')}
               value={formData.message}
               onChange={handleChange}
-              placeholder="Расскажите о ваших потребностях..."
-              rows={4}
+              rows={3}
+              className="w-full resize-none"
             />
           </div>
-          <div className="flex justify-end space-x-2 pt-2">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => onOpenChange(false)}
-              disabled={isSubmitting}
-            >
-              Отмена
-            </Button>
-            <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? 'Отправка...' : 'Отправить'}
-            </Button>
-          </div>
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? t('form.sending') : t('form.submit')}
+          </Button>
         </form>
       </DialogContent>
     </Dialog>
   )
 }
-
