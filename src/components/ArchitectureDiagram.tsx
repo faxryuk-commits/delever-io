@@ -253,8 +253,9 @@ function ModuleNode({ module, index, isActive, onClick }: { module: Module; inde
         style={{ 
           backgroundColor: module.bgColor,
           color: module.color,
-          ringColor: module.color,
-        }}
+          // @ts-expect-error CSS custom property for ring color
+          '--tw-ring-color': module.color,
+        } as React.CSSProperties}
       >
         {module.icon}
         <span className="text-xs font-bold mt-1">{module.name}</span>
@@ -312,7 +313,7 @@ function SubModules({ module, isVisible }: { module: Module; isVisible: boolean 
 export function ArchitectureDiagram() {
   const [activeModule, setActiveModule] = useState<string | null>(null)
   const [isAnimating, setIsAnimating] = useState(false)
-  const [animationStep, setAnimationStep] = useState(0)
+  const [, setAnimationStep] = useState(0)
 
   // Автоматическая демонстрация потока заказа
   const orderFlow = ['order', 'pos', 'kitchen', 'logistics', 'customers', 'analitic']
@@ -475,8 +476,9 @@ export function ArchitectureDiagram() {
             style={{ 
               backgroundColor: module.bgColor,
               color: module.color,
-              ringColor: module.color,
-            }}
+              // @ts-expect-error CSS custom property for ring color
+              '--tw-ring-color': module.color,
+            } as React.CSSProperties}
           >
             {module.icon}
             {module.nameRu}
