@@ -10,7 +10,7 @@ export function Footer() {
 
   const stats = [
     { value: '1000+', labelKey: 'stats.businesses' },
-    { value: '5', labelKey: 'stats.countries' },
+    { value: '7', labelKey: 'stats.countries' },
     { value: '40+', labelKey: 'stats.integrations' },
     { value: '13M+', labelKey: 'stats.orders' },
     { value: '99.9%', labelKey: 'stats.uptime' },

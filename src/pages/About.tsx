@@ -10,7 +10,7 @@ export function About() {
 
   const stats = [
     { value: '1000+', labelKey: 'stats.businesses' },
-    { value: '5', labelKey: 'stats.countries' },
+    { value: '7', labelKey: 'stats.countries' },
     { value: '13M+', labelKey: 'stats.orders' },
     { value: '40+', labelKey: 'stats.integrations' },
   ]
@@ -48,6 +48,8 @@ export function About() {
     { nameKey: 'kg', flag: '🇰🇬', status: 'active' },
     { nameKey: 'az', flag: '🇦🇿', status: 'active' },
     { nameKey: 'ge', flag: '🇬🇪', status: 'active' },
+    { nameKey: 'cy', flag: '🇨🇾', status: 'active' },
+    { nameKey: 'ae', flag: '🇦🇪', status: 'active' },
   ]
 
   const countryNames: Record<string, Record<string, string>> = {
@@ -56,6 +58,8 @@ export function About() {
     kg: { ru: 'Кыргызстан', en: 'Kyrgyzstan' },
     az: { ru: 'Азербайджан', en: 'Azerbaijan' },
     ge: { ru: 'Грузия', en: 'Georgia' },
+    cy: { ru: 'Кипр', en: 'Cyprus' },
+    ae: { ru: 'ОАЭ', en: 'UAE' },
   }
 
   const containerVariants = {

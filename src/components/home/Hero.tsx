@@ -12,7 +12,7 @@ export function Hero() {
   const stats = [
     { value: '13M+', labelKey: 'stats.orders' },
     { value: '1000+', labelKey: 'stats.businesses' },
-    { value: '5', labelKey: 'stats.countries' },
+    { value: '7', labelKey: 'stats.countries' },
     { value: '40+', labelKey: 'stats.integrations' },
   ]
 
