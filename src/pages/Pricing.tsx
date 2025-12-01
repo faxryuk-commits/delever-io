@@ -18,6 +18,7 @@ export function Pricing() {
       name: 'Start',
       orders: '1,000',
       priceUZS: 1300000,
+      perOrderUZS: 1300, // Цена за заказ после лимита
       featureKeys: ['pricing.posIntegration', 'pricing.telegramBot', 'pricing.website', 'pricing.courierModule', 'pricing.basicAnalytics'],
       highlight: false,
     },
@@ -25,6 +26,7 @@ export function Pricing() {
       name: 'Medium',
       orders: '3,000',
       priceUZS: 3250000,
+      perOrderUZS: 1100,
       featureKeys: ['pricing.allFromStart', 'pricing.mobileApp', 'pricing.abcAnalysis', 'pricing.marketingModule', 'pricing.prioritySupport'],
       highlight: true,
     },
@@ -32,6 +34,7 @@ export function Pricing() {
       name: 'Big',
       orders: '6,000',
       priceUZS: 6500000,
+      perOrderUZS: 1100,
       featureKeys: ['pricing.allFromMedium', 'pricing.multipleLocations', 'pricing.customIntegrations', 'pricing.slaGuarantees'],
       highlight: false,
     },
@@ -39,6 +42,7 @@ export function Pricing() {
       name: 'Enterprise',
       orders: '10,000',
       priceUZS: 13000000,
+      perOrderUZS: 1300,
       featureKeys: ['pricing.allFromBig', 'pricing.dedicatedManager', 'pricing.apiAccess', 'pricing.customDevelopment'],
       highlight: false,
     },
@@ -169,6 +173,9 @@ export function Pricing() {
                 <div className="mb-4">
                   <span className="text-2xl font-bold text-brand-darkBlue">{formatPrice(plan.priceUZS)}</span>
                   <span className="text-sm text-brand-darkBlue/50 ml-1">{t('pricing.perMonth')}</span>
+                  <p className="text-xs text-brand-darkBlue/40 mt-1">
+                    +{formatPrice(plan.perOrderUZS)} {t('pricing.perExtraOrder')}
+                  </p>
                 </div>
 
                 <ul className="space-y-2 mb-5 flex-grow">
