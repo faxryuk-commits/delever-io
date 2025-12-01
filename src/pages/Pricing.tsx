@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
-import { motion } from 'framer-motion'
-import { Check, ArrowRight, Smartphone, Gift, CreditCard } from 'lucide-react'
+import { motion, useInView } from 'framer-motion'
+import { Check, ArrowRight, Smartphone, Gift, CreditCard, Sparkles } from 'lucide-react'
 
 const plans = [
   {
@@ -38,10 +38,30 @@ const plans = [
 
 export function Pricing() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  }
 
   return (
     <>
-      <div className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8">
+      <div ref={ref} className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8">
         {/* Hero */}
         <section className="container mx-auto max-w-5xl mb-12">
           <motion.div 
@@ -50,6 +70,15 @@ export function Pricing() {
             transition={{ duration: 0.5 }}
             className="text-center"
           >
+            <motion.span 
+              className="inline-flex items-center gap-2 bg-brand-lightBlue text-brand-darkBlue text-sm font-medium px-4 py-1.5 rounded-full mb-4"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Sparkles className="w-4 h-4" />
+              Прозрачные цены
+            </motion.span>
             <h1 className="text-4xl lg:text-5xl font-bold text-brand-darkBlue mb-4 tracking-tight">
               Тарифы
             </h1>
@@ -61,8 +90,16 @@ export function Pricing() {
 
         {/* Info Cards */}
         <section className="container mx-auto max-w-4xl mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-brand-lightBlue/30 rounded-xl p-5 flex items-start gap-4">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.2 }}
+          >
+            <motion.div 
+              className="bg-brand-lightBlue/30 rounded-xl p-5 flex items-start gap-4"
+              whileHover={{ scale: 1.02 }}
+            >
               <CreditCard className="h-6 w-6 text-brand-darkBlue flex-shrink-0 mt-0.5" />
               <div>
                 <h3 className="font-semibold text-brand-darkBlue mb-1">Депозит</h3>
@@ -70,8 +107,11 @@ export function Pricing() {
                   6,500,000 soʼm — используется на оплату подписки
                 </p>
               </div>
-            </div>
-            <div className="bg-brand-lightBeige/50 rounded-xl p-5 flex items-start gap-4">
+            </motion.div>
+            <motion.div 
+              className="bg-brand-lightBeige/50 rounded-xl p-5 flex items-start gap-4"
+              whileHover={{ scale: 1.02 }}
+            >
               <Gift className="h-6 w-6 text-brand-darkBlue flex-shrink-0 mt-0.5" />
               <div>
                 <h3 className="font-semibold text-brand-darkBlue mb-1">Скидки</h3>
@@ -79,31 +119,40 @@ export function Pricing() {
                   10% за 6 мес · 15% за 12 мес
                 </p>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </section>
 
         {/* Plans */}
         <section className="container mx-auto max-w-5xl mb-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
             {plans.map((plan, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: idx * 0.1 }}
+                variants={itemVariants}
+                whileHover={{ y: -5 }}
                 className={`bg-white rounded-xl p-5 border-2 relative flex flex-col ${
                   plan.highlight
-                    ? 'border-brand-darkBlue'
+                    ? 'border-brand-darkBlue shadow-lg'
                     : 'border-brand-lightTeal/30'
                 }`}
               >
                 {plan.highlight && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <motion.div 
+                    className="absolute -top-3 left-1/2 -translate-x-1/2"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.5, type: "spring" }}
+                  >
                     <span className="bg-brand-darkBlue text-white text-xs font-medium px-3 py-1 rounded-full">
                       Популярный
                     </span>
-                  </div>
+                  </motion.div>
                 )}
                 
                 <div className="mb-4">
@@ -118,10 +167,16 @@ export function Pricing() {
 
                 <ul className="space-y-2 mb-5 flex-grow">
                   {plan.features.map((feature, fIdx) => (
-                    <li key={fIdx} className="flex items-start gap-2 text-sm text-brand-darkBlue/70">
+                    <motion.li 
+                      key={fIdx} 
+                      className="flex items-start gap-2 text-sm text-brand-darkBlue/70"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={isInView ? { opacity: 1, x: 0 } : {}}
+                      transition={{ delay: 0.3 + idx * 0.1 + fIdx * 0.05 }}
+                    >
                       <Check className="h-4 w-4 text-brand-darkBlue mt-0.5 flex-shrink-0" />
                       <span>{feature}</span>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
 
@@ -134,21 +189,30 @@ export function Pricing() {
                 </Button>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         {/* White Label */}
         <section className="container mx-auto max-w-4xl mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.6, duration: 0.5 }}
+            whileHover={{ scale: 1.01 }}
           >
-            <div className="bg-brand-darkBlue rounded-2xl p-8 lg:p-10">
-              <div className="flex flex-col md:flex-row items-center gap-6">
-                <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0">
+            <div className="bg-brand-darkBlue rounded-2xl p-8 lg:p-10 overflow-hidden relative">
+              {/* Decorative elements */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
+              <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
+              
+              <div className="flex flex-col md:flex-row items-center gap-6 relative z-10">
+                <motion.div 
+                  className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0"
+                  animate={{ rotate: [0, 5, -5, 0] }}
+                  transition={{ duration: 4, repeat: Infinity }}
+                >
                   <Smartphone className="h-8 w-8 text-white" />
-                </div>
+                </motion.div>
                 <div className="flex-1 text-center md:text-left">
                   <h3 className="text-2xl font-bold text-white mb-2">White Label приложение</h3>
                   <p className="text-white/70 mb-4">
@@ -172,7 +236,12 @@ export function Pricing() {
 
         {/* CTA */}
         <section className="container mx-auto max-w-3xl">
-          <div className="text-center">
+          <motion.div 
+            className="text-center"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ delay: 0.8 }}
+          >
             <h2 className="text-2xl font-bold text-brand-darkBlue mb-3">
               Нужна консультация?
             </h2>
@@ -183,7 +252,7 @@ export function Pricing() {
               Получить консультацию
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-          </div>
+          </motion.div>
         </section>
       </div>
 

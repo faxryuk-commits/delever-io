@@ -1,10 +1,13 @@
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 import { 
   ShoppingCart, 
   Zap,
   Monitor,
   Truck,
   BarChart3,
-  Package
+  Package,
+  ArrowRight
 } from 'lucide-react'
 
 interface FlowStep {
@@ -17,20 +20,15 @@ interface FlowStep {
 }
 
 export function ProcessFlow() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
+
   const flowSteps: FlowStep[] = [
     {
       id: 'channels',
       title: 'Каналы продаж',
       icon: <ShoppingCart className="h-6 w-6" />,
-      items: [
-        'Агрегаторы (Wolt, Yandex Eats, Talabat)',
-        'Telegram-бот',
-        'Веб-сайт',
-        'Мобильное приложение',
-        'QR-меню',
-        'Колл-центр',
-        'Киоск',
-      ],
+      items: ['Агрегаторы', 'Telegram-бот', 'Веб-сайт', 'Приложение'],
       color: 'text-blue-600',
       bgColor: 'bg-blue-50',
     },
@@ -38,25 +36,15 @@ export function ProcessFlow() {
       id: 'delever',
       title: 'Delever',
       icon: <Zap className="h-6 w-6" />,
-      items: [
-        'Единая платформа',
-        'Автоматизация',
-        'Управление заказами',
-        'Синхронизация данных',
-      ],
+      items: ['Единая платформа', 'Автоматизация', 'Синхронизация'],
       color: 'text-brand-darkBlue',
-      bgColor: 'bg-gradient-brand',
+      bgColor: 'bg-brand-lightBlue',
     },
     {
       id: 'integrations',
       title: 'Интеграции',
       icon: <Monitor className="h-6 w-6" />,
-      items: [
-        'POS-системы (iiko, R-Keeper)',
-        'Платежи (Click, Payme)',
-        'Кухня',
-        'Склад',
-      ],
+      items: ['POS-системы', 'Платежи', 'Кухня'],
       color: 'text-green-600',
       bgColor: 'bg-green-50',
     },
@@ -64,12 +52,7 @@ export function ProcessFlow() {
       id: 'operations',
       title: 'Операции',
       icon: <Package className="h-6 w-6" />,
-      items: [
-        'Диспетчеризация',
-        'Кухня',
-        'Курьеры',
-        'Статусы заказов',
-      ],
+      items: ['Диспетчеризация', 'Курьеры', 'Статусы'],
       color: 'text-purple-600',
       bgColor: 'bg-purple-50',
     },
@@ -77,12 +60,7 @@ export function ProcessFlow() {
       id: 'delivery',
       title: 'Доставка',
       icon: <Truck className="h-6 w-6" />,
-      items: [
-        'Delever курьеры',
-        'Я Доставка',
-        'Собственные курьеры',
-        'Трекинг в реальном времени',
-      ],
+      items: ['Свои курьеры', 'Яндекс', 'Трекинг'],
       color: 'text-orange-600',
       bgColor: 'bg-orange-50',
     },
@@ -90,127 +68,123 @@ export function ProcessFlow() {
       id: 'analytics',
       title: 'Аналитика',
       icon: <BarChart3 className="h-6 w-6" />,
-      items: [
-        'Дашборды',
-        'Отчёты',
-        'AI-прогнозы',
-        'KPI и метрики',
-      ],
+      items: ['Дашборды', 'Отчёты', 'AI-прогнозы'],
       color: 'text-indigo-600',
       bgColor: 'bg-indigo-50',
     },
   ]
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.95 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  }
+
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-      <div className="container mx-auto max-w-7xl">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-brand-darkBlue mb-4">
-            Полная цепочка от заказа до аналитики
+    <section ref={ref} className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden">
+      <div className="container mx-auto max-w-6xl">
+        {/* Header */}
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl lg:text-4xl font-bold text-brand-darkBlue mb-3 tracking-tight">
+            Как это работает
           </h2>
-          <p className="text-xl text-brand-darkBlue/80 max-w-3xl mx-auto">
-            Все этапы работы с заказами в единой платформе — от приёма заказа до аналитики и оптимизации
+          <p className="text-lg text-brand-darkBlue/70 max-w-2xl mx-auto">
+            Полная цепочка от заказа до аналитики в единой платформе
           </p>
-        </div>
+        </motion.div>
 
-        {/* Desktop Flow */}
-        <div className="hidden lg:block">
-          <div className="relative bg-gradient-to-r from-brand-lightBlue/30 via-brand-lightBeige/30 to-brand-lightBlue/30 rounded-2xl p-8 border-2 border-brand-lightTeal/20">
-            {/* Flow Line */}
-            <div className="absolute top-1/2 left-8 right-8 h-1 bg-gradient-to-r from-blue-300 via-brand-darkBlue to-indigo-300 transform -translate-y-1/2 z-0" />
-            
-            {/* Steps */}
-            <div className="relative flex justify-between items-start py-8">
-              {flowSteps.map((step, idx) => (
-                <div key={step.id} className="flex flex-col items-center flex-1 relative">
-                  {/* Arrow between steps */}
-                  {idx < flowSteps.length - 1 && (
-                    <div className="absolute top-12 left-[60%] w-[80%] h-0.5 bg-brand-darkBlue/20 z-0" />
-                  )}
-                  
-                  {/* Step Circle */}
-                  <div className={`relative z-10 w-24 h-24 ${step.bgColor} rounded-full flex items-center justify-center ${step.color} border-4 border-white shadow-xl mb-4 transition-transform hover:scale-110`}>
-                    {step.icon}
-                  </div>
-                  
-                  {/* Step Number */}
-                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-brand-darkBlue text-white rounded-full flex items-center justify-center text-sm font-bold z-20">
-                    {idx + 1}
-                  </div>
-                  
-                  {/* Step Title */}
-                  <h3 className="text-lg font-bold text-brand-darkBlue mb-4 text-center">
-                    {step.title}
-                  </h3>
-                  
-                  {/* Step Items */}
-                  <div className="w-full max-w-[200px]">
-                    <ul className="space-y-2">
-                      {step.items.map((item, itemIdx) => (
-                        <li
-                          key={itemIdx}
-                          className="text-xs text-brand-darkBlue/80 bg-white rounded-lg px-3 py-2 border border-brand-lightTeal/30 shadow-sm hover:shadow-md transition-shadow"
-                        >
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+        {/* Flow Steps */}
+        <motion.div 
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
+          {flowSteps.map((step, idx) => (
+            <motion.div 
+              key={step.id}
+              variants={itemVariants}
+              className="relative group"
+            >
+              {/* Arrow between steps */}
+              {idx < flowSteps.length - 1 && (
+                <div className="hidden lg:block absolute top-10 -right-2 z-20">
+                  <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={isInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ delay: 0.5 + idx * 0.1 }}
+                  >
+                    <ArrowRight className="w-4 h-4 text-brand-darkBlue/30" />
+                  </motion.div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
+              )}
 
-        {/* Mobile/Tablet Flow */}
-        <div className="lg:hidden">
-          <div className="space-y-8">
-            {flowSteps.map((step, idx) => (
-              <div key={step.id} className="relative">
-                {/* Connection Line */}
-                {idx < flowSteps.length - 1 && (
-                  <div className="absolute left-10 top-20 bottom-0 w-0.5 bg-gradient-to-b from-brand-lightBlue to-brand-lightTeal z-0" />
-                )}
-                
-                <div className="relative flex items-start gap-6">
-                  {/* Step Circle */}
-                  <div className={`relative z-10 w-16 h-16 ${step.bgColor} rounded-full flex items-center justify-center ${step.color} border-4 border-white shadow-lg flex-shrink-0`}>
-                    {step.icon}
-                  </div>
-                  
-                  {/* Step Content */}
-                  <div className="flex-1 pt-2">
-                    <h3 className="text-xl font-semibold text-brand-darkBlue mb-4">
-                      {step.title}
-                    </h3>
-                    <ul className="space-y-2">
-                      {step.items.map((item, itemIdx) => (
-                        <li
-                          key={itemIdx}
-                          className="text-sm text-brand-darkBlue/70 bg-white rounded-lg px-4 py-2 border border-brand-lightTeal/30 shadow-sm"
-                        >
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+              <div className="bg-white rounded-xl p-4 border border-brand-lightTeal/30 hover:border-brand-darkBlue/20 hover:shadow-md transition-all duration-300 h-full">
+                {/* Icon */}
+                <motion.div 
+                  className={`w-12 h-12 ${step.bgColor} rounded-xl flex items-center justify-center ${step.color} mb-3 group-hover:scale-110 transition-transform duration-300`}
+                  whileHover={{ rotate: [0, -5, 5, 0] }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {step.icon}
+                </motion.div>
+
+                {/* Title */}
+                <h3 className="text-sm font-semibold text-brand-darkBlue mb-2">
+                  {step.title}
+                </h3>
+
+                {/* Items */}
+                <ul className="space-y-1">
+                  {step.items.map((item, itemIdx) => (
+                    <motion.li
+                      key={itemIdx}
+                      className="text-xs text-brand-darkBlue/60"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={isInView ? { opacity: 1, x: 0 } : {}}
+                      transition={{ delay: 0.3 + idx * 0.1 + itemIdx * 0.05 }}
+                    >
+                      • {item}
+                    </motion.li>
+                  ))}
+                </ul>
               </div>
-            ))}
-          </div>
-        </div>
+            </motion.div>
+          ))}
+        </motion.div>
 
         {/* Summary */}
-        <div className="mt-16 bg-gradient-to-r from-brand-lightBlue via-brand-lightBeige to-brand-lightBlue rounded-2xl p-8 border-2 border-brand-darkBlue/10 shadow-lg">
-          <p className="text-center text-xl font-semibold text-brand-darkBlue leading-relaxed">
-            Поток заказов от всех источников до клиента через единую платформу Delever
-          </p>
-          <p className="text-center text-brand-darkBlue/70 mt-3">
+        <motion.div 
+          className="mt-12 bg-brand-lightBlue/30 rounded-2xl p-6 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.8, duration: 0.5 }}
+        >
+          <p className="text-brand-darkBlue font-medium">
             Все этапы автоматизированы и синхронизированы в реальном времени
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   )
 }
-

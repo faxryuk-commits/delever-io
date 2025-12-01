@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { 
   ShoppingCart, 
   Truck, 
@@ -17,33 +17,63 @@ const products = [
     title: 'Каналы продаж',
     description: 'Сайт, приложение, Telegram-бот — все заказы в одной системе без комиссий.',
     link: '/products/channels',
+    color: 'from-blue-500 to-blue-600',
   },
   {
     icon: Truck,
     title: 'Операции',
     description: 'Диспетчеризация, курьеры, кухня — автоматизация снижает ошибки на 30%.',
     link: '/products/operations',
+    color: 'from-green-500 to-green-600',
   },
   {
     icon: BarChart3,
     title: 'Аналитика',
     description: 'Дашборды, отчёты, AI-прогнозы — решения на основе данных.',
     link: '/products/analytics',
+    color: 'from-purple-500 to-purple-600',
   },
   {
     icon: Megaphone,
     title: 'Маркетинг',
     description: 'RFM-анализ, рассылки, лояльность — рост среднего чека на 25%.',
     link: '/products/marketing',
+    color: 'from-orange-500 to-orange-600',
   },
+]
+
+const stats = [
+  { value: '40+', label: 'Интеграций' },
+  { value: '99.9%', label: 'Uptime' },
+  { value: '24/7', label: 'Поддержка' },
+  { value: '1 нед', label: 'Запуск' },
 ]
 
 export function Products() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  }
 
   return (
     <>
-      <div className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8">
+      <div ref={ref} className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8">
         {/* Hero */}
         <section className="container mx-auto max-w-5xl mb-16">
           <motion.div 
@@ -52,6 +82,14 @@ export function Products() {
             transition={{ duration: 0.5 }}
             className="text-center"
           >
+            <motion.span 
+              className="inline-block bg-brand-lightBlue text-brand-darkBlue text-sm font-medium px-4 py-1.5 rounded-full mb-4"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              Единая платформа
+            </motion.span>
             <h1 className="text-4xl lg:text-5xl font-bold text-brand-darkBlue mb-4 tracking-tight">
               Продукты платформы
             </h1>
@@ -63,28 +101,38 @@ export function Products() {
 
         {/* Products Grid */}
         <section className="container mx-auto max-w-5xl mb-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
             {products.map((product, idx) => {
               const Icon = product.icon
               return (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: idx * 0.1 }}
-                >
+                <motion.div key={idx} variants={itemVariants}>
                   <Link
                     to={product.link}
-                    className="group block bg-white rounded-xl p-6 border border-brand-lightTeal/30 hover:border-brand-darkBlue/20 transition-all duration-200 h-full"
+                    className="group block bg-white rounded-xl p-6 border border-brand-lightTeal/30 hover:border-brand-darkBlue/20 hover:shadow-lg transition-all duration-300 h-full"
                   >
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-brand-lightBlue flex items-center justify-center text-brand-darkBlue flex-shrink-0 group-hover:bg-brand-darkBlue group-hover:text-white transition-colors">
-                        <Icon className="h-6 w-6" />
-                      </div>
+                      <motion.div 
+                        className={`w-14 h-14 rounded-xl bg-gradient-to-br ${product.color} flex items-center justify-center text-white flex-shrink-0 shadow-lg`}
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        <Icon className="h-7 w-7" />
+                      </motion.div>
                       <div className="flex-1 min-w-0">
                         <h3 className="text-lg font-semibold text-brand-darkBlue mb-2 flex items-center gap-2">
                           {product.title}
-                          <ArrowRight className="h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                          <motion.span
+                            initial={{ opacity: 0, x: -10 }}
+                            whileHover={{ opacity: 1, x: 0 }}
+                            className="opacity-0 group-hover:opacity-100 transition-opacity"
+                          >
+                            <ArrowRight className="h-4 w-4" />
+                          </motion.span>
                         </h3>
                         <p className="text-sm text-brand-darkBlue/60 leading-relaxed">
                           {product.description}
@@ -95,43 +143,51 @@ export function Products() {
                 </motion.div>
               )
             })}
-          </div>
+          </motion.div>
         </section>
 
-        {/* Features Overview */}
+        {/* Stats */}
         <section className="container mx-auto max-w-5xl mb-16">
-          <div className="bg-brand-lightBlue/30 rounded-2xl p-8 lg:p-12">
+          <motion.div 
+            className="bg-brand-lightBlue/30 rounded-2xl p-8"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ delay: 0.5, duration: 0.5 }}
+          >
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-              <div>
-                <div className="text-3xl font-bold text-brand-darkBlue mb-1">40+</div>
-                <div className="text-sm text-brand-darkBlue/60">Интеграций</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-brand-darkBlue mb-1">99.9%</div>
-                <div className="text-sm text-brand-darkBlue/60">Uptime</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-brand-darkBlue mb-1">24/7</div>
-                <div className="text-sm text-brand-darkBlue/60">Поддержка</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-brand-darkBlue mb-1">1 нед</div>
-                <div className="text-sm text-brand-darkBlue/60">Запуск</div>
-              </div>
+              {stats.map((stat, idx) => (
+                <motion.div 
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.6 + idx * 0.1 }}
+                >
+                  <div className="text-3xl font-bold text-brand-darkBlue mb-1">{stat.value}</div>
+                  <div className="text-sm text-brand-darkBlue/60">{stat.label}</div>
+                </motion.div>
+              ))}
             </div>
-          </div>
+          </motion.div>
         </section>
 
         {/* CTA */}
         <section className="container mx-auto max-w-3xl">
-          <div className="bg-brand-darkBlue rounded-2xl p-8 lg:p-12 text-center">
+          <motion.div 
+            className="bg-brand-darkBlue rounded-2xl p-8 lg:p-12 text-center"
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.8, duration: 0.5 }}
+          >
             <h2 className="text-2xl lg:text-3xl font-bold mb-3 text-white tracking-tight">
               Готовы начать?
             </h2>
             <p className="text-white/70 mb-6">
               Запустите собственную доставку за неделю
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
               <Button
                 size="lg"
                 variant="secondary"
@@ -140,8 +196,8 @@ export function Products() {
                 Получить демо
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </section>
       </div>
 
