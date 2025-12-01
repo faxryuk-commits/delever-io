@@ -4,14 +4,13 @@ import { useLocale } from '@/i18n/LocaleContext'
 // Клиенты с логотипами
 const clients = [
   { name: 'Pizza Hut', logo: '/logos/pizza-hut-logo-png_seeklogo-257097.png' },
-  { name: 'Dodo Pizza', logo: '/logos/dodo.png' },
+  { name: 'Dodo Pizza', logo: '/logos/dodopizza.gif' },
   { name: 'EVOS', logo: '/logos/evos.png' },
   { name: 'MAXWAY', logo: '/logos/maxway.png' },
   { name: 'Yaponamama', logo: '/logos/yapona.png' },
   { name: 'ABR', logo: '/logos/abr.png' },
   { name: 'Pinkberry', logo: '/logos/pinkberry.png' },
   { name: 'Hardees', logo: '/logos/hardees.jpg' },
-  { name: 'Travellers Coffee', logo: '/logos/travellers coffe.jpg' },
 ]
 
 export function Clients() {
@@ -32,7 +31,7 @@ export function Clients() {
 
         {/* Logos Container */}
         <motion.div 
-          className="flex flex-wrap justify-center items-center gap-x-10 gap-y-8 lg:gap-x-16"
+          className="flex flex-wrap justify-center items-center gap-x-6 gap-y-6 lg:gap-x-10"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -51,7 +50,7 @@ export function Clients() {
               <img
                 src={client.logo}
                 alt={client.name}
-                className="h-10 lg:h-12 w-auto max-w-[120px] lg:max-w-[140px] object-contain grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300"
+                className="h-8 lg:h-10 w-auto max-w-[100px] lg:max-w-[120px] object-contain grayscale hover:grayscale-0 opacity-50 hover:opacity-100 transition-all duration-300"
                 style={{
                   filter: 'grayscale(100%)',
                 }}
