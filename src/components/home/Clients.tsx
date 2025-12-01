@@ -1,27 +1,26 @@
 import { motion } from 'framer-motion'
 import { useLocale } from '@/i18n/LocaleContext'
 
-// Клиенты с логотипами
+// Клиенты с логотипами (порядок по запросу)
 const clients = [
   { name: 'Pizza Hut', logo: '/logos/pizza-hut-logo-png_seeklogo-257097.png' },
+  { name: 'Hardees', logo: '/logos/hardees.jpg' },
+  { name: 'Pinkberry', logo: '/logos/pinkberry.png' },
   { name: 'Dodo Pizza', logo: '/logos/dodo.png' },
+  { name: 'ABR', logo: '/logos/abr.png' },
   { name: 'EVOS', logo: '/logos/evos.png' },
   { name: 'MAXWAY', logo: '/logos/maxway.png' },
-  { name: 'Yaponamama', logo: '/logos/yapona.png' },
-  { name: 'ABR', logo: '/logos/abr.png' },
-  { name: 'Pinkberry', logo: '/logos/pinkberry.png' },
-  { name: 'Hardees', logo: '/logos/hardees.jpg' },
 ]
 
 export function Clients() {
   const { t } = useLocale()
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-brand-lightBeige/20">
-      <div className="container mx-auto max-w-6xl">
+    <section className="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-brand-lightBeige/20">
+      <div className="container mx-auto max-w-5xl">
         {/* Title */}
         <motion.p 
-          className="text-center text-sm text-brand-darkBlue/50 uppercase tracking-widest font-medium mb-10"
+          className="text-center text-sm text-brand-darkBlue/50 uppercase tracking-widest font-medium mb-8"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -31,7 +30,7 @@ export function Clients() {
 
         {/* Logos Container */}
         <motion.div 
-          className="flex flex-wrap justify-center items-center gap-x-6 gap-y-6 lg:gap-x-10"
+          className="flex flex-wrap justify-center items-center gap-x-8 gap-y-6 lg:gap-x-12"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -77,28 +76,6 @@ export function Clients() {
               />
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* Stats below logos */}
-        <motion.div 
-          className="mt-12 pt-10 border-t border-brand-lightTeal/10 flex flex-wrap justify-center gap-8 lg:gap-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-        >
-          <div className="text-center">
-            <div className="text-3xl lg:text-4xl font-bold text-brand-darkBlue">500+</div>
-            <div className="text-sm text-brand-darkBlue/50 mt-1">{t('clients.businesses')}</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl lg:text-4xl font-bold text-brand-darkBlue">7</div>
-            <div className="text-sm text-brand-darkBlue/50 mt-1">{t('clients.countries')}</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl lg:text-4xl font-bold text-brand-darkBlue">$100M+</div>
-            <div className="text-sm text-brand-darkBlue/50 mt-1">{t('clients.sales')}</div>
-          </div>
         </motion.div>
       </div>
     </section>
