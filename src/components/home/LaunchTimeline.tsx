@@ -20,10 +20,11 @@ function TimelineStep({
   isActive, 
   isCompleted,
   onClick,
-  t
+  t,
+  totalSteps
 }: { 
   step: {
-    day: string
+    stepNum: number
     titleKey: string
     descKey: string
     icon: React.ComponentType<{ className?: string }>
@@ -35,6 +36,7 @@ function TimelineStep({
   isCompleted: boolean
   onClick: () => void
   t: (key: string) => string
+  totalSteps: number
 }) {
   const Icon = step.icon
 
@@ -43,46 +45,61 @@ function TimelineStep({
       className="relative flex flex-col items-center cursor-pointer group"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.15, duration: 0.5 }}
+      transition={{ delay: index * 0.1, duration: 0.4 }}
       onClick={onClick}
     >
       {/* Connector line */}
-      {index < 4 && (
-        <div className="absolute top-7 left-1/2 w-full h-0.5 bg-brand-lightTeal/30 hidden lg:block">
+      {index < totalSteps - 1 && (
+        <div className="absolute top-7 left-1/2 w-full h-1 bg-brand-lightTeal/20 hidden lg:block rounded-full overflow-hidden">
           <motion.div 
-            className="h-full bg-emerald-500"
+            className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full"
             initial={{ width: 0 }}
             animate={{ width: isCompleted ? '100%' : '0%' }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
           />
         </div>
       )}
       
+      {/* Step number badge */}
+      <motion.div
+        className={`absolute -top-2 -right-1 w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center z-20 ${
+          isCompleted 
+            ? 'bg-emerald-500 text-white' 
+            : isActive 
+              ? 'bg-brand-darkBlue text-white'
+              : 'bg-brand-lightTeal/30 text-brand-darkBlue/50'
+        }`}
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: index * 0.1 + 0.2 }}
+      >
+        {isCompleted ? '✓' : step.stepNum}
+      </motion.div>
+      
       {/* Icon */}
       <motion.div 
-        className={`relative z-10 w-14 h-14 rounded-xl flex items-center justify-center shadow-lg transition-all duration-300 ${
+        className={`relative z-10 w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 ${
           isActive 
-            ? `bg-gradient-to-br ${step.color} text-white scale-110` 
+            ? `bg-gradient-to-br ${step.color} text-white scale-110 shadow-xl` 
             : isCompleted
-              ? 'bg-emerald-500 text-white'
-              : 'bg-white border-2 border-brand-lightTeal/30 text-brand-darkBlue/50 group-hover:border-brand-darkBlue/30'
+              ? 'bg-gradient-to-br from-emerald-400 to-emerald-500 text-white'
+              : 'bg-white border-2 border-brand-lightTeal/30 text-brand-darkBlue/40 group-hover:border-brand-darkBlue/20 group-hover:shadow-md'
         }`}
-        whileHover={{ scale: isActive ? 1.1 : 1.05 }}
+        whileHover={{ scale: isActive ? 1.1 : 1.08 }}
         whileTap={{ scale: 0.95 }}
       >
         {isCompleted && !isActive ? (
-          <CheckCircle2 className="h-6 w-6" />
+          <CheckCircle2 className="h-6 w-6 lg:h-7 lg:w-7" />
         ) : (
-          <Icon className="h-6 w-6" />
+          <Icon className="h-6 w-6 lg:h-7 lg:w-7" />
         )}
       </motion.div>
 
       {/* Label */}
-      <div className="mt-3 text-center">
-        <div className={`text-xs font-medium mb-1 ${isActive ? 'text-brand-darkBlue' : 'text-brand-darkBlue/50'}`}>
-          {t('timeline.day')} {step.day}
-        </div>
-        <div className={`text-sm font-semibold ${isActive ? 'text-brand-darkBlue' : 'text-brand-darkBlue/70'}`}>
+      <div className="mt-4 text-center">
+        <div className={`text-sm lg:text-base font-semibold transition-colors ${
+          isActive ? 'text-brand-darkBlue' : isCompleted ? 'text-emerald-600' : 'text-brand-darkBlue/60'
+        }`}>
           {t(step.titleKey)}
         </div>
       </div>
@@ -99,7 +116,7 @@ export function LaunchTimeline() {
 
   const timelineSteps = [
     {
-      day: '1',
+      stepNum: 1,
       titleKey: 'timeline.step1Title',
       descKey: 'timeline.step1Desc',
       icon: FileText,
@@ -107,7 +124,7 @@ export function LaunchTimeline() {
       detailKeys: ['timeline.step1Detail1', 'timeline.step1Detail2', 'timeline.step1Detail3'],
     },
     {
-      day: '2-3',
+      stepNum: 2,
       titleKey: 'timeline.step2Title',
       descKey: 'timeline.step2Desc',
       icon: Palette,
@@ -115,7 +132,7 @@ export function LaunchTimeline() {
       detailKeys: ['timeline.step2Detail1', 'timeline.step2Detail2', 'timeline.step2Detail3'],
     },
     {
-      day: '4-5',
+      stepNum: 3,
       titleKey: 'timeline.step3Title',
       descKey: 'timeline.step3Desc',
       icon: Smartphone,
@@ -123,7 +140,7 @@ export function LaunchTimeline() {
       detailKeys: ['timeline.step3Detail1', 'timeline.step3Detail2', 'timeline.step3Detail3'],
     },
     {
-      day: '6',
+      stepNum: 4,
       titleKey: 'timeline.step4Title',
       descKey: 'timeline.step4Desc',
       icon: Link2,
@@ -131,7 +148,7 @@ export function LaunchTimeline() {
       detailKeys: ['timeline.step4Detail1', 'timeline.step4Detail2', 'timeline.step4Detail3'],
     },
     {
-      day: '7',
+      stepNum: 5,
       titleKey: 'timeline.step5Title',
       descKey: 'timeline.step5Desc',
       icon: Rocket,
@@ -146,7 +163,7 @@ export function LaunchTimeline() {
     
     const timer = setInterval(() => {
       setActiveStep(prev => (prev + 1) % timelineSteps.length)
-    }, 4000)
+    }, 3500)
 
     return () => clearInterval(timer)
   }, [isInView, timelineSteps.length])
@@ -156,17 +173,17 @@ export function LaunchTimeline() {
 
   return (
     <>
-      <section ref={ref} className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden">
+      <section ref={ref} className="py-20 lg:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-brand-lightBeige/30 overflow-hidden">
         <div className="container mx-auto max-w-5xl">
           {/* Header */}
           <motion.div 
-            className="text-center mb-12 lg:mb-16"
+            className="text-center mb-14 lg:mb-20"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
           >
             <motion.div 
-              className="inline-flex items-center gap-2 bg-brand-lightBlue text-brand-darkBlue text-sm font-medium px-4 py-1.5 rounded-full mb-4"
+              className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 text-sm font-semibold px-4 py-2 rounded-full mb-5"
               initial={{ scale: 0.9 }}
               animate={isInView ? { scale: 1 } : {}}
               transition={{ delay: 0.2 }}
@@ -174,16 +191,16 @@ export function LaunchTimeline() {
               <Sparkles className="w-4 h-4" />
               {t('timeline.badge')}
             </motion.div>
-            <h2 className="text-3xl lg:text-4xl font-bold text-brand-darkBlue mb-3 tracking-tight">
+            <h2 className="text-3xl lg:text-5xl font-bold text-brand-darkBlue mb-4 tracking-tight">
               {t('timeline.title')} <span className="text-emerald-500">{t('timeline.titleHighlight')}</span>
             </h2>
-            <p className="text-lg text-brand-darkBlue/70 max-w-xl mx-auto">
+            <p className="text-lg text-brand-darkBlue/60 max-w-xl mx-auto">
               {t('timeline.subtitle')}
             </p>
           </motion.div>
 
-          {/* Timeline */}
-          <div className="grid grid-cols-5 gap-2 lg:gap-4 mb-10">
+          {/* Timeline Steps */}
+          <div className="grid grid-cols-5 gap-2 lg:gap-6 mb-12">
             {timelineSteps.map((step, index) => (
               <TimelineStep
                 key={index}
@@ -193,47 +210,66 @@ export function LaunchTimeline() {
                 isCompleted={index < activeStep}
                 onClick={() => setActiveStep(index)}
                 t={t}
+                totalSteps={timelineSteps.length}
               />
             ))}
+          </div>
+
+          {/* Progress bar */}
+          <div className="max-w-2xl mx-auto mb-10">
+            <div className="h-2 bg-brand-lightTeal/20 rounded-full overflow-hidden">
+              <motion.div 
+                className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full"
+                initial={{ width: '0%' }}
+                animate={{ width: `${((activeStep + 1) / timelineSteps.length) * 100}%` }}
+                transition={{ duration: 0.5 }}
+              />
+            </div>
+            <div className="flex justify-between mt-2 text-xs text-brand-darkBlue/40">
+              <span>{t('timeline.start')}</span>
+              <span>{t('timeline.ready')}</span>
+            </div>
           </div>
 
           {/* Active step details */}
           <motion.div
             key={activeStep}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 20, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="bg-white rounded-2xl p-6 lg:p-8 border border-brand-lightTeal/30 shadow-soft max-w-2xl mx-auto"
+            className="bg-white rounded-3xl p-6 lg:p-8 border border-brand-lightTeal/20 shadow-xl max-w-2xl mx-auto"
           >
-            <div className="flex items-start gap-4">
+            <div className="flex items-start gap-5">
               <motion.div 
-                className={`w-14 h-14 rounded-xl bg-gradient-to-br ${currentStep.color} flex items-center justify-center text-white shadow-lg flex-shrink-0`}
-                animate={{ rotate: [0, 5, -5, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
+                className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${currentStep.color} flex items-center justify-center text-white shadow-lg flex-shrink-0`}
+                animate={{ rotate: [0, 3, -3, 0] }}
+                transition={{ duration: 3, repeat: Infinity }}
               >
-                <CurrentIcon className="h-7 w-7" />
+                <CurrentIcon className="h-8 w-8" />
               </motion.div>
               <div className="flex-1">
-                <div className="text-xs text-brand-darkBlue/50 font-medium mb-1">
-                  {t('timeline.day')} {currentStep.day}
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xs font-bold text-white bg-brand-darkBlue px-2 py-0.5 rounded">
+                    {t('timeline.step')} {currentStep.stepNum}
+                  </span>
                 </div>
-                <h3 className="text-xl font-bold text-brand-darkBlue mb-2">
+                <h3 className="text-xl lg:text-2xl font-bold text-brand-darkBlue mb-2">
                   {t(currentStep.titleKey)}
                 </h3>
-                <p className="text-brand-darkBlue/70 mb-4">
+                <p className="text-brand-darkBlue/60 mb-5">
                   {t(currentStep.descKey)}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {currentStep.detailKeys.map((detailKey, idx) => (
                     <motion.span 
                       key={idx}
-                      className="inline-flex items-center gap-1.5 text-xs bg-brand-lightBlue/50 text-brand-darkBlue px-3 py-1.5 rounded-full"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
+                      className="inline-flex items-center gap-1.5 text-sm bg-brand-lightBlue/40 text-brand-darkBlue px-3 py-1.5 rounded-full"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: idx * 0.1 }}
                     >
-                      <CheckCircle2 className="h-3 w-3 text-emerald-500" />
+                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
                       {t(detailKey)}
                     </motion.span>
                   ))}
@@ -244,16 +280,16 @@ export function LaunchTimeline() {
 
           {/* CTA */}
           <motion.div 
-            className="text-center mt-10"
+            className="text-center mt-12"
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.8 }}
           >
-            <Button size="lg" onClick={() => setContactFormOpen(true)}>
+            <Button size="lg" onClick={() => setContactFormOpen(true)} className="shadow-lg">
               {t('timeline.cta')}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <p className="text-sm text-brand-darkBlue/50 mt-3">
+            <p className="text-sm text-brand-darkBlue/40 mt-4">
               {t('timeline.ctaSubtext')}
             </p>
           </motion.div>
