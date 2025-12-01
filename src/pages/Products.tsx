@@ -53,7 +53,7 @@ export function Products() {
     { value: '40+', labelKey: 'stats.integrations' },
     { value: '99.9%', labelKey: 'stats.uptime' },
     { value: '24/7', labelKey: 'products.support' },
-    { value: t('products.week'), labelKey: 'products.launch' },
+    { value: t('products.day'), labelKey: 'products.launch' },
   ]
 
   const containerVariants = {
@@ -184,7 +184,7 @@ export function Products() {
               {t('products.readyToStart')}
             </h2>
             <p className="text-white/70 mb-6">
-              {t('products.launchInWeek')}
+              {t('products.launchInDay')}
             </p>
             <motion.div
               whileHover={{ scale: 1.02 }}

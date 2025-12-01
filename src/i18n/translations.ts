@@ -63,7 +63,7 @@ export const translations: Record<Language, Record<string, string>> = {
     // Hero
     'hero.badge': 'Единая платформа для доставки',
     'hero.title': 'Запустите свою доставку',
-    'hero.titleHighlight': 'за неделю',
+    'hero.titleHighlight': 'за 1 день',
     'hero.description': 'Управляйте всеми каналами продаж из одного окна. Собственное приложение, сайт и Telegram-бот без комиссий агрегаторов.',
     'hero.cta': 'Начать бесплатно',
     'hero.demo': 'Смотреть демо',
@@ -174,7 +174,7 @@ export const translations: Record<Language, Record<string, string>> = {
     // Launch Timeline Component
     'timeline.badge': 'Быстрый старт',
     'timeline.title': 'Запуск за',
-    'timeline.titleHighlight': '7 дней',
+    'timeline.titleHighlight': '1 день',
     'timeline.subtitle': 'От заявки до первых заказов — всего неделя. Мы берём на себя всю техническую работу.',
     'timeline.day': 'День',
     'timeline.step1Title': 'Заявка',
@@ -395,8 +395,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'channels.fullControl': 'Полный контроль данных клиентов',
     'channels.pushAndMailing': 'Push-уведомления и рассылки',
     'channels.yourBrand': 'Ваш бренд везде',
-    'channels.launchInWeek': 'Запуск за неделю',
-    'channels.launchInWeekDesc': 'От брифа до запуска — 5-7 рабочих дней',
+    'channels.launchInWeek': 'Запуск за 1 день',
+    'channels.launchInWeekDesc': 'От брифа до запуска — 1 рабочий день',
     'channels.discussLaunch': 'Обсудить запуск',
     
     // Operations Page
@@ -473,7 +473,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'about.subtitle': 'Помогаем бизнесам запустить собственную доставку и управлять всеми каналами продаж из единой платформы',
     'about.values': 'Наши ценности',
     'about.speed': 'Скорость',
-    'about.speedDesc': 'Запуск за неделю, внедрение без простоев',
+    'about.speedDesc': 'Запуск за 1 день, внедрение без простоев',
     'about.quality': 'Качество',
     'about.qualityDesc': '99.9% uptime, надёжная инфраструктура',
     'about.support': 'Поддержка',
@@ -543,9 +543,9 @@ export const translations: Record<Language, Record<string, string>> = {
     'products.marketingDesc': 'RFM-анализ, рассылки, лояльность — рост среднего чека на 25%.',
     'products.support': 'Поддержка',
     'products.launch': 'Запуск',
-    'products.week': '1 нед',
+    'products.day': '1 день',
     'products.readyToStart': 'Готовы начать?',
-    'products.launchInWeek': 'Запустите собственную доставку за неделю',
+    'products.launchInDay': 'Запустите собственную доставку за 1 день',
     
     // Pricing Page  
     'pricing.transparentPrices': 'Прозрачные цены',
@@ -749,7 +749,7 @@ export const translations: Record<Language, Record<string, string>> = {
     // Hero
     'hero.badge': 'Unified Delivery Platform',
     'hero.title': 'Launch your delivery',
-    'hero.titleHighlight': 'in one week',
+    'hero.titleHighlight': 'in 1 day',
     'hero.description': 'Manage all sales channels from one dashboard. Your own app, website and Telegram bot without aggregator fees.',
     'hero.cta': 'Start Free',
     'hero.demo': 'Watch Demo',
@@ -860,8 +860,8 @@ export const translations: Record<Language, Record<string, string>> = {
     // Launch Timeline Component
     'timeline.badge': 'Quick Start',
     'timeline.title': 'Launch in',
-    'timeline.titleHighlight': '7 days',
-    'timeline.subtitle': 'From application to first orders — just one week. We handle all the technical work.',
+    'timeline.titleHighlight': '1 day',
+    'timeline.subtitle': 'From application to first orders — just 1 day. We handle all the technical work.',
     'timeline.day': 'Day',
     'timeline.step1Title': 'Application',
     'timeline.step1Desc': 'Consultation and business analysis',
@@ -1081,8 +1081,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'channels.fullControl': 'Full customer data control',
     'channels.pushAndMailing': 'Push notifications and campaigns',
     'channels.yourBrand': 'Your brand everywhere',
-    'channels.launchInWeek': 'Launch in a week',
-    'channels.launchInWeekDesc': 'From brief to launch — 5-7 business days',
+    'channels.launchInWeek': 'Launch in 1 day',
+    'channels.launchInWeekDesc': 'From brief to launch — 1 business day',
     'channels.discussLaunch': 'Discuss Launch',
     
     // Operations Page
@@ -1159,7 +1159,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'about.subtitle': 'We help businesses launch their own delivery and manage all sales channels from a unified platform',
     'about.values': 'Our Values',
     'about.speed': 'Speed',
-    'about.speedDesc': 'Launch in a week, implementation without downtime',
+    'about.speedDesc': 'Launch in 1 day, implementation without downtime',
     'about.quality': 'Quality',
     'about.qualityDesc': '99.9% uptime, reliable infrastructure',
     'about.support': 'Support',
@@ -1229,9 +1229,9 @@ export const translations: Record<Language, Record<string, string>> = {
     'products.marketingDesc': 'RFM analysis, campaigns, loyalty — 25% increase in average check.',
     'products.support': 'Support',
     'products.launch': 'Launch',
-    'products.week': '1 week',
+    'products.day': '1 day',
     'products.readyToStart': 'Ready to start?',
-    'products.launchInWeek': 'Launch your own delivery in a week',
+    'products.launchInDay': 'Launch your own delivery in 1 day',
     
     // Pricing Page  
     'pricing.transparentPrices': 'Transparent Pricing',
