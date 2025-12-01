@@ -66,21 +66,21 @@ const platformFeatures = [
   },
 ]
 
-// Дополнительные модули с ключами перевода
+// Дополнительные модули с ключами перевода (UZS для узбекского, USD для английского)
 const additionalModules = [
-  { id: 'uzum', nameKey: 'calc.module.uzum', priceUZS: 437500, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
-  { id: 'wolt', nameKey: 'calc.module.wolt', priceUZS: 437500, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
-  { id: 'yandex', nameKey: 'calc.module.yandex', priceUZS: 437500, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
-  { id: 'allAggregators', nameKey: 'calc.module.allAggregators', priceUZS: 1250000, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
-  { id: 'courier', nameKey: 'calc.module.courier', priceUZS: 375000, icon: Truck, perType: 'fixed', labelKey: '', category: 'operations' },
-  { id: 'kiosk', nameKey: 'calc.module.kiosk', priceUZS: 1125000, icon: Monitor, perType: 'kiosk', labelKey: 'calc.perPiece', category: 'operations' },
-  { id: 'marketing', nameKey: 'calc.module.marketing', priceUZS: 437500, icon: Megaphone, perType: 'brand', labelKey: 'calc.perBrand', category: 'marketing' },
-  { id: 'booking', nameKey: 'calc.module.booking', priceUZS: 250000, icon: Calendar, perType: 'brand', labelKey: 'calc.perBrand', category: 'operations' },
-  { id: 'courierApp', nameKey: 'calc.module.courierApp', priceUZS: 437500, icon: Smartphone, perType: 'brand', labelKey: 'calc.perBrand', category: 'operations' },
-  { id: 'kds', nameKey: 'calc.module.kds', priceUZS: 125000, icon: ChefHat, perType: 'branch', labelKey: 'calc.perBranch', category: 'operations' },
-  { id: 'callCenter', nameKey: 'calc.module.callCenter', priceUZS: 250000, icon: Headphones, perType: 'fixed', labelKey: '', category: 'operations' },
-  { id: 'manager', nameKey: 'calc.module.manager', priceUZS: 1875000, icon: UserCog, perType: 'brand', labelKey: 'calc.perBrand', category: 'support' },
-  { id: 'dashboard', nameKey: 'calc.module.dashboard', priceUZS: 250000, icon: LayoutDashboard, perType: 'brand', labelKey: 'calc.perBrand', category: 'analytics' },
+  { id: 'uzum', nameKey: 'calc.module.uzum', priceUZS: 260000, priceUSD: 35, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
+  { id: 'wolt', nameKey: 'calc.module.wolt', priceUZS: 260000, priceUSD: 35, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
+  { id: 'yandex', nameKey: 'calc.module.yandex', priceUZS: 260000, priceUSD: 35, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
+  { id: 'allAggregators', nameKey: 'calc.module.allAggregators', priceUZS: 650000, priceUSD: 100, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
+  { id: 'courier', nameKey: 'calc.module.courier', priceUZS: 195000, priceUSD: 30, icon: Truck, perType: 'fixed', labelKey: '', category: 'operations' },
+  { id: 'kiosk', nameKey: 'calc.module.kiosk', priceUZS: 910000, priceUSD: 90, icon: Monitor, perType: 'kiosk', labelKey: 'calc.perPiece', category: 'operations' },
+  { id: 'marketing', nameKey: 'calc.module.marketing', priceUZS: 390000, priceUSD: 35, icon: Megaphone, perType: 'brand', labelKey: 'calc.perBrand', category: 'marketing' },
+  { id: 'booking', nameKey: 'calc.module.booking', priceUZS: 130000, priceUSD: 20, icon: Calendar, perType: 'brand', labelKey: 'calc.perBrand', category: 'operations' },
+  { id: 'courierApp', nameKey: 'calc.module.courierApp', priceUZS: 260000, priceUSD: 35, icon: Smartphone, perType: 'brand', labelKey: 'calc.perBrand', category: 'operations' },
+  { id: 'kds', nameKey: 'calc.module.kds', priceUZS: 65000, priceUSD: 10, icon: ChefHat, perType: 'branch', labelKey: 'calc.perBranch', category: 'operations' },
+  { id: 'callCenter', nameKey: 'calc.module.callCenter', priceUZS: 0, priceUSD: 20, icon: Headphones, perType: 'fixed', labelKey: '', category: 'operations' },
+  { id: 'manager', nameKey: 'calc.module.manager', priceUZS: 1300000, priceUSD: 150, icon: UserCog, perType: 'brand', labelKey: 'calc.perBrand', category: 'support' },
+  { id: 'dashboard', nameKey: 'calc.module.dashboard', priceUZS: 130000, priceUSD: 20, icon: LayoutDashboard, perType: 'brand', labelKey: 'calc.perBrand', category: 'analytics' },
 ]
 
 // Единоразовые платежи
@@ -142,7 +142,7 @@ export function PricingCalculator() {
   // Агрегаторные модули для отдельной покупки
   const aggregatorModules = additionalModules.filter(m => m.category === 'aggregator')
 
-  // Функция расчёта цены модуля
+  // Функция расчёта цены модуля (возвращает UZS)
   const getModulePrice = (module: typeof additionalModules[0]) => {
     switch (module.perType) {
       case 'branch': return module.priceUZS * branches
@@ -150,6 +150,14 @@ export function PricingCalculator() {
       case 'kiosk': return module.priceUZS * Math.max(1, kiosks)
       default: return module.priceUZS
     }
+  }
+  
+  // Форматирование цены модуля (использует прямые USD цены для английского)
+  const formatModulePrice = (module: typeof additionalModules[0], multiplier: number = 1) => {
+    if (language === 'en') {
+      return `$${(module.priceUSD * multiplier).toLocaleString('en-US')}`
+    }
+    return `${(module.priceUZS * multiplier).toLocaleString('ru-RU')} so'm`
   }
 
   // Расчёт стоимости в зависимости от типа подключения
@@ -1097,7 +1105,7 @@ export function PricingCalculator() {
                     }`}
                   >
                     <span>{t(module.nameKey)}</span>
-                    <span>{formatPrice(module.priceUZS)}/{t('calc.perBranch')}</span>
+                    <span>{formatModulePrice(module)}/{t('calc.perBranch')}</span>
                   </button>
                 ))}
               </div>
@@ -1356,7 +1364,6 @@ export function PricingCalculator() {
               {additionalModules.map((module) => {
                 const Icon = module.icon
                 const isSelected = selectedModules.includes(module.id)
-                const totalPrice = getModulePrice(module)
                 let multiplier = 1
                 if (module.perType === 'branch') multiplier = branches
                 if (module.perType === 'brand') multiplier = brands
@@ -1382,8 +1389,8 @@ export function PricingCalculator() {
                         {t(module.nameKey)}
                       </div>
                       <div className={`text-xs ${isSelected ? 'text-white/70' : 'text-brand-darkBlue/50'}`}>
-                        {formatPrice(module.priceUZS)} {module.labelKey ? t(module.labelKey) : ''}
-                        {multiplier > 1 && <span className="font-medium"> × {multiplier} = {formatPrice(totalPrice)}</span>}
+                        {formatModulePrice(module)} {module.labelKey ? t(module.labelKey) : ''}
+                        {multiplier > 1 && <span className="font-medium"> × {multiplier} = {formatModulePrice(module, multiplier)}</span>}
                       </div>
                     </div>
                     {isSelected && <Check className="h-4 w-4 text-white flex-shrink-0" />}
