@@ -259,13 +259,22 @@ export function Footer() {
             <p className="text-xs text-white/50">
               © {new Date().getFullYear()} Delever. {t('footer.allRights')}
             </p>
-            <div className="flex items-center gap-6 text-xs text-white/50">
-              <Link to="#" className="hover:text-white transition-colors">
+            <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6 text-xs text-white/50">
+              <a href="/docs/TERMS%20OF%20SERVICE%20AGREEMENT.docx" target="_blank" className="hover:text-white transition-colors">
                 {t('footer.terms')}
-              </Link>
-              <Link to="#" className="hover:text-white transition-colors">
+              </a>
+              <a href="/docs/PRIVACY%20POLICY.docx" target="_blank" className="hover:text-white transition-colors">
                 {t('footer.privacy')}
-              </Link>
+              </a>
+              <a href="/docs/ACCEPTABLE%20USE%20POLICY.docx" target="_blank" className="hover:text-white transition-colors">
+                {t('footer.acceptableUse')}
+              </a>
+              <a href="/docs/SERVICE%20LEVEL%20AGREEMENT.docx" target="_blank" className="hover:text-white transition-colors">
+                {t('footer.sla')}
+              </a>
+              <a href="/docs/SUPPORT%20POLICY.docx" target="_blank" className="hover:text-white transition-colors">
+                {t('footer.supportPolicy')}
+              </a>
             </div>
           </div>
         </div>

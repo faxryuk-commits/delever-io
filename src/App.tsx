@@ -6,6 +6,7 @@ import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { ScrollToTop } from './components/ScrollToTop'
 import { ChatWidget } from './components/ChatWidget'
+import { CookieConsent } from './components/CookieConsent'
 import { Home } from './pages/Home'
 import { Products } from './pages/Products'
 import { Pricing } from './pages/Pricing'
@@ -48,6 +49,7 @@ function App() {
             <Footer />
           </div>
           <ChatWidget />
+          <CookieConsent />
           <Toaster position="top-right" />
         </BrowserRouter>
       </Tooltip.Provider>

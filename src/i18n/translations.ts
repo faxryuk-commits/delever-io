@@ -135,6 +135,9 @@ export const translations: Record<Language, Record<string, string>> = {
     'footer.allRights': 'Все права защищены',
     'footer.terms': 'Условия использования',
     'footer.privacy': 'Политика конфиденциальности',
+    'footer.acceptableUse': 'Допустимое использование',
+    'footer.sla': 'SLA',
+    'footer.supportPolicy': 'Политика поддержки',
     'footer.platformOverview': 'Обзор платформы',
     'footer.salesChannels': 'Каналы продаж',
     'footer.deliveryOps': 'Операции доставки',
@@ -732,6 +735,13 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.contact': 'Связаться',
     'common.country': 'Страна',
     'common.language': 'Язык',
+    
+    // Cookies
+    'cookies.title': 'Мы используем cookies',
+    'cookies.description': 'Мы используем файлы cookie для улучшения работы сайта и анализа трафика. Продолжая использовать сайт, вы соглашаетесь с нашей',
+    'cookies.privacyLink': 'Политикой конфиденциальности',
+    'cookies.acceptAll': 'Принять все',
+    'cookies.necessary': 'Только необходимые',
   },
   
   en: {
@@ -842,6 +852,9 @@ export const translations: Record<Language, Record<string, string>> = {
     'footer.allRights': 'All rights reserved',
     'footer.terms': 'Terms of Service',
     'footer.privacy': 'Privacy Policy',
+    'footer.acceptableUse': 'Acceptable Use',
+    'footer.sla': 'SLA',
+    'footer.supportPolicy': 'Support Policy',
     'footer.platformOverview': 'Platform Overview',
     'footer.salesChannels': 'Sales Channels',
     'footer.deliveryOps': 'Delivery Operations',
@@ -1439,6 +1452,13 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.contact': 'Contact',
     'common.country': 'Country',
     'common.language': 'Language',
+    
+    // Cookies
+    'cookies.title': 'We use cookies',
+    'cookies.description': 'We use cookies to improve your experience and analyze traffic. By continuing to use our site, you agree to our',
+    'cookies.privacyLink': 'Privacy Policy',
+    'cookies.acceptAll': 'Accept all',
+    'cookies.necessary': 'Necessary only',
   },
 }
 
