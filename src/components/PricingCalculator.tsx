@@ -61,21 +61,21 @@ const platformFeatures = [
   },
 ]
 
-// Дополнительные модули
+// Дополнительные модули (фиксированные цены)
 const additionalModules = [
-  { id: 'uzum', name: 'Uzum Tezkor', priceUZS: 260000, icon: Layers, perBranch: true },
-  { id: 'wolt', name: 'Wolt', priceUZS: 260000, icon: Layers, perBranch: true },
-  { id: 'yandex', name: 'Яндекс Еда', priceUZS: 260000, icon: Layers, perBranch: true },
-  { id: 'allAggregators', name: 'Агрегатор (все)', priceUZS: 650000, icon: Layers, perBranch: true },
-  { id: 'courier', name: 'Курьер сервис', priceUZS: 195000, icon: Truck, perBranch: false },
-  { id: 'kiosk', name: 'Киоск', priceUZS: 910000, icon: Monitor, perBranch: true },
-  { id: 'marketing', name: 'Маркетинг', priceUZS: 390000, icon: Megaphone, perBranch: false },
-  { id: 'booking', name: 'Бронь', priceUZS: 130000, icon: Calendar, perBranch: false },
-  { id: 'courierApp', name: 'Курьерское приложение', priceUZS: 260000, icon: Smartphone, perBranch: false },
-  { id: 'kds', name: 'Кухня (KDS)', priceUZS: 65000, icon: ChefHat, perBranch: true },
-  { id: 'callCenter', name: 'Колл-центр', priceUZS: 0, icon: Headphones, perBranch: false },
-  { id: 'manager', name: 'Выделенный менеджер', priceUZS: 1300000, icon: UserCog, perBranch: false },
-  { id: 'dashboard', name: 'Дашборд', priceUZS: 130000, icon: LayoutDashboard, perBranch: false },
+  { id: 'uzum', name: 'Uzum Tezkor', priceUZS: 260000, icon: Layers },
+  { id: 'wolt', name: 'Wolt', priceUZS: 260000, icon: Layers },
+  { id: 'yandex', name: 'Яндекс Еда', priceUZS: 260000, icon: Layers },
+  { id: 'allAggregators', name: 'Агрегатор (все)', priceUZS: 650000, icon: Layers },
+  { id: 'courier', name: 'Курьер сервис', priceUZS: 195000, icon: Truck },
+  { id: 'kiosk', name: 'Киоск', priceUZS: 910000, icon: Monitor },
+  { id: 'marketing', name: 'Маркетинг', priceUZS: 390000, icon: Megaphone },
+  { id: 'booking', name: 'Бронь', priceUZS: 130000, icon: Calendar },
+  { id: 'courierApp', name: 'Курьерское приложение', priceUZS: 260000, icon: Smartphone },
+  { id: 'kds', name: 'Кухня (KDS)', priceUZS: 65000, icon: ChefHat },
+  { id: 'callCenter', name: 'Колл-центр', priceUZS: 0, icon: Headphones },
+  { id: 'manager', name: 'Выделенный менеджер', priceUZS: 1300000, icon: UserCog },
+  { id: 'dashboard', name: 'Дашборд', priceUZS: 130000, icon: LayoutDashboard },
 ]
 
 // Единоразовые платежи
@@ -109,11 +109,7 @@ export function PricingCalculator() {
     selectedModules.forEach(moduleId => {
       const module = additionalModules.find(m => m.id === moduleId)
       if (module) {
-        if (module.perBranch) {
-          monthly += module.priceUZS * branches
-        } else {
-          monthly += module.priceUZS
-        }
+        monthly += module.priceUZS
       }
     })
     
@@ -314,7 +310,6 @@ export function PricingCalculator() {
               {additionalModules.map((module) => {
                 const Icon = module.icon
                 const isSelected = selectedModules.includes(module.id)
-                const modulePrice = module.perBranch ? module.priceUZS * branches : module.priceUZS
                 
                 return (
                   <button
@@ -336,10 +331,7 @@ export function PricingCalculator() {
                         {module.name}
                       </div>
                       <div className={`text-sm ${isSelected ? 'text-white/70' : 'text-brand-darkBlue/50'}`}>
-                        {formatPrice(modulePrice)}/мес
-                        {module.perBranch && branches > 1 && (
-                          <span className="ml-1">×{branches}</span>
-                        )}
+                        {formatPrice(module.priceUZS)}/мес
                       </div>
                     </div>
                     {isSelected && <Check className="h-5 w-5 text-white flex-shrink-0" />}
@@ -416,14 +408,10 @@ export function PricingCalculator() {
                 {selectedModules.map(moduleId => {
                   const module = additionalModules.find(m => m.id === moduleId)
                   if (!module) return null
-                  const price = module.perBranch ? module.priceUZS * branches : module.priceUZS
                   return (
                     <div key={moduleId} className="flex justify-between text-sm py-1">
-                      <span className="text-brand-darkBlue/70">
-                        {module.name}
-                        {module.perBranch && branches > 1 && <span className="text-xs ml-1">×{branches}</span>}
-                      </span>
-                      <span className="text-brand-darkBlue">{formatPrice(price)}</span>
+                      <span className="text-brand-darkBlue/70">{module.name}</span>
+                      <span className="text-brand-darkBlue">{formatPrice(module.priceUZS)}</span>
                     </div>
                   )
                 })}
