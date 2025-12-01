@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { MapPin, Linkedin, Globe, ChevronDown, Send, Instagram } from 'lucide-react'
+import { MapPin, Linkedin, Globe, ChevronDown, Send, Instagram, Phone, Mail } from 'lucide-react'
 import { Logo } from './Logo'
 import { useState } from 'react'
 
@@ -54,26 +54,94 @@ export function Footer() {
               </a>
             </div>
 
-            {/* Language & Region Selectors */}
-            <div className="space-y-3">
-              <div className="relative">
-                <button
-                  onClick={() => setLanguageOpen(!languageOpen)}
-                  className="w-full px-4 py-2 border border-white/20 rounded-lg flex items-center justify-between hover:border-white/40 transition-colors text-sm"
-                >
-                  <div className="flex items-center space-x-2">
-                    <Globe className="h-4 w-4" />
-                    <span>Русский</span>
-                  </div>
-                  <ChevronDown className={`h-4 w-4 transition-transform ${languageOpen ? 'rotate-180' : ''}`} />
-                </button>
-              </div>
+            {/* Language Selector */}
+            <div className="relative">
+              <button
+                onClick={() => setLanguageOpen(!languageOpen)}
+                className="w-full px-4 py-2 border border-white/20 rounded-lg flex items-center justify-between hover:border-white/40 transition-colors text-sm"
+              >
+                <div className="flex items-center space-x-2">
+                  <Globe className="h-4 w-4" />
+                  <span>Русский</span>
+                </div>
+                <ChevronDown className={`h-4 w-4 transition-transform ${languageOpen ? 'rotate-180' : ''}`} />
+              </button>
             </div>
           </div>
 
-          {/* Resources */}
+          {/* Продукты */}
           <div>
-            <h3 className="text-white font-semibold mb-4 text-base">Ресурсы</h3>
+            <h3 className="text-white font-semibold mb-4 text-base">Продукты</h3>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <Link to="/products" className="text-white/70 hover:text-white transition-colors">
+                  Обзор платформы
+                </Link>
+              </li>
+              <li>
+                <Link to="/products/channels" className="text-white/70 hover:text-white transition-colors">
+                  Каналы продаж
+                </Link>
+              </li>
+              <li>
+                <Link to="/products/operations" className="text-white/70 hover:text-white transition-colors">
+                  Операции доставки
+                </Link>
+              </li>
+              <li>
+                <Link to="/products/analytics" className="text-white/70 hover:text-white transition-colors">
+                  Аналитика
+                </Link>
+              </li>
+              <li>
+                <Link to="/products/marketing" className="text-white/70 hover:text-white transition-colors">
+                  Маркетинг и CRM
+                </Link>
+              </li>
+              <li>
+                <Link to="/white-label" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
+                  White Label приложение
+                  <span className="text-[10px] bg-emerald-500 text-white px-1.5 py-0.5 rounded">NEW</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Интеграции */}
+          <div>
+            <h3 className="text-white font-semibold mb-4 text-base">Интеграции</h3>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <Link to="/integrations" className="text-white/70 hover:text-white transition-colors">
+                  Все интеграции (40+)
+                </Link>
+              </li>
+              <li>
+                <Link to="/integrations" className="text-white/70 hover:text-white transition-colors">
+                  POS-системы
+                </Link>
+              </li>
+              <li>
+                <Link to="/integrations" className="text-white/70 hover:text-white transition-colors">
+                  Агрегаторы заказов
+                </Link>
+              </li>
+              <li>
+                <Link to="/integrations" className="text-white/70 hover:text-white transition-colors">
+                  Платёжные системы
+                </Link>
+              </li>
+              <li>
+                <Link to="/integrations" className="text-white/70 hover:text-white transition-colors">
+                  Службы доставки
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Компания */}
+          <div>
+            <h3 className="text-white font-semibold mb-4 text-base">Компания</h3>
             <ul className="space-y-3 text-sm">
               <li>
                 <Link to="/about" className="text-white/70 hover:text-white transition-colors">
@@ -81,18 +149,13 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/partners" className="text-white/70 hover:text-white transition-colors">
-                  Партнёрам
+                <Link to="/pricing" className="text-white/70 hover:text-white transition-colors">
+                  Тарифы и цены
                 </Link>
               </li>
               <li>
-                <a href="mailto:support@delever.uz" className="text-white/70 hover:text-white transition-colors">
-                  Связаться с нами
-                </a>
-              </li>
-              <li>
-                <Link to="/pricing" className="text-white/70 hover:text-white transition-colors">
-                  Тарифы
+                <Link to="/partners" className="text-white/70 hover:text-white transition-colors">
+                  Партнёрская программа
                 </Link>
               </li>
               <li>
@@ -105,110 +168,76 @@ export function Footer() {
                   Telegram канал
                 </a>
               </li>
-            </ul>
-          </div>
-
-          {/* Solutions */}
-          <div>
-            <h3 className="text-white font-semibold mb-4 text-base">Решения</h3>
-            <ul className="space-y-3 text-sm">
               <li>
-                <Link to="/products/channels" className="text-white/70 hover:text-white transition-colors">
-                  Каналы продаж
-                </Link>
-              </li>
-              <li>
-                <Link to="/products/operations" className="text-white/70 hover:text-white transition-colors">
-                  Операции
-                </Link>
-              </li>
-              <li>
-                <Link to="/products/analytics" className="text-white/70 hover:text-white transition-colors">
-                  Аналитика
-                </Link>
-              </li>
-              <li>
-                <Link to="/products/marketing" className="text-white/70 hover:text-white transition-colors">
-                  Маркетинг
-                </Link>
-              </li>
-              <li>
-                <Link to="/integrations" className="text-white/70 hover:text-white transition-colors">
-                  Интеграции
-                </Link>
+                <a 
+                  href="https://admin.delever.uz/#/login" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-white transition-colors"
+                >
+                  Вход в систему
+                </a>
               </li>
             </ul>
           </div>
 
-          {/* Integrations */}
+          {/* Контакты */}
           <div>
-            <h3 className="text-white font-semibold mb-4 text-base">Интеграции</h3>
+            <h3 className="text-white font-semibold mb-4 text-base">Контакты</h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link to="/integrations" className="text-white/70 hover:text-white transition-colors">
-                  Все интеграции
-                </Link>
+                <a 
+                  href="tel:+998781139813" 
+                  className="text-white/70 hover:text-white transition-colors flex items-center gap-2"
+                >
+                  <Phone className="h-4 w-4" />
+                  +998 78 113 98 13
+                </a>
               </li>
               <li>
-                <Link to="/integrations" className="text-white/70 hover:text-white transition-colors">
-                  POS-системы
-                </Link>
+                <a 
+                  href="mailto:support@delever.uz" 
+                  className="text-white/70 hover:text-white transition-colors flex items-center gap-2"
+                >
+                  <Mail className="h-4 w-4" />
+                  support@delever.uz
+                </a>
               </li>
               <li>
-                <Link to="/integrations" className="text-white/70 hover:text-white transition-colors">
-                  Агрегаторы
-                </Link>
+                <a 
+                  href="https://t.me/deleverme"
+                  target="_blank"
+                  rel="noopener noreferrer" 
+                  className="text-white/70 hover:text-white transition-colors flex items-center gap-2"
+                >
+                  <Send className="h-4 w-4" />
+                  @deleverme
+                </a>
               </li>
               <li>
-                <Link to="/integrations" className="text-white/70 hover:text-white transition-colors">
-                  Платёжные шлюзы
-                </Link>
-              </li>
-              <li>
-                <Link to="/partners" className="text-white/70 hover:text-white transition-colors">
-                  Стать партнёром
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Delever for */}
-          <div>
-            <h3 className="text-white font-semibold mb-4 text-base">Delever для</h3>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <Link to="/products" className="text-white/70 hover:text-white transition-colors">
-                  Рестораны и кафе
-                </Link>
-              </li>
-              <li>
-                <Link to="/products" className="text-white/70 hover:text-white transition-colors">
-                  Магазины и аптеки
-                </Link>
-              </li>
-              <li>
-                <Link to="/products" className="text-white/70 hover:text-white transition-colors">
-                  Dark Kitchen
-                </Link>
-              </li>
-              <li>
-                <Link to="/pricing" className="text-white/70 hover:text-white transition-colors">
-                  Enterprise
-                </Link>
+                <a 
+                  href={mapLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-white transition-colors flex items-start gap-2"
+                >
+                  <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                  <span>Ташкент, Амира Темура 129Б<br />БЦ Анор Плаза, 2 этаж</span>
+                </a>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Map & Contact Section */}
+        {/* Map Section */}
         <div className="border-t border-white/20 pt-8 mb-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             {/* Map */}
-            <div className="rounded-xl overflow-hidden">
+            <div className="rounded-xl overflow-hidden shadow-lg">
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d268.7241415055043!2d69.28796162216315!3d41.35571602294045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z0KLQsNGI0LrQtdC90YIsINCf0YDQvtGB0L_QtdC60YIg0JDQvNC40YDQsCDQotC10LzRg9GA0LAgMTI50JEsINCQ0L3QvtGAINCf0LvQsNC30LA!5e0!3m2!1sru!2s!4v1764602935288!5m2!1sru!2s" 
                 width="100%" 
-                height="200" 
+                height="180" 
                 style={{ border: 0 }} 
                 allowFullScreen 
                 loading="lazy" 
@@ -218,36 +247,24 @@ export function Footer() {
               />
             </div>
 
-            {/* Contact Info */}
-            <div className="space-y-4">
-              <h3 className="text-white font-semibold text-base mb-4">Контакты</h3>
-              <a 
-                href={mapLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-white/70 hover:text-white transition-colors flex items-start space-x-3"
-              >
-                <MapPin className="h-5 w-5 mt-0.5 flex-shrink-0" />
-                <span>Ташкент, Проспект Амира Темура 129Б<br />БЦ Анор Плаза, 2 этаж, офис 1</span>
-              </a>
-              <a 
-                href="tel:+998781139813" 
-                className="text-sm text-white/70 hover:text-white transition-colors flex items-center space-x-3"
-              >
-                <svg className="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                <span>+998 78 113 98 13</span>
-              </a>
-              <a 
-                href="mailto:support@delever.uz" 
-                className="text-sm text-white/70 hover:text-white transition-colors flex items-center space-x-3"
-              >
-                <svg className="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                <span>support@delever.uz</span>
-              </a>
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 gap-6">
+              <div className="text-center p-4 bg-white/5 rounded-xl">
+                <div className="text-3xl font-bold text-white mb-1">1000+</div>
+                <div className="text-sm text-white/60">Бизнесов</div>
+              </div>
+              <div className="text-center p-4 bg-white/5 rounded-xl">
+                <div className="text-3xl font-bold text-white mb-1">5</div>
+                <div className="text-sm text-white/60">Стран</div>
+              </div>
+              <div className="text-center p-4 bg-white/5 rounded-xl">
+                <div className="text-3xl font-bold text-white mb-1">40+</div>
+                <div className="text-sm text-white/60">Интеграций</div>
+              </div>
+              <div className="text-center p-4 bg-white/5 rounded-xl">
+                <div className="text-3xl font-bold text-white mb-1">13M+</div>
+                <div className="text-sm text-white/60">Заказов</div>
+              </div>
             </div>
           </div>
         </div>
@@ -255,7 +272,7 @@ export function Footer() {
         {/* Bottom Section */}
         <div className="border-t border-white/20 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-sm text-white/70">
+            <p className="text-sm text-white/60">
               © {new Date().getFullYear()} Delever. Все права защищены.
             </p>
             <div className="flex items-center space-x-6">
@@ -263,7 +280,7 @@ export function Footer() {
                 href="https://www.linkedin.com/company/98819489" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-white/70 hover:text-white transition-colors"
+                className="text-white/60 hover:text-white transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="h-5 w-5" />
@@ -272,7 +289,7 @@ export function Footer() {
                 href="https://www.instagram.com/delever.uz/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-white/70 hover:text-white transition-colors"
+                className="text-white/60 hover:text-white transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram className="h-5 w-5" />
@@ -281,7 +298,7 @@ export function Footer() {
                 href="https://t.me/deleverme" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-white/70 hover:text-white transition-colors"
+                className="text-white/60 hover:text-white transition-colors"
                 aria-label="Telegram"
               >
                 <Send className="h-5 w-5" />
