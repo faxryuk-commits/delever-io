@@ -16,7 +16,7 @@ export function Clients() {
   const { t } = useLocale()
 
   return (
-    <section className="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-brand-lightBeige/20">
+    <section className="pt-4 pb-10 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-brand-lightBeige/20">
       <div className="container mx-auto max-w-5xl">
         {/* Title */}
         <motion.p 

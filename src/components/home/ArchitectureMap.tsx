@@ -67,6 +67,7 @@ const bentoItems: BentoItem[] = [
       { icon: Phone, label: 'Колл-центр', labelEn: 'Call Center', desc: 'Приём заказов по телефону', descEn: 'Phone order processing' },
       { icon: Globe, label: 'Веб-сайт', labelEn: 'Website', desc: 'Онлайн-заказы 24/7', descEn: 'Online orders 24/7' },
       { icon: Smartphone, label: 'Приложение', labelEn: 'Mobile App', desc: 'iOS и Android', descEn: 'iOS and Android' },
+      { icon: MessageSquare, label: 'TG/WA MiniApp', labelEn: 'TG/WA MiniApp', desc: 'Telegram и WhatsApp боты', descEn: 'Telegram & WhatsApp bots' },
       { icon: QrCode, label: 'QR-меню', labelEn: 'QR Menu', desc: 'Заказ со стола', descEn: 'Table ordering' },
       { icon: Monitor, label: 'Киоск', labelEn: 'Kiosk', desc: 'Самообслуживание', descEn: 'Self-service' },
       { icon: Bike, label: 'Своя доставка', labelEn: 'Own Delivery', desc: 'Курьерская служба', descEn: 'Courier service' },
