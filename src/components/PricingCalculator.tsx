@@ -88,15 +88,21 @@ const oneTimePayments = [
   { id: 'whiteLabel', name: 'White Label приложение', priceUZS: 13000000, icon: Smartphone },
 ]
 
+// Типы подключения
+type ConnectionType = 'platform' | 'aggregators' | 'kiosks'
+
 export function PricingCalculator() {
   const { t, formatPrice } = useLocale()
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const invoiceRef = useRef<HTMLDivElement>(null)
   
+  // Тип подключения
+  const [connectionType, setConnectionType] = useState<ConnectionType>('platform')
+  
   // Состояние калькулятора
   const [branches, setBranches] = useState(1)
   const [brands, setBrands] = useState(1)
-  const [kiosks, setKiosks] = useState(0)
+  const [kiosks, setKiosks] = useState(1)
   const [selectedPlan, setSelectedPlan] = useState(0)
   const [selectedModules, setSelectedModules] = useState<string[]>([])
   const [selectedOneTime, setSelectedOneTime] = useState<string[]>([])
@@ -110,6 +116,9 @@ export function PricingCalculator() {
   const [operatorsCount, setOperatorsCount] = useState(2) // Кол-во операторов
 
   const currentPlan = basePlans[selectedPlan]
+  
+  // Агрегаторные модули для отдельной покупки
+  const aggregatorModules = additionalModules.filter(m => m.category === 'aggregator')
 
   // Функция расчёта цены модуля
   const getModulePrice = (module: typeof additionalModules[0]) => {
@@ -121,15 +130,30 @@ export function PricingCalculator() {
     }
   }
 
-  // Расчёт стоимости
+  // Расчёт стоимости в зависимости от типа подключения
   const calculateTotal = () => {
-    let monthly = currentPlan.priceUZS
-    monthly += extraOrders * currentPlan.perOrderUZS
+    let monthly = 0
     
-    selectedModules.forEach(moduleId => {
-      const module = additionalModules.find(m => m.id === moduleId)
-      if (module) monthly += getModulePrice(module)
-    })
+    if (connectionType === 'platform') {
+      // Полная платформа: базовый тариф + модули
+      monthly = currentPlan.priceUZS
+      monthly += extraOrders * currentPlan.perOrderUZS
+      
+      selectedModules.forEach(moduleId => {
+        const module = additionalModules.find(m => m.id === moduleId)
+        if (module) monthly += getModulePrice(module)
+      })
+    } else if (connectionType === 'aggregators') {
+      // Только агрегаторы: без базового тарифа
+      selectedModules.forEach(moduleId => {
+        const module = additionalModules.find(m => m.id === moduleId && m.category === 'aggregator')
+        if (module) monthly += getModulePrice(module)
+      })
+    } else if (connectionType === 'kiosks') {
+      // Только киоски: без базового тарифа
+      const kioskModule = additionalModules.find(m => m.id === 'kiosk')
+      if (kioskModule) monthly = kioskModule.priceUZS * kiosks
+    }
     
     let oneTime = 0
     selectedOneTime.forEach(id => {
@@ -377,9 +401,62 @@ export function PricingCalculator() {
     { id: 'switch', icon: TrendingUp, color: 'from-emerald-500 to-teal-500' },
   ] as const
 
+  // Типы подключения
+  const connectionTypes = [
+    { id: 'platform' as ConnectionType, labelKey: 'calc.connectionType.platform', icon: LayoutDashboard, desc: 'calc.connectionType.platformDesc' },
+    { id: 'aggregators' as ConnectionType, labelKey: 'calc.connectionType.aggregators', icon: Layers, desc: 'calc.connectionType.aggregatorsDesc' },
+    { id: 'kiosks' as ConnectionType, labelKey: 'calc.connectionType.kiosks', icon: Monitor, desc: 'calc.connectionType.kiosksDesc' },
+  ]
+
   return (
     <>
-      {/* ROI Section */}
+      {/* Connection Type Selection */}
+      <motion.div 
+        className="mb-8"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        <h2 className="text-2xl font-bold text-brand-darkBlue mb-2">{t('calc.selectConnectionType')}</h2>
+        <p className="text-brand-darkBlue/60 mb-6">{t('calc.selectConnectionTypeDesc')}</p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {connectionTypes.map((type) => {
+            const Icon = type.icon
+            const isSelected = connectionType === type.id
+            return (
+              <button
+                key={type.id}
+                onClick={() => {
+                  setConnectionType(type.id)
+                  // Сбросить модули при смене типа
+                  setSelectedModules([])
+                  if (type.id === 'kiosks') setKiosks(1)
+                }}
+                className={`p-6 rounded-2xl border-2 text-left transition-all ${
+                  isSelected 
+                    ? 'border-brand-darkBlue bg-brand-darkBlue text-white shadow-lg scale-[1.02]' 
+                    : 'border-brand-lightTeal/30 hover:border-brand-darkBlue/30 bg-white'
+                }`}
+              >
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${
+                  isSelected ? 'bg-white/20' : 'bg-brand-lightBlue/30'
+                }`}>
+                  <Icon className={`h-6 w-6 ${isSelected ? 'text-white' : 'text-brand-darkBlue'}`} />
+                </div>
+                <h3 className={`text-lg font-bold mb-2 ${isSelected ? 'text-white' : 'text-brand-darkBlue'}`}>
+                  {t(type.labelKey)}
+                </h3>
+                <p className={`text-sm ${isSelected ? 'text-white/70' : 'text-brand-darkBlue/60'}`}>
+                  {t(type.desc)}
+                </p>
+              </button>
+            )
+          })}
+        </div>
+      </motion.div>
+
+      {/* ROI Section - only for platform */}
+      {connectionType === 'platform' && (
       <motion.div 
         className={`bg-gradient-to-r ${scenarios.find(s => s.id === scenario)?.color} rounded-2xl p-6 lg:p-8 mb-8 text-white`}
         initial={{ opacity: 0, y: 20 }}
@@ -637,7 +714,138 @@ export function PricingCalculator() {
           </>
         )}
       </motion.div>
+      )}
 
+      {/* Aggregators Only - simple calculator */}
+      {connectionType === 'aggregators' && (
+        <motion.div 
+          className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-6 lg:p-8 mb-8 text-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
+              <Layers className="h-6 w-6" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold">{t('calc.aggregatorsOnly.title')}</h3>
+              <p className="text-white/80 text-sm">{t('calc.aggregatorsOnly.subtitle')}</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            {/* Количество филиалов */}
+            <div className="bg-white/10 rounded-xl p-4">
+              <div className="flex items-center gap-2 text-sm text-white/70 mb-2">
+                <Building2 className="h-4 w-4" />
+                {t('calc.branches')}
+              </div>
+              <div className="flex items-center gap-2">
+                <button 
+                  onClick={() => setBranches(Math.max(1, branches - 1))}
+                  className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center hover:bg-white/30"
+                >
+                  <Minus className="h-4 w-4" />
+                </button>
+                <span className="text-2xl font-bold flex-1 text-center">{branches}</span>
+                <button 
+                  onClick={() => setBranches(branches + 1)}
+                  className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center hover:bg-white/30"
+                >
+                  <Plus className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Выбранный агрегатор */}
+            <div className="bg-white/10 rounded-xl p-4">
+              <div className="text-sm text-white/70 mb-3">{t('calc.selectAggregator')}</div>
+              <div className="space-y-2">
+                {aggregatorModules.map((module) => (
+                  <button
+                    key={module.id}
+                    onClick={() => toggleModule(module.id)}
+                    className={`w-full px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center justify-between ${
+                      selectedModules.includes(module.id) 
+                        ? 'bg-white text-brand-darkBlue' 
+                        : 'bg-white/20 hover:bg-white/30'
+                    }`}
+                  >
+                    <span>{module.name}</span>
+                    <span>{formatPrice(module.priceUZS)}/{t('calc.perBranch')}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Итого */}
+          <div className="bg-white/20 rounded-xl p-6 text-center">
+            <div className="text-sm text-white/70 mb-2">{t('calc.monthlyTotal')}</div>
+            <div className="text-4xl font-bold">{formatPrice(totals.monthly)}</div>
+            <div className="text-sm text-white/70 mt-2">
+              {selectedModules.length > 0 ? `${selectedModules.length} ${t('calc.aggregatorsSelected')} × ${branches} ${t('calc.branchesShort')}` : t('calc.selectAggregatorHint')}
+            </div>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Kiosks Only - simple calculator */}
+      {connectionType === 'kiosks' && (
+        <motion.div 
+          className="bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl p-6 lg:p-8 mb-8 text-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
+              <Monitor className="h-6 w-6" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold">{t('calc.kiosksOnly.title')}</h3>
+              <p className="text-white/80 text-sm">{t('calc.kiosksOnly.subtitle')}</p>
+            </div>
+          </div>
+
+          <div className="bg-white/10 rounded-xl p-6 mb-6">
+            <div className="flex items-center gap-2 text-sm text-white/70 mb-4">
+              <Monitor className="h-4 w-4" />
+              {t('calc.kiosksCount')}
+            </div>
+            <div className="flex items-center justify-center gap-4">
+              <button 
+                onClick={() => setKiosks(Math.max(1, kiosks - 1))}
+                className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center hover:bg-white/30 text-xl"
+              >
+                <Minus className="h-5 w-5" />
+              </button>
+              <span className="text-5xl font-bold w-24 text-center">{kiosks}</span>
+              <button 
+                onClick={() => setKiosks(kiosks + 1)}
+                className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center hover:bg-white/30 text-xl"
+              >
+                <Plus className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="text-center text-white/60 text-sm mt-4">
+              {formatPrice(910000)} / {t('calc.perKiosk')} / {t('calc.perMonthShort')}
+            </div>
+          </div>
+
+          {/* Итого */}
+          <div className="bg-white/20 rounded-xl p-6 text-center">
+            <div className="text-sm text-white/70 mb-2">{t('calc.monthlyTotal')}</div>
+            <div className="text-4xl font-bold">{formatPrice(totals.monthly)}</div>
+            <div className="text-sm text-white/70 mt-2">
+              {kiosks} {t('calc.kiosksShort')} × {formatPrice(910000)}
+            </div>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Platform Calculator - full version */}
+      {connectionType === 'platform' && (
+      <>
       <div className="grid lg:grid-cols-3 gap-8">
         {/* Left Column - Calculator */}
         <div className="lg:col-span-2 space-y-6">
@@ -1050,7 +1258,7 @@ export function PricingCalculator() {
         </div>
       </div>
 
-      {/* Platform Features */}
+      {/* Platform Features - only for platform */}
       <motion.div 
         className="mt-12 bg-white rounded-2xl p-8 border border-brand-lightTeal/30 shadow-soft"
         initial={{ opacity: 0, y: 20 }}
@@ -1128,6 +1336,38 @@ export function PricingCalculator() {
           </div>
         </div>
       </motion.div>
+      </>
+      )}
+
+      {/* CTA for aggregators/kiosks */}
+      {(connectionType === 'aggregators' || connectionType === 'kiosks') && totals.monthly > 0 && (
+        <motion.div 
+          className="bg-white rounded-2xl p-6 border border-brand-lightTeal/30 shadow-soft text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <h3 className="text-xl font-bold text-brand-darkBlue mb-2">{t('calc.readyToStart')}</h3>
+          <p className="text-brand-darkBlue/60 mb-6">{t('calc.readyToStartDesc')}</p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Button 
+              size="lg"
+              onClick={() => setContactFormOpen(true)}
+              className="bg-gradient-to-r from-emerald-500 to-teal-500"
+            >
+              {t('calc.getOffer')}
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+            <Button 
+              variant="outline"
+              size="lg"
+              onClick={downloadInvoice}
+            >
+              <Download className="mr-2 h-4 w-4" />
+              {t('calc.downloadInvoice')}
+            </Button>
+          </div>
+        </motion.div>
+      )}
 
       <ContactForm open={contactFormOpen} onOpenChange={setContactFormOpen} />
     </>

@@ -633,6 +633,36 @@ export const translations: Record<Language, Record<string, string>> = {
     'calc.ownDeliveryNote': 'Если бы работали через агрегатор, потеряли бы на комиссиях:',
     'calc.automationSavings': 'Экономия на автоматизации',
     'calc.hoursSavedShort': 'часов экономии',
+    
+    // Connection types
+    'calc.selectConnectionType': 'Выберите тип подключения',
+    'calc.selectConnectionTypeDesc': 'Выберите какой продукт вам нужен — полная платформа, только интеграция с агрегаторами или только киоски',
+    'calc.connectionType.platform': 'Полная платформа',
+    'calc.connectionType.platformDesc': 'Собственные каналы продаж + все модули + интеграции',
+    'calc.connectionType.aggregators': 'Только агрегаторы',
+    'calc.connectionType.aggregatorsDesc': 'Интеграция с Uzum, Wolt, Яндекс без подписки на платформу',
+    'calc.connectionType.kiosks': 'Только киоски',
+    'calc.connectionType.kiosksDesc': 'Киоски самообслуживания без подписки на платформу',
+    
+    // Aggregators only
+    'calc.aggregatorsOnly.title': 'Интеграция с агрегаторами',
+    'calc.aggregatorsOnly.subtitle': 'Автоматизация заказов без базовой подписки',
+    'calc.selectAggregator': 'Выберите агрегаторы',
+    'calc.perBranch': 'филиал',
+    'calc.aggregatorsSelected': 'агрегаторов',
+    'calc.branchesShort': 'филиалов',
+    'calc.selectAggregatorHint': 'Выберите агрегаторы для расчёта',
+    
+    // Kiosks only
+    'calc.kiosksOnly.title': 'Киоски самообслуживания',
+    'calc.kiosksOnly.subtitle': 'Оплата только за количество устройств',
+    'calc.kiosksCount': 'Количество киосков',
+    'calc.perKiosk': 'киоск',
+    'calc.kiosksShort': 'киосков',
+    
+    // CTA
+    'calc.readyToStart': 'Готовы начать?',
+    'calc.readyToStartDesc': 'Оставьте заявку и мы свяжемся с вами для обсуждения деталей',
     'calc.avgCheck': 'Средний чек',
     'calc.aggregatorFee': 'Комиссия агрегатора',
     'calc.ordersPerMonth': 'Заказов/мес',
@@ -645,9 +675,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'calc.months': 'мес.',
     'calc.download': 'Скачать',
     'calc.downloadInvoice': 'Скачать счёт',
-    'calc.branchesShort': 'фил.',
     'calc.brandsShort': 'бр.',
-    'calc.kiosksShort': 'киоск.',
     'calc.yourSavings': 'Ваша экономия',
     
     // Common
@@ -1264,6 +1292,36 @@ export const translations: Record<Language, Record<string, string>> = {
     'calc.ownDeliveryNote': 'If you worked through aggregators, you would lose on fees:',
     'calc.automationSavings': 'Automation Savings',
     'calc.hoursSavedShort': 'hours saved',
+    
+    // Connection types
+    'calc.selectConnectionType': 'Select Connection Type',
+    'calc.selectConnectionTypeDesc': 'Choose what you need — full platform, aggregator integration only, or kiosks only',
+    'calc.connectionType.platform': 'Full Platform',
+    'calc.connectionType.platformDesc': 'Own sales channels + all modules + integrations',
+    'calc.connectionType.aggregators': 'Aggregators Only',
+    'calc.connectionType.aggregatorsDesc': 'Integration with Uzum, Wolt, Yandex without platform subscription',
+    'calc.connectionType.kiosks': 'Kiosks Only',
+    'calc.connectionType.kiosksDesc': 'Self-service kiosks without platform subscription',
+    
+    // Aggregators only
+    'calc.aggregatorsOnly.title': 'Aggregator Integration',
+    'calc.aggregatorsOnly.subtitle': 'Order automation without base subscription',
+    'calc.selectAggregator': 'Select aggregators',
+    'calc.perBranch': 'branch',
+    'calc.aggregatorsSelected': 'aggregators',
+    'calc.branchesShort': 'branches',
+    'calc.selectAggregatorHint': 'Select aggregators to calculate',
+    
+    // Kiosks only
+    'calc.kiosksOnly.title': 'Self-Service Kiosks',
+    'calc.kiosksOnly.subtitle': 'Pay only for the number of devices',
+    'calc.kiosksCount': 'Number of kiosks',
+    'calc.perKiosk': 'kiosk',
+    'calc.kiosksShort': 'kiosks',
+    
+    // CTA
+    'calc.readyToStart': 'Ready to start?',
+    'calc.readyToStartDesc': 'Submit a request and we will contact you to discuss details',
     'calc.avgCheck': 'Average Check',
     'calc.aggregatorFee': 'Aggregator Fee',
     'calc.ordersPerMonth': 'Orders/mo',
@@ -1276,9 +1334,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'calc.months': 'mo.',
     'calc.download': 'Download',
     'calc.downloadInvoice': 'Download Invoice',
-    'calc.branchesShort': 'br.',
     'calc.brandsShort': 'brands',
-    'calc.kiosksShort': 'kiosks',
     'calc.yourSavings': 'Your Savings',
     
     // Common
