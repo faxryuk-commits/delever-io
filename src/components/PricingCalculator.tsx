@@ -103,8 +103,11 @@ export function PricingCalculator() {
   const [extraOrders, setExtraOrders] = useState(0)
   
   // ROI параметры
+  const [scenario, setScenario] = useState<'own' | 'integrate' | 'switch'>('switch')
   const [avgCheck, setAvgCheck] = useState(80000) // Средний чек
   const [aggregatorFee, setAggregatorFee] = useState(20) // Комиссия агрегатора %
+  const [operatorSalary, setOperatorSalary] = useState(5000000) // Зарплата оператора
+  const [operatorsCount, setOperatorsCount] = useState(2) // Кол-во операторов
 
   const currentPlan = basePlans[selectedPlan]
 
@@ -137,25 +140,57 @@ export function PricingCalculator() {
     return { monthly, oneTime }
   }
 
-  // ROI расчёты
+  // ROI расчёты для разных сценариев
   const calculateROI = () => {
     const totalOrders = currentPlan.orders + extraOrders
     const monthlyRevenue = totalOrders * avgCheck
-    const aggregatorCost = monthlyRevenue * (aggregatorFee / 100)
     const deleverCost = calculateTotal().monthly
-    const savings = aggregatorCost - deleverCost
-    const savingsPercent = aggregatorCost > 0 ? (savings / aggregatorCost) * 100 : 0
-    const yearSavings = savings * 12
-    const paybackMonths = savings > 0 ? Math.ceil(calculateTotal().oneTime / savings) : 0
+    
+    // Сценарий 1: Своя доставка (нет агрегаторов)
+    const potentialAggregatorLoss = monthlyRevenue * (aggregatorFee / 100) // Потенциальные потери если бы был агрегатор
+    const ownDeliveryProfit = monthlyRevenue - deleverCost // Чистая прибыль со своей доставки
+    
+    // Сценарий 2: Интеграция с агрегаторами (автоматизация)
+    const operatorsCostSaved = operatorSalary * operatorsCount // Экономия на операторах
+    const timePerOrder = 3 // минуты на ручной ввод заказа
+    const hoursSaved = (totalOrders * timePerOrder) / 60 // Часов экономии в месяц
+    const errorsReduced = 70 // % снижения ошибок
+    const errorCostPerOrder = 5000 // Средняя стоимость ошибки в заказе
+    const errorsSaved = totalOrders * 0.05 * (errorsReduced / 100) * errorCostPerOrder // 5% заказов с ошибками
+    const integrationSavings = operatorsCostSaved + errorsSaved
+    
+    // Сценарий 3: Переход с агрегаторов
+    const aggregatorCost = monthlyRevenue * (aggregatorFee / 100)
+    const switchSavings = aggregatorCost - deleverCost
+    const switchSavingsPercent = aggregatorCost > 0 ? (switchSavings / aggregatorCost) * 100 : 0
+    
+    const paybackMonths = switchSavings > 0 ? Math.ceil(calculateTotal().oneTime / switchSavings) : 0
     
     return {
+      // Общие
+      totalOrders,
       monthlyRevenue,
-      aggregatorCost,
       deleverCost,
-      savings,
-      savingsPercent,
-      yearSavings,
-      paybackMonths
+      paybackMonths,
+      
+      // Своя доставка
+      potentialAggregatorLoss,
+      ownDeliveryProfit,
+      yearOwnProfit: ownDeliveryProfit * 12,
+      
+      // Интеграция
+      operatorsCostSaved,
+      hoursSaved,
+      errorsReduced,
+      errorsSaved,
+      integrationSavings,
+      yearIntegrationSavings: integrationSavings * 12,
+      
+      // Переход
+      aggregatorCost,
+      switchSavings,
+      switchSavingsPercent,
+      yearSwitchSavings: switchSavings * 12,
     }
   }
 
@@ -299,11 +334,11 @@ export function PricingCalculator() {
     <div class="savings-title">💰 Ваша экономия по сравнению с агрегаторами</div>
     <div style="display: flex; justify-content: space-between; align-items: center;">
       <div>
-        <div class="savings-value">${formatPrice(roi.yearSavings)}/год</div>
-        <div style="color: #666; margin-top: 5px;">${formatPrice(roi.savings)}/месяц</div>
+        <div class="savings-value">${formatPrice(roi.yearSwitchSavings)}/год</div>
+        <div style="color: #666; margin-top: 5px;">${formatPrice(roi.switchSavings)}/месяц</div>
       </div>
       <div style="text-align: right;">
-        <div style="font-size: 32px; font-weight: bold; color: #2e7d32;">${Math.round(roi.savingsPercent)}%</div>
+        <div style="font-size: 32px; font-weight: bold; color: #2e7d32;">${Math.round(roi.switchSavingsPercent)}%</div>
         <div style="color: #666; font-size: 12px;">экономии</div>
       </div>
     </div>
@@ -335,26 +370,57 @@ export function PricingCalculator() {
     URL.revokeObjectURL(url)
   }
 
+  // Сценарии
+  const scenarios = [
+    { id: 'own', icon: Store, color: 'from-blue-500 to-indigo-500' },
+    { id: 'integrate', icon: Layers, color: 'from-purple-500 to-pink-500' },
+    { id: 'switch', icon: TrendingUp, color: 'from-emerald-500 to-teal-500' },
+  ] as const
+
   return (
     <>
       {/* ROI Section */}
       <motion.div 
-        className="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl p-6 lg:p-8 mb-8 text-white"
+        className={`bg-gradient-to-r ${scenarios.find(s => s.id === scenario)?.color} rounded-2xl p-6 lg:p-8 mb-8 text-white`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
       >
+        {/* Scenario Tabs */}
+        <div className="flex flex-wrap gap-2 mb-6">
+          {scenarios.map((s) => {
+            const Icon = s.icon
+            return (
+              <button
+                key={s.id}
+                onClick={() => setScenario(s.id)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                  scenario === s.id 
+                    ? 'bg-white text-brand-darkBlue shadow-lg' 
+                    : 'bg-white/20 hover:bg-white/30'
+                }`}
+              >
+                <Icon className="h-4 w-4" />
+                {t(`calc.scenario.${s.id}`)}
+              </button>
+            )
+          })}
+        </div>
+
         <div className="flex items-center gap-3 mb-6">
           <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
-            <TrendingUp className="h-6 w-6" />
+            {scenario === 'own' && <Store className="h-6 w-6" />}
+            {scenario === 'integrate' && <Layers className="h-6 w-6" />}
+            {scenario === 'switch' && <TrendingUp className="h-6 w-6" />}
           </div>
           <div>
-            <h3 className="text-xl font-bold">{t('calc.roiTitle')}</h3>
-            <p className="text-white/80 text-sm">{t('calc.roiSubtitle')}</p>
+            <h3 className="text-xl font-bold">{t(`calc.scenario.${scenario}.title`)}</h3>
+            <p className="text-white/80 text-sm">{t(`calc.scenario.${scenario}.subtitle`)}</p>
           </div>
         </div>
 
+        {/* Параметры в зависимости от сценария */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          {/* Средний чек */}
+          {/* Средний чек - для всех сценариев */}
           <div className="bg-white/10 rounded-xl p-4">
             <div className="flex items-center gap-2 text-sm text-white/70 mb-2">
               <DollarSign className="h-4 w-4" />
@@ -377,28 +443,80 @@ export function PricingCalculator() {
             </div>
           </div>
 
-          {/* Комиссия агрегатора */}
-          <div className="bg-white/10 rounded-xl p-4">
-            <div className="flex items-center gap-2 text-sm text-white/70 mb-2">
-              <Percent className="h-4 w-4" />
-              {t('calc.aggregatorFee')}
+          {/* Для сценариев с агрегаторами */}
+          {(scenario === 'switch' || scenario === 'own') && (
+            <div className="bg-white/10 rounded-xl p-4">
+              <div className="flex items-center gap-2 text-sm text-white/70 mb-2">
+                <Percent className="h-4 w-4" />
+                {t('calc.aggregatorFee')}
+              </div>
+              <div className="flex items-center gap-2">
+                <button 
+                  onClick={() => setAggregatorFee(Math.max(10, aggregatorFee - 1))}
+                  className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center hover:bg-white/30"
+                >
+                  <Minus className="h-4 w-4" />
+                </button>
+                <span className="text-xl font-bold flex-1 text-center">{aggregatorFee}%</span>
+                <button 
+                  onClick={() => setAggregatorFee(Math.min(35, aggregatorFee + 1))}
+                  className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center hover:bg-white/30"
+                >
+                  <Plus className="h-4 w-4" />
+                </button>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <button 
-                onClick={() => setAggregatorFee(Math.max(10, aggregatorFee - 1))}
-                className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center hover:bg-white/30"
-              >
-                <Minus className="h-4 w-4" />
-              </button>
-              <span className="text-xl font-bold flex-1 text-center">{aggregatorFee}%</span>
-              <button 
-                onClick={() => setAggregatorFee(Math.min(35, aggregatorFee + 1))}
-                className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center hover:bg-white/30"
-              >
-                <Plus className="h-4 w-4" />
-              </button>
+          )}
+
+          {/* Для сценария интеграции - зарплата оператора */}
+          {scenario === 'integrate' && (
+            <div className="bg-white/10 rounded-xl p-4">
+              <div className="flex items-center gap-2 text-sm text-white/70 mb-2">
+                <Users className="h-4 w-4" />
+                {t('calc.operatorSalary')}
+              </div>
+              <div className="flex items-center gap-2">
+                <button 
+                  onClick={() => setOperatorSalary(Math.max(2000000, operatorSalary - 500000))}
+                  className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center hover:bg-white/30"
+                >
+                  <Minus className="h-4 w-4" />
+                </button>
+                <span className="text-lg font-bold flex-1 text-center">{formatPrice(operatorSalary)}</span>
+                <button 
+                  onClick={() => setOperatorSalary(operatorSalary + 500000)}
+                  className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center hover:bg-white/30"
+                >
+                  <Plus className="h-4 w-4" />
+                </button>
+              </div>
             </div>
-          </div>
+          )}
+
+          {/* Для сценария интеграции - кол-во операторов */}
+          {scenario === 'integrate' && (
+            <div className="bg-white/10 rounded-xl p-4">
+              <div className="flex items-center gap-2 text-sm text-white/70 mb-2">
+                <UserCog className="h-4 w-4" />
+                {t('calc.operatorsCount')}
+              </div>
+              <div className="flex items-center gap-2">
+                <button 
+                  onClick={() => setOperatorsCount(Math.max(1, operatorsCount - 1))}
+                  className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center hover:bg-white/30"
+                >
+                  <Minus className="h-4 w-4" />
+                </button>
+                <span className="text-xl font-bold flex-1 text-center">{operatorsCount}</span>
+                <button 
+                  onClick={() => setOperatorsCount(operatorsCount + 1)}
+                  className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center hover:bg-white/30"
+                >
+                  <Plus className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Количество заказов */}
           <div className="bg-white/10 rounded-xl p-4">
@@ -407,45 +525,116 @@ export function PricingCalculator() {
               {t('calc.ordersPerMonth')}
             </div>
             <div className="text-xl font-bold text-center">
-              {(currentPlan.orders + extraOrders).toLocaleString()}
+              {roi.totalOrders.toLocaleString()}
             </div>
           </div>
         </div>
 
-        {/* ROI Results */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-white/10 rounded-xl p-4 text-center">
-            <div className="text-sm text-white/70 mb-1">{t('calc.aggregatorsCost')}</div>
-            <div className="text-lg font-bold text-red-200">-{formatPrice(roi.aggregatorCost)}</div>
-          </div>
-          <div className="bg-white/10 rounded-xl p-4 text-center">
-            <div className="text-sm text-white/70 mb-1">{t('calc.deleverCost')}</div>
-            <div className="text-lg font-bold">{formatPrice(roi.deleverCost)}</div>
-          </div>
-          <div className="bg-white/20 rounded-xl p-4 text-center">
-            <div className="text-sm text-white/70 mb-1">{t('calc.monthlySavings')}</div>
-            <div className="text-xl font-bold text-yellow-200">+{formatPrice(roi.savings)}</div>
-          </div>
-          <div className="bg-white/20 rounded-xl p-4 text-center">
-            <div className="text-sm text-white/70 mb-1">{t('calc.yearlySavings')}</div>
-            <div className="text-xl font-bold text-yellow-200">+{formatPrice(roi.yearSavings)}</div>
-          </div>
-        </div>
-
-        {roi.savings > 0 && (
-          <div className="mt-6 text-center">
-            <div className="inline-flex items-center gap-2 bg-white/20 rounded-full px-6 py-3">
-              <span className="text-white/80">{t('calc.savingsPercent')}:</span>
-              <span className="text-2xl font-bold">{Math.round(roi.savingsPercent)}%</span>
-              {totals.oneTime > 0 && roi.paybackMonths > 0 && (
-                <>
-                  <span className="mx-2">•</span>
-                  <span className="text-white/80">{t('calc.payback')}:</span>
-                  <span className="font-bold">{roi.paybackMonths} {t('calc.months')}</span>
-                </>
-              )}
+        {/* ROI Results - для сценария "Своя доставка" */}
+        {scenario === 'own' && (
+          <>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-white/10 rounded-xl p-4 text-center">
+                <div className="text-sm text-white/70 mb-1">{t('calc.monthlyRevenue')}</div>
+                <div className="text-lg font-bold">{formatPrice(roi.monthlyRevenue)}</div>
+              </div>
+              <div className="bg-white/10 rounded-xl p-4 text-center">
+                <div className="text-sm text-white/70 mb-1">{t('calc.deleverCost')}</div>
+                <div className="text-lg font-bold">-{formatPrice(roi.deleverCost)}</div>
+              </div>
+              <div className="bg-white/20 rounded-xl p-4 text-center">
+                <div className="text-sm text-white/70 mb-1">{t('calc.netProfit')}</div>
+                <div className="text-xl font-bold text-yellow-200">{formatPrice(roi.ownDeliveryProfit)}</div>
+              </div>
+              <div className="bg-white/20 rounded-xl p-4 text-center">
+                <div className="text-sm text-white/70 mb-1">{t('calc.yearProfit')}</div>
+                <div className="text-xl font-bold text-yellow-200">{formatPrice(roi.yearOwnProfit)}</div>
+              </div>
             </div>
-          </div>
+            <div className="mt-6 p-4 bg-white/10 rounded-xl">
+              <div className="text-center text-white/80 text-sm">
+                💡 {t('calc.ownDeliveryNote')} <span className="font-bold text-yellow-200">{formatPrice(roi.potentialAggregatorLoss)}/мес</span>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* ROI Results - для сценария "Интеграция" */}
+        {scenario === 'integrate' && (
+          <>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+              <div className="bg-white/10 rounded-xl p-4 text-center">
+                <div className="text-sm text-white/70 mb-1">{t('calc.operatorsSaved')}</div>
+                <div className="text-lg font-bold text-green-200">+{formatPrice(roi.operatorsCostSaved)}</div>
+              </div>
+              <div className="bg-white/10 rounded-xl p-4 text-center">
+                <div className="text-sm text-white/70 mb-1">{t('calc.hoursSaved')}</div>
+                <div className="text-lg font-bold">{Math.round(roi.hoursSaved)} ч.</div>
+              </div>
+              <div className="bg-white/10 rounded-xl p-4 text-center">
+                <div className="text-sm text-white/70 mb-1">{t('calc.errorsReduced')}</div>
+                <div className="text-lg font-bold text-green-200">-{roi.errorsReduced}%</div>
+              </div>
+              <div className="bg-white/10 rounded-xl p-4 text-center">
+                <div className="text-sm text-white/70 mb-1">{t('calc.errorsSaved')}</div>
+                <div className="text-lg font-bold text-green-200">+{formatPrice(roi.errorsSaved)}</div>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-white/10 rounded-xl p-4 text-center">
+                <div className="text-sm text-white/70 mb-1">{t('calc.deleverCost')}</div>
+                <div className="text-lg font-bold">-{formatPrice(roi.deleverCost)}</div>
+              </div>
+              <div className="bg-white/20 rounded-xl p-4 text-center">
+                <div className="text-sm text-white/70 mb-1">{t('calc.totalSavings')}</div>
+                <div className="text-xl font-bold text-yellow-200">+{formatPrice(roi.integrationSavings)}/мес</div>
+              </div>
+              <div className="bg-white/20 rounded-xl p-4 text-center">
+                <div className="text-sm text-white/70 mb-1">{t('calc.yearlySavings')}</div>
+                <div className="text-xl font-bold text-yellow-200">+{formatPrice(roi.yearIntegrationSavings)}/год</div>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* ROI Results - для сценария "Переход с агрегаторов" */}
+        {scenario === 'switch' && (
+          <>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-white/10 rounded-xl p-4 text-center">
+                <div className="text-sm text-white/70 mb-1">{t('calc.aggregatorsCost')}</div>
+                <div className="text-lg font-bold text-red-200">-{formatPrice(roi.aggregatorCost)}</div>
+              </div>
+              <div className="bg-white/10 rounded-xl p-4 text-center">
+                <div className="text-sm text-white/70 mb-1">{t('calc.deleverCost')}</div>
+                <div className="text-lg font-bold">{formatPrice(roi.deleverCost)}</div>
+              </div>
+              <div className="bg-white/20 rounded-xl p-4 text-center">
+                <div className="text-sm text-white/70 mb-1">{t('calc.monthlySavings')}</div>
+                <div className="text-xl font-bold text-yellow-200">+{formatPrice(roi.switchSavings)}</div>
+              </div>
+              <div className="bg-white/20 rounded-xl p-4 text-center">
+                <div className="text-sm text-white/70 mb-1">{t('calc.yearlySavings')}</div>
+                <div className="text-xl font-bold text-yellow-200">+{formatPrice(roi.yearSwitchSavings)}</div>
+              </div>
+            </div>
+
+            {roi.switchSavings > 0 && (
+              <div className="mt-6 text-center">
+                <div className="inline-flex items-center gap-2 bg-white/20 rounded-full px-6 py-3">
+                  <span className="text-white/80">{t('calc.savingsPercent')}:</span>
+                  <span className="text-2xl font-bold">{Math.round(roi.switchSavingsPercent)}%</span>
+                  {totals.oneTime > 0 && roi.paybackMonths > 0 && (
+                    <>
+                      <span className="mx-2">•</span>
+                      <span className="text-white/80">{t('calc.payback')}:</span>
+                      <span className="font-bold">{roi.paybackMonths} {t('calc.months')}</span>
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
+          </>
         )}
       </motion.div>
 
@@ -786,18 +975,46 @@ export function PricingCalculator() {
               </div>
             )}
 
-            {/* Savings highlight */}
-            {roi.savings > 0 && (
+            {/* Savings highlight - depends on scenario */}
+            {scenario === 'switch' && roi.switchSavings > 0 && (
               <div className="bg-emerald-50 rounded-xl p-4 mb-4 border border-emerald-200">
                 <div className="flex items-center gap-2 text-emerald-700 mb-2">
                   <TrendingUp className="h-4 w-4" />
                   <span className="text-sm font-medium">{t('calc.yourSavings')}</span>
                 </div>
                 <div className="text-xl font-bold text-emerald-600">
-                  +{formatPrice(roi.savings)}/мес
+                  +{formatPrice(roi.switchSavings)}/мес
                 </div>
                 <div className="text-sm text-emerald-600/70">
-                  {formatPrice(roi.yearSavings)}/год
+                  {formatPrice(roi.yearSwitchSavings)}/год
+                </div>
+              </div>
+            )}
+            {scenario === 'integrate' && roi.integrationSavings > 0 && (
+              <div className="bg-purple-50 rounded-xl p-4 mb-4 border border-purple-200">
+                <div className="flex items-center gap-2 text-purple-700 mb-2">
+                  <Layers className="h-4 w-4" />
+                  <span className="text-sm font-medium">{t('calc.automationSavings')}</span>
+                </div>
+                <div className="text-xl font-bold text-purple-600">
+                  +{formatPrice(roi.integrationSavings)}/мес
+                </div>
+                <div className="text-sm text-purple-600/70">
+                  -{Math.round(roi.hoursSaved)} {t('calc.hoursSavedShort')}
+                </div>
+              </div>
+            )}
+            {scenario === 'own' && roi.ownDeliveryProfit > 0 && (
+              <div className="bg-blue-50 rounded-xl p-4 mb-4 border border-blue-200">
+                <div className="flex items-center gap-2 text-blue-700 mb-2">
+                  <Store className="h-4 w-4" />
+                  <span className="text-sm font-medium">{t('calc.netProfit')}</span>
+                </div>
+                <div className="text-xl font-bold text-blue-600">
+                  {formatPrice(roi.ownDeliveryProfit)}/мес
+                </div>
+                <div className="text-sm text-blue-600/70">
+                  {formatPrice(roi.yearOwnProfit)}/год
                 </div>
               </div>
             )}
