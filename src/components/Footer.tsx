@@ -6,8 +6,8 @@ import { useState } from 'react'
 export function Footer() {
   const [languageOpen, setLanguageOpen] = useState(false)
 
-  // Ссылка на Google Maps для адреса офиса
-  const mapLink = 'https://maps.google.com/?q=Ташкент,+Проспект+Амира+Темура+129Б,+Анор+Плаза'
+  // Ссылка на Яндекс Карты с точными координатами офиса
+  const mapLink = 'https://yandex.com/maps/?pt=69.287920,41.355866&z=17&l=map'
 
   return (
     <footer className="bg-brand-darkBlue text-white">
