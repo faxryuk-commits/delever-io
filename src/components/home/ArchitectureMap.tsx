@@ -484,7 +484,7 @@ export function ArchitectureMap() {
         </motion.div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 auto-rows-[140px] sm:auto-rows-[180px] lg:auto-rows-[220px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 auto-rows-[160px] sm:auto-rows-[180px] lg:auto-rows-[220px]">
           {bentoItems.map((item, index) => (
             <BentoCard 
               key={item.id} 

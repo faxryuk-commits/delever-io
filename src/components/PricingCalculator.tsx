@@ -68,12 +68,12 @@ const platformFeatures = [
 
 // Дополнительные модули с ключами перевода
 const additionalModules = [
-  { id: 'uzum', nameKey: 'calc.module.uzum', priceUZS: 260000, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
-  { id: 'wolt', nameKey: 'calc.module.wolt', priceUZS: 260000, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
-  { id: 'yandex', nameKey: 'calc.module.yandex', priceUZS: 260000, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
-  { id: 'allAggregators', nameKey: 'calc.module.allAggregators', priceUZS: 650000, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
+  { id: 'uzum', nameKey: 'calc.module.uzum', priceUZS: 437500, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
+  { id: 'wolt', nameKey: 'calc.module.wolt', priceUZS: 437500, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
+  { id: 'yandex', nameKey: 'calc.module.yandex', priceUZS: 437500, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
+  { id: 'allAggregators', nameKey: 'calc.module.allAggregators', priceUZS: 1250000, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
   { id: 'courier', nameKey: 'calc.module.courier', priceUZS: 195000, icon: Truck, perType: 'fixed', labelKey: '', category: 'operations' },
-  { id: 'kiosk', nameKey: 'calc.module.kiosk', priceUZS: 910000, icon: Monitor, perType: 'kiosk', labelKey: 'calc.perPiece', category: 'operations' },
+  { id: 'kiosk', nameKey: 'calc.module.kiosk', priceUZS: 1125000, icon: Monitor, perType: 'kiosk', labelKey: 'calc.perPiece', category: 'operations' },
   { id: 'marketing', nameKey: 'calc.module.marketing', priceUZS: 390000, icon: Megaphone, perType: 'brand', labelKey: 'calc.perBrand', category: 'marketing' },
   { id: 'booking', nameKey: 'calc.module.booking', priceUZS: 130000, icon: Calendar, perType: 'brand', labelKey: 'calc.perBrand', category: 'operations' },
   { id: 'courierApp', nameKey: 'calc.module.courierApp', priceUZS: 260000, icon: Smartphone, perType: 'brand', labelKey: 'calc.perBrand', category: 'operations' },
@@ -265,10 +265,10 @@ export function PricingCalculator() {
       kiosks: 'Киоски самообслуживания'
     }
     
-    // Определяем депозит в зависимости от типа
+    // Определяем депозит в зависимости от типа ($600 = 7,500,000 сум)
     const getDeposit = () => {
-      if (connectionType === 'aggregators') return 3900000
-      if (connectionType === 'kiosks') return 6500000
+      if (connectionType === 'aggregators') return 7500000
+      if (connectionType === 'kiosks') return 7500000
       return 6500000 // platform
     }
     
@@ -1061,7 +1061,7 @@ export function PricingCalculator() {
             </div>
             <div className="bg-yellow-500/30 rounded-xl p-6 text-center">
               <div className="text-sm text-white/70 mb-2">{t('calc.requiredDeposit')}</div>
-              <div className="text-3xl font-bold">{formatPrice(3900000)}</div>
+              <div className="text-3xl font-bold">{formatPrice(7500000)}</div>
               <div className="text-sm text-white/70 mt-2">{t('calc.depositUsedForPayment')}</div>
             </div>
           </div>
@@ -1121,7 +1121,7 @@ export function PricingCalculator() {
             </div>
             <div className="bg-yellow-500/30 rounded-xl p-6 text-center">
               <div className="text-sm text-white/70 mb-2">{t('calc.requiredPayment')}</div>
-              <div className="text-3xl font-bold">{formatPrice(6500000)}</div>
+              <div className="text-3xl font-bold">{formatPrice(7500000)}</div>
               <div className="text-sm text-white/70 mt-2">{t('calc.oneTimePayment')}</div>
             </div>
           </div>
