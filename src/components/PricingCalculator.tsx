@@ -167,7 +167,12 @@ export function PricingCalculator() {
       if (item) oneTime += item.priceUZS
     })
     
-    return { monthly, oneTime }
+    // Депозит зависит от типа подключения
+    let deposit = 6500000 // platform default
+    if (connectionType === 'aggregators') deposit = 7500000
+    if (connectionType === 'kiosks') deposit = 7500000
+    
+    return { monthly, oneTime, deposit }
   }
 
   // ROI расчёты для разных сценариев
@@ -251,6 +256,36 @@ export function PricingCalculator() {
     setSelectedOneTime(prev => 
       prev.includes(id) ? prev.filter(m => m !== id) : [...prev, id]
     )
+  }
+
+  // Логирование скачивания КП в Telegram
+  const logInvoiceDownload = async () => {
+    try {
+      const moduleNames = selectedModules.map(id => {
+        const module = additionalModules.find(m => m.id === id)
+        return module ? t(module.nameKey) : id
+      })
+
+      await fetch('/api/log-invoice', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          connectionType,
+          plan: connectionType === 'platform' ? currentPlan.name : undefined,
+          branches,
+          brands,
+          kiosks,
+          modules: moduleNames,
+          monthlyTotal: formatPrice(totals.monthly),
+          oneTimeTotal: formatPrice(totals.oneTime),
+          deposit: formatPrice(totals.deposit),
+          scenario: connectionType === 'platform' ? scenario : undefined,
+          timestamp: new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Tashkent' })
+        })
+      })
+    } catch (error) {
+      console.error('Failed to log invoice download:', error)
+    }
   }
 
   // Генерация КП (коммерческого предложения)
@@ -522,6 +557,9 @@ export function PricingCalculator() {
     a.href = url
     a.download = `Delever_КП_${connectionTypeNames[connectionType]}_${invoiceNumber}.html`
     a.click()
+    
+    // Логируем скачивание в Telegram
+    logInvoiceDownload()
     URL.revokeObjectURL(url)
   }
 
