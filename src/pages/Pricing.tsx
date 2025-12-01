@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
 import { PageNavigation } from '@/components/PageNavigation'
 import { FadeInOnScroll } from '@/components/ui/FadeInOnScroll'
-import { Check, ArrowRight, Percent, CreditCard, Gift } from 'lucide-react'
+import { Check, ArrowRight, Percent, CreditCard, Gift, Smartphone, Sparkles, Palette, Rocket, Shield, Star } from 'lucide-react'
 
 const plans = [
   {
@@ -81,10 +81,6 @@ const addOns = [
   { name: 'Бронь', price: '130,000 soʼm', period: 'за бренд/месяц' },
   { name: 'Курьерка', price: '260,000 soʼm', period: 'за бренд/месяц' },
   { name: 'Кухня', price: '65,000 soʼm', period: 'за филиал/месяц' },
-]
-
-const oneTime = [
-  { name: 'White Label приложение', price: '13,000,000 soʼm', period: 'единоразово' },
 ]
 
 const additional = [
@@ -270,34 +266,88 @@ export function Pricing() {
           </div>
         </section>
 
-        {/* One-time */}
+        {/* White Label - Premium Section */}
         <section className="container mx-auto max-w-7xl mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-brand-darkBlue mb-4">
-              Единоразовые услуги
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {oneTime.map((item, idx) => (
-              <div
-                key={idx}
-                className="bg-white rounded-xl p-6 border border-brand-lightTeal/20 shadow-soft hover:shadow-medium transition-all duration-300"
-              >
-                <h3 className="text-lg font-semibold text-brand-darkBlue mb-3">
-                  {item.name}
-                </h3>
-                <div className="mb-2">
-                  <div className="text-2xl font-bold text-brand-darkBlue">
-                    {item.price}
+          <FadeInOnScroll>
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-darkBlue via-[#003d66] to-[#00527a] p-1">
+              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyek0zNiAyNHYySDI0di0yaDF6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50"></div>
+              
+              <div className="relative bg-gradient-to-br from-brand-darkBlue/95 via-[#003d66]/95 to-[#00527a]/95 rounded-[22px] p-8 md:p-12">
+                {/* Badge */}
+                <div className="flex justify-center mb-6">
+                  <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-400 to-orange-500 text-brand-darkBlue px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                    <Sparkles className="h-4 w-4" />
+                    Премиум решение
+                    <Star className="h-4 w-4 fill-current" />
                   </div>
-                  <div className="text-sm text-brand-darkBlue/70">
-                    {item.period}
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                  {/* Left side - Info */}
+                  <div className="text-center lg:text-left">
+                    <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl mb-6 shadow-xl">
+                      <Smartphone className="h-10 w-10 text-brand-darkBlue" />
+                    </div>
+                    
+                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+                      White Label
+                      <br />
+                      <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
+                        Приложение
+                      </span>
+                    </h2>
+                    
+                    <p className="text-xl text-white/80 mb-6 leading-relaxed">
+                      Собственное мобильное приложение под вашим брендом. Полная кастомизация дизайна, иконки и названия в App Store и Google Play.
+                    </p>
+
+                    <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+                      <div className="text-center sm:text-left">
+                        <div className="text-4xl md:text-5xl font-bold text-white">
+                          13,000,000
+                          <span className="text-2xl ml-2 text-amber-400">soʼm</span>
+                        </div>
+                        <div className="text-white/60 text-sm mt-1">единоразовая оплата</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right side - Features */}
+                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                    <h3 className="text-xl font-semibold text-white mb-5 flex items-center gap-2">
+                      <Check className="h-6 w-6 text-amber-400" />
+                      Что входит
+                    </h3>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {[
+                        { icon: <Palette className="h-5 w-5" />, text: 'Ваш дизайн и бренд' },
+                        { icon: <Smartphone className="h-5 w-5" />, text: 'iOS + Android' },
+                        { icon: <Rocket className="h-5 w-5" />, text: 'Публикация в сторах' },
+                        { icon: <Shield className="h-5 w-5" />, text: 'Push-уведомления' },
+                        { icon: <Sparkles className="h-5 w-5" />, text: 'Программа лояльности' },
+                        { icon: <Star className="h-5 w-5" />, text: 'Техподдержка 24/7' },
+                      ].map((feature, idx) => (
+                        <div key={idx} className="flex items-center gap-3 text-white/90">
+                          <div className="text-amber-400">{feature.icon}</div>
+                          <span className="text-sm">{feature.text}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <Button 
+                      size="lg" 
+                      className="w-full mt-6 bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-brand-darkBlue font-bold shadow-lg"
+                      onClick={() => setContactFormOpen(true)}
+                    >
+                      Заказать приложение
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          </FadeInOnScroll>
         </section>
 
         {/* Additional */}
