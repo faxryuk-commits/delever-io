@@ -1,6 +1,6 @@
 export type Language = 'ru' | 'uz' | 'en' | 'kz' | 'ar' | 'tr' | 'ka'
 
-export type Country = 'uz' | 'kz' | 'kg' | 'az' | 'ge' | 'tr' | 'ae' | 'other'
+export type Country = 'uz' | 'kz' | 'kg' | 'az' | 'ge' | 'tr' | 'ae' | 'us' | 'other'
 
 export interface CountryConfig {
   code: Country
@@ -67,6 +67,14 @@ export const countries: CountryConfig[] = [
     currencySymbol: 'د.إ',
     priceMultiplier: 1.2,
     flag: '🇦🇪'
+  },
+  {
+    code: 'us',
+    name: { ru: 'США', uz: 'AQSH', en: 'USA', kz: 'АҚШ', ar: 'أمريكا', tr: 'ABD', ka: 'აშშ' },
+    currency: 'USD',
+    currencySymbol: '$',
+    priceMultiplier: 1.2,
+    flag: '🇺🇸'
   },
 ]
 
@@ -169,6 +177,21 @@ export const translations: Record<Language, Record<string, string>> = {
     'footer.allRights': 'Все права защищены',
     'footer.terms': 'Условия использования',
     'footer.privacy': 'Политика конфиденциальности',
+    'footer.platformOverview': 'Обзор платформы',
+    'footer.salesChannels': 'Каналы продаж',
+    'footer.deliveryOps': 'Операции доставки',
+    'footer.analytics': 'Аналитика',
+    'footer.marketingCRM': 'Маркетинг и CRM',
+    'footer.allIntegrations': 'Все интеграции',
+    'footer.posSystems': 'POS-системы',
+    'footer.aggregators': 'Агрегаторы',
+    'footer.payments': 'Платёжные системы',
+    'footer.deliveryServices': 'Службы доставки',
+    'footer.knowledgeBase': 'База знаний',
+    'footer.apiDocs': 'API документация',
+    'footer.updates': 'Обновления',
+    'footer.systemStatus': 'Статус системы',
+    'footer.address': 'Ташкент, Амира Темура 129Б',
     
     // Common
     'common.learnMore': 'Подробнее',
@@ -264,6 +287,21 @@ export const translations: Record<Language, Record<string, string>> = {
     'footer.allRights': 'Barcha huquqlar himoyalangan',
     'footer.terms': 'Foydalanish shartlari',
     'footer.privacy': 'Maxfiylik siyosati',
+    'footer.platformOverview': 'Platforma haqida',
+    'footer.salesChannels': 'Savdo kanallari',
+    'footer.deliveryOps': 'Yetkazib berish operatsiyalari',
+    'footer.analytics': 'Tahlil',
+    'footer.marketingCRM': 'Marketing va CRM',
+    'footer.allIntegrations': 'Barcha integratsiyalar',
+    'footer.posSystems': 'POS-tizimlar',
+    'footer.aggregators': 'Aggregatorlar',
+    'footer.payments': 'To\'lov tizimlari',
+    'footer.deliveryServices': 'Yetkazib berish xizmatlari',
+    'footer.knowledgeBase': 'Bilimlar bazasi',
+    'footer.apiDocs': 'API hujjatlar',
+    'footer.updates': 'Yangilanishlar',
+    'footer.systemStatus': 'Tizim holati',
+    'footer.address': 'Toshkent, Amir Temur 129B',
     
     // Common
     'common.learnMore': 'Batafsil',
@@ -359,6 +397,21 @@ export const translations: Record<Language, Record<string, string>> = {
     'footer.allRights': 'All rights reserved',
     'footer.terms': 'Terms of Service',
     'footer.privacy': 'Privacy Policy',
+    'footer.platformOverview': 'Platform Overview',
+    'footer.salesChannels': 'Sales Channels',
+    'footer.deliveryOps': 'Delivery Operations',
+    'footer.analytics': 'Analytics',
+    'footer.marketingCRM': 'Marketing & CRM',
+    'footer.allIntegrations': 'All Integrations',
+    'footer.posSystems': 'POS Systems',
+    'footer.aggregators': 'Aggregators',
+    'footer.payments': 'Payment Systems',
+    'footer.deliveryServices': 'Delivery Services',
+    'footer.knowledgeBase': 'Knowledge Base',
+    'footer.apiDocs': 'API Documentation',
+    'footer.updates': 'Updates',
+    'footer.systemStatus': 'System Status',
+    'footer.address': 'Tashkent, Amir Temur 129B',
     
     // Common
     'common.learnMore': 'Learn More',

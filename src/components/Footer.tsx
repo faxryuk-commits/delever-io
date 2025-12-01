@@ -1,12 +1,20 @@
 import { Link } from 'react-router-dom'
-import { MapPin, Linkedin, Globe, ChevronDown, Send, Instagram, Phone, Mail, BookOpen, Code, Bell, Activity, Users } from 'lucide-react'
+import { MapPin, Linkedin, Send, Instagram, Phone, Mail, BookOpen, Code, Bell, Activity, Users } from 'lucide-react'
 import { Logo } from './Logo'
-import { useState } from 'react'
+import { LocaleSwitcher } from './LocaleSwitcher'
+import { useLocale } from '@/i18n/LocaleContext'
 
 export function Footer() {
-  const [languageOpen, setLanguageOpen] = useState(false)
-
+  const { t } = useLocale()
   const mapLink = 'https://maps.app.goo.gl/1iobehkkfP83hAMj6'
+
+  const stats = [
+    { value: '1000+', labelKey: 'stats.businesses' },
+    { value: '5', labelKey: 'stats.countries' },
+    { value: '40+', labelKey: 'stats.integrations' },
+    { value: '13M+', labelKey: 'stats.orders' },
+    { value: '99.9%', labelKey: 'stats.uptime' },
+  ]
 
   return (
     <footer className="bg-brand-darkBlue text-white">
@@ -19,7 +27,7 @@ export function Footer() {
               <Logo variant="white" height={40} />
             </Link>
             <p className="text-sm text-white/60 mb-6 leading-relaxed max-w-xs">
-              Операционная система для доставки. Управляйте всеми каналами продаж из одного окна.
+              {t('footer.description')}
             </p>
             
             {/* Social Media */}
@@ -54,45 +62,38 @@ export function Footer() {
             </div>
 
             {/* Language Selector */}
-            <div className="relative hidden lg:block">
-              <button
-                onClick={() => setLanguageOpen(!languageOpen)}
-                className="px-3 py-2 border border-white/20 rounded-lg flex items-center gap-2 hover:border-white/40 transition-colors text-sm"
-              >
-                <Globe className="h-4 w-4" />
-                <span>Русский</span>
-                <ChevronDown className={`h-3 w-3 transition-transform ${languageOpen ? 'rotate-180' : ''}`} />
-              </button>
+            <div className="hidden lg:block">
+              <LocaleSwitcher />
             </div>
           </div>
 
-          {/* Продукты */}
+          {/* Products */}
           <div>
-            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Продукты</h3>
+            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">{t('footer.products')}</h3>
             <ul className="space-y-2.5 text-sm">
               <li>
                 <Link to="/products" className="text-white/60 hover:text-white transition-colors">
-                  Обзор платформы
+                  {t('footer.platformOverview')}
                 </Link>
               </li>
               <li>
                 <Link to="/products/channels" className="text-white/60 hover:text-white transition-colors">
-                  Каналы продаж
+                  {t('footer.salesChannels')}
                 </Link>
               </li>
               <li>
                 <Link to="/products/operations" className="text-white/60 hover:text-white transition-colors">
-                  Операции доставки
+                  {t('footer.deliveryOps')}
                 </Link>
               </li>
               <li>
                 <Link to="/products/analytics" className="text-white/60 hover:text-white transition-colors">
-                  Аналитика
+                  {t('footer.analytics')}
                 </Link>
               </li>
               <li>
                 <Link to="/products/marketing" className="text-white/60 hover:text-white transition-colors">
-                  Маркетинг и CRM
+                  {t('footer.marketingCRM')}
                 </Link>
               </li>
               <li>
@@ -103,41 +104,41 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Интеграции */}
+          {/* Integrations */}
           <div>
-            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Интеграции</h3>
+            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">{t('footer.integrations')}</h3>
             <ul className="space-y-2.5 text-sm">
               <li>
                 <Link to="/integrations" className="text-white/60 hover:text-white transition-colors">
-                  Все интеграции
+                  {t('footer.allIntegrations')}
                 </Link>
               </li>
               <li>
                 <Link to="/integrations#pos" className="text-white/60 hover:text-white transition-colors">
-                  POS-системы
+                  {t('footer.posSystems')}
                 </Link>
               </li>
               <li>
                 <Link to="/integrations#aggregators" className="text-white/60 hover:text-white transition-colors">
-                  Агрегаторы
+                  {t('footer.aggregators')}
                 </Link>
               </li>
               <li>
                 <Link to="/integrations#payments" className="text-white/60 hover:text-white transition-colors">
-                  Платёжные системы
+                  {t('footer.payments')}
                 </Link>
               </li>
               <li>
                 <Link to="/integrations#delivery" className="text-white/60 hover:text-white transition-colors">
-                  Службы доставки
+                  {t('footer.deliveryServices')}
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Ресурсы */}
+          {/* Resources */}
           <div>
-            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Ресурсы</h3>
+            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">{t('footer.resources')}</h3>
             <ul className="space-y-2.5 text-sm">
               <li>
                 <a 
@@ -147,7 +148,7 @@ export function Footer() {
                   className="text-white/60 hover:text-white transition-colors flex items-center gap-2"
                 >
                   <BookOpen className="h-3.5 w-3.5" />
-                  База знаний
+                  {t('footer.knowledgeBase')}
                 </a>
               </li>
               <li>
@@ -158,7 +159,7 @@ export function Footer() {
                   className="text-white/60 hover:text-white transition-colors flex items-center gap-2"
                 >
                   <Code className="h-3.5 w-3.5" />
-                  API документация
+                  {t('footer.apiDocs')}
                 </a>
               </li>
               <li>
@@ -169,7 +170,7 @@ export function Footer() {
                   className="text-white/60 hover:text-white transition-colors flex items-center gap-2"
                 >
                   <Bell className="h-3.5 w-3.5" />
-                  Обновления
+                  {t('footer.updates')}
                 </a>
               </li>
               <li>
@@ -180,21 +181,21 @@ export function Footer() {
                   className="text-white/60 hover:text-white transition-colors flex items-center gap-2"
                 >
                   <Activity className="h-3.5 w-3.5" />
-                  Статус системы
+                  {t('footer.systemStatus')}
                 </a>
               </li>
               <li>
                 <Link to="/partners" className="text-white/60 hover:text-white transition-colors flex items-center gap-2">
                   <Users className="h-3.5 w-3.5" />
-                  Партнёрам
+                  {t('nav.partners')}
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Контакты */}
+          {/* Contacts */}
           <div>
-            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Контакты</h3>
+            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">{t('footer.contacts')}</h3>
             <ul className="space-y-2.5 text-sm">
               <li>
                 <a 
@@ -233,36 +234,22 @@ export function Footer() {
                   className="text-white/60 hover:text-white transition-colors flex items-start gap-2"
                 >
                   <MapPin className="h-3.5 w-3.5 mt-0.5 flex-shrink-0" />
-                  <span>Ташкент, Амира Темура 129Б</span>
+                  <span>{t('footer.address')}</span>
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Stats Bar - Compact */}
+        {/* Stats Bar */}
         <div className="border-t border-white/10 pt-8 mb-8">
           <div className="flex flex-wrap justify-center gap-8 lg:gap-16">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-white">1000+</div>
-              <div className="text-xs text-white/50 uppercase tracking-wider">Бизнесов</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-white">5</div>
-              <div className="text-xs text-white/50 uppercase tracking-wider">Стран</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-white">40+</div>
-              <div className="text-xs text-white/50 uppercase tracking-wider">Интеграций</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-white">13M+</div>
-              <div className="text-xs text-white/50 uppercase tracking-wider">Заказов</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-white">99.9%</div>
-              <div className="text-xs text-white/50 uppercase tracking-wider">Uptime</div>
-            </div>
+            {stats.map((stat, idx) => (
+              <div key={idx} className="text-center">
+                <div className="text-2xl font-bold text-white">{stat.value}</div>
+                <div className="text-xs text-white/50 uppercase tracking-wider">{t(stat.labelKey)}</div>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -270,14 +257,14 @@ export function Footer() {
         <div className="border-t border-white/10 pt-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-xs text-white/50">
-              © {new Date().getFullYear()} Delever. Все права защищены.
+              © {new Date().getFullYear()} Delever. {t('footer.allRights')}
             </p>
             <div className="flex items-center gap-6 text-xs text-white/50">
               <Link to="#" className="hover:text-white transition-colors">
-                Условия использования
+                {t('footer.terms')}
               </Link>
               <Link to="#" className="hover:text-white transition-colors">
-                Политика конфиденциальности
+                {t('footer.privacy')}
               </Link>
             </div>
           </div>

@@ -3,15 +3,17 @@ import { Button } from '../ui/Button'
 import { ContactForm } from '../ContactForm'
 import { ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { useLocale } from '@/i18n/LocaleContext'
 
 export function Hero() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
+  const { t } = useLocale()
 
   const stats = [
-    { value: '13M+', label: 'Заказов' },
-    { value: '1000+', label: 'Бизнесов' },
-    { value: '5', label: 'Стран' },
-    { value: '40+', label: 'Интеграций' },
+    { value: '13M+', labelKey: 'stats.orders' },
+    { value: '1000+', labelKey: 'stats.businesses' },
+    { value: '5', labelKey: 'stats.countries' },
+    { value: '40+', labelKey: 'stats.integrations' },
   ]
 
   return (
@@ -30,13 +32,14 @@ export function Hero() {
             className="text-center max-w-4xl mx-auto mb-12 lg:mb-16"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-darkBlue mb-6 leading-[1.15] tracking-tight">
-              Операционная система
+              {t('hero.title')}
               <br />
-              для доставки
+              <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
+                {t('hero.titleHighlight')}
+              </span>
             </h1>
             <p className="text-lg md:text-xl text-brand-darkBlue/70 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Управляйте заказами, курьерами и аналитикой из одного окна. 
-              Для ресторанов, магазинов, аптек и любого бизнеса с доставкой.
+              {t('hero.description')}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
               <Button
@@ -44,7 +47,7 @@ export function Hero() {
                 onClick={() => setContactFormOpen(true)}
                 className="w-full sm:w-auto px-8"
               >
-                Начать бесплатно
+                {t('hero.cta')}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button
@@ -53,7 +56,7 @@ export function Hero() {
                 onClick={() => window.open('https://admin.delever.uz/#/login', '_blank')}
                 className="w-full sm:w-auto px-8"
               >
-                Войти в систему
+                {t('nav.login')}
               </Button>
             </div>
           </motion.div>
@@ -71,7 +74,7 @@ export function Hero() {
                   {stat.value}
                 </div>
                 <div className="text-sm text-brand-darkBlue/60 mt-1">
-                  {stat.label}
+                  {t(stat.labelKey)}
                 </div>
               </div>
             ))}
@@ -85,10 +88,10 @@ export function Hero() {
             className="text-center"
           >
             <p className="text-xs text-brand-darkBlue/50 mb-4 uppercase tracking-wider font-medium">
-              Интеграции
+              {t('nav.integrations')}
             </p>
             <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-3">
-              {['iiko', 'R-Keeper', 'Poster', 'Uzum Tezkor', 'Glovo', 'Яндекс Еда', 'Wolt'].map(
+              {['iiko', 'R-Keeper', 'Poster', 'Uzum Tezkor', 'Glovo', 'Yandex Eats', 'Wolt'].map(
                 (brand) => (
                   <span 
                     key={brand} 
