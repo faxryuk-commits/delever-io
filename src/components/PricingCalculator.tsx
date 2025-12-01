@@ -29,12 +29,12 @@ import { Button } from './ui/Button'
 import { ContactForm } from './ContactForm'
 import { useLocale } from '@/i18n/LocaleContext'
 
-// Базовые тарифы
+// Базовые тарифы (UZS для узбекского, USD для английского)
 const basePlans = [
-  { name: 'Start', orders: 1000, priceUZS: 1875000, perOrderUZS: 2500 },
-  { name: 'Medium', orders: 3000, priceUZS: 3500000, perOrderUZS: 2500 },
-  { name: 'Big', orders: 6000, priceUZS: 7250000, perOrderUZS: 2500 },
-  { name: 'Enterprise', orders: 10000, priceUZS: 13750000, perOrderUZS: 2500 },
+  { name: 'Start', orders: 1000, priceUZS: 1300000, priceUSD: 150, perOrderUZS: 1950, perOrderUSD: 0.20 },
+  { name: 'Medium', orders: 3000, priceUZS: 3250000, priceUSD: 280, perOrderUZS: 1950, perOrderUSD: 0.20 },
+  { name: 'Big', orders: 6000, priceUZS: 6500000, priceUSD: 580, perOrderUZS: 1950, perOrderUSD: 0.20 },
+  { name: 'Enterprise', orders: 10000, priceUZS: 13000000, priceUSD: 1100, perOrderUZS: 1950, perOrderUSD: 0.20 },
 ]
 
 // Полный функционал платформы
@@ -92,9 +92,25 @@ const oneTimePayments = [
 type ConnectionType = 'platform' | 'aggregators' | 'kiosks'
 
 export function PricingCalculator() {
-  const { t, formatPrice } = useLocale()
+  const { t, formatPrice, language } = useLocale()
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const invoiceRef = useRef<HTMLDivElement>(null)
+  
+  // Форматирование цены плана (использует прямые USD цены для английского)
+  const formatPlanPrice = (plan: typeof basePlans[0]) => {
+    if (language === 'en') {
+      return `$${plan.priceUSD.toLocaleString('en-US')}`
+    }
+    return `${plan.priceUZS.toLocaleString('ru-RU')} so'm`
+  }
+  
+  // Форматирование цены за доп. заказ
+  const formatPerOrderPrice = (plan: typeof basePlans[0]) => {
+    if (language === 'en') {
+      return `$${plan.perOrderUSD}`
+    }
+    return `${plan.perOrderUZS.toLocaleString('ru-RU')} so'm`
+  }
   
   // Тип подключения
   const [connectionType, setConnectionType] = useState<ConnectionType>('platform')
@@ -167,10 +183,10 @@ export function PricingCalculator() {
       if (item) oneTime += item.priceUZS
     })
     
-    // Депозит зависит от типа подключения
-    let deposit = 6500000 // platform default
-    if (connectionType === 'aggregators') deposit = 7500000
-    if (connectionType === 'kiosks') deposit = 7500000
+    // Депозит зависит от типа подключения (UZS)
+    let deposit = 6500000 // platform default: $520
+    if (connectionType === 'aggregators') deposit = 7500000 // $600
+    if (connectionType === 'kiosks') deposit = 7500000 // $600
     
     return { monthly, oneTime, deposit }
   }
@@ -1285,7 +1301,7 @@ export function PricingCalculator() {
                     {t('calc.upTo')} {plan.orders.toLocaleString()} {t('calc.orders')}
                   </div>
                   <div className={`text-sm font-semibold mt-2 ${selectedPlan === idx ? 'text-white' : 'text-brand-darkBlue'}`}>
-                    {formatPrice(plan.priceUZS)}
+                    {formatPlanPrice(plan)}
                   </div>
                 </button>
               ))}
@@ -1297,7 +1313,7 @@ export function PricingCalculator() {
                 <div>
                   <div className="text-sm font-medium text-brand-darkBlue">{t('calc.extraOrders')}</div>
                   <div className="text-xs text-brand-darkBlue/50">
-                    {t('calc.pricePerOrder')}: {formatPrice(currentPlan.perOrderUZS)}
+                    {t('calc.pricePerOrder')}: {formatPerOrderPrice(currentPlan)}
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -1449,13 +1465,18 @@ export function PricingCalculator() {
                   <div className="text-xs text-brand-darkBlue/50">{t('calc.upTo')} {currentPlan.orders.toLocaleString()} {t('calc.orders')}</div>
                 </div>
                 <div className="text-right font-semibold text-brand-darkBlue">
-                  {formatPrice(currentPlan.priceUZS)}
+                  {formatPlanPrice(currentPlan)}
                 </div>
               </div>
               {extraOrders > 0 && (
                 <div className="flex justify-between text-sm mt-2 pt-2 border-t border-brand-lightTeal/10">
                   <span className="text-brand-darkBlue/70">+{extraOrders} {t('calc.orders')}</span>
-                  <span className="text-brand-darkBlue">{formatPrice(extraOrders * currentPlan.perOrderUZS)}</span>
+                  <span className="text-brand-darkBlue">
+                    {language === 'en' 
+                      ? `$${(extraOrders * currentPlan.perOrderUSD).toFixed(0)}`
+                      : formatPrice(extraOrders * currentPlan.perOrderUZS)
+                    }
+                  </span>
                 </div>
               )}
             </div>
