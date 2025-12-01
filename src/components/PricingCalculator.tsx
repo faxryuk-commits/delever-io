@@ -72,15 +72,15 @@ const additionalModules = [
   { id: 'wolt', nameKey: 'calc.module.wolt', priceUZS: 437500, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
   { id: 'yandex', nameKey: 'calc.module.yandex', priceUZS: 437500, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
   { id: 'allAggregators', nameKey: 'calc.module.allAggregators', priceUZS: 1250000, icon: Layers, perType: 'branch', labelKey: 'calc.perBranch', category: 'aggregator' },
-  { id: 'courier', nameKey: 'calc.module.courier', priceUZS: 195000, icon: Truck, perType: 'fixed', labelKey: '', category: 'operations' },
+  { id: 'courier', nameKey: 'calc.module.courier', priceUZS: 375000, icon: Truck, perType: 'fixed', labelKey: '', category: 'operations' },
   { id: 'kiosk', nameKey: 'calc.module.kiosk', priceUZS: 1125000, icon: Monitor, perType: 'kiosk', labelKey: 'calc.perPiece', category: 'operations' },
-  { id: 'marketing', nameKey: 'calc.module.marketing', priceUZS: 390000, icon: Megaphone, perType: 'brand', labelKey: 'calc.perBrand', category: 'marketing' },
-  { id: 'booking', nameKey: 'calc.module.booking', priceUZS: 130000, icon: Calendar, perType: 'brand', labelKey: 'calc.perBrand', category: 'operations' },
-  { id: 'courierApp', nameKey: 'calc.module.courierApp', priceUZS: 260000, icon: Smartphone, perType: 'brand', labelKey: 'calc.perBrand', category: 'operations' },
-  { id: 'kds', nameKey: 'calc.module.kds', priceUZS: 65000, icon: ChefHat, perType: 'branch', labelKey: 'calc.perBranch', category: 'operations' },
-  { id: 'callCenter', nameKey: 'calc.module.callCenter', priceUZS: 0, icon: Headphones, perType: 'fixed', labelKey: '', category: 'operations' },
-  { id: 'manager', nameKey: 'calc.module.manager', priceUZS: 1300000, icon: UserCog, perType: 'brand', labelKey: 'calc.perBrand', category: 'support' },
-  { id: 'dashboard', nameKey: 'calc.module.dashboard', priceUZS: 130000, icon: LayoutDashboard, perType: 'brand', labelKey: 'calc.perBrand', category: 'analytics' },
+  { id: 'marketing', nameKey: 'calc.module.marketing', priceUZS: 437500, icon: Megaphone, perType: 'brand', labelKey: 'calc.perBrand', category: 'marketing' },
+  { id: 'booking', nameKey: 'calc.module.booking', priceUZS: 250000, icon: Calendar, perType: 'brand', labelKey: 'calc.perBrand', category: 'operations' },
+  { id: 'courierApp', nameKey: 'calc.module.courierApp', priceUZS: 437500, icon: Smartphone, perType: 'brand', labelKey: 'calc.perBrand', category: 'operations' },
+  { id: 'kds', nameKey: 'calc.module.kds', priceUZS: 125000, icon: ChefHat, perType: 'branch', labelKey: 'calc.perBranch', category: 'operations' },
+  { id: 'callCenter', nameKey: 'calc.module.callCenter', priceUZS: 250000, icon: Headphones, perType: 'fixed', labelKey: '', category: 'operations' },
+  { id: 'manager', nameKey: 'calc.module.manager', priceUZS: 1875000, icon: UserCog, perType: 'brand', labelKey: 'calc.perBrand', category: 'support' },
+  { id: 'dashboard', nameKey: 'calc.module.dashboard', priceUZS: 250000, icon: LayoutDashboard, perType: 'brand', labelKey: 'calc.perBrand', category: 'analytics' },
 ]
 
 // Единоразовые платежи
