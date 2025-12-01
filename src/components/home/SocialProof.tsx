@@ -84,7 +84,7 @@ const stats: Array<{
 }> = [
   { value: 13000000, suffix: '+', label: 'Заказов обработано', format: 'M' },
   { value: 5, suffix: '', label: 'Стран', format: 'number' },
-  { value: 1000, suffix: '+', label: 'Ресторанов и магазинов', format: 'K' },
+  { value: 1000, suffix: '+', label: 'Бизнесов', format: 'K' },
   { value: 40, suffix: '+', label: 'Интеграций', format: 'number' },
   { value: 100000000, prefix: '$', suffix: '+', label: 'Продаж через платформу', format: 'M' },
 ]

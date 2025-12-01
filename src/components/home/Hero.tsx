@@ -19,7 +19,7 @@ export function Hero() {
                 <span className="bg-gradient-brand bg-clip-text text-transparent">для управления доставкой</span>
               </h1>
               <p className="text-xl md:text-2xl text-brand-darkBlue/75 mb-8 max-w-3xl mx-auto leading-relaxed font-light">
-                Управляйте всеми каналами продаж, операциями доставки и аналитикой из одного места. Запустите собственные каналы продаж, автоматизируйте работу с агрегаторами и увеличьте прибыль уже через неделю.
+                Для ресторанов, магазинов, аптек, цветочных и любого бизнеса с доставкой. Запустите собственные каналы продаж, автоматизируйте операции и увеличьте прибыль уже через неделю.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Button
@@ -47,7 +47,7 @@ export function Hero() {
             </div>
             <div className="text-center">
               <div className="text-4xl md:text-5xl font-bold text-brand-darkBlue mb-2 tracking-tight">1000+</div>
-              <div className="text-sm md:text-base text-brand-darkBlue/65 font-medium">Ресторанов и магазинов</div>
+              <div className="text-sm md:text-base text-brand-darkBlue/65 font-medium">Бизнесов</div>
             </div>
             <div className="text-center">
               <div className="text-4xl md:text-5xl font-bold text-brand-darkBlue mb-2 tracking-tight">40+</div>

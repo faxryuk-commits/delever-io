@@ -178,12 +178,12 @@ export function Footer() {
             <ul className="space-y-3 text-sm">
               <li>
                 <Link to="/products" className="text-white/70 hover:text-white transition-colors">
-                  Рестораны
+                  Рестораны и кафе
                 </Link>
               </li>
               <li>
                 <Link to="/products" className="text-white/70 hover:text-white transition-colors">
-                  Сети ресторанов
+                  Магазины и аптеки
                 </Link>
               </li>
               <li>

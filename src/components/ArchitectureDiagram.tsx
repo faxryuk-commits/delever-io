@@ -253,9 +253,7 @@ function ModuleNode({ module, index, isActive, onClick }: { module: Module; inde
         style={{ 
           backgroundColor: module.bgColor,
           color: module.color,
-          // @ts-expect-error CSS custom property for ring color
-          '--tw-ring-color': module.color,
-        } as React.CSSProperties}
+        }}
       >
         {module.icon}
         <span className="text-xs font-bold mt-1">{module.name}</span>
@@ -476,9 +474,7 @@ export function ArchitectureDiagram() {
             style={{ 
               backgroundColor: module.bgColor,
               color: module.color,
-              // @ts-expect-error CSS custom property for ring color
-              '--tw-ring-color': module.color,
-            } as React.CSSProperties}
+            }}
           >
             {module.icon}
             {module.nameRu}

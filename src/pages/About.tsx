@@ -17,7 +17,7 @@ export function About() {
     {
       icon: <Users className="h-6 w-6" />,
       title: 'Миссия',
-      description: 'Сделать запуск собственной доставки доступным для каждого ресторана',
+      description: 'Сделать запуск собственной доставки доступным для любого бизнеса',
     },
     {
       icon: <TrendingUp className="h-6 w-6" />,
@@ -38,7 +38,7 @@ export function About() {
                 О компании Delever
               </h1>
               <p className="text-xl text-brand-darkBlue/80 mb-8 font-light leading-relaxed">
-                Мы создаём технологии, которые помогают ресторанам расти быстрее и работать эффективнее
+                Мы создаём технологии, которые помогают бизнесу расти быстрее и работать эффективнее
               </p>
             </div>
           </FadeInOnScroll>
@@ -54,10 +54,10 @@ export function About() {
                 </h2>
                 <div className="space-y-4 text-brand-darkBlue/80 leading-relaxed">
                   <p>
-                    Delever создан командой с опытом работы в крупных агрегаторах доставки, сетях ресторанов и разработке технологических решений. Мы знаем проблемы ресторанов изнутри.
+                    Delever создан командой с опытом работы в крупных агрегаторах доставки, ритейле и разработке технологических решений. Мы знаем проблемы бизнеса изнутри.
                   </p>
                   <p>
-                    Видя, как рестораны теряют прибыль на комиссиях агрегаторов и тратят время на ручную работу, мы решили создать единую платформу, которая решает все задачи доставки — от приёма заказов до аналитики и маркетинга.
+                    Видя, как бизнесы теряют прибыль на комиссиях агрегаторов и тратят время на ручную работу, мы решили создать единую платформу, которая решает все задачи доставки — от приёма заказов до аналитики и маркетинга.
                   </p>
                   <p>
                     Сегодня Delever помогает более 1000 заведениям в 5 странах увеличивать прибыль и упрощать операции.
@@ -86,7 +86,7 @@ export function About() {
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold text-brand-darkBlue mb-2">1000+</div>
-                <div className="text-brand-darkBlue/80">Ресторанов и магазинов</div>
+                <div className="text-brand-darkBlue/80">Бизнесов</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold text-brand-darkBlue mb-2">13M+</div>
@@ -131,7 +131,7 @@ export function About() {
           <div className="container mx-auto max-w-4xl text-center">
             <h2 className="text-4xl font-bold mb-4 text-white tracking-tight">Готовы начать работать с нами?</h2>
             <p className="text-xl text-white/90 mb-8 font-light">
-              Свяжитесь с нами и узнайте, как Delever поможет увеличить прибыль и упростить операции вашего ресторана
+              Свяжитесь с нами и узнайте, как Delever поможет увеличить прибыль и упростить операции вашего бизнеса
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="secondary" onClick={() => setContactFormOpen(true)}>

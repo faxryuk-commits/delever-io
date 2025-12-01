@@ -31,7 +31,7 @@ const plans = [
     orders: 3000,
     price: '3,250,000 soʼm',
     period: '/месяц',
-    description: 'Для сетей ресторанов',
+    description: 'Для сетей и франшиз',
     features: [
       'Всё из Start',
       'Мобильное приложение',

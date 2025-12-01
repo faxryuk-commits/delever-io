@@ -14,7 +14,7 @@ export function Clients() {
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-8">
           <h2 className="text-2xl md:text-3xl font-bold text-brand-darkBlue mb-2 tracking-tight">
-            Поддерживаемые ведущие сети ресторанов
+            Нам доверяют ведущие бренды
           </h2>
         </div>
 
