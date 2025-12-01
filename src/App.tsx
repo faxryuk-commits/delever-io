@@ -3,6 +3,7 @@ import { Toaster } from 'sonner'
 import * as Tooltip from '@radix-ui/react-tooltip'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
+import { ScrollToTop } from './components/ScrollToTop'
 import { Home } from './pages/Home'
 import { Products } from './pages/Products'
 import { Pricing } from './pages/Pricing'
@@ -19,6 +20,7 @@ function App() {
   return (
     <Tooltip.Provider>
       <BrowserRouter>
+        <ScrollToTop />
         <div className="min-h-screen flex flex-col bg-white">
             <Header />
             <main className="flex-1">
