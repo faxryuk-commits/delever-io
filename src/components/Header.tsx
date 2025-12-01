@@ -165,7 +165,7 @@ export function Header() {
                     : 'text-brand-darkBlue/70 hover:text-brand-darkBlue hover:bg-brand-lightBlue/40'
                 )}
               >
-                Интеграции
+                {t('nav.integrations')}
               </Link>
 
               {/* Other Nav Items */}
