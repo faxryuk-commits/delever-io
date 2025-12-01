@@ -1,10 +1,13 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
 import { PageNavigation } from '@/components/PageNavigation'
 import { FadeInOnScroll } from '@/components/ui/FadeInOnScroll'
-import { Check, ArrowRight, Percent, CreditCard, Gift, Smartphone, Sparkles, Palette, Rocket, Shield, Star } from 'lucide-react'
+import { 
+  Check, ArrowRight, Percent, CreditCard, Gift, Smartphone, Sparkles, Palette, Rocket, Shield, Star,
+  ShoppingBag, Truck, Monitor, Megaphone, BarChart3, CalendarCheck, Users, ChefHat
+} from 'lucide-react'
 
 const plans = [
   {
@@ -72,20 +75,116 @@ const plans = [
   },
 ]
 
-const addOns = [
-  { name: 'Агрегатор за одного', price: '260,000 soʼm', period: 'за филиал/месяц' },
-  { name: 'Агрегатор все', price: '650,000 soʼm', period: 'за филиал/месяц' },
-  { name: 'Курьер сервис', price: '195,000 soʼm', period: 'за сервис/месяц' },
-  { name: 'Киоск', price: '910,000 soʼm', period: 'за штуку/месяц' },
-  { name: 'Маркетинг', price: '390,000 soʼm', period: 'за бренд/месяц' },
-  { name: 'Дашборд', price: '130,000 soʼm', period: 'за бренд/месяц' },
-  { name: 'Бронь', price: '130,000 soʼm', period: 'за бренд/месяц' },
-  { name: 'Курьерка', price: '260,000 soʼm', period: 'за бренд/месяц' },
-  { name: 'Кухня', price: '65,000 soʼm', period: 'за филиал/месяц' },
+const addOns: Array<{
+  name: string
+  price: string
+  period: string
+  icon: React.ReactNode
+  color: string
+  bgColor: string
+  desc: string
+}> = [
+  { 
+    name: 'Агрегатор за одного', 
+    price: '260,000 soʼm', 
+    period: 'за филиал/месяц',
+    icon: <ShoppingBag className="h-6 w-6" />,
+    color: 'text-orange-600',
+    bgColor: 'bg-orange-100',
+    desc: 'Интеграция с одним агрегатором'
+  },
+  { 
+    name: 'Агрегатор все', 
+    price: '650,000 soʼm', 
+    period: 'за филиал/месяц',
+    icon: <ShoppingBag className="h-6 w-6" />,
+    color: 'text-orange-600',
+    bgColor: 'bg-orange-100',
+    desc: 'Интеграция со всеми агрегаторами'
+  },
+  { 
+    name: 'Курьер сервис', 
+    price: '195,000 soʼm', 
+    period: 'за сервис/месяц',
+    icon: <Truck className="h-6 w-6" />,
+    color: 'text-blue-600',
+    bgColor: 'bg-blue-100',
+    desc: 'Яндекс Доставка, Wolt Drive и др.'
+  },
+  { 
+    name: 'Киоск', 
+    price: '910,000 soʼm', 
+    period: 'за штуку/месяц',
+    icon: <Monitor className="h-6 w-6" />,
+    color: 'text-purple-600',
+    bgColor: 'bg-purple-100',
+    desc: 'Терминал самообслуживания'
+  },
+  { 
+    name: 'Маркетинг', 
+    price: '390,000 soʼm', 
+    period: 'за бренд/месяц',
+    icon: <Megaphone className="h-6 w-6" />,
+    color: 'text-pink-600',
+    bgColor: 'bg-pink-100',
+    desc: 'Push, SMS, email рассылки'
+  },
+  { 
+    name: 'Дашборд', 
+    price: '130,000 soʼm', 
+    period: 'за бренд/месяц',
+    icon: <BarChart3 className="h-6 w-6" />,
+    color: 'text-emerald-600',
+    bgColor: 'bg-emerald-100',
+    desc: 'Расширенная аналитика'
+  },
+  { 
+    name: 'Бронь', 
+    price: '130,000 soʼm', 
+    period: 'за бренд/месяц',
+    icon: <CalendarCheck className="h-6 w-6" />,
+    color: 'text-indigo-600',
+    bgColor: 'bg-indigo-100',
+    desc: 'Бронирование столиков'
+  },
+  { 
+    name: 'Курьерка', 
+    price: '260,000 soʼm', 
+    period: 'за бренд/месяц',
+    icon: <Users className="h-6 w-6" />,
+    color: 'text-cyan-600',
+    bgColor: 'bg-cyan-100',
+    desc: 'Управление своими курьерами'
+  },
+  { 
+    name: 'Кухня', 
+    price: '65,000 soʼm', 
+    period: 'за филиал/месяц',
+    icon: <ChefHat className="h-6 w-6" />,
+    color: 'text-amber-600',
+    bgColor: 'bg-amber-100',
+    desc: 'Экран для кухни (KDS)'
+  },
 ]
 
-const additional = [
-  { name: 'Выделенный менеджер', price: '1,300,000 soʼm', period: 'за бренд/месяц' },
+const additional: Array<{
+  name: string
+  price: string
+  period: string
+  icon: React.ReactNode
+  color: string
+  bgColor: string
+  desc: string
+}> = [
+  { 
+    name: 'Выделенный менеджер', 
+    price: '1,300,000 soʼm', 
+    period: 'за бренд/месяц',
+    icon: <Users className="h-6 w-6" />,
+    color: 'text-violet-600',
+    bgColor: 'bg-violet-100',
+    desc: 'Персональный аккаунт-менеджер'
+  },
 ]
 
 const perOrder = {
@@ -249,17 +348,27 @@ export function Pricing() {
             {addOns.map((addon, idx) => (
               <div
                 key={idx}
-                className="bg-white rounded-xl p-6 border border-brand-lightTeal/20 shadow-soft hover:shadow-medium transition-all duration-300"
+                className="bg-white rounded-2xl p-6 border border-brand-lightTeal/20 shadow-soft hover:shadow-medium hover:scale-[1.02] transition-all duration-300"
               >
-                <h3 className="text-lg font-semibold text-brand-darkBlue mb-3">
-                  {addon.name}
-                </h3>
-                <div className="mb-2">
-                  <div className="text-2xl font-bold text-brand-darkBlue">
-                    {addon.price}
+                <div className="flex items-start gap-4">
+                  <div className={`w-12 h-12 rounded-xl ${addon.bgColor} ${addon.color} flex items-center justify-center flex-shrink-0`}>
+                    {addon.icon}
                   </div>
-                  <div className="text-sm text-brand-darkBlue/70">
-                    {addon.period}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg font-semibold text-brand-darkBlue mb-1">
+                      {addon.name}
+                    </h3>
+                    <p className="text-sm text-brand-darkBlue/60 mb-3">
+                      {addon.desc}
+                    </p>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-2xl font-bold text-brand-darkBlue">
+                        {addon.price}
+                      </span>
+                    </div>
+                    <div className="text-xs text-brand-darkBlue/50 mt-1">
+                      {addon.period}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -360,21 +469,31 @@ export function Pricing() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="max-w-md mx-auto">
             {additional.map((item, idx) => (
               <div
                 key={idx}
-                className="bg-white rounded-xl p-6 border border-brand-lightTeal/20 shadow-soft hover:shadow-medium transition-all duration-300"
+                className="bg-white rounded-2xl p-6 border border-brand-lightTeal/20 shadow-soft hover:shadow-medium hover:scale-[1.02] transition-all duration-300"
               >
-                <h3 className="text-lg font-semibold text-brand-darkBlue mb-3">
-                  {item.name}
-                </h3>
-                <div className="mb-2">
-                  <div className="text-2xl font-bold text-brand-darkBlue">
-                    {item.price}
+                <div className="flex items-start gap-4">
+                  <div className={`w-12 h-12 rounded-xl ${item.bgColor} ${item.color} flex items-center justify-center flex-shrink-0`}>
+                    {item.icon}
                   </div>
-                  <div className="text-sm text-brand-darkBlue/70">
-                    {item.period}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg font-semibold text-brand-darkBlue mb-1">
+                      {item.name}
+                    </h3>
+                    <p className="text-sm text-brand-darkBlue/60 mb-3">
+                      {item.desc}
+                    </p>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-2xl font-bold text-brand-darkBlue">
+                        {item.price}
+                      </span>
+                    </div>
+                    <div className="text-xs text-brand-darkBlue/50 mt-1">
+                      {item.period}
+                    </div>
                   </div>
                 </div>
               </div>
