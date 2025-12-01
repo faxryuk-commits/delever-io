@@ -61,21 +61,22 @@ const platformFeatures = [
   },
 ]
 
-// Дополнительные модули (фиксированные цены)
+// Дополнительные модули с типом расчёта
+// perType: 'branch' = за филиал, 'brand' = за бренд, 'kiosk' = за киоск, 'fixed' = фиксированно
 const additionalModules = [
-  { id: 'uzum', name: 'Uzum Tezkor', priceUZS: 260000, icon: Layers },
-  { id: 'wolt', name: 'Wolt', priceUZS: 260000, icon: Layers },
-  { id: 'yandex', name: 'Яндекс Еда', priceUZS: 260000, icon: Layers },
-  { id: 'allAggregators', name: 'Агрегатор (все)', priceUZS: 650000, icon: Layers },
-  { id: 'courier', name: 'Курьер сервис', priceUZS: 195000, icon: Truck },
-  { id: 'kiosk', name: 'Киоск', priceUZS: 910000, icon: Monitor },
-  { id: 'marketing', name: 'Маркетинг', priceUZS: 390000, icon: Megaphone },
-  { id: 'booking', name: 'Бронь', priceUZS: 130000, icon: Calendar },
-  { id: 'courierApp', name: 'Курьерское приложение', priceUZS: 260000, icon: Smartphone },
-  { id: 'kds', name: 'Кухня (KDS)', priceUZS: 65000, icon: ChefHat },
-  { id: 'callCenter', name: 'Колл-центр', priceUZS: 0, icon: Headphones },
-  { id: 'manager', name: 'Выделенный менеджер', priceUZS: 1300000, icon: UserCog },
-  { id: 'dashboard', name: 'Дашборд', priceUZS: 130000, icon: LayoutDashboard },
+  { id: 'uzum', name: 'Uzum Tezkor', priceUZS: 260000, icon: Layers, perType: 'branch', label: 'за филиал' },
+  { id: 'wolt', name: 'Wolt', priceUZS: 260000, icon: Layers, perType: 'branch', label: 'за филиал' },
+  { id: 'yandex', name: 'Яндекс Еда', priceUZS: 260000, icon: Layers, perType: 'branch', label: 'за филиал' },
+  { id: 'allAggregators', name: 'Агрегатор (все)', priceUZS: 650000, icon: Layers, perType: 'branch', label: 'за филиал' },
+  { id: 'courier', name: 'Курьер сервис', priceUZS: 195000, icon: Truck, perType: 'fixed', label: '' },
+  { id: 'kiosk', name: 'Киоск', priceUZS: 910000, icon: Monitor, perType: 'kiosk', label: 'за шт.' },
+  { id: 'marketing', name: 'Маркетинг', priceUZS: 390000, icon: Megaphone, perType: 'brand', label: 'за бренд' },
+  { id: 'booking', name: 'Бронь', priceUZS: 130000, icon: Calendar, perType: 'brand', label: 'за бренд' },
+  { id: 'courierApp', name: 'Курьерское приложение', priceUZS: 260000, icon: Smartphone, perType: 'brand', label: 'за бренд' },
+  { id: 'kds', name: 'Кухня (KDS)', priceUZS: 65000, icon: ChefHat, perType: 'branch', label: 'за филиал' },
+  { id: 'callCenter', name: 'Колл-центр', priceUZS: 0, icon: Headphones, perType: 'fixed', label: '' },
+  { id: 'manager', name: 'Выделенный менеджер', priceUZS: 1300000, icon: UserCog, perType: 'brand', label: 'за бренд' },
+  { id: 'dashboard', name: 'Дашборд', priceUZS: 130000, icon: LayoutDashboard, perType: 'brand', label: 'за бренд' },
 ]
 
 // Единоразовые платежи
@@ -109,7 +110,19 @@ export function PricingCalculator() {
     selectedModules.forEach(moduleId => {
       const module = additionalModules.find(m => m.id === moduleId)
       if (module) {
-        monthly += module.priceUZS
+        switch (module.perType) {
+          case 'branch':
+            monthly += module.priceUZS * branches
+            break
+          case 'brand':
+            monthly += module.priceUZS * brands
+            break
+          case 'kiosk':
+            monthly += module.priceUZS * Math.max(1, kiosks)
+            break
+          default:
+            monthly += module.priceUZS
+        }
       }
     })
     
@@ -311,6 +324,25 @@ export function PricingCalculator() {
                 const Icon = module.icon
                 const isSelected = selectedModules.includes(module.id)
                 
+                // Расчёт цены в зависимости от типа
+                let multiplier = 1
+                let multiplierLabel = ''
+                switch (module.perType) {
+                  case 'branch':
+                    multiplier = branches
+                    multiplierLabel = branches > 1 ? `×${branches}` : ''
+                    break
+                  case 'brand':
+                    multiplier = brands
+                    multiplierLabel = brands > 1 ? `×${brands}` : ''
+                    break
+                  case 'kiosk':
+                    multiplier = Math.max(1, kiosks)
+                    multiplierLabel = kiosks > 1 ? `×${kiosks}` : ''
+                    break
+                }
+                const totalPrice = module.priceUZS * multiplier
+                
                 return (
                   <button
                     key={module.id}
@@ -331,8 +363,14 @@ export function PricingCalculator() {
                         {module.name}
                       </div>
                       <div className={`text-sm ${isSelected ? 'text-white/70' : 'text-brand-darkBlue/50'}`}>
-                        {formatPrice(module.priceUZS)}/мес
+                        {formatPrice(module.priceUZS)}/мес {module.label && <span className="text-xs opacity-70">({module.label})</span>}
+                        {multiplierLabel && <span className="ml-1 font-medium">{multiplierLabel}</span>}
                       </div>
+                      {multiplier > 1 && (
+                        <div className={`text-xs ${isSelected ? 'text-white/50' : 'text-brand-darkBlue/40'}`}>
+                          = {formatPrice(totalPrice)}/мес
+                        </div>
+                      )}
                     </div>
                     {isSelected && <Check className="h-5 w-5 text-white flex-shrink-0" />}
                   </button>
@@ -408,10 +446,32 @@ export function PricingCalculator() {
                 {selectedModules.map(moduleId => {
                   const module = additionalModules.find(m => m.id === moduleId)
                   if (!module) return null
+                  
+                  let multiplier = 1
+                  let label = ''
+                  switch (module.perType) {
+                    case 'branch':
+                      multiplier = branches
+                      label = branches > 1 ? `×${branches}` : ''
+                      break
+                    case 'brand':
+                      multiplier = brands
+                      label = brands > 1 ? `×${brands}` : ''
+                      break
+                    case 'kiosk':
+                      multiplier = Math.max(1, kiosks)
+                      label = kiosks > 1 ? `×${kiosks}` : ''
+                      break
+                  }
+                  const totalPrice = module.priceUZS * multiplier
+                  
                   return (
                     <div key={moduleId} className="flex justify-between text-sm py-1">
-                      <span className="text-brand-darkBlue/70">{module.name}</span>
-                      <span className="text-brand-darkBlue">{formatPrice(module.priceUZS)}</span>
+                      <span className="text-brand-darkBlue/70">
+                        {module.name}
+                        {label && <span className="text-xs ml-1">{label}</span>}
+                      </span>
+                      <span className="text-brand-darkBlue">{formatPrice(totalPrice)}</span>
                     </div>
                   )
                 })}
