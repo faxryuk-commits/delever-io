@@ -273,6 +273,20 @@ export const translations: Record<Language, Record<string, string>> = {
     // Clients Component
     'clients.title': 'Нам доверяют',
     
+    // Product Screenshots Component
+    'screenshots.title': 'Интерфейс платформы',
+    'screenshots.subtitle': 'Современный и понятный интерфейс для управления доставкой',
+    'screenshots.orders': 'Управление заказами',
+    'screenshots.ordersDesc': 'Все заказы в одном окне',
+    'screenshots.map': 'Карта курьеров',
+    'screenshots.mapDesc': 'GPS-трекинг в реальном времени',
+    'screenshots.dashboard': 'Аналитика',
+    'screenshots.dashboardDesc': 'Дашборды и отчёты',
+    'screenshots.customers': 'База клиентов',
+    'screenshots.customersDesc': 'RFM-анализ и сегментация',
+    'screenshots.integrations': 'Интеграции',
+    'screenshots.integrationsDesc': '40+ подключений',
+    
     // WhiteLabel Page
     'whitelabel.badge': 'Ваш бренд',
     'whitelabel.title': 'White Label приложение',
@@ -796,6 +810,20 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Clients Component
     'clients.title': 'Trusted By',
+    
+    // Product Screenshots Component
+    'screenshots.title': 'Platform Interface',
+    'screenshots.subtitle': 'Modern and intuitive interface for delivery management',
+    'screenshots.orders': 'Order Management',
+    'screenshots.ordersDesc': 'All orders in one window',
+    'screenshots.map': 'Courier Map',
+    'screenshots.mapDesc': 'Real-time GPS tracking',
+    'screenshots.dashboard': 'Analytics',
+    'screenshots.dashboardDesc': 'Dashboards and reports',
+    'screenshots.customers': 'Customer Base',
+    'screenshots.customersDesc': 'RFM analysis and segmentation',
+    'screenshots.integrations': 'Integrations',
+    'screenshots.integrationsDesc': '40+ connections',
     
     // WhiteLabel Page
     'whitelabel.badge': 'Your Brand',

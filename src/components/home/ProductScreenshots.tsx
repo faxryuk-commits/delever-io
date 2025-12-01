@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Monitor, Map, BarChart3, Users, Settings } from 'lucide-react'
+import { useLocale } from '@/i18n/LocaleContext'
 
 // Области для размытия (в процентах от размера изображения)
 const blurAreas: Record<string, { top: string; left: string; width: string; height: string }[]> = {
@@ -24,50 +25,51 @@ const blurAreas: Record<string, { top: string; left: string; width: string; heig
   integrations: [],
 }
 
-const screenshots = [
-  {
-    id: 'orders',
-    title: 'Управление заказами',
-    description: 'Все заказы в одном окне',
-    icon: Monitor,
-    image: '/screenshots/orders.png',
-  },
-  {
-    id: 'map',
-    title: 'Карта курьеров',
-    description: 'GPS-трекинг в реальном времени',
-    icon: Map,
-    image: '/screenshots/map.png',
-  },
-  {
-    id: 'dashboard',
-    title: 'Аналитика',
-    description: 'Дашборды и отчёты',
-    icon: BarChart3,
-    image: '/screenshots/dashboard.png',
-  },
-  {
-    id: 'customers',
-    title: 'База клиентов',
-    description: 'RFM-анализ и сегментация',
-    icon: Users,
-    image: '/screenshots/customers.png',
-  },
-  {
-    id: 'integrations',
-    title: 'Интеграции',
-    description: '40+ подключений',
-    icon: Settings,
-    image: '/screenshots/integrations.png',
-  },
-]
-
 export function ProductScreenshots() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [imageError, setImageError] = useState<Record<string, boolean>>({})
+  const { t } = useLocale()
+
+  const screenshots = [
+    {
+      id: 'orders',
+      titleKey: 'screenshots.orders',
+      descKey: 'screenshots.ordersDesc',
+      icon: Monitor,
+      image: '/screenshots/orders.png',
+    },
+    {
+      id: 'map',
+      titleKey: 'screenshots.map',
+      descKey: 'screenshots.mapDesc',
+      icon: Map,
+      image: '/screenshots/map.png',
+    },
+    {
+      id: 'dashboard',
+      titleKey: 'screenshots.dashboard',
+      descKey: 'screenshots.dashboardDesc',
+      icon: BarChart3,
+      image: '/screenshots/dashboard.png',
+    },
+    {
+      id: 'customers',
+      titleKey: 'screenshots.customers',
+      descKey: 'screenshots.customersDesc',
+      icon: Users,
+      image: '/screenshots/customers.png',
+    },
+    {
+      id: 'integrations',
+      titleKey: 'screenshots.integrations',
+      descKey: 'screenshots.integrationsDesc',
+      icon: Settings,
+      image: '/screenshots/integrations.png',
+    },
+  ]
+
   const activeScreen = screenshots[activeIndex]
   const Icon = activeScreen.icon
-  const areas = blurAreas[activeScreen.id] || []
 
   const nextSlide = () => {
     setActiveIndex((prev) => (prev + 1) % screenshots.length)
@@ -87,10 +89,10 @@ export function ProductScreenshots() {
         {/* Header */}
         <div className="text-center mb-10 lg:mb-14">
           <h2 className="text-3xl lg:text-4xl font-bold text-brand-darkBlue mb-3 tracking-tight">
-            Интерфейс платформы
+            {t('screenshots.title')}
           </h2>
           <p className="text-base lg:text-lg text-brand-darkBlue/60 max-w-xl mx-auto">
-            Современный и понятный интерфейс для управления доставкой
+            {t('screenshots.subtitle')}
           </p>
         </div>
 
@@ -121,20 +123,20 @@ export function ProductScreenshots() {
                   </div>
                 </div>
                 
-                {/* Content with blur overlays */}
+                {/* Content */}
                 <div className="aspect-[16/10] bg-gradient-to-br from-brand-lightBlue/20 to-brand-lightTeal/10 relative">
                   {!imageError[activeScreen.id] ? (
                     <>
                       <img 
                         src={activeScreen.image} 
-                        alt={activeScreen.title}
+                        alt={t(activeScreen.titleKey)}
                         className="w-full h-full object-cover object-top"
                         onError={() => handleImageError(activeScreen.id)}
                       />
-                      {/* Blur overlays for phone numbers */}
-                      {areas.map((area, idx) => (
+                      {/* Blur overlays */}
+                      {blurAreas[activeScreen.id]?.map((area, areaIdx) => (
                         <div
-                          key={idx}
+                          key={areaIdx}
                           className="absolute backdrop-blur-md bg-white/30"
                           style={{
                             top: area.top,
@@ -151,10 +153,10 @@ export function ProductScreenshots() {
                         <Icon className="w-8 h-8" />
                       </div>
                       <h3 className="text-xl font-semibold text-brand-darkBlue mb-2">
-                        {activeScreen.title}
+                        {t(activeScreen.titleKey)}
                       </h3>
                       <p className="text-brand-darkBlue/60 text-center text-sm">
-                        {activeScreen.description}
+                        {t(activeScreen.descKey)}
                       </p>
                     </div>
                   )}
@@ -200,10 +202,10 @@ export function ProductScreenshots() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <h4 className={`font-medium text-sm ${isActive ? 'text-brand-darkBlue' : 'text-brand-darkBlue/70'}`}>
-                      {screen.title}
+                      {t(screen.titleKey)}
                     </h4>
                     <p className="text-xs text-brand-darkBlue/50 truncate">
-                      {screen.description}
+                      {t(screen.descKey)}
                     </p>
                   </div>
                 </button>
