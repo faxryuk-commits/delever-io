@@ -258,6 +258,9 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Clients Component
     'clients.title': 'Нам доверяют',
+    'clients.businesses': 'Бизнесов',
+    'clients.countries': 'Стран',
+    'clients.sales': 'Продаж',
     
     // Contact Form
     'form.title': 'Получить демо',
@@ -944,6 +947,9 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Clients Component
     'clients.title': 'Trusted By',
+    'clients.businesses': 'Businesses',
+    'clients.countries': 'Countries',
+    'clients.sales': 'In Sales',
     
     // Contact Form
     'form.title': 'Get Demo',
