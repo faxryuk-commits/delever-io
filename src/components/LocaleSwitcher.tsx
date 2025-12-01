@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { Globe, ChevronDown } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import { useLocale } from '@/i18n/LocaleContext'
 import { Language, languageNames } from '@/i18n/translations'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -28,11 +28,11 @@ export function LocaleSwitcher() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 rounded-lg border border-brand-lightTeal/30 hover:border-brand-darkBlue/30 transition-colors bg-white"
+        className="flex items-center gap-1.5 px-2 sm:px-3 py-2 rounded-lg border border-brand-lightTeal/30 hover:border-brand-darkBlue/30 transition-colors bg-white"
       >
-        <Globe className="h-4 w-4 text-brand-darkBlue/60" />
-        <span className="text-sm font-medium text-brand-darkBlue">
-          {languageFlags[language]} {languageNames[language].slice(0, 2).toUpperCase()}
+        <span className="text-base">{languageFlags[language]}</span>
+        <span className="hidden sm:inline text-sm font-medium text-brand-darkBlue">
+          {languageNames[language].slice(0, 2).toUpperCase()}
         </span>
         <ChevronDown className={`h-3 w-3 text-brand-darkBlue/50 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>

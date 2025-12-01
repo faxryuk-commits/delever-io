@@ -193,10 +193,8 @@ export function Header() {
 
             {/* Right side controls */}
             <div className="flex items-center gap-2">
-              {/* Language Switcher */}
-              <div className="hidden md:block">
-                <LocaleSwitcher />
-              </div>
+              {/* Language Switcher - visible on all screens */}
+              <LocaleSwitcher />
 
               {/* CTA Buttons */}
               <div className="hidden md:flex items-center gap-2">
@@ -290,12 +288,7 @@ export function Header() {
                 ))}
               </div>
               
-              {/* Mobile Language Switcher */}
-              <div className="pt-4 mt-4 border-t border-brand-lightTeal/20">
-                <LocaleSwitcher />
-              </div>
-              
-              <div className="pt-4 space-y-2">
+              <div className="pt-4 mt-4 border-t border-brand-lightTeal/20 space-y-2">
                 <Button
                   variant="outline"
                   className="w-full h-11 font-medium"
