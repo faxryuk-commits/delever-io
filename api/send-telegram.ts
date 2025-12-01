@@ -10,8 +10,17 @@ export default async function handler(req: Request): Promise<Response> {
     })
   }
 
-  const botToken = '7075566258:AAFFkcTeUEvUWtE6hHQv30e7_HpSJB450gs'
-  const chatId = '@delever_sales_bot'
+  // Токен из переменных окружения Vercel
+  const botToken = process.env.TELEGRAM_BOT_TOKEN
+  const chatId = process.env.TELEGRAM_CHAT_ID || '@delever_sales_bot'
+
+  if (!botToken) {
+    console.error('TELEGRAM_BOT_TOKEN not configured')
+    return new Response(JSON.stringify({ error: 'Bot not configured' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    })
+  }
 
   try {
     const body = await req.json()

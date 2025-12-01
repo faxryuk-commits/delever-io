@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { MapPin, Linkedin, Youtube, Globe, ChevronDown } from 'lucide-react'
+import { MapPin, Linkedin, Youtube, Globe, ChevronDown, Send } from 'lucide-react'
 import { Logo } from './Logo'
 import { useState } from 'react'
 
@@ -39,6 +39,15 @@ export function Footer() {
                 aria-label="YouTube"
               >
                 <Youtube className="h-5 w-5" />
+              </a>
+              <a 
+                href="https://t.me/delever_uz" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors"
+                aria-label="Telegram"
+              >
+                <Send className="h-5 w-5" />
               </a>
             </div>
 
@@ -84,13 +93,13 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-white transition-colors">
-                  Блог
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-white/70 hover:text-white transition-colors">
-                  Истории клиентов
+                <a 
+                  href="https://t.me/delever_uz" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-white transition-colors"
+                >
+                  Telegram канал
                 </a>
               </li>
             </ul>
@@ -138,19 +147,19 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-white transition-colors">
+                <Link to="/integrations" className="text-white/70 hover:text-white transition-colors">
                   POS-системы
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-white transition-colors">
+                <Link to="/integrations" className="text-white/70 hover:text-white transition-colors">
                   Агрегаторы
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-white transition-colors">
-                  Онлайн-заказы
-                </a>
+                <Link to="/integrations" className="text-white/70 hover:text-white transition-colors">
+                  Платёжные шлюзы
+                </Link>
               </li>
               <li>
                 <Link to="/partners" className="text-white/70 hover:text-white transition-colors">
@@ -170,14 +179,19 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-white transition-colors">
-                  Розничная торговля
-                </a>
+                <Link to="/products" className="text-white/70 hover:text-white transition-colors">
+                  Сети ресторанов
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-white transition-colors">
+                <Link to="/products" className="text-white/70 hover:text-white transition-colors">
+                  Dark Kitchen
+                </Link>
+              </li>
+              <li>
+                <Link to="/pricing" className="text-white/70 hover:text-white transition-colors">
                   Enterprise
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -196,15 +210,18 @@ export function Footer() {
               </p>
             </div>
             <div className="flex flex-wrap gap-6 text-sm">
-              <Link to="#" className="text-white/70 hover:text-white transition-colors">
-                Условия использования
-              </Link>
-              <Link to="#" className="text-white/70 hover:text-white transition-colors">
-                Политика конфиденциальности
-              </Link>
-              <Link to="#" className="text-white/70 hover:text-white transition-colors">
-                Безопасность
-              </Link>
+              <a 
+                href="mailto:info@delever.io" 
+                className="text-white/70 hover:text-white transition-colors"
+              >
+                info@delever.io
+              </a>
+              <a 
+                href="tel:+998712000000" 
+                className="text-white/70 hover:text-white transition-colors"
+              >
+                +998 71 200 00 00
+              </a>
             </div>
           </div>
         </div>
@@ -212,4 +229,3 @@ export function Footer() {
     </footer>
   )
 }
-
