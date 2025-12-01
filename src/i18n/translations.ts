@@ -660,6 +660,22 @@ export const translations: Record<Language, Record<string, string>> = {
     'calc.perKiosk': 'киоск',
     'calc.kiosksShort': 'киосков',
     
+    // Switch expenses
+    'calc.switchExpenses': 'Расходы при переходе на свою доставку',
+    'calc.marketingBudget': 'Маркетинг/мес',
+    'calc.acquisitionCost': 'Стоимость привлечения',
+    'calc.couriersCount': 'Курьеров',
+    'calc.courierSalary': 'Зарплата курьера',
+    'calc.withAggregators': 'С агрегаторами',
+    'calc.withOwnDelivery': 'Своя доставка',
+    'calc.fromRevenue': 'от выручки',
+    'calc.marketingShort': 'Маркетинг',
+    'calc.acquisitionShort': 'Привлечение',
+    'calc.couriersShort': 'Курьеры',
+    'calc.total': 'Итого',
+    'calc.additionalCost': 'Дополнительные расходы',
+    'calc.switchNotProfitableHint': 'При текущих параметрах переход может быть невыгоден. Попробуйте уменьшить расходы на маркетинг или курьеров, или увеличить количество заказов.',
+    
     // CTA
     'calc.readyToStart': 'Готовы начать?',
     'calc.readyToStartDesc': 'Оставьте заявку и мы свяжемся с вами для обсуждения деталей',
@@ -1318,6 +1334,22 @@ export const translations: Record<Language, Record<string, string>> = {
     'calc.kiosksCount': 'Number of kiosks',
     'calc.perKiosk': 'kiosk',
     'calc.kiosksShort': 'kiosks',
+    
+    // Switch expenses
+    'calc.switchExpenses': 'Expenses when switching to own delivery',
+    'calc.marketingBudget': 'Marketing/mo',
+    'calc.acquisitionCost': 'Acquisition cost',
+    'calc.couriersCount': 'Couriers',
+    'calc.courierSalary': 'Courier salary',
+    'calc.withAggregators': 'With aggregators',
+    'calc.withOwnDelivery': 'Own delivery',
+    'calc.fromRevenue': 'of revenue',
+    'calc.marketingShort': 'Marketing',
+    'calc.acquisitionShort': 'Acquisition',
+    'calc.couriersShort': 'Couriers',
+    'calc.total': 'Total',
+    'calc.additionalCost': 'Additional cost',
+    'calc.switchNotProfitableHint': 'With current parameters, switching may not be profitable. Try reducing marketing or courier costs, or increase the number of orders.',
     
     // CTA
     'calc.readyToStart': 'Ready to start?',
