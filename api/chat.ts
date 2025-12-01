@@ -1,5 +1,6 @@
 export const config = {
   runtime: 'edge',
+  regions: ['iad1'], // Washington D.C. - поддерживается OpenAI
 }
 
 const SYSTEM_PROMPT = `Ты — AI-помощник компании Delever. Delever — это операционная система для доставки еды.
