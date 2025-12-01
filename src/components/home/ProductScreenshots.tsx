@@ -2,6 +2,28 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Monitor, Map, BarChart3, Users, Settings } from 'lucide-react'
 
+// Области для размытия (в процентах от размера изображения)
+const blurAreas: Record<string, { top: string; left: string; width: string; height: string }[]> = {
+  orders: [
+    // Колонка "Имя клиента" с телефонами
+    { top: '28%', left: '11%', width: '12%', height: '65%' },
+    // Колонка "Курьер" с телефонами  
+    { top: '28%', left: '38%', width: '10%', height: '65%' },
+    // Колонка "Филиал" с телефонами
+    { top: '28%', left: '49%', width: '10%', height: '65%' },
+  ],
+  customers: [
+    // Колонка "Номер телефона"
+    { top: '42%', left: '20%', width: '12%', height: '50%' },
+  ],
+  map: [
+    // Popup с номером курьера
+    { top: '22%', left: '36%', width: '14%', height: '8%' },
+  ],
+  dashboard: [],
+  integrations: [],
+}
+
 const screenshots = [
   {
     id: 'orders',
@@ -45,6 +67,7 @@ export function ProductScreenshots() {
   const [imageError, setImageError] = useState<Record<string, boolean>>({})
   const activeScreen = screenshots[activeIndex]
   const Icon = activeScreen.icon
+  const areas = blurAreas[activeScreen.id] || []
 
   const nextSlide = () => {
     setActiveIndex((prev) => (prev + 1) % screenshots.length)
@@ -98,15 +121,30 @@ export function ProductScreenshots() {
                   </div>
                 </div>
                 
-                {/* Content */}
-                <div className="aspect-[16/10] bg-gradient-to-br from-brand-lightBlue/20 to-brand-lightTeal/10">
+                {/* Content with blur overlays */}
+                <div className="aspect-[16/10] bg-gradient-to-br from-brand-lightBlue/20 to-brand-lightTeal/10 relative">
                   {!imageError[activeScreen.id] ? (
-                    <img 
-                      src={activeScreen.image} 
-                      alt={activeScreen.title}
-                      className="w-full h-full object-cover object-top"
-                      onError={() => handleImageError(activeScreen.id)}
-                    />
+                    <>
+                      <img 
+                        src={activeScreen.image} 
+                        alt={activeScreen.title}
+                        className="w-full h-full object-cover object-top"
+                        onError={() => handleImageError(activeScreen.id)}
+                      />
+                      {/* Blur overlays for phone numbers */}
+                      {areas.map((area, idx) => (
+                        <div
+                          key={idx}
+                          className="absolute backdrop-blur-md bg-white/30"
+                          style={{
+                            top: area.top,
+                            left: area.left,
+                            width: area.width,
+                            height: area.height,
+                          }}
+                        />
+                      ))}
+                    </>
                   ) : (
                     <div className="w-full h-full flex flex-col items-center justify-center p-8">
                       <div className="w-16 h-16 rounded-xl bg-brand-lightBlue flex items-center justify-center text-brand-darkBlue mb-4">
