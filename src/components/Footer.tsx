@@ -200,35 +200,91 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="border-t border-white/20 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
-            <div className="space-y-2">
-              <p className="text-sm text-white/70">
-                © {new Date().getFullYear()} Delever. Все права защищены.
-              </p>
+        {/* Map & Contact Section */}
+        <div className="border-t border-white/20 pt-8 mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            {/* Map */}
+            <div className="rounded-xl overflow-hidden">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d268.7241415055043!2d69.28796162216315!3d41.35571602294045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z0KLQsNGI0LrQtdC90YIsINCf0YDQvtGB0L_QtdC60YIg0JDQvNC40YDQsCDQotC10LzRg9GA0LAgMTI50JEsINCQ0L3QvtGAINCf0LvQsNC30LA!5e0!3m2!1sru!2s!4v1764602935288!5m2!1sru!2s" 
+                width="100%" 
+                height="200" 
+                style={{ border: 0 }} 
+                allowFullScreen 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Офис Delever на карте"
+                className="rounded-xl"
+              />
+            </div>
+
+            {/* Contact Info */}
+            <div className="space-y-4">
+              <h3 className="text-white font-semibold text-base mb-4">Контакты</h3>
               <a 
                 href={mapLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-white/70 hover:text-white transition-colors flex items-start space-x-2"
+                className="text-sm text-white/70 hover:text-white transition-colors flex items-start space-x-3"
               >
-                <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <span>Ташкент, Проспект Амира Темура 129Б, БЦ Анор Плаза, 2 этаж, офис 1</span>
-              </a>
-            </div>
-            <div className="flex flex-wrap gap-6 text-sm">
-              <a 
-                href="mailto:support@delever.uz" 
-                className="text-white/70 hover:text-white transition-colors"
-              >
-                support@delever.uz
+                <MapPin className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                <span>Ташкент, Проспект Амира Темура 129Б<br />БЦ Анор Плаза, 2 этаж, офис 1</span>
               </a>
               <a 
                 href="tel:+998781139813" 
-                className="text-white/70 hover:text-white transition-colors"
+                className="text-sm text-white/70 hover:text-white transition-colors flex items-center space-x-3"
               >
-                +998 78 113 98 13
+                <svg className="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                <span>+998 78 113 98 13</span>
+              </a>
+              <a 
+                href="mailto:support@delever.uz" 
+                className="text-sm text-white/70 hover:text-white transition-colors flex items-center space-x-3"
+              >
+                <svg className="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <span>support@delever.uz</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Section */}
+        <div className="border-t border-white/20 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <p className="text-sm text-white/70">
+              © {new Date().getFullYear()} Delever. Все права защищены.
+            </p>
+            <div className="flex items-center space-x-6">
+              <a 
+                href="https://www.linkedin.com/company/98819489" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white/70 hover:text-white transition-colors"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="h-5 w-5" />
+              </a>
+              <a 
+                href="https://www.instagram.com/delever.uz/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white/70 hover:text-white transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a 
+                href="https://t.me/deleverme" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white/70 hover:text-white transition-colors"
+                aria-label="Telegram"
+              >
+                <Send className="h-5 w-5" />
               </a>
             </div>
           </div>
