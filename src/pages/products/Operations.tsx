@@ -1,222 +1,148 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
-import { PageNavigation } from '@/components/PageNavigation'
-import { FadeInOnScroll } from '@/components/ui/FadeInOnScroll'
-import { Truck, Users, Monitor, Clock, TrendingDown, CheckCircle, ArrowRight, Map, Package } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Truck, Users, Monitor, Clock, ArrowRight } from 'lucide-react'
+
+const features = [
+  {
+    icon: Truck,
+    title: 'Диспетчеризация',
+    description: 'Автоматическое распределение заказов между курьерами',
+  },
+  {
+    icon: Users,
+    title: 'Курьерский модуль',
+    description: 'Приложение для курьеров с навигацией',
+  },
+  {
+    icon: Monitor,
+    title: 'Рабочие места',
+    description: 'Интерфейсы для операторов и кухни',
+  },
+  {
+    icon: Clock,
+    title: '99.9% Uptime',
+    description: 'Гарантированная стабильность работы',
+  },
+]
+
+const results = [
+  { value: '-30%', label: 'Время доставки' },
+  { value: '-25%', label: 'Ошибки' },
+  { value: '-20%', label: 'Затраты' },
+]
 
 export function Operations() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
-  const [imageError, setImageError] = useState<Record<string, boolean>>({})
-
-  const handleImageError = (id: string) => {
-    setImageError(prev => ({ ...prev, [id]: true }))
-  }
-
-  const screenshots = [
-    {
-      id: 'orders',
-      title: 'Единый экран заказов',
-      description: 'Все заказы из всех источников в одном месте',
-      image: '/screenshots/orders.png',
-      icon: <Package className="h-8 w-8" />,
-    },
-    {
-      id: 'map',
-      title: 'Карта курьеров',
-      description: 'GPS-трекинг всех курьеров в реальном времени',
-      image: '/screenshots/map.png',
-      icon: <Map className="h-8 w-8" />,
-    },
-    {
-      id: 'create-order',
-      title: 'Создание заказа',
-      description: 'Быстрое создание заказа с выбором адреса на карте',
-      image: '/screenshots/create-order.png',
-      icon: <Monitor className="h-8 w-8" />,
-    },
-  ]
-
-  const features = [
-    {
-      icon: <Truck className="h-8 w-8" />,
-      title: 'Диспетчеризация',
-      description: 'Автоматическое распределение заказов между курьерами. Отслеживание статусов в реальном времени и автоматические уведомления клиентов.',
-    },
-    {
-      icon: <Users className="h-8 w-8" />,
-      title: 'Курьерский модуль',
-      description: 'Мобильное приложение для курьеров с навигацией и маршрутизацией. Автоматический расчёт зарплаты и контроль посещаемости.',
-    },
-    {
-      icon: <Monitor className="h-8 w-8" />,
-      title: 'Рабочие места',
-      description: 'Специализированные интерфейсы для операторов, кухни и колл-центра. Все заказы в единой системе без дублирования.',
-    },
-    {
-      icon: <Clock className="h-8 w-8" />,
-      title: 'Стабильность 99.9%',
-      description: 'Гарантированная стабильность работы с мониторингом 24/7. Автоматическое восстановление при сбоях.',
-    },
-  ]
-
-  const stats = [
-    { icon: <TrendingDown className="h-6 w-6" />, value: '-30%', label: 'Время доставки' },
-    { icon: <CheckCircle className="h-6 w-6" />, value: '-25%', label: 'Ошибки' },
-    { icon: <TrendingDown className="h-6 w-6" />, value: '-20%', label: 'Операционные затраты' },
-  ]
 
   return (
     <>
-      <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8">
         {/* Hero */}
-        <section className="container mx-auto max-w-7xl mb-12">
-          <FadeInOnScroll>
-            <div className="text-center max-w-3xl mx-auto">
-              <h1 className="text-5xl md:text-6xl font-bold text-brand-darkBlue mb-6 tracking-tight">
-                Операции доставки
-                <br />
-                <span className="bg-gradient-brand bg-clip-text text-transparent">под полным контролем</span>
-              </h1>
-              <p className="text-xl text-brand-darkBlue/80 mb-8 font-light leading-relaxed">
-                Управляйте диспетчеризацией, курьерами и кухней из одного окна. Автоматизация процессов снижает ошибки и ускоряет доставку на 30%.
-              </p>
-              <Button size="lg" onClick={() => setContactFormOpen(true)}>
-                Оптимизировать операции
-              </Button>
-            </div>
-          </FadeInOnScroll>
-        </section>
-
-        {/* Screenshots */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-brand-lightBlue/20">
-          <div className="container mx-auto max-w-7xl">
-            <FadeInOnScroll>
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-brand-darkBlue mb-4 tracking-tight">
-                  Как это выглядит
-                </h2>
-                <p className="text-lg text-brand-darkBlue/70 max-w-2xl mx-auto">
-                  Интуитивный интерфейс для управления операциями доставки
-                </p>
-              </div>
-            </FadeInOnScroll>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {screenshots.map((screen, idx) => (
-                <FadeInOnScroll key={screen.id} delay={idx * 0.1}>
-                  <div className="bg-white rounded-2xl overflow-hidden shadow-soft border border-brand-lightTeal/20 hover:shadow-lg transition-all duration-300">
-                    <div className="h-48 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
-                      {!imageError[screen.id] ? (
-                        <img 
-                          src={screen.image} 
-                          alt={screen.title}
-                          className="w-full h-full object-cover object-top"
-                          onError={() => handleImageError(screen.id)}
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-brand-darkBlue/30">
-                          {screen.icon}
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-4">
-                      <h3 className="font-semibold text-brand-darkBlue mb-1">{screen.title}</h3>
-                      <p className="text-sm text-brand-darkBlue/60">{screen.description}</p>
-                    </div>
-                  </div>
-                </FadeInOnScroll>
-              ))}
-            </div>
-          </div>
+        <section className="container mx-auto max-w-4xl mb-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center"
+          >
+            <h1 className="text-4xl lg:text-5xl font-bold text-brand-darkBlue mb-4 tracking-tight">
+              Операции доставки
+            </h1>
+            <p className="text-lg text-brand-darkBlue/70 max-w-xl mx-auto mb-8">
+              Управляйте диспетчеризацией, курьерами и кухней из одного окна
+            </p>
+            <Button size="lg" onClick={() => setContactFormOpen(true)}>
+              Оптимизировать операции
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </motion.div>
         </section>
 
         {/* Features */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8">
-          <div className="container mx-auto max-w-7xl">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {features.map((feature, idx) => (
-                <FadeInOnScroll key={idx} delay={idx * 0.1}>
-                  <div className="bg-white rounded-2xl p-8 shadow-soft border border-brand-lightTeal/20 hover:shadow-medium transition-all duration-300 flex flex-col h-full">
-                  <div className="text-brand-darkBlue mb-4">{feature.icon}</div>
-                  <h3 className="text-2xl font-semibold text-brand-darkBlue mb-3">
-                    {feature.title}
-                  </h3>
-                  <p className="text-brand-darkBlue/80 flex-grow leading-relaxed">{feature.description}</p>
+        <section className="container mx-auto max-w-4xl mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {features.map((feature, idx) => {
+              const Icon = feature.icon
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: idx * 0.1 }}
+                  className="bg-white rounded-xl p-5 border border-brand-lightTeal/30"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-brand-lightBlue flex items-center justify-center text-brand-darkBlue flex-shrink-0">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-brand-darkBlue mb-1">{feature.title}</h3>
+                      <p className="text-sm text-brand-darkBlue/60">{feature.description}</p>
+                    </div>
                   </div>
-                </FadeInOnScroll>
+                </motion.div>
+              )
+            })}
+          </div>
+        </section>
+
+        {/* Results */}
+        <section className="container mx-auto max-w-3xl mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="bg-brand-lightBlue/30 rounded-2xl p-8"
+          >
+            <h3 className="text-xl font-bold text-brand-darkBlue mb-6 text-center">Результаты клиентов</h3>
+            <div className="grid grid-cols-3 gap-6 text-center">
+              {results.map((result, idx) => (
+                <div key={idx}>
+                  <div className="text-3xl font-bold text-brand-darkBlue mb-1">{result.value}</div>
+                  <div className="text-sm text-brand-darkBlue/60">{result.label}</div>
+                </div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </section>
 
         {/* Integrations */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-brand-lightBeige">
-          <div className="container mx-auto max-w-7xl">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-brand-darkBlue mb-4">
-                Интеграции с POS и кухней
-              </h2>
-              <p className="text-xl text-brand-darkBlue/80">
-                Автоматическая передача заказов в кассу и на кухню
-              </p>
-            </div>
-            <div className="flex flex-wrap justify-center gap-4">
-              {['iiko', 'R-Keeper', 'Jowi', 'Poster', 'Paloma', 'Syrve', 'Yaros', 'Clopos'].map((pos, idx) => (
-                <div
+        <section className="container mx-auto max-w-3xl mb-16">
+          <div className="text-center">
+            <h3 className="text-lg font-semibold text-brand-darkBlue mb-4">Интеграции с POS</h3>
+            <div className="flex flex-wrap justify-center gap-3">
+              {['iiko', 'R-Keeper', 'Jowi', 'Poster', 'Paloma', 'Syrve'].map((pos, idx) => (
+                <span 
                   key={idx}
-                  className="bg-white px-6 py-3 rounded-lg border border-brand-lightTeal/20 text-sm font-medium text-brand-darkBlue hover:border-brand-darkBlue/30 hover:shadow-soft transition-all"
+                  className="text-sm bg-white border border-brand-lightTeal/30 text-brand-darkBlue/70 px-4 py-2 rounded-lg"
                 >
                   {pos}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Stats */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8">
-          <div className="container mx-auto max-w-7xl">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-brand-darkBlue mb-4 tracking-tight">
-                Результаты наших клиентов
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {stats.map((stat, idx) => (
-                <div
-                  key={idx}
-                  className="bg-white rounded-xl p-6 text-center border border-brand-lightTeal/20 shadow-soft flex flex-col justify-center"
-                >
-                  <div className="text-brand-darkBlue mb-4 flex justify-center">{stat.icon}</div>
-                  <div className="text-4xl font-bold text-brand-darkBlue mb-2 tracking-tight">
-                    {stat.value}
-                  </div>
-                  <div className="text-lg text-brand-darkBlue/70 font-medium">{stat.label}</div>
-                </div>
+                </span>
               ))}
             </div>
           </div>
         </section>
 
         {/* CTA */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-dark text-white">
-          <div className="container mx-auto max-w-4xl text-center">
-            <h2 className="text-4xl font-bold mb-4 text-white tracking-tight">Готовы оптимизировать операции?</h2>
-            <p className="text-xl text-white/90 mb-8 font-light">
-              Свяжитесь с нами и узнайте, как Delever может помочь вашему бизнесу
+        <section className="container mx-auto max-w-3xl">
+          <div className="bg-brand-darkBlue rounded-2xl p-8 lg:p-12 text-center">
+            <h2 className="text-2xl lg:text-3xl font-bold mb-3 text-white tracking-tight">
+              Готовы оптимизировать?
+            </h2>
+            <p className="text-white/70 mb-6">
+              Внедрение занимает 1-2 недели
             </p>
             <Button size="lg" variant="secondary" onClick={() => setContactFormOpen(true)}>
-              Оптимизировать операции
-              <ArrowRight className="ml-2 h-5 w-5" />
+              Получить демо
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
         </section>
       </div>
 
-      <PageNavigation />
       <ContactForm open={contactFormOpen} onOpenChange={setContactFormOpen} />
     </>
   )
 }
-

@@ -2,274 +2,149 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
-import { PageNavigation } from '@/components/PageNavigation'
-import { ProcessFlow } from '@/components/home/ProcessFlow'
-import { FadeInOnScroll } from '@/components/ui/FadeInOnScroll'
-import { ArchitectureDiagram } from '@/components/ArchitectureDiagram'
+import { motion } from 'framer-motion'
 import { 
   ShoppingCart, 
   Truck, 
   BarChart3, 
   Megaphone, 
   ArrowRight,
-  XCircle,
-  CheckCircle,
-  Zap,
-  Users,
-  TrendingUp,
-  Brain,
-  Mail,
-  Gift
 } from 'lucide-react'
+
+const products = [
+  {
+    icon: ShoppingCart,
+    title: 'Каналы продаж',
+    description: 'Сайт, приложение, Telegram-бот — все заказы в одной системе без комиссий.',
+    link: '/products/channels',
+  },
+  {
+    icon: Truck,
+    title: 'Операции',
+    description: 'Диспетчеризация, курьеры, кухня — автоматизация снижает ошибки на 30%.',
+    link: '/products/operations',
+  },
+  {
+    icon: BarChart3,
+    title: 'Аналитика',
+    description: 'Дашборды, отчёты, AI-прогнозы — решения на основе данных.',
+    link: '/products/analytics',
+  },
+  {
+    icon: Megaphone,
+    title: 'Маркетинг',
+    description: 'RFM-анализ, рассылки, лояльность — рост среднего чека на 25%.',
+    link: '/products/marketing',
+  },
+]
 
 export function Products() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
 
-  const products = [
-    {
-      icon: <ShoppingCart className="h-8 w-8" />,
-      title: 'Каналы продаж',
-      subtitle: 'Собственные каналы под вашим брендом',
-      description: 'Запустите сайт, приложение, Telegram-бот, QR-меню и другие каналы без комиссий агрегаторов. Все заказы в единой системе с полным контролем над данными клиентов.',
-      link: '/products/channels',
-      problems: [
-        'Высокие комиссии агрегаторов (20-35%) съедают прибыль',
-        'Нет прямого общения с клиентами',
-        'Потеря брендинга среди конкурентов',
-      ],
-      solutions: [
-        'Заказы без комиссий: сохраняйте 100% выручки',
-        'Push-уведомления: общайтесь с клиентами напрямую',
-        'Ваш бренд: ваш логотип, ваши цвета, ваш опыт',
-      ],
-      features: [
-        { icon: <ShoppingCart className="h-6 w-6" />, title: 'Telegram-бот', desc: 'Принимайте заказы прямо в мессенджере' },
-        { icon: <Users className="h-6 w-6" />, title: 'Веб-сайт', desc: 'Собственный сайт с онлайн-заказом' },
-        { icon: <Zap className="h-6 w-6" />, title: 'Мобильное приложение', desc: 'iOS и Android приложения под вашим брендом' },
-        { icon: <Gift className="h-6 w-6" />, title: 'QR-меню', desc: 'Бесконтактное меню с функцией заказа' },
-      ],
-      color: 'from-blue-50 to-blue-100',
-      iconBg: 'bg-blue-500',
-    },
-    {
-      icon: <Truck className="h-8 w-8" />,
-      title: 'Операции',
-      subtitle: 'Полный контроль над доставкой',
-      description: 'Управляйте диспетчеризацией, курьерами и кухней из одного окна. Автоматизация процессов снижает ошибки и ускоряет доставку на 30%.',
-      link: '/products/operations',
-      problems: [
-        'Ошибки при ручном вводе заказов',
-        'Невозможность отследить заказ от приёма до доставки',
-        'Высокие операционные расходы',
-      ],
-      solutions: [
-        'Автоматический приём и передача заказов в кассу и на кухню',
-        'Полный контроль над каждым заказом в реальном времени',
-        'Снижение операционных затрат на 20%',
-      ],
-      features: [
-        { icon: <Truck className="h-6 w-6" />, title: 'Диспетчеризация', desc: 'Автоматическое распределение заказов' },
-        { icon: <Users className="h-6 w-6" />, title: 'Курьерский модуль', desc: 'Приложение для курьеров с навигацией' },
-        { icon: <Zap className="h-6 w-6" />, title: 'Рабочие места', desc: 'Интерфейсы для операторов и кухни' },
-        { icon: <CheckCircle className="h-6 w-6" />, title: 'Стабильность 99.9%', desc: 'Гарантированная работа 24/7' },
-      ],
-      color: 'from-green-50 to-green-100',
-      iconBg: 'bg-green-500',
-    },
-    {
-      icon: <BarChart3 className="h-8 w-8" />,
-      title: 'Аналитика',
-      subtitle: 'Управление на основе данных',
-      description: 'Принимайте решения на основе данных, а не интуиции. Дашборды, отчёты и AI-прогнозы помогают оптимизировать меню, запасы и увеличивать прибыль.',
-      link: '/products/analytics',
-      problems: [
-        'Нет данных для принятия решений',
-        'Не понимаете, какие блюда прибыльны',
-        'Сложно прогнозировать спрос',
-      ],
-      solutions: [
-        'Персонализированные дашборды для владельца и управляющего',
-        'ABC-XYZ анализ для оптимизации меню',
-        'AI-прогнозы спроса для оптимизации закупок',
-      ],
-      features: [
-        { icon: <BarChart3 className="h-6 w-6" />, title: 'Дашборды', desc: 'Все метрики в реальном времени' },
-        { icon: <TrendingUp className="h-6 w-6" />, title: 'Анализ продаж', desc: 'Детальный анализ по каналам и продуктам' },
-        { icon: <Brain className="h-6 w-6" />, title: 'AI-прогнозы', desc: 'Предсказание спроса на блюда' },
-        { icon: <Users className="h-6 w-6" />, title: 'KPI и эффективность', desc: 'Отслеживание эффективности каждого канала' },
-      ],
-      color: 'from-purple-50 to-purple-100',
-      iconBg: 'bg-purple-500',
-    },
-    {
-      icon: <Megaphone className="h-8 w-8" />,
-      title: 'Маркетинг',
-      subtitle: 'Лояльность на автопилоте',
-      description: 'Автоматизируйте маркетинг с помощью RFM-анализа и триггерных рассылок. Персонализируйте предложения для каждого клиента и увеличивайте средний чек на 25%.',
-      link: '/products/marketing',
-      problems: [
-        'Клиенты забывают о вас',
-        'Нет персонализации предложений',
-        'Сложно вернуть уснувших клиентов',
-      ],
-      solutions: [
-        'RFM-анализ для автоматической сегментации клиентов',
-        'Персональные предложения на основе истории заказов',
-        'Автоматические триггерные рассылки',
-      ],
-      features: [
-        { icon: <Users className="h-6 w-6" />, title: 'RFM-анализ', desc: 'Автоматическая сегментация клиентов' },
-        { icon: <Mail className="h-6 w-6" />, title: 'Персонализированные рассылки', desc: 'Telegram, SMS и push-уведомления' },
-        { icon: <Gift className="h-6 w-6" />, title: 'Программы лояльности', desc: 'Бонусные программы и промокоды' },
-        { icon: <Zap className="h-6 w-6" />, title: 'Автоматические кампании', desc: 'Триггерные рассылки для каждого клиента' },
-      ],
-      color: 'from-orange-50 to-orange-100',
-      iconBg: 'bg-orange-500',
-    },
-  ]
-
   return (
     <>
-      <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8">
         {/* Hero */}
-        <section className="container mx-auto max-w-7xl mb-12">
-          <FadeInOnScroll>
-            <div className="text-center max-w-4xl mx-auto">
-              <h1 className="text-5xl md:text-6xl font-bold text-brand-darkBlue mb-6 tracking-tight">
-                Всё необходимое для роста
-                <br />
-                <span className="bg-gradient-brand bg-clip-text text-transparent">вашего бизнеса</span>
-              </h1>
-              <p className="text-xl text-brand-darkBlue/80 mb-8 leading-relaxed font-light">
-                Четыре модуля, которые работают вместе как единая система. От приёма заказов до аналитики и маркетинга — всё в одной платформе.
-              </p>
-            </div>
-          </FadeInOnScroll>
-        </section>
-
-        {/* Process Flow */}
-        <ProcessFlow />
-
-        {/* Architecture Diagram */}
-        <section className="container mx-auto max-w-7xl py-20">
-          <ArchitectureDiagram />
+        <section className="container mx-auto max-w-5xl mb-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center"
+          >
+            <h1 className="text-4xl lg:text-5xl font-bold text-brand-darkBlue mb-4 tracking-tight">
+              Продукты платформы
+            </h1>
+            <p className="text-lg text-brand-darkBlue/70 max-w-2xl mx-auto">
+              Четыре модуля, которые работают как единая система
+            </p>
+          </motion.div>
         </section>
 
         {/* Products Grid */}
-        <section className="container mx-auto max-w-7xl space-y-24 mb-20 mt-20">
-          {products.map((product, idx) => (
-            <FadeInOnScroll key={idx} delay={idx * 0.2}>
-              <div className={`bg-gradient-to-br ${product.color} rounded-2xl p-8 md:p-12 shadow-lg`}>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-                {/* Left Column - Info */}
-                <div>
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className={`${product.iconBg} rounded-xl p-3 text-white`}>
-                      {product.icon}
-                    </div>
-                    <div>
-                      <h2 className="text-3xl md:text-4xl font-bold text-brand-darkBlue mb-2">
-                        {product.title}
-                      </h2>
-                      <p className="text-lg text-brand-darkBlue/70">{product.subtitle}</p>
-                    </div>
-                  </div>
-                  
-                  <p className="text-brand-darkBlue/80 mb-8 text-lg leading-relaxed">
-                    {product.description}
-                  </p>
-
-                  {/* Problem & Solution */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <div className="bg-white/80 rounded-xl p-6 border-2 border-red-100">
-                      <div className="flex items-center gap-2 mb-4">
-                        <XCircle className="h-5 w-5 text-red-500" />
-                        <h3 className="font-semibold text-brand-darkBlue">Проблема</h3>
+        <section className="container mx-auto max-w-5xl mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+            {products.map((product, idx) => {
+              const Icon = product.icon
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: idx * 0.1 }}
+                >
+                  <Link
+                    to={product.link}
+                    className="group block bg-white rounded-xl p-6 border border-brand-lightTeal/30 hover:border-brand-darkBlue/20 transition-all duration-200 h-full"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-brand-lightBlue flex items-center justify-center text-brand-darkBlue flex-shrink-0 group-hover:bg-brand-darkBlue group-hover:text-white transition-colors">
+                        <Icon className="h-6 w-6" />
                       </div>
-                      <ul className="space-y-2">
-                        {product.problems.map((problem, pIdx) => (
-                          <li key={pIdx} className="text-sm text-brand-darkBlue/70 flex items-start gap-2">
-                            <span className="text-red-500 mt-1">•</span>
-                            <span>{problem}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    
-                    <div className="bg-white/80 rounded-xl p-6 border-2 border-green-100">
-                      <div className="flex items-center gap-2 mb-4">
-                        <CheckCircle className="h-5 w-5 text-green-500" />
-                        <h3 className="font-semibold text-brand-darkBlue">Решение</h3>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-lg font-semibold text-brand-darkBlue mb-2 flex items-center gap-2">
+                          {product.title}
+                          <ArrowRight className="h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                        </h3>
+                        <p className="text-sm text-brand-darkBlue/60 leading-relaxed">
+                          {product.description}
+                        </p>
                       </div>
-                      <ul className="space-y-2">
-                        {product.solutions.map((solution, sIdx) => (
-                          <li key={sIdx} className="text-sm text-brand-darkBlue/70 flex items-start gap-2">
-                            <span className="text-green-500 mt-1">•</span>
-                            <span>{solution}</span>
-                          </li>
-                        ))}
-                      </ul>
                     </div>
-                  </div>
-
-                  <Link to={product.link}>
-                    <Button size="lg" className="group">
-                      Узнать больше
-                      <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                    </Button>
                   </Link>
-                </div>
+                </motion.div>
+              )
+            })}
+          </div>
+        </section>
 
-                {/* Right Column - Features */}
-                <div className="bg-white/90 rounded-xl p-8 border-2 border-white/50">
-                  <h3 className="text-xl font-semibold text-brand-darkBlue mb-6">Ключевые возможности</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {product.features.map((feature, fIdx) => (
-                      <div
-                        key={fIdx}
-                        className="bg-white rounded-lg p-4 border border-brand-lightTeal/30"
-                      >
-                        <div className="text-brand-darkBlue mb-2">{feature.icon}</div>
-                        <h4 className="font-semibold text-brand-darkBlue mb-1 text-sm">
-                          {feature.title}
-                        </h4>
-                        <p className="text-xs text-brand-darkBlue/70">{feature.desc}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+        {/* Features Overview */}
+        <section className="container mx-auto max-w-5xl mb-16">
+          <div className="bg-brand-lightBlue/30 rounded-2xl p-8 lg:p-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+              <div>
+                <div className="text-3xl font-bold text-brand-darkBlue mb-1">40+</div>
+                <div className="text-sm text-brand-darkBlue/60">Интеграций</div>
               </div>
+              <div>
+                <div className="text-3xl font-bold text-brand-darkBlue mb-1">99.9%</div>
+                <div className="text-sm text-brand-darkBlue/60">Uptime</div>
               </div>
-            </FadeInOnScroll>
-          ))}
+              <div>
+                <div className="text-3xl font-bold text-brand-darkBlue mb-1">24/7</div>
+                <div className="text-sm text-brand-darkBlue/60">Поддержка</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-brand-darkBlue mb-1">1 нед</div>
+                <div className="text-sm text-brand-darkBlue/60">Запуск</div>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* CTA */}
-        <section className="container mx-auto max-w-4xl">
-          <div className="bg-gradient-dark rounded-2xl p-12 text-center text-white">
-            <h2 className="text-4xl font-bold mb-4 text-white tracking-tight">Готовы начать?</h2>
-            <p className="text-xl text-white/90 mb-8 font-light">
-              Запустите собственную доставку за неделю. Получите демо и посмотрите, как Delever поможет увеличить прибыль
+        <section className="container mx-auto max-w-3xl">
+          <div className="bg-brand-darkBlue rounded-2xl p-8 lg:p-12 text-center">
+            <h2 className="text-2xl lg:text-3xl font-bold mb-3 text-white tracking-tight">
+              Готовы начать?
+            </h2>
+            <p className="text-white/70 mb-6">
+              Запустите собственную доставку за неделю
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button
                 size="lg"
                 variant="secondary"
-                onClick={() => window.open('https://admin.delever.uz/#/login', '_blank')}
-                className="group"
+                onClick={() => setContactFormOpen(true)}
               >
-                Запустить сейчас
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button size="lg" variant="outline" onClick={() => setContactFormOpen(true)}>
-                Получить консультацию
+                Получить демо
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
           </div>
         </section>
       </div>
 
-      <PageNavigation />
       <ContactForm open={contactFormOpen} onOpenChange={setContactFormOpen} />
     </>
   )

@@ -1,126 +1,132 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
-import { FeaturesShowcase } from '@/components/home/FeaturesShowcase'
-import { ChannelDetails } from '@/components/channels/ChannelDetails'
-import { PageNavigation } from '@/components/PageNavigation'
-import { FadeInOnScroll } from '@/components/ui/FadeInOnScroll'
-import { CheckCircle, ArrowRight, Calendar, Palette, Code, Rocket } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Smartphone, Globe, MessageSquare, QrCode, ArrowRight, Check } from 'lucide-react'
+
+const channels = [
+  {
+    icon: Smartphone,
+    title: 'Мобильное приложение',
+    description: 'iOS и Android под вашим брендом',
+  },
+  {
+    icon: Globe,
+    title: 'Веб-сайт',
+    description: 'Адаптивный сайт с онлайн-заказом',
+  },
+  {
+    icon: MessageSquare,
+    title: 'Telegram-бот',
+    description: 'Заказы прямо в мессенджере',
+  },
+  {
+    icon: QrCode,
+    title: 'QR-меню',
+    description: 'Бесконтактное меню для столиков',
+  },
+]
+
+const benefits = [
+  '0% комиссии агрегаторов',
+  'Полный контроль данных клиентов',
+  'Push-уведомления и рассылки',
+  'Ваш бренд везде',
+]
 
 export function Channels() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
 
-  const steps = [
-    { icon: <Calendar className="h-6 w-6" />, title: 'Бриф', description: 'Обсуждаем ваши потребности и цели' },
-    { icon: <Palette className="h-6 w-6" />, title: 'Дизайн/Подключение', description: 'Создаём дизайн и подключаем каналы' },
-    { icon: <Code className="h-6 w-6" />, title: 'Тест', description: 'Тестируем все функции перед запуском' },
-    { icon: <Rocket className="h-6 w-6" />, title: 'Запуск', description: 'Запускаем ваши каналы продаж' },
-  ]
-
   return (
     <>
-      <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8">
         {/* Hero */}
-        <section className="container mx-auto max-w-7xl mb-12">
-          <FadeInOnScroll>
-            <div className="text-center max-w-3xl mx-auto">
-              <h1 className="text-5xl md:text-6xl font-bold text-brand-darkBlue mb-6 tracking-tight">
-                Собственные каналы продаж
-                <br />
-                <span className="bg-gradient-brand bg-clip-text text-transparent">под вашим брендом</span>
-              </h1>
-              <p className="text-xl text-brand-darkBlue/80 mb-8 font-light leading-relaxed">
-                Запустите сайт, приложение, Telegram-бот, QR-меню и другие каналы без комиссий агрегаторов. Все заказы в единой системе с полным контролем над данными клиентов.
-              </p>
-              <Button size="lg" onClick={() => setContactFormOpen(true)}>
-                Запустить каналы продаж
-              </Button>
-            </div>
-          </FadeInOnScroll>
+        <section className="container mx-auto max-w-4xl mb-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center"
+          >
+            <h1 className="text-4xl lg:text-5xl font-bold text-brand-darkBlue mb-4 tracking-tight">
+              Каналы продаж
+            </h1>
+            <p className="text-lg text-brand-darkBlue/70 max-w-xl mx-auto mb-8">
+              Запустите собственные каналы продаж без комиссий агрегаторов
+            </p>
+            <Button size="lg" onClick={() => setContactFormOpen(true)}>
+              Запустить каналы
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </motion.div>
         </section>
 
-        {/* Features */}
-        <FeaturesShowcase />
-
-        {/* Channel Details */}
-        <ChannelDetails />
-
-        {/* Work Together */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-brand-lightBeige">
-          <div className="container mx-auto max-w-7xl">
-            <FadeInOnScroll>
-              <div className="max-w-3xl mx-auto text-center">
-                <h2 className="text-4xl font-bold text-brand-darkBlue mb-6 tracking-tight">
-                  Все каналы в единой системе
-                </h2>
-                <p className="text-xl text-brand-darkBlue/80 mb-8 font-light leading-relaxed">
-                  Единый каталог, общие акции и один профиль клиента во всех каналах. Клиент может заказать через сайт, приложение или Telegram — все данные сохраняются в единой базе.
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-                  {['Единый каталог', 'Общие акции', 'Клиентский профиль'].map((feature, idx) => (
-                    <FadeInOnScroll key={idx} delay={idx * 0.1}>
-                      <div className="bg-white rounded-xl p-6 border border-brand-lightTeal/20 shadow-soft hover:shadow-medium transition-all duration-300">
-                        <CheckCircle className="h-8 w-8 text-brand-darkBlue mx-auto mb-3" />
-                        <h3 className="font-semibold text-brand-darkBlue">{feature}</h3>
-                      </div>
-                    </FadeInOnScroll>
-                  ))}
-                </div>
-              </div>
-            </FadeInOnScroll>
+        {/* Channels Grid */}
+        <section className="container mx-auto max-w-4xl mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {channels.map((channel, idx) => {
+              const Icon = channel.icon
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: idx * 0.1 }}
+                  className="bg-white rounded-xl p-5 border border-brand-lightTeal/30"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-brand-lightBlue flex items-center justify-center text-brand-darkBlue flex-shrink-0">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-brand-darkBlue mb-1">{channel.title}</h3>
+                      <p className="text-sm text-brand-darkBlue/60">{channel.description}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              )
+            })}
           </div>
         </section>
 
-        {/* Launch Steps */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8">
-          <div className="container mx-auto max-w-7xl">
-            <FadeInOnScroll>
-              <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold text-brand-darkBlue mb-4 tracking-tight">
-                  Запуск за неделю
-                </h2>
-                <p className="text-xl text-brand-darkBlue/80 font-light">
-                  От идеи до запуска — всего 7 дней
-                </p>
-              </div>
-            </FadeInOnScroll>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              {steps.map((step, idx) => (
-                <FadeInOnScroll key={idx} delay={idx * 0.1}>
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-brand-lightBlue rounded-full mx-auto mb-4 flex items-center justify-center text-brand-darkBlue">
-                      {step.icon}
-                    </div>
-                    <div className="text-sm font-medium text-brand-darkBlue mb-2">Шаг {idx + 1}</div>
-                    <h3 className="text-lg font-semibold text-brand-darkBlue mb-2 tracking-tight">
-                      {step.title}
-                    </h3>
-                    <p className="text-sm text-brand-darkBlue/80 leading-relaxed">{step.description}</p>
-                  </div>
-                </FadeInOnScroll>
+        {/* Benefits */}
+        <section className="container mx-auto max-w-3xl mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="bg-brand-lightBlue/30 rounded-2xl p-8"
+          >
+            <h3 className="text-xl font-bold text-brand-darkBlue mb-4 text-center">Преимущества</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {benefits.map((benefit, idx) => (
+                <div key={idx} className="flex items-center gap-3">
+                  <Check className="h-5 w-5 text-brand-darkBlue flex-shrink-0" />
+                  <span className="text-brand-darkBlue/70">{benefit}</span>
+                </div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </section>
 
         {/* CTA */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-dark text-white">
-          <div className="container mx-auto max-w-4xl text-center">
-            <h2 className="text-4xl font-bold mb-4 text-white tracking-tight">Готовы запустить свои каналы продаж?</h2>
-            <p className="text-xl text-white/90 mb-8 font-light">
-              Свяжитесь с нами и получите демо-версию
+        <section className="container mx-auto max-w-3xl">
+          <div className="bg-brand-darkBlue rounded-2xl p-8 lg:p-12 text-center">
+            <h2 className="text-2xl lg:text-3xl font-bold mb-3 text-white tracking-tight">
+              Запуск за неделю
+            </h2>
+            <p className="text-white/70 mb-6">
+              От брифа до запуска — 5-7 рабочих дней
             </p>
             <Button size="lg" variant="secondary" onClick={() => setContactFormOpen(true)}>
-              Запустить каналы продаж
-              <ArrowRight className="ml-2 h-5 w-5" />
+              Обсудить запуск
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
         </section>
       </div>
 
-      <PageNavigation />
       <ContactForm open={contactFormOpen} onOpenChange={setContactFormOpen} />
     </>
   )
 }
-
