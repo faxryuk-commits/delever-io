@@ -10,6 +10,8 @@ import { SocialProof } from '@/components/home/SocialProof'
 import { FAQ } from '@/components/home/FAQ'
 import { CallToAction } from '@/components/home/CallToAction'
 import { LaunchTimeline } from '@/components/home/LaunchTimeline'
+import { ProductScreenshots } from '@/components/home/ProductScreenshots'
+import { LiveExamples } from '@/components/home/LiveExamples'
 
 export function Home() {
   return (
@@ -18,10 +20,12 @@ export function Home() {
       <Clients />
       <LaunchTimeline />
       <ProductOverview />
+      <ProductScreenshots />
       <ProcessFlow />
       <FeaturesShowcase />
       <AggregatorIntegration />
       <AILayer />
+      <LiveExamples />
       <CaseStudies />
       <SocialProof />
       <FAQ />

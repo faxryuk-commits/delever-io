@@ -139,44 +139,55 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Компания */}
+          {/* Ресурсы */}
           <div>
-            <h3 className="text-white font-semibold mb-4 text-base">Компания</h3>
+            <h3 className="text-white font-semibold mb-4 text-base">Ресурсы</h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link to="/about" className="text-white/70 hover:text-white transition-colors">
-                  О компании
-                </Link>
+                <a 
+                  href="https://delever.gitbook.io/delever" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-white transition-colors"
+                >
+                  📚 База знаний
+                </a>
               </li>
               <li>
-                <Link to="/pricing" className="text-white/70 hover:text-white transition-colors">
-                  Тарифы и цены
-                </Link>
+                <a 
+                  href="https://delever.gitbook.io/delever/for-developers/soon" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-white transition-colors"
+                >
+                  🔧 API для интеграторов
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://delever.gitbook.io/delever/description-updated/otchyoty-o-relizakh" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-white transition-colors"
+                >
+                  📋 Обновления системы
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://status.delevr.uz/status/system" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-white transition-colors flex items-center gap-2"
+                >
+                  <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                  Статус системы
+                </a>
               </li>
               <li>
                 <Link to="/partners" className="text-white/70 hover:text-white transition-colors">
-                  Партнёрская программа
+                  🤝 Партнёрская программа
                 </Link>
-              </li>
-              <li>
-                <a 
-                  href="https://t.me/deleverme" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-white/70 hover:text-white transition-colors"
-                >
-                  Telegram канал
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="https://admin.delever.uz/#/login" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-white/70 hover:text-white transition-colors"
-                >
-                  Вход в систему
-                </a>
               </li>
             </ul>
           </div>
