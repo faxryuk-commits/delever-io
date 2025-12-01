@@ -251,7 +251,19 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Case Studies Component
     'cases.title': 'Результаты клиентов',
-    'cases.subtitle': 'Реальные кейсы автоматизации доставки',
+    'cases.subtitle': 'Реальные цифры после внедрения Delever',
+    'cases.restaurant': 'Ресторан',
+    'cases.storeChain': 'Сеть магазинов',
+    'cases.fastFood': 'Фастфуд',
+    'cases.ordersGrowth': 'Рост заказов',
+    'cases.deliveryTime': 'Время доставки',
+    'cases.avgCheck': 'Средний чек',
+    'cases.onlineOrders': 'Онлайн-заказы',
+    'cases.revenue': 'Выручка',
+    'cases.errors': 'Ошибки',
+    'cases.gmv': 'GMV',
+    'cases.customers': 'Клиенты',
+    'cases.conversion': 'Конверсия',
     
     // Call To Action Component
     'cta.title': 'Запустите свою доставку',
@@ -763,7 +775,19 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Case Studies Component
     'cases.title': 'Client Results',
-    'cases.subtitle': 'Real delivery automation case studies',
+    'cases.subtitle': 'Real numbers after Delever implementation',
+    'cases.restaurant': 'Restaurant',
+    'cases.storeChain': 'Store Chain',
+    'cases.fastFood': 'Fast Food',
+    'cases.ordersGrowth': 'Orders Growth',
+    'cases.deliveryTime': 'Delivery Time',
+    'cases.avgCheck': 'Average Check',
+    'cases.onlineOrders': 'Online Orders',
+    'cases.revenue': 'Revenue',
+    'cases.errors': 'Errors',
+    'cases.gmv': 'GMV',
+    'cases.customers': 'Customers',
+    'cases.conversion': 'Conversion',
     
     // Call To Action Component
     'cta.title': 'Launch Your Delivery',
