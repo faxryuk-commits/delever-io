@@ -220,8 +220,9 @@ function BentoCard({
   const [isHovered, setIsHovered] = useState(false)
   const Icon = item.icon
 
+  // На мобильных все карточки одного размера, на десктопе - разные
   const sizeClasses = {
-    large: 'col-span-2 row-span-2',
+    large: 'col-span-1 sm:col-span-2 row-span-1 sm:row-span-2',
     medium: 'col-span-1 row-span-1',
     small: 'col-span-1 row-span-1',
   }
@@ -240,7 +241,7 @@ function BentoCard({
         layoutId={`card-${item.id}`}
       >
         <motion.div
-          className={`h-full bg-gradient-to-br ${item.bgGradient} rounded-3xl p-5 lg:p-6 pb-6 lg:pb-8 border border-white/50 backdrop-blur-sm overflow-hidden relative`}
+          className={`h-full bg-gradient-to-br ${item.bgGradient} rounded-2xl sm:rounded-3xl p-4 sm:p-5 lg:p-6 pb-5 sm:pb-6 lg:pb-8 border border-white/50 backdrop-blur-sm overflow-hidden relative`}
           style={{
             boxShadow: isHovered 
               ? `0 20px 40px ${item.color}20, 0 0 0 1px ${item.color}30` 
@@ -260,38 +261,53 @@ function BentoCard({
 
           {/* Icon */}
           <motion.div
-            className="relative z-10 w-12 h-12 rounded-2xl flex items-center justify-center mb-3"
+            className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center mb-2 sm:mb-3"
             style={{ backgroundColor: `${item.color}15` }}
             animate={isHovered ? { scale: 1.1, rotate: 5 } : { scale: 1, rotate: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <Icon className="w-6 h-6" style={{ color: item.color }} />
+            <Icon className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: item.color }} />
           </motion.div>
 
           {/* Content */}
           <div className="relative z-10">
-            <h3 className="text-lg lg:text-xl font-bold text-brand-darkBlue mb-1">
+            <h3 className="text-base sm:text-lg lg:text-xl font-bold text-brand-darkBlue mb-0.5 sm:mb-1">
               {language === 'ru' ? item.title : item.titleEn}
             </h3>
-            <p className="text-sm text-brand-darkBlue/60 mb-3">
+            <p className="text-xs sm:text-sm text-brand-darkBlue/60 mb-2 sm:mb-3 line-clamp-2">
               {language === 'ru' ? item.description : item.descriptionEn}
             </p>
 
-            {/* Quick features preview */}
+            {/* Quick features preview - меньше на мобильных */}
             {item.features && item.features.length > 0 && (
-              <div className="flex flex-wrap gap-1.5">
-                {item.features.slice(0, item.size === 'large' ? 6 : 3).map((feature, idx) => {
+              <div className="flex flex-wrap gap-1 sm:gap-1.5">
+                {item.features.slice(0, item.size === 'large' ? 4 : 2).map((feature, idx) => {
                   const FeatureIcon = feature.icon
                   return (
                     <motion.div
                       key={idx}
-                      className="flex items-center gap-1 bg-white/80 backdrop-blur-sm px-2 py-1 rounded-lg text-xs font-medium text-brand-darkBlue/70"
+                      className="hidden sm:flex items-center gap-1 bg-white/80 backdrop-blur-sm px-2 py-1 rounded-lg text-xs font-medium text-brand-darkBlue/70"
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: idx * 0.03 }}
                     >
                       <FeatureIcon className="w-3 h-3" style={{ color: item.color }} />
                       {language === 'ru' ? feature.label : feature.labelEn}
+                    </motion.div>
+                  )
+                })}
+                {/* Мобильная версия - только иконки */}
+                {item.features.slice(0, 4).map((feature, idx) => {
+                  const FeatureIcon = feature.icon
+                  return (
+                    <motion.div
+                      key={`mobile-${idx}`}
+                      className="flex sm:hidden items-center justify-center bg-white/80 backdrop-blur-sm w-7 h-7 rounded-lg"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: idx * 0.03 }}
+                    >
+                      <FeatureIcon className="w-3.5 h-3.5" style={{ color: item.color }} />
                     </motion.div>
                   )
                 })}
@@ -307,10 +323,10 @@ function BentoCard({
           
           {/* Click indicator */}
           <motion.div
-            className="absolute bottom-4 right-4 w-8 h-8 rounded-full bg-white/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+            className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-white/80 flex items-center justify-center opacity-50 sm:opacity-0 group-hover:opacity-100 transition-opacity"
             animate={isHovered ? { x: 0, scale: 1 } : { x: -10, scale: 0.8 }}
           >
-            <ArrowRight className="w-4 h-4" style={{ color: item.color }} />
+            <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: item.color }} />
           </motion.div>
         </motion.div>
       </motion.div>
@@ -434,33 +450,33 @@ export function ArchitectureMap() {
   const [expandedId, setExpandedId] = useState<string | null>(null)
 
   return (
-    <section className="py-20 lg:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-brand-lightBeige/30 to-white overflow-hidden">
+    <section className="py-12 sm:py-20 lg:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-brand-lightBeige/30 to-white overflow-hidden">
       <div className="container mx-auto max-w-6xl">
         {/* Header */}
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 lg:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
           <motion.div 
-            className="inline-flex items-center gap-2 bg-brand-darkBlue/5 text-brand-darkBlue text-sm font-medium px-4 py-2 rounded-full mb-5"
+            className="inline-flex items-center gap-2 bg-brand-darkBlue/5 text-brand-darkBlue text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-4 sm:mb-5"
             initial={{ scale: 0.9 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
           >
-            <Sparkles className="w-4 h-4" />
+            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             {language === 'ru' ? 'Единая платформа' : 'Unified Platform'}
           </motion.div>
-          <h2 className="text-3xl lg:text-5xl font-bold text-brand-darkBlue mb-4 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-brand-darkBlue mb-3 sm:mb-4 tracking-tight">
             {language === 'ru' ? 'Всё для бизнеса' : 'Everything for Business'}
           </h2>
-          <p className="text-lg text-brand-darkBlue/60 max-w-xl mx-auto">
+          <p className="text-base sm:text-lg text-brand-darkBlue/60 max-w-xl mx-auto px-4">
             {language === 'ru' 
               ? 'Модули, которые работают вместе как единый организм' 
               : 'Modules that work together as one organism'}
           </p>
-          <p className="text-sm text-brand-darkBlue/40 mt-2">
+          <p className="text-xs sm:text-sm text-brand-darkBlue/40 mt-2">
             {language === 'ru' 
               ? 'Нажмите на карточку для подробностей' 
               : 'Click on card for details'}
@@ -468,7 +484,7 @@ export function ArchitectureMap() {
         </motion.div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 auto-rows-[180px] lg:auto-rows-[220px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 auto-rows-[140px] sm:auto-rows-[180px] lg:auto-rows-[220px]">
           {bentoItems.map((item, index) => (
             <BentoCard 
               key={item.id} 
