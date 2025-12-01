@@ -249,7 +249,7 @@ export function Products() {
               <Button
                 size="lg"
                 variant="secondary"
-                onClick={() => window.open('https://app.delever.io/register', '_blank')}
+                onClick={() => window.open('https://admin.delever.uz/#/login', '_blank')}
                 className="group"
               >
                 Запустить сейчас

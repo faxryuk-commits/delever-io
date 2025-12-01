@@ -126,7 +126,7 @@ export function Pricing() {
               <Button
                 className="w-full"
                 variant={plan.highlight ? 'primary' : 'outline'}
-                onClick={() => window.open('https://app.delever.io/register', '_blank')}
+                onClick={() => window.open('https://admin.delever.uz/#/login', '_blank')}
               >
                 Выбрать план
               </Button>

@@ -22,7 +22,7 @@ export function NotFound() {
           </Link>
           <Button
             size="lg"
-            onClick={() => window.open('https://app.delever.io/register', '_blank')}
+            onClick={() => window.open('https://admin.delever.uz/#/login', '_blank')}
           >
             <Rocket className="mr-2 h-5 w-5" />
             Запустить доставку с Delever

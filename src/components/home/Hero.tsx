@@ -24,7 +24,7 @@ export function Hero() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Button
                   size="lg"
-                  onClick={() => window.open('https://app.delever.io/register', '_blank')}
+                  onClick={() => window.open('https://admin.delever.uz/#/login', '_blank')}
                   className="group text-lg px-8 py-6"
                 >
                   Запустить сейчас

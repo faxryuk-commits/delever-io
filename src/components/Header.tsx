@@ -195,7 +195,7 @@ export function Header() {
                 </Button>
                 <Button 
                   size="sm" 
-                  onClick={() => window.open('https://app.delever.io', '_blank')}
+                  onClick={() => window.open('https://admin.delever.uz/#/login', '_blank')}
                   className="h-9 px-4 text-sm font-medium"
                 >
                   Войти
@@ -288,7 +288,7 @@ export function Header() {
                 </Button>
                 <Button
                   className="w-full h-11 font-medium"
-                  onClick={() => window.open('https://app.delever.io', '_blank')}
+                  onClick={() => window.open('https://admin.delever.uz/#/login', '_blank')}
                 >
                   Войти в систему
                 </Button>

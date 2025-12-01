@@ -350,7 +350,7 @@ export function Pricing() {
               <Button
                 size="lg"
                 variant="outline"
-                onClick={() => window.open('https://app.delever.io/register', '_blank')}
+                onClick={() => window.open('https://admin.delever.uz/#/login', '_blank')}
               >
                 Зарегистрироваться
               </Button>
