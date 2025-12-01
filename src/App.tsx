@@ -4,6 +4,7 @@ import * as Tooltip from '@radix-ui/react-tooltip'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { ScrollToTop } from './components/ScrollToTop'
+import { ChatWidget } from './components/ChatWidget'
 import { Home } from './pages/Home'
 import { Products } from './pages/Products'
 import { Pricing } from './pages/Pricing'
@@ -42,6 +43,7 @@ function App() {
             </main>
             <Footer />
           </div>
+        <ChatWidget />
         <Toaster position="top-right" />
       </BrowserRouter>
     </Tooltip.Provider>
