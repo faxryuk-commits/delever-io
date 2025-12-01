@@ -26,10 +26,10 @@ import { useLocale } from '@/i18n/LocaleContext'
 
 // Базовые тарифы
 const basePlans = [
-  { name: 'Start', orders: 1000, priceUZS: 1300000, perOrderUZS: 1300 },
-  { name: 'Medium', orders: 3000, priceUZS: 3250000, perOrderUZS: 1100 },
-  { name: 'Big', orders: 6000, priceUZS: 6500000, perOrderUZS: 1100 },
-  { name: 'Enterprise', orders: 10000, priceUZS: 13000000, perOrderUZS: 1300 },
+  { name: 'Start', orders: 1000, priceUZS: 1300000, perOrderUZS: 1950 },
+  { name: 'Medium', orders: 3000, priceUZS: 3250000, perOrderUZS: 1950 },
+  { name: 'Big', orders: 6000, priceUZS: 6500000, perOrderUZS: 1950 },
+  { name: 'Enterprise', orders: 10000, priceUZS: 13000000, perOrderUZS: 1950 },
 ]
 
 // Полный функционал платформы
@@ -562,6 +562,46 @@ export function PricingCalculator() {
         <p className="text-xs text-brand-darkBlue/40 text-center mt-6">
           * {t('calc.availableOnHigherPlans')}
         </p>
+      </motion.div>
+
+      {/* White Label Section */}
+      <motion.div
+        className="mt-8"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.5 }}
+      >
+        <div className="bg-brand-darkBlue rounded-2xl p-8 lg:p-10 overflow-hidden relative">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
+          
+          <div className="flex flex-col md:flex-row items-center gap-6 relative z-10">
+            <motion.div 
+              className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0"
+              animate={{ rotate: [0, 5, -5, 0] }}
+              transition={{ duration: 4, repeat: Infinity }}
+            >
+              <Smartphone className="h-8 w-8 text-white" />
+            </motion.div>
+            <div className="flex-1 text-center md:text-left">
+              <h3 className="text-2xl font-bold text-white mb-2">{t('calc.whiteLabelTitle')}</h3>
+              <p className="text-white/70 mb-4">
+                {t('calc.whiteLabelDesc')}
+              </p>
+              <div className="flex items-center gap-4 justify-center md:justify-start">
+                <span className="text-3xl font-bold text-white">{formatPrice(13000000)}</span>
+                <span className="text-white/50 text-sm">{t('calc.oneTime')}</span>
+              </div>
+            </div>
+            <Button 
+              variant="secondary" 
+              size="lg"
+              onClick={() => setContactFormOpen(true)}
+            >
+              {t('common.learnMore')}
+            </Button>
+          </div>
+        </div>
       </motion.div>
 
       <ContactForm open={contactFormOpen} onOpenChange={setContactFormOpen} />

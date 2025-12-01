@@ -607,6 +607,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'calc.analytics': 'Аналитика',
     'calc.support': 'Поддержка',
     'calc.availableOnHigherPlans': 'Доступно на старших тарифах',
+    'calc.whiteLabelTitle': 'White Label приложение',
+    'calc.whiteLabelDesc': 'Собственное мобильное приложение под вашим брендом в App Store и Google Play. Без упоминания Delever — только ваш бренд.',
     
     // Common
     'common.learnMore': 'Подробнее',
@@ -1196,6 +1198,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'calc.analytics': 'Analytics',
     'calc.support': 'Support',
     'calc.availableOnHigherPlans': 'Available on higher plans',
+    'calc.whiteLabelTitle': 'White Label App',
+    'calc.whiteLabelDesc': 'Your own mobile app under your brand in App Store and Google Play. No Delever mentions — only your brand.',
     
     // Common
     'common.learnMore': 'Learn More',
