@@ -240,7 +240,7 @@ function BentoCard({
         layoutId={`card-${item.id}`}
       >
         <motion.div
-          className={`h-full bg-gradient-to-br ${item.bgGradient} rounded-3xl p-5 lg:p-6 border border-white/50 backdrop-blur-sm overflow-hidden relative`}
+          className={`h-full bg-gradient-to-br ${item.bgGradient} rounded-3xl p-5 lg:p-6 pb-6 lg:pb-8 border border-white/50 backdrop-blur-sm overflow-hidden relative`}
           style={{
             boxShadow: isHovered 
               ? `0 20px 40px ${item.color}20, 0 0 0 1px ${item.color}30` 
@@ -468,7 +468,7 @@ export function ArchitectureMap() {
         </motion.div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 auto-rows-[160px] lg:auto-rows-[200px]">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 auto-rows-[180px] lg:auto-rows-[220px]">
           {bentoItems.map((item, index) => (
             <BentoCard 
               key={item.id} 
