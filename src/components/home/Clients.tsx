@@ -4,7 +4,7 @@ import { useLocale } from '@/i18n/LocaleContext'
 // Клиенты с логотипами
 const clients = [
   { name: 'Pizza Hut', logo: '/logos/pizza-hut-logo-png_seeklogo-257097.png' },
-  { name: 'Dodo Pizza', logo: '/logos/dodopizza.gif' },
+  { name: 'Dodo Pizza', logo: '/logos/dodo.png' },
   { name: 'EVOS', logo: '/logos/evos.png' },
   { name: 'MAXWAY', logo: '/logos/maxway.png' },
   { name: 'Yaponamama', logo: '/logos/yapona.png' },
