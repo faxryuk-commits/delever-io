@@ -33,8 +33,8 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        brand: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Aeonik Pro', 'system-ui', '-apple-system', 'sans-serif'],
+        brand: ['Aeonik Pro', 'system-ui', 'sans-serif'],
       },
       backgroundImage: {
         'gradient-brand': 'linear-gradient(135deg, #afdbd9 0%, #f3e9dd 100%)',
