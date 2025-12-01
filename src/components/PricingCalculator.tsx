@@ -253,10 +253,24 @@ export function PricingCalculator() {
     )
   }
 
-  // Генерация PDF
+  // Генерация КП (коммерческого предложения)
   const downloadInvoice = () => {
     const date = new Date().toLocaleDateString('ru-RU')
     const invoiceNumber = `DEL-${Date.now().toString().slice(-8)}`
+    
+    // Определяем тип подключения для заголовка
+    const connectionTypeNames: Record<ConnectionType, string> = {
+      platform: 'Полная платформа',
+      aggregators: 'Интеграция с агрегаторами',
+      kiosks: 'Киоски самообслуживания'
+    }
+    
+    // Определяем депозит в зависимости от типа
+    const getDeposit = () => {
+      if (connectionType === 'aggregators') return 3900000
+      if (connectionType === 'kiosks') return 6500000
+      return 6500000 // platform
+    }
     
     let html = `
 <!DOCTYPE html>
@@ -265,27 +279,32 @@ export function PricingCalculator() {
   <meta charset="UTF-8">
   <title>Коммерческое предложение Delever</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; }
-    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; border-bottom: 2px solid #002A47; padding-bottom: 20px; }
+    body { font-family: Arial, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; color: #333; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; border-bottom: 3px solid #002A47; padding-bottom: 20px; }
     .logo { font-size: 28px; font-weight: bold; color: #002A47; }
     .invoice-info { text-align: right; }
+    .connection-type { background: #002A47; color: white; padding: 8px 16px; border-radius: 20px; display: inline-block; margin-bottom: 30px; font-weight: 500; }
     .section { margin-bottom: 30px; }
-    .section-title { font-size: 18px; font-weight: bold; color: #002A47; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-    .row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+    .section-title { font-size: 18px; font-weight: bold; color: #002A47; margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+    .row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
     .row:last-child { border-bottom: none; }
     .label { color: #666; }
-    .value { font-weight: 500; }
-    .total-row { background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 20px; }
-    .total-label { font-size: 16px; color: #666; }
-    .total-value { font-size: 24px; font-weight: bold; color: #002A47; }
-    .savings { background: #e8f5e9; padding: 20px; border-radius: 8px; margin-top: 30px; }
-    .savings-title { color: #2e7d32; font-weight: bold; margin-bottom: 10px; }
-    .savings-value { font-size: 28px; font-weight: bold; color: #2e7d32; }
-    .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; text-align: center; color: #999; font-size: 12px; }
+    .value { font-weight: 600; color: #002A47; }
+    .total-row { background: linear-gradient(135deg, #002A47, #004d7a); color: white; padding: 20px; border-radius: 12px; margin-top: 20px; }
+    .total-label { font-size: 14px; opacity: 0.8; }
+    .total-value { font-size: 28px; font-weight: bold; }
+    .deposit-row { background: #FFF8E1; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #FFC107; }
+    .savings { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); padding: 25px; border-radius: 12px; margin-top: 30px; }
+    .savings-title { color: #2e7d32; font-weight: bold; margin-bottom: 15px; font-size: 16px; }
+    .savings-value { font-size: 32px; font-weight: bold; color: #1b5e20; }
+    .expenses { background: #fff3e0; padding: 20px; border-radius: 12px; margin-top: 20px; }
+    .expenses-title { color: #e65100; font-weight: bold; margin-bottom: 15px; }
+    .footer { margin-top: 40px; padding-top: 20px; border-top: 2px solid #eee; text-align: center; color: #999; font-size: 12px; }
     .params { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
-    .param-box { background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center; }
-    .param-value { font-size: 24px; font-weight: bold; color: #002A47; }
+    .param-box { background: #f8f9fa; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #eee; }
+    .param-value { font-size: 28px; font-weight: bold; color: #002A47; }
     .param-label { font-size: 12px; color: #666; margin-top: 5px; }
+    .not-profitable { background: #fff3e0; padding: 15px; border-radius: 8px; color: #e65100; margin-top: 15px; }
   </style>
 </head>
 <body>
@@ -298,6 +317,9 @@ export function PricingCalculator() {
     </div>
   </div>
 
+  <div class="connection-type">${connectionTypeNames[connectionType]}</div>
+
+  ${connectionType === 'platform' ? `
   <div class="section">
     <div class="section-title">Параметры бизнеса</div>
     <div class="params">
@@ -337,9 +359,9 @@ export function PricingCalculator() {
       if (!module) return ''
       const price = getModulePrice(module)
       let multiplier = ''
-      if (module.perType === 'branch' && branches > 1) multiplier = ` × ${branches}`
-      if (module.perType === 'brand' && brands > 1) multiplier = ` × ${brands}`
-      if (module.perType === 'kiosk' && kiosks > 1) multiplier = ` × ${kiosks}`
+      if (module.perType === 'branch' && branches > 1) multiplier = ` × ${branches} фил.`
+      if (module.perType === 'brand' && brands > 1) multiplier = ` × ${brands} бр.`
+      if (module.perType === 'kiosk' && kiosks > 1) multiplier = ` × ${kiosks} шт.`
       return `
     <div class="row">
       <span class="label">${module.name}${multiplier}</span>
@@ -361,45 +383,134 @@ export function PricingCalculator() {
     </div>`
     }).join('')}
   </div>` : ''}
+  ` : ''}
 
-  <div class="total-row">
-    <div class="row" style="border: none;">
-      <span class="total-label">ИТОГО В МЕСЯЦ:</span>
-      <span class="total-value">${formatPrice(totals.monthly)}</span>
+  ${connectionType === 'aggregators' ? `
+  <div class="section">
+    <div class="section-title">Параметры</div>
+    <div class="params" style="grid-template-columns: repeat(2, 1fr);">
+      <div class="param-box">
+        <div class="param-value">${branches}</div>
+        <div class="param-label">Филиалов</div>
+      </div>
+      <div class="param-box">
+        <div class="param-value">${selectedModules.length}</div>
+        <div class="param-label">Агрегаторов</div>
+      </div>
     </div>
-    ${totals.oneTime > 0 ? `
-    <div class="row" style="border: none; margin-top: 10px;">
-      <span class="label">Единоразово:</span>
-      <span class="value">${formatPrice(totals.oneTime)}</span>
-    </div>` : ''}
   </div>
 
+  ${selectedModules.length > 0 ? `
+  <div class="section">
+    <div class="section-title">Выбранные агрегаторы</div>
+    ${selectedModules.map(moduleId => {
+      const module = additionalModules.find(m => m.id === moduleId)
+      if (!module) return ''
+      const price = getModulePrice(module)
+      return `
+    <div class="row">
+      <span class="label">${module.name} × ${branches} филиалов</span>
+      <span class="value">${formatPrice(price)}</span>
+    </div>`
+    }).join('')}
+  </div>` : ''}
+  ` : ''}
+
+  ${connectionType === 'kiosks' ? `
+  <div class="section">
+    <div class="section-title">Параметры</div>
+    <div class="params" style="grid-template-columns: 1fr;">
+      <div class="param-box">
+        <div class="param-value">${kiosks}</div>
+        <div class="param-label">Киосков самообслуживания</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Расчёт стоимости</div>
+    <div class="row">
+      <span class="label">${kiosks} киосков × ${formatPrice(910000)}/мес</span>
+      <span class="value">${formatPrice(totals.monthly)}</span>
+    </div>
+  </div>
+  ` : ''}
+
+  <div class="total-row">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <div class="total-label">ИТОГО В МЕСЯЦ</div>
+        <div class="total-value">${formatPrice(totals.monthly)}</div>
+      </div>
+      ${totals.oneTime > 0 ? `
+      <div style="text-align: right;">
+        <div class="total-label">ЕДИНОРАЗОВО</div>
+        <div class="total-value">${formatPrice(totals.oneTime)}</div>
+      </div>` : ''}
+    </div>
+  </div>
+
+  <div class="deposit-row">
+    <div class="row" style="border: none;">
+      <span class="label">⚠️ ${connectionType === 'aggregators' ? 'Обязательный депозит' : connectionType === 'kiosks' ? 'Обязательный платёж' : 'Депозит'} (${connectionType === 'kiosks' ? 'единоразово' : 'используется на оплату подписки'})</span>
+      <span class="value">${formatPrice(getDeposit())}</span>
+    </div>
+  </div>
+
+  ${connectionType === 'platform' && scenario === 'switch' ? `
+  <div class="expenses">
+    <div class="expenses-title">📊 Расходы при переходе на свою доставку</div>
+    <div class="row">
+      <span class="label">Delever (подписка)</span>
+      <span class="value">${formatPrice(roi.deleverCost)}</span>
+    </div>
+    <div class="row">
+      <span class="label">Маркетинг</span>
+      <span class="value">${formatPrice(roi.marketingBudget)}</span>
+    </div>
+    <div class="row">
+      <span class="label">Привлечение клиентов</span>
+      <span class="value">${formatPrice(roi.acquisitionCost)}</span>
+    </div>
+    <div class="row">
+      <span class="label">Курьеры (${couriersCount} × ${formatPrice(courierSalary)})</span>
+      <span class="value">${formatPrice(roi.couriersCost)}</span>
+    </div>
+    <div class="row" style="border-top: 2px solid #e65100; padding-top: 15px; margin-top: 10px;">
+      <span class="label"><strong>Итого расходы при своей доставке</strong></span>
+      <span class="value"><strong>${formatPrice(roi.totalOwnDeliveryCost)}</strong></span>
+    </div>
+  </div>
+
+  ${roi.switchSavings > 0 ? `
   <div class="savings">
     <div class="savings-title">💰 Ваша экономия по сравнению с агрегаторами</div>
     <div style="display: flex; justify-content: space-between; align-items: center;">
       <div>
-        <div class="savings-value">${formatPrice(roi.yearSwitchSavings)}/год</div>
-        <div style="color: #666; margin-top: 5px;">${formatPrice(roi.switchSavings)}/месяц</div>
+        <div class="savings-value">+${formatPrice(roi.yearSwitchSavings)}/год</div>
+        <div style="color: #388e3c; margin-top: 5px;">+${formatPrice(roi.switchSavings)}/месяц</div>
       </div>
       <div style="text-align: right;">
-        <div style="font-size: 32px; font-weight: bold; color: #2e7d32;">${Math.round(roi.switchSavingsPercent)}%</div>
-        <div style="color: #666; font-size: 12px;">экономии</div>
+        <div style="font-size: 36px; font-weight: bold; color: #1b5e20;">${Math.round(roi.switchSavingsPercent)}%</div>
+        <div style="color: #388e3c; font-size: 12px;">экономии</div>
       </div>
     </div>
-  </div>
-
-  <div class="section" style="margin-top: 30px;">
-    <div class="section-title">Депозит</div>
-    <div class="row">
-      <span class="label">Депозит (используется на оплату подписки)</span>
-      <span class="value">${formatPrice(6500000)}</span>
+    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #a5d6a7; color: #2e7d32; font-size: 13px;">
+      По сравнению с комиссией агрегаторов ${aggregatorFee}% от выручки (${formatPrice(roi.aggregatorCost)}/мес)
     </div>
   </div>
+  ` : `
+  <div class="not-profitable">
+    <strong>⚠️ Внимание:</strong> При текущих параметрах переход может быть невыгоден. Дополнительные расходы: ${formatPrice(Math.abs(roi.switchSavings))}/мес
+  </div>
+  `}
+  ` : ''}
 
   <div class="footer">
-    <p>Delever — операционная система для доставки</p>
-    <p>support@delever.uz | +998 78 113 98 13</p>
-    <p>Предложение действительно 30 дней</p>
+    <p><strong>Delever</strong> — операционная система для доставки</p>
+    <p>📧 support@delever.uz | 📞 +998 78 113 98 13</p>
+    <p>📍 Ташкент, Проспект Амира Темура 129Б, Анор Плаза</p>
+    <p style="margin-top: 15px; color: #666;">Предложение действительно 30 дней с даты формирования</p>
   </div>
 </body>
 </html>
@@ -409,7 +520,7 @@ export function PricingCalculator() {
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `Delever_КП_${invoiceNumber}.html`
+    a.download = `Delever_КП_${connectionTypeNames[connectionType]}_${invoiceNumber}.html`
     a.click()
     URL.revokeObjectURL(url)
   }
