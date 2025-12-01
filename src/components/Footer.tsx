@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom'
-import { MapPin, Linkedin, Youtube, Globe, ChevronDown, Send } from 'lucide-react'
+import { MapPin, Linkedin, Globe, ChevronDown, Send, Instagram } from 'lucide-react'
 import { Logo } from './Logo'
 import { useState } from 'react'
 
 export function Footer() {
   const [languageOpen, setLanguageOpen] = useState(false)
+
+  // Ссылка на Google Maps для адреса офиса
+  const mapLink = 'https://maps.google.com/?q=Ташкент,+Проспект+Амира+Темура+129Б,+Анор+Плаза'
 
   return (
     <footer className="bg-brand-darkBlue text-white">
@@ -32,16 +35,16 @@ export function Footer() {
                 <Linkedin className="h-5 w-5" />
               </a>
               <a 
-                href="https://youtube.com/@delever" 
+                href="https://www.instagram.com/delever.uz/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors"
-                aria-label="YouTube"
+                aria-label="Instagram"
               >
-                <Youtube className="h-5 w-5" />
+                <Instagram className="h-5 w-5" />
               </a>
               <a 
-                href="https://t.me/delever_uz" 
+                href="https://t.me/deleverme" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors"
@@ -83,7 +86,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="mailto:info@delever.io" className="text-white/70 hover:text-white transition-colors">
+                <a href="mailto:support@delever.uz" className="text-white/70 hover:text-white transition-colors">
                   Связаться с нами
                 </a>
               </li>
@@ -94,7 +97,7 @@ export function Footer() {
               </li>
               <li>
                 <a 
-                  href="https://t.me/delever_uz" 
+                  href="https://t.me/deleverme" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-white/70 hover:text-white transition-colors"
@@ -204,23 +207,28 @@ export function Footer() {
               <p className="text-sm text-white/70">
                 © {new Date().getFullYear()} Delever. Все права защищены.
               </p>
-              <p className="text-sm text-white/70 flex items-center space-x-2">
-                <MapPin className="h-4 w-4" />
-                <span>Ташкент, Узбекистан</span>
-              </p>
+              <a 
+                href={mapLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-white/70 hover:text-white transition-colors flex items-start space-x-2"
+              >
+                <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                <span>Ташкент, Проспект Амира Темура 129Б, БЦ Анор Плаза, 2 этаж, офис 1</span>
+              </a>
             </div>
             <div className="flex flex-wrap gap-6 text-sm">
               <a 
-                href="mailto:info@delever.io" 
+                href="mailto:support@delever.uz" 
                 className="text-white/70 hover:text-white transition-colors"
               >
-                info@delever.io
+                support@delever.uz
               </a>
               <a 
-                href="tel:+998712000000" 
+                href="tel:+998781139813" 
                 className="text-white/70 hover:text-white transition-colors"
               >
-                +998 71 200 00 00
+                +998 78 113 98 13
               </a>
             </div>
           </div>
