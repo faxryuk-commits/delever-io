@@ -78,8 +78,8 @@ export function Header() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link to="/" className="flex items-center group">
-              <Logo height={36} />
+            <Link to="/" className="flex items-center">
+              <Logo height={42} withHover withGlow />
             </Link>
 
             {/* Desktop Navigation */}

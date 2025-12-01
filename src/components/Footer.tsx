@@ -15,9 +15,9 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           {/* Brand Section */}
           <div className="lg:col-span-1">
-            <div className="mb-6">
-              <Logo variant="white" height={40} />
-            </div>
+            <Link to="/" className="inline-block mb-6">
+              <Logo variant="white" height={44} withHover />
+            </Link>
             <p className="text-sm text-white/70 mb-6 leading-relaxed">
               Операционная система для доставки. Единая платформа для управления всеми каналами
               продаж, операциями и аналитикой.
