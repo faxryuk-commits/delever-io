@@ -193,6 +193,74 @@ export const translations: Record<Language, Record<string, string>> = {
     'footer.systemStatus': 'Статус системы',
     'footer.address': 'Ташкент, Амира Темура 129Б',
     
+    // FAQ Component
+    'faq.title': 'Часто задаваемые вопросы',
+    'faq.subtitle': 'Ответы на популярные вопросы о платформе Delever',
+    'faq.q1': 'Сколько стоит подключение?',
+    'faq.a1': 'Стоимость зависит от выбранного тарифа и количества точек. Базовый тариф начинается от $99/месяц за одну точку. Для точного расчёта свяжитесь с нами — мы подберём оптимальный тариф под ваш бизнес.',
+    'faq.q2': 'Сколько времени занимает настройка?',
+    'faq.a2': 'Стандартная настройка занимает 7-14 дней. За это время мы подключаем каналы продаж, интегрируем с вашей POS-системой, настраиваем меню и обучаем команду. При необходимости можем ускорить процесс.',
+    'faq.q3': 'Какие каналы продаж можно запустить?',
+    'faq.a3': 'Delever поддерживает все основные каналы: Telegram-бот, веб-сайт, мобильное приложение (iOS/Android), QR-меню, киоски и колл-центр. Все каналы работают на единой платформе с общим каталогом и базой клиентов.',
+    'faq.q4': 'С какими POS-системами интегрируется Delever?',
+    'faq.a4': 'Мы интегрируемся с популярными POS-системами: iiko, R-Keeper/Syrve, Poster, Paloma и другими. Интеграция происходит автоматически через API — заказы сразу попадают в вашу кассу без ручного ввода.',
+    'faq.q5': 'Как работают заказы из агрегаторов?',
+    'faq.a5': 'Delever принимает заказы из всех популярных агрегаторов: Wolt, Yandex Eats, Talabat, Deliveroo, Noon и других. Все заказы приходят в единое окно Delever — больше не нужно держать несколько планшетов на кухне.',
+    'faq.q6': 'Какие способы оплаты поддерживаются?',
+    'faq.a6': 'Поддерживаются все популярные платёжные системы: Click, Payme, Uzum, Stripe, Yandex Pay и другие. Клиенты могут оплачивать картой, через электронные кошельки или наличными при получении заказа.',
+    'faq.q7': 'Какая аналитика доступна?',
+    'faq.a7': 'В платформу встроена мощная аналитика: дашборды для владельца и управляющего, ABC-XYZ анализ продуктов, KPI по каналам, курьерам и точкам. Все данные обновляются в реальном времени.',
+    'faq.q8': 'Есть ли система лояльности?',
+    'faq.a8': 'Да, Delever включает полноценную систему лояльности: бонусные программы, промокоды, персональные предложения, RFM-анализ клиентов и автоматические триггерные рассылки для увеличения среднего чека.',
+    
+    // Launch Timeline Component
+    'timeline.title': 'Запуск за неделю',
+    'timeline.subtitle': 'От заявки до первого заказа — 7 дней',
+    'timeline.day1': 'Заявка',
+    'timeline.day1Desc': 'Консультация и анализ вашего бизнеса',
+    'timeline.day1Details': 'Обсуждение целей|Выбор тарифа|Подписание договора',
+    'timeline.day2': 'Настройка',
+    'timeline.day2Desc': 'Брендирование под ваш стиль',
+    'timeline.day2Details': 'Ваш логотип и цвета|Загрузка меню/каталога|Настройка зон доставки',
+    'timeline.day3': 'Каналы продаж',
+    'timeline.day3Desc': 'Приложение, сайт и Telegram-бот',
+    'timeline.day3Details': 'iOS и Android приложение|Веб-сайт с заказами|Telegram-бот',
+    'timeline.day4': 'Интеграция',
+    'timeline.day4Desc': 'Подключение к вашей кассе',
+    'timeline.day4Details': 'Синхронизация с POS|Настройка оплаты|Тестирование',
+    'timeline.day5': 'Запуск!',
+    'timeline.day5Desc': 'Первые заказы уже сегодня',
+    'timeline.day5Details': 'Публикация в сторах|Обучение команды|Старт продаж',
+    'timeline.startNow': 'Начать сейчас',
+    
+    // Process Flow Component
+    'flow.title': 'Как это работает',
+    'flow.subtitle': 'Все заказы → единая платформа → автоматизация',
+    'flow.channels': 'Каналы продаж',
+    'flow.channelsItems': 'Агрегаторы|Telegram-бот|Веб-сайт|Приложение',
+    'flow.delever': 'Delever',
+    'flow.deleverItems': 'Единая платформа|Автоматизация|Синхронизация',
+    'flow.integrations': 'Интеграции',
+    'flow.integrationsItems': 'POS-системы|Платежи|Кухня',
+    'flow.operations': 'Операции',
+    'flow.operationsItems': 'Диспетчеризация|Курьеры|Статусы',
+    'flow.delivery': 'Доставка',
+    'flow.deliveryItems': 'GPS-трекинг|Оптимизация|Уведомления',
+    'flow.analytics': 'Аналитика',
+    'flow.analyticsItems': 'Дашборды|Отчёты|AI-прогнозы',
+    
+    // Case Studies Component
+    'cases.title': 'Результаты клиентов',
+    'cases.subtitle': 'Реальные кейсы автоматизации доставки',
+    
+    // Call To Action Component
+    'cta.title': 'Запустите свою доставку',
+    'cta.subtitle': 'Получите бесплатную консультацию и демо платформы',
+    'cta.button': 'Получить демо',
+    
+    // Clients Component
+    'clients.title': 'Нам доверяют',
+    
     // WhiteLabel Page
     'whitelabel.badge': 'Ваш бренд',
     'whitelabel.title': 'White Label приложение',
@@ -636,6 +704,74 @@ export const translations: Record<Language, Record<string, string>> = {
     'footer.updates': 'Updates',
     'footer.systemStatus': 'System Status',
     'footer.address': 'Tashkent, Amir Temur 129B',
+    
+    // FAQ Component
+    'faq.title': 'Frequently Asked Questions',
+    'faq.subtitle': 'Answers to common questions about the Delever platform',
+    'faq.q1': 'How much does it cost to connect?',
+    'faq.a1': 'The cost depends on the selected plan and number of locations. Basic plan starts from $99/month per location. Contact us for an exact calculation — we\'ll find the optimal plan for your business.',
+    'faq.q2': 'How long does setup take?',
+    'faq.a2': 'Standard setup takes 7-14 days. During this time, we connect sales channels, integrate with your POS system, set up the menu, and train your team. We can speed up the process if needed.',
+    'faq.q3': 'What sales channels can be launched?',
+    'faq.a3': 'Delever supports all major channels: Telegram bot, website, mobile app (iOS/Android), QR menu, kiosks, and call center. All channels work on a unified platform with a common catalog and customer base.',
+    'faq.q4': 'Which POS systems does Delever integrate with?',
+    'faq.a4': 'We integrate with popular POS systems: iiko, R-Keeper/Syrve, Poster, Paloma, and others. Integration happens automatically via API — orders go directly to your cash register without manual entry.',
+    'faq.q5': 'How do orders from aggregators work?',
+    'faq.a5': 'Delever accepts orders from all popular aggregators: Wolt, Yandex Eats, Talabat, Deliveroo, Noon, and others. All orders come into a single Delever window — no more keeping multiple tablets in the kitchen.',
+    'faq.q6': 'What payment methods are supported?',
+    'faq.a6': 'All popular payment systems are supported: Click, Payme, Uzum, Stripe, Yandex Pay, and others. Customers can pay by card, e-wallets, or cash on delivery.',
+    'faq.q7': 'What analytics is available?',
+    'faq.a7': 'The platform includes powerful analytics: dashboards for owners and managers, ABC-XYZ product analysis, KPIs by channels, couriers, and locations. All data is updated in real-time.',
+    'faq.q8': 'Is there a loyalty system?',
+    'faq.a8': 'Yes, Delever includes a full loyalty system: bonus programs, promo codes, personalized offers, RFM customer analysis, and automatic trigger campaigns to increase average check.',
+    
+    // Launch Timeline Component
+    'timeline.title': 'Launch in a Week',
+    'timeline.subtitle': 'From application to first order — 7 days',
+    'timeline.day1': 'Application',
+    'timeline.day1Desc': 'Consultation and business analysis',
+    'timeline.day1Details': 'Goal discussion|Plan selection|Contract signing',
+    'timeline.day2': 'Setup',
+    'timeline.day2Desc': 'Branding to your style',
+    'timeline.day2Details': 'Your logo and colors|Menu/catalog upload|Delivery zone setup',
+    'timeline.day3': 'Sales Channels',
+    'timeline.day3Desc': 'App, website, and Telegram bot',
+    'timeline.day3Details': 'iOS and Android app|Website with orders|Telegram bot',
+    'timeline.day4': 'Integration',
+    'timeline.day4Desc': 'Connecting to your POS',
+    'timeline.day4Details': 'POS sync|Payment setup|Testing',
+    'timeline.day5': 'Launch!',
+    'timeline.day5Desc': 'First orders today',
+    'timeline.day5Details': 'Store publishing|Team training|Sales start',
+    'timeline.startNow': 'Start Now',
+    
+    // Process Flow Component
+    'flow.title': 'How It Works',
+    'flow.subtitle': 'All orders → unified platform → automation',
+    'flow.channels': 'Sales Channels',
+    'flow.channelsItems': 'Aggregators|Telegram bot|Website|App',
+    'flow.delever': 'Delever',
+    'flow.deleverItems': 'Unified platform|Automation|Synchronization',
+    'flow.integrations': 'Integrations',
+    'flow.integrationsItems': 'POS systems|Payments|Kitchen',
+    'flow.operations': 'Operations',
+    'flow.operationsItems': 'Dispatching|Couriers|Statuses',
+    'flow.delivery': 'Delivery',
+    'flow.deliveryItems': 'GPS tracking|Optimization|Notifications',
+    'flow.analytics': 'Analytics',
+    'flow.analyticsItems': 'Dashboards|Reports|AI forecasts',
+    
+    // Case Studies Component
+    'cases.title': 'Client Results',
+    'cases.subtitle': 'Real delivery automation case studies',
+    
+    // Call To Action Component
+    'cta.title': 'Launch Your Delivery',
+    'cta.subtitle': 'Get a free consultation and platform demo',
+    'cta.button': 'Get Demo',
+    
+    // Clients Component
+    'clients.title': 'Trusted By',
     
     // WhiteLabel Page
     'whitelabel.badge': 'Your Brand',
