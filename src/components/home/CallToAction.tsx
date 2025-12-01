@@ -1,33 +1,39 @@
 import { useState } from 'react'
 import { Button } from '../ui/Button'
 import { ContactForm } from '../ContactForm'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Phone } from 'lucide-react'
 
 export function CallToAction() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
 
   return (
     <>
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-dark text-white">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-white">
-            Готовы начать?
+      <section className="py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-brand-darkBlue">
+        <div className="container mx-auto max-w-3xl text-center">
+          <h2 className="text-3xl lg:text-4xl font-bold mb-4 tracking-tight text-white">
+            Запустите доставку за неделю
           </h2>
-          <p className="text-xl mb-8 text-white/90 font-light">
-            Запустите собственную доставку за неделю. Получите демо и посмотрите, как Delever поможет увеличить прибыль и упростить операции
+          <p className="text-base lg:text-lg mb-8 text-white/70">
+            Получите демо платформы и узнайте, как Delever поможет вашему бизнесу
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button
               size="lg"
               variant="secondary"
-              onClick={() => window.open('https://admin.delever.uz/#/login', '_blank')}
-              className="group"
+              onClick={() => setContactFormOpen(true)}
+              className="w-full sm:w-auto"
             >
-              Начать сейчас
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              Получить демо
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button size="lg" variant="outline" onClick={() => setContactFormOpen(true)}>
-              Получить консультацию
+            <Button 
+              size="lg" 
+              variant="outline" 
+              onClick={() => window.open('tel:+998781139813', '_self')}
+              className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10"
+            >
+              <Phone className="mr-2 h-4 w-4" />
+              Позвонить
             </Button>
           </div>
         </div>
@@ -37,4 +43,3 @@ export function CallToAction() {
     </>
   )
 }
-

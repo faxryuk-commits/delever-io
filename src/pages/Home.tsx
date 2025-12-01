@@ -1,36 +1,38 @@
 import { Hero } from '@/components/home/Hero'
-import { FeaturesShowcase } from '@/components/home/FeaturesShowcase'
-import { ProductOverview } from '@/components/home/ProductOverview'
 import { ProcessFlow } from '@/components/home/ProcessFlow'
 import { AggregatorIntegration } from '@/components/home/AggregatorIntegration'
-import { AILayer } from '@/components/home/AILayer'
 import { CaseStudies } from '@/components/home/CaseStudies'
 import { Clients } from '@/components/home/Clients'
-import { SocialProof } from '@/components/home/SocialProof'
 import { FAQ } from '@/components/home/FAQ'
 import { CallToAction } from '@/components/home/CallToAction'
 import { LaunchTimeline } from '@/components/home/LaunchTimeline'
 import { ProductScreenshots } from '@/components/home/ProductScreenshots'
-import { LiveExamples } from '@/components/home/LiveExamples'
 
+/**
+ * Главная страница Delever
+ * Структура оптимизирована для конверсии:
+ * 1. Hero - главное сообщение + статистика
+ * 2. Clients - доверие (логотипы)
+ * 3. LaunchTimeline - уникальное предложение "запуск за неделю"
+ * 4. ProductScreenshots - визуализация продукта
+ * 5. ProcessFlow - как это работает
+ * 6. AggregatorIntegration - интеграции
+ * 7. CaseStudies - результаты клиентов
+ * 8. FAQ - закрытие возражений
+ * 9. CallToAction - финальный призыв к действию
+ */
 export function Home() {
   return (
     <div className="min-h-screen">
       <Hero />
       <Clients />
       <LaunchTimeline />
-      <ProductOverview />
       <ProductScreenshots />
       <ProcessFlow />
-      <FeaturesShowcase />
       <AggregatorIntegration />
-      <AILayer />
-      <LiveExamples />
       <CaseStudies />
-      <SocialProof />
       <FAQ />
       <CallToAction />
     </div>
   )
 }
-

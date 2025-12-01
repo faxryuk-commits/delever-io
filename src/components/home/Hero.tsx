@@ -2,79 +2,104 @@ import { useState } from 'react'
 import { Button } from '../ui/Button'
 import { ContactForm } from '../ContactForm'
 import { ArrowRight } from 'lucide-react'
-import { FadeInOnScroll } from '../ui/FadeInOnScroll'
+import { motion } from 'framer-motion'
 
 export function Hero() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
 
+  const stats = [
+    { value: '13M+', label: 'Заказов' },
+    { value: '1000+', label: 'Бизнесов' },
+    { value: '5', label: 'Стран' },
+    { value: '40+', label: 'Интеграций' },
+  ]
+
   return (
     <>
-      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-subtle">
-        <div className="container mx-auto max-w-7xl">
-          <FadeInOnScroll delay={0.1}>
-            <div className="text-center max-w-5xl mx-auto mb-12">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-brand-darkBlue mb-5 leading-[1.1] tracking-tight">
-                Единая платформа
-                <br />
-                <span className="bg-gradient-brand bg-clip-text text-transparent">для управления доставкой</span>
-              </h1>
-              <p className="text-xl md:text-2xl text-brand-darkBlue/75 mb-8 max-w-3xl mx-auto leading-relaxed font-light">
-                Для ресторанов, магазинов, аптек, цветочных и любого бизнеса с доставкой. Запустите собственные каналы продаж, автоматизируйте операции и увеличьте прибыль уже через неделю.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Button
-                  size="lg"
-                  onClick={() => window.open('https://admin.delever.uz/#/login', '_blank')}
-                  className="group text-lg px-8 py-6"
-                >
-                  Запустить сейчас
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
+      <section className="relative pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        {/* Background pattern */}
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-lightBlue/40 to-white -z-10" />
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-lightTeal/20 to-transparent -z-10" />
+        
+        <div className="container mx-auto max-w-6xl">
+          {/* Main content */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center max-w-4xl mx-auto mb-12 lg:mb-16"
+          >
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-darkBlue mb-6 leading-[1.15] tracking-tight">
+              Операционная система
+              <br />
+              для доставки
+            </h1>
+            <p className="text-lg md:text-xl text-brand-darkBlue/70 mb-8 max-w-2xl mx-auto leading-relaxed">
+              Управляйте заказами, курьерами и аналитикой из одного окна. 
+              Для ресторанов, магазинов, аптек и любого бизнеса с доставкой.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+              <Button
+                size="lg"
+                onClick={() => setContactFormOpen(true)}
+                className="w-full sm:w-auto px-8"
+              >
+                Начать бесплатно
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => window.open('https://admin.delever.uz/#/login', '_blank')}
+                className="w-full sm:w-auto px-8"
+              >
+                Войти в систему
+              </Button>
+            </div>
+          </motion.div>
+
+          {/* Stats */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex flex-wrap justify-center gap-8 lg:gap-16 mb-12"
+          >
+            {stats.map((stat, idx) => (
+              <div key={idx} className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-brand-darkBlue tracking-tight">
+                  {stat.value}
+                </div>
+                <div className="text-sm text-brand-darkBlue/60 mt-1">
+                  {stat.label}
+                </div>
               </div>
-            </div>
-          </FadeInOnScroll>
+            ))}
+          </motion.div>
 
-          {/* Statistics */}
-          <FadeInOnScroll delay={0.3}>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto mb-12">
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-brand-darkBlue mb-2 tracking-tight">13M+</div>
-              <div className="text-sm md:text-base text-brand-darkBlue/65 font-medium">Заказов обработано</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-brand-darkBlue mb-2 tracking-tight">5</div>
-              <div className="text-sm md:text-base text-brand-darkBlue/65 font-medium">Стран</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-brand-darkBlue mb-2 tracking-tight">1000+</div>
-              <div className="text-sm md:text-base text-brand-darkBlue/65 font-medium">Бизнесов</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-brand-darkBlue mb-2 tracking-tight">40+</div>
-              <div className="text-sm md:text-base text-brand-darkBlue/65 font-medium">Интеграций</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-brand-darkBlue mb-2 tracking-tight">$100M+</div>
-              <div className="text-sm md:text-base text-brand-darkBlue/65 font-medium">Продаж через платформу</div>
-            </div>
-            </div>
-          </FadeInOnScroll>
-
-          {/* Integrations logos */}
-          <FadeInOnScroll delay={0.5}>
-            <div className="text-center mb-8">
-            <p className="text-sm text-brand-darkBlue/55 mb-6 font-medium">Интеграции с ведущими агрегаторами и POS-системами</p>
-            <div className="flex flex-wrap justify-center items-center gap-6">
-              {['Uzum Tezkor', 'Glovo', 'Яндекс Еда', 'Wolt', 'iiko', 'R-Keeper', 'Poster'].map(
+          {/* Integrations */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="text-center"
+          >
+            <p className="text-xs text-brand-darkBlue/50 mb-4 uppercase tracking-wider font-medium">
+              Интеграции
+            </p>
+            <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-3">
+              {['iiko', 'R-Keeper', 'Poster', 'Uzum Tezkor', 'Glovo', 'Яндекс Еда', 'Wolt'].map(
                 (brand) => (
-                  <div key={brand} className="text-base font-medium text-brand-darkBlue/45 hover:text-brand-darkBlue/70 transition-colors">
+                  <span 
+                    key={brand} 
+                    className="text-sm font-medium text-brand-darkBlue/40"
+                  >
                     {brand}
-                  </div>
+                  </span>
                 )
               )}
             </div>
-            </div>
-          </FadeInOnScroll>
+          </motion.div>
         </div>
       </section>
 
@@ -82,4 +107,3 @@ export function Hero() {
     </>
   )
 }
-
