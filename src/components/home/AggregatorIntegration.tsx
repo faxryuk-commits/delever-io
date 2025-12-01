@@ -1,7 +1,7 @@
 import { CheckCircle, Zap, Globe, Clock, Tablet } from 'lucide-react'
 import { FadeInOnScroll } from '../ui/FadeInOnScroll'
 
-const aggregators = ['Wolt', 'Yandex Eats', 'Talabat', 'Deliveroo', 'Noon', 'Uzum Tezkor']
+const aggregators = ['Uzum Tezkor', 'Glovo', 'Яндекс Ритейл', 'Яндекс Еда', 'Wolt', 'Chocofood', 'Foody']
 
 const stats = [
   { icon: <Zap className="h-6 w-6" />, value: '95%', label: 'Автоматизация' },

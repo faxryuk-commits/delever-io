@@ -90,7 +90,7 @@ export function Operations() {
               </p>
             </div>
             <div className="flex flex-wrap justify-center gap-4">
-              {['iiko', 'R-Keeper', 'Syrve', 'Poster', 'Paloma'].map((pos, idx) => (
+              {['iiko', 'R-Keeper', 'Jowi', 'Poster', 'Paloma', 'Syrve', 'Yaros', 'Clopos'].map((pos, idx) => (
                 <div
                   key={idx}
                   className="bg-white px-6 py-3 rounded-lg border border-brand-lightTeal/20 text-sm font-medium text-brand-darkBlue hover:border-brand-darkBlue/30 hover:shadow-soft transition-all"

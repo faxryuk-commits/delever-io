@@ -65,7 +65,7 @@ export function Hero() {
             <div className="text-center mb-8">
             <p className="text-sm text-brand-darkBlue/55 mb-6 font-medium">Интеграции с ведущими агрегаторами и POS-системами</p>
             <div className="flex flex-wrap justify-center items-center gap-6">
-              {['Wolt', 'Yandex Eats', 'Talabat', 'Deliveroo', 'Noon', 'Uzum Tezkor'].map(
+              {['Uzum Tezkor', 'Glovo', 'Яндекс Еда', 'Wolt', 'iiko', 'R-Keeper', 'Poster'].map(
                 (brand) => (
                   <div key={brand} className="text-base font-medium text-brand-darkBlue/45 hover:text-brand-darkBlue/70 transition-colors">
                     {brand}
