@@ -3,10 +3,39 @@ import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
 import { PageNavigation } from '@/components/PageNavigation'
 import { FadeInOnScroll } from '@/components/ui/FadeInOnScroll'
-import { Truck, Users, Monitor, Clock, TrendingDown, CheckCircle, ArrowRight } from 'lucide-react'
+import { Truck, Users, Monitor, Clock, TrendingDown, CheckCircle, ArrowRight, Map, Package } from 'lucide-react'
 
 export function Operations() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
+  const [imageError, setImageError] = useState<Record<string, boolean>>({})
+
+  const handleImageError = (id: string) => {
+    setImageError(prev => ({ ...prev, [id]: true }))
+  }
+
+  const screenshots = [
+    {
+      id: 'orders',
+      title: 'Единый экран заказов',
+      description: 'Все заказы из всех источников в одном месте',
+      image: '/screenshots/orders.png',
+      icon: <Package className="h-8 w-8" />,
+    },
+    {
+      id: 'map',
+      title: 'Карта курьеров',
+      description: 'GPS-трекинг всех курьеров в реальном времени',
+      image: '/screenshots/map.png',
+      icon: <Map className="h-8 w-8" />,
+    },
+    {
+      id: 'create-order',
+      title: 'Создание заказа',
+      description: 'Быстрое создание заказа с выбором адреса на карте',
+      image: '/screenshots/create-order.png',
+      icon: <Monitor className="h-8 w-8" />,
+    },
+  ]
 
   const features = [
     {
@@ -57,6 +86,49 @@ export function Operations() {
               </Button>
             </div>
           </FadeInOnScroll>
+        </section>
+
+        {/* Screenshots */}
+        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-brand-lightBlue/20">
+          <div className="container mx-auto max-w-7xl">
+            <FadeInOnScroll>
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-brand-darkBlue mb-4 tracking-tight">
+                  Как это выглядит
+                </h2>
+                <p className="text-lg text-brand-darkBlue/70 max-w-2xl mx-auto">
+                  Интуитивный интерфейс для управления операциями доставки
+                </p>
+              </div>
+            </FadeInOnScroll>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {screenshots.map((screen, idx) => (
+                <FadeInOnScroll key={screen.id} delay={idx * 0.1}>
+                  <div className="bg-white rounded-2xl overflow-hidden shadow-soft border border-brand-lightTeal/20 hover:shadow-lg transition-all duration-300">
+                    <div className="h-48 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
+                      {!imageError[screen.id] ? (
+                        <img 
+                          src={screen.image} 
+                          alt={screen.title}
+                          className="w-full h-full object-cover object-top"
+                          onError={() => handleImageError(screen.id)}
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-brand-darkBlue/30">
+                          {screen.icon}
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-semibold text-brand-darkBlue mb-1">{screen.title}</h3>
+                      <p className="text-sm text-brand-darkBlue/60">{screen.description}</p>
+                    </div>
+                  </div>
+                </FadeInOnScroll>
+              ))}
+            </div>
+          </div>
         </section>
 
         {/* Features */}

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, ChevronRight, Monitor, Map, BarChart3, Users, Settings, Package, Truck } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Monitor, Map, BarChart3, Users, Settings, Package, Truck, Utensils } from 'lucide-react'
 import { FadeInOnScroll } from '../ui/FadeInOnScroll'
 
 const screenshots = [
@@ -10,7 +10,17 @@ const screenshots = [
     description: 'Все заказы из всех каналов в одном окне. Фильтры, статусы, таймеры.',
     icon: Monitor,
     color: 'from-blue-500 to-blue-600',
+    image: '/screenshots/orders.png',
     features: ['Заказы из агрегаторов', 'Собственные каналы', 'Статусы в реальном времени', 'Фильтрация и поиск'],
+  },
+  {
+    id: 'create-order',
+    title: 'Создание заказа',
+    description: 'Быстрое создание заказа с картой и выбором филиала.',
+    icon: Utensils,
+    color: 'from-teal-500 to-teal-600',
+    image: '/screenshots/create-order.png',
+    features: ['Поиск клиента', 'Выбор адреса на карте', 'Привязка к филиалу', 'Выбор курьерской службы'],
   },
   {
     id: 'map',
@@ -18,6 +28,7 @@ const screenshots = [
     description: 'Отслеживание курьеров в реальном времени. Оптимизация маршрутов.',
     icon: Map,
     color: 'from-emerald-500 to-emerald-600',
+    image: '/screenshots/map.png',
     features: ['GPS-трекинг курьеров', 'Зоны доставки', 'Пробки и маршруты', 'Назначение заказов'],
   },
   {
@@ -26,15 +37,8 @@ const screenshots = [
     description: 'Все метрики бизнеса в одном месте. Графики, отчёты, KPI.',
     icon: BarChart3,
     color: 'from-purple-500 to-purple-600',
+    image: '/screenshots/dashboard.png',
     features: ['Выручка и заказы', 'Средний чек', 'Время доставки', 'Воронка продаж'],
-  },
-  {
-    id: 'customers',
-    title: 'База клиентов',
-    description: 'RFM-анализ, сегментация, история заказов каждого клиента.',
-    icon: Users,
-    color: 'from-orange-500 to-orange-600',
-    features: ['RFM-сегментация', 'История заказов', 'LTV клиентов', 'Персональные рассылки'],
   },
   {
     id: 'products',
@@ -42,7 +46,17 @@ const screenshots = [
     description: 'Анализ продуктов по прибыльности и стабильности продаж.',
     icon: Package,
     color: 'from-rose-500 to-rose-600',
+    image: '/screenshots/products.png',
     features: ['Топ продукты', 'Маржинальность', 'Оборачиваемость', 'Рекомендации AI'],
+  },
+  {
+    id: 'customers',
+    title: 'База клиентов',
+    description: 'RFM-анализ, сегментация, история заказов каждого клиента.',
+    icon: Users,
+    color: 'from-orange-500 to-orange-600',
+    image: '/screenshots/customers.png',
+    features: ['RFM-сегментация', 'История заказов', 'LTV клиентов', 'Персональные рассылки'],
   },
   {
     id: 'integrations',
@@ -50,6 +64,7 @@ const screenshots = [
     description: 'Подключение POS, агрегаторов, платёжных систем в пару кликов.',
     icon: Settings,
     color: 'from-cyan-500 to-cyan-600',
+    image: '/screenshots/integrations.png',
     features: ['40+ интеграций', 'POS-системы', 'Платёжные шлюзы', 'SMS провайдеры'],
   },
   {
@@ -58,20 +73,23 @@ const screenshots = [
     description: 'Редактирование меню, цен, модификаторов. Мультиязычность.',
     icon: Package,
     color: 'from-indigo-500 to-indigo-600',
+    image: '/screenshots/catalog.png',
     features: ['3 языка', 'AI-описания', 'Модификаторы', 'Импорт из POS'],
   },
   {
-    id: 'courier',
-    title: 'Приложение курьера',
-    description: 'Мобильное приложение для курьеров с навигацией и отчётами.',
+    id: 'menu-import',
+    title: 'Импорт меню',
+    description: 'Автоматический импорт меню из POS-системы.',
     icon: Truck,
     color: 'from-amber-500 to-amber-600',
-    features: ['Навигация', 'Статусы заказов', 'Расчёт зарплаты', 'История доставок'],
+    image: '/screenshots/menu-import.png',
+    features: ['Синхронизация с POS', 'Мультиязычность', 'Автоматические цены', 'Категории'],
   },
 ]
 
 export function ProductScreenshots() {
   const [activeIndex, setActiveIndex] = useState(0)
+  const [imageError, setImageError] = useState<Record<string, boolean>>({})
   const activeScreen = screenshots[activeIndex]
   const Icon = activeScreen.icon
 
@@ -81,6 +99,10 @@ export function ProductScreenshots() {
 
   const prevSlide = () => {
     setActiveIndex((prev) => (prev - 1 + screenshots.length) % screenshots.length)
+  }
+
+  const handleImageError = (id: string) => {
+    setImageError(prev => ({ ...prev, [id]: true }))
   }
 
   return (
@@ -102,9 +124,9 @@ export function ProductScreenshots() {
         </FadeInOnScroll>
 
         {/* Main showcase */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-12">
-          {/* Screenshot placeholder / Feature card */}
-          <FadeInOnScroll>
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start mb-12">
+          {/* Screenshot display */}
+          <FadeInOnScroll className="lg:col-span-3">
             <div className="relative">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -130,26 +152,37 @@ export function ProductScreenshots() {
                   </div>
                   
                   {/* Content area */}
-                  <div className="p-8 min-h-[300px] md:min-h-[400px] flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
-                    <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${activeScreen.color} flex items-center justify-center text-white mb-6 shadow-lg`}>
-                      <Icon className="w-10 h-10" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-brand-darkBlue mb-2 text-center">
-                      {activeScreen.title}
-                    </h3>
-                    <p className="text-brand-darkBlue/60 text-center max-w-sm mb-6">
-                      {activeScreen.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2 justify-center">
-                      {activeScreen.features.map((feature, idx) => (
-                        <span 
-                          key={idx}
-                          className="text-xs bg-white text-brand-darkBlue px-3 py-1.5 rounded-full shadow-sm border border-brand-lightTeal/20"
-                        >
-                          {feature}
-                        </span>
-                      ))}
-                    </div>
+                  <div className="relative min-h-[300px] md:min-h-[450px] bg-gradient-to-br from-gray-50 to-gray-100">
+                    {!imageError[activeScreen.id] ? (
+                      <img 
+                        src={activeScreen.image} 
+                        alt={activeScreen.title}
+                        className="w-full h-full object-cover object-top"
+                        onError={() => handleImageError(activeScreen.id)}
+                      />
+                    ) : (
+                      <div className="flex flex-col items-center justify-center h-full p-8">
+                        <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${activeScreen.color} flex items-center justify-center text-white mb-6 shadow-lg`}>
+                          <Icon className="w-10 h-10" />
+                        </div>
+                        <h3 className="text-2xl font-bold text-brand-darkBlue mb-2 text-center">
+                          {activeScreen.title}
+                        </h3>
+                        <p className="text-brand-darkBlue/60 text-center max-w-sm mb-6">
+                          {activeScreen.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2 justify-center">
+                          {activeScreen.features.map((feature, idx) => (
+                            <span 
+                              key={idx}
+                              className="text-xs bg-white text-brand-darkBlue px-3 py-1.5 rounded-full shadow-sm border border-brand-lightTeal/20"
+                            >
+                              {feature}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -171,8 +204,8 @@ export function ProductScreenshots() {
           </FadeInOnScroll>
 
           {/* Feature list */}
-          <FadeInOnScroll delay={0.2}>
-            <div className="space-y-3">
+          <FadeInOnScroll delay={0.2} className="lg:col-span-2">
+            <div className="space-y-2 max-h-[500px] overflow-y-auto pr-2">
               {screenshots.map((screen, idx) => {
                 const ScreenIcon = screen.icon
                 const isActive = idx === activeIndex
@@ -181,20 +214,20 @@ export function ProductScreenshots() {
                   <button
                     key={screen.id}
                     onClick={() => setActiveIndex(idx)}
-                    className={`w-full text-left p-4 rounded-xl transition-all duration-300 flex items-center gap-4 ${
+                    className={`w-full text-left p-3 rounded-xl transition-all duration-300 flex items-center gap-3 ${
                       isActive 
                         ? 'bg-white shadow-lg border-2 border-brand-darkBlue/20' 
                         : 'bg-white/50 hover:bg-white border border-transparent hover:border-brand-lightTeal/30'
                     }`}
                   >
-                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${screen.color} flex items-center justify-center text-white flex-shrink-0 ${isActive ? 'scale-110' : ''} transition-transform`}>
-                      <ScreenIcon className="w-5 h-5" />
+                    <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${screen.color} flex items-center justify-center text-white flex-shrink-0 ${isActive ? 'scale-110' : ''} transition-transform`}>
+                      <ScreenIcon className="w-4 h-4" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h4 className={`font-semibold ${isActive ? 'text-brand-darkBlue' : 'text-brand-darkBlue/70'}`}>
+                      <h4 className={`font-semibold text-sm ${isActive ? 'text-brand-darkBlue' : 'text-brand-darkBlue/70'}`}>
                         {screen.title}
                       </h4>
-                      <p className="text-sm text-brand-darkBlue/50 truncate">
+                      <p className="text-xs text-brand-darkBlue/50 truncate">
                         {screen.description}
                       </p>
                     </div>
@@ -226,4 +259,3 @@ export function ProductScreenshots() {
     </section>
   )
 }
-

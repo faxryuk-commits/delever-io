@@ -188,14 +188,6 @@ export function Header() {
                 <Button 
                   variant="outline" 
                   size="sm" 
-                  onClick={() => setContactFormOpen(true)}
-                  className="h-9 px-4 text-sm font-medium"
-                >
-                  Демо
-                </Button>
-                <Button 
-                  variant="outline"
-                  size="sm" 
                   onClick={() => window.open('https://admin.delever.uz/#/login', '_blank')}
                   className="h-9 px-4 text-sm font-medium"
                 >
@@ -203,10 +195,10 @@ export function Header() {
                 </Button>
                 <Button 
                   size="sm" 
-                  onClick={() => window.open('https://admin.delever.uz/#/registration', '_blank')}
+                  onClick={() => setContactFormOpen(true)}
                   className="h-9 px-4 text-sm font-medium bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600"
                 >
-                  Регистрация
+                  Начать бесплатно
                 </Button>
               </div>
 
@@ -287,25 +279,18 @@ export function Header() {
                 <Button
                   variant="outline"
                   className="w-full h-11 font-medium"
-                  onClick={() => {
-                    setContactFormOpen(true)
-                    setMobileMenuOpen(false)
-                  }}
-                >
-                  Получить демо
-                </Button>
-                <Button
-                  variant="outline"
-                  className="w-full h-11 font-medium"
                   onClick={() => window.open('https://admin.delever.uz/#/login', '_blank')}
                 >
                   Войти в систему
                 </Button>
                 <Button
                   className="w-full h-11 font-medium bg-gradient-to-r from-emerald-500 to-teal-500"
-                  onClick={() => window.open('https://admin.delever.uz/#/registration', '_blank')}
+                  onClick={() => {
+                    setContactFormOpen(true)
+                    setMobileMenuOpen(false)
+                  }}
                 >
-                  Регистрация
+                  Начать бесплатно
                 </Button>
               </div>
             </nav>
