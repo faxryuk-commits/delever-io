@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
+import { useLocale } from '@/i18n/LocaleContext'
 import { motion, useInView } from 'framer-motion'
 import { 
   Smartphone, 
@@ -12,48 +13,51 @@ import {
   CheckCircle2
 } from 'lucide-react'
 
-const features = [
-  {
-    icon: Palette,
-    title: 'Полное брендирование',
-    description: 'Ваш логотип, цвета и стиль во всём приложении',
-    color: 'from-purple-500 to-purple-600',
-  },
-  {
-    icon: Smartphone,
-    title: 'Публикация в сторах',
-    description: 'Мы публикуем в App Store и Google Play под вашим именем',
-    color: 'from-blue-500 to-blue-600',
-  },
-  {
-    icon: Shield,
-    title: 'Без упоминания Delever',
-    description: 'Клиенты видят только ваш бренд',
-    color: 'from-emerald-500 to-emerald-600',
-  },
-  {
-    icon: Zap,
-    title: 'Быстрый запуск',
-    description: 'Готовое приложение за 1-2 недели',
-    color: 'from-orange-500 to-orange-600',
-  },
-]
-
-const included = [
-  'iOS приложение',
-  'Android приложение',
-  'Push-уведомления',
-  'Программа лояльности',
-  'Онлайн-оплата',
-  'Трекинг заказов',
-  'История заказов',
-  'Избранное',
-]
-
 export function WhiteLabel() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const { t, formatPrice } = useLocale()
+
+  const features = [
+    {
+      icon: Palette,
+      titleKey: 'whitelabel.fullBranding',
+      descKey: 'whitelabel.fullBrandingDesc',
+      color: 'from-purple-500 to-purple-600',
+    },
+    {
+      icon: Smartphone,
+      titleKey: 'whitelabel.storePublish',
+      descKey: 'whitelabel.storePublishDesc',
+      color: 'from-blue-500 to-blue-600',
+    },
+    {
+      icon: Shield,
+      titleKey: 'whitelabel.noMention',
+      descKey: 'whitelabel.noMentionDesc',
+      color: 'from-emerald-500 to-emerald-600',
+    },
+    {
+      icon: Zap,
+      titleKey: 'whitelabel.fastLaunch',
+      descKey: 'whitelabel.fastLaunchDesc',
+      color: 'from-orange-500 to-orange-600',
+    },
+  ]
+
+  const includedKeys = [
+    'whitelabel.iosApp',
+    'whitelabel.androidApp',
+    'whitelabel.pushNotifications',
+    'whitelabel.loyaltyProgram',
+    'whitelabel.onlinePayment',
+    'whitelabel.orderTracking',
+    'whitelabel.orderHistory',
+    'whitelabel.favorites',
+  ]
+
+  const whiteLabelPriceUZS = 13000000
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -90,17 +94,17 @@ export function WhiteLabel() {
               transition={{ delay: 0.2 }}
             >
               <Sparkles className="w-4 h-4" />
-              Ваш бренд
+              {t('whitelabel.badge')}
             </motion.span>
             <h1 className="text-4xl lg:text-5xl font-bold text-brand-darkBlue mb-4 tracking-tight">
-              White Label приложение
+              {t('whitelabel.title')}
             </h1>
             <p className="text-lg text-brand-darkBlue/70 max-w-xl mx-auto mb-8">
-              Собственное мобильное приложение под вашим брендом в App Store и Google Play
+              {t('whitelabel.subtitle')}
             </p>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button size="lg" onClick={() => setContactFormOpen(true)}>
-                Заказать приложение
+                {t('whitelabel.orderApp')}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </motion.div>
@@ -132,9 +136,9 @@ export function WhiteLabel() {
                 animate={{ scale: [1, 1.02, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                13,000,000 soʼm
+                {formatPrice(whiteLabelPriceUZS)}
               </motion.div>
-              <p className="text-white/60">единоразовая оплата</p>
+              <p className="text-white/60">{t('pricing.oneTime')}</p>
             </div>
           </motion.div>
         </section>
@@ -164,8 +168,8 @@ export function WhiteLabel() {
                       <Icon className="h-6 w-6" />
                     </motion.div>
                     <div>
-                      <h3 className="font-semibold text-brand-darkBlue mb-1">{feature.title}</h3>
-                      <p className="text-sm text-brand-darkBlue/60">{feature.description}</p>
+                      <h3 className="font-semibold text-brand-darkBlue mb-1">{t(feature.titleKey)}</h3>
+                      <p className="text-sm text-brand-darkBlue/60">{t(feature.descKey)}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -182,9 +186,9 @@ export function WhiteLabel() {
             transition={{ delay: 0.5 }}
             className="bg-brand-lightBlue/30 rounded-2xl p-8"
           >
-            <h3 className="text-xl font-bold text-brand-darkBlue mb-6 text-center">Что входит</h3>
+            <h3 className="text-xl font-bold text-brand-darkBlue mb-6 text-center">{t('whitelabel.whatsIncluded')}</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {included.map((item, idx) => (
+              {includedKeys.map((key, idx) => (
                 <motion.div 
                   key={idx}
                   className="flex items-center gap-2 bg-white rounded-lg p-3"
@@ -194,7 +198,7 @@ export function WhiteLabel() {
                   whileHover={{ scale: 1.02 }}
                 >
                   <CheckCircle2 className="h-4 w-4 text-emerald-500 flex-shrink-0" />
-                  <span className="text-sm text-brand-darkBlue">{item}</span>
+                  <span className="text-sm text-brand-darkBlue">{t(key)}</span>
                 </motion.div>
               ))}
             </div>
@@ -210,13 +214,13 @@ export function WhiteLabel() {
             transition={{ delay: 0.7 }}
           >
             <h2 className="text-2xl lg:text-3xl font-bold mb-3 text-brand-darkBlue tracking-tight">
-              Готовы к запуску?
+              {t('whitelabel.readyToLaunch')}
             </h2>
             <p className="text-brand-darkBlue/70 mb-6">
-              Обсудим ваш проект и покажем примеры
+              {t('whitelabel.discussProject')}
             </p>
             <Button size="lg" onClick={() => setContactFormOpen(true)}>
-              Обсудить проект
+              {t('whitelabel.discussProject')}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </motion.div>
