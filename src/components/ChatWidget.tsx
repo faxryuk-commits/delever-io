@@ -57,11 +57,17 @@ export function ChatWidget() {
         }),
       })
 
+      const data = await response.json()
+
       if (!response.ok) {
-        throw new Error('Failed to get response')
+        console.error('API error:', data)
+        throw new Error(data.details || data.error || 'Failed to get response')
       }
 
-      const data = await response.json()
+      if (!data.message) {
+        throw new Error('No message in response')
+      }
+
       const assistantMessage: Message = { 
         role: 'assistant', 
         content: data.message 
@@ -69,9 +75,10 @@ export function ChatWidget() {
       setMessages(prev => [...prev, assistantMessage])
     } catch (error) {
       console.error('Chat error:', error)
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error'
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: 'Извините, произошла ошибка. Свяжитесь с менеджером в Telegram: @deleverme' 
+        content: `Извините, произошла ошибка${errorMsg ? `: ${errorMsg}` : ''}. Свяжитесь с менеджером в Telegram: @deleverme` 
       }])
     } finally {
       setIsLoading(false)

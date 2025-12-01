@@ -69,20 +69,49 @@ interface Message {
   content: string
 }
 
+// CORS headers
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+}
+
 export default async function handler(req: Request): Promise<Response> {
+  // Handle CORS preflight
+  if (req.method === 'OPTIONS') {
+    return new Response(null, { status: 200, headers: corsHeaders })
+  }
+
   if (req.method !== 'POST') {
     return new Response(JSON.stringify({ error: 'Method not allowed' }), {
       status: 405,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
     })
   }
 
   const apiKey = process.env.OPENAI_API_KEY
   
+  // Debug: проверяем наличие ключа
   if (!apiKey) {
-    return new Response(JSON.stringify({ error: 'OpenAI API key not configured' }), {
+    console.error('OPENAI_API_KEY is not set')
+    return new Response(JSON.stringify({ 
+      error: 'API key not configured',
+      debug: 'OPENAI_API_KEY environment variable is missing'
+    }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    })
+  }
+
+  // Debug: проверяем формат ключа
+  if (!apiKey.startsWith('sk-')) {
+    console.error('OPENAI_API_KEY has invalid format')
+    return new Response(JSON.stringify({ 
+      error: 'Invalid API key format',
+      debug: 'API key should start with sk-'
+    }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
     })
   }
 
@@ -93,7 +122,7 @@ export default async function handler(req: Request): Promise<Response> {
     if (!messages || !Array.isArray(messages)) {
       return new Response(JSON.stringify({ error: 'Messages are required' }), {
         status: 400,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...corsHeaders },
       })
     }
 
@@ -102,6 +131,8 @@ export default async function handler(req: Request): Promise<Response> {
       { role: 'system', content: SYSTEM_PROMPT },
       ...messages.slice(-10), // Ограничиваем историю последними 10 сообщениями
     ]
+
+    console.log('Sending request to OpenAI...')
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -117,36 +148,61 @@ export default async function handler(req: Request): Promise<Response> {
       }),
     })
 
+    console.log('OpenAI response status:', response.status)
+
     if (!response.ok) {
       const errorText = await response.text()
-      console.error('OpenAI API error status:', response.status)
-      console.error('OpenAI API error body:', errorText)
+      console.error('OpenAI API error:', response.status, errorText)
       
-      // Возвращаем более информативную ошибку
+      // Парсим ошибку для более понятного сообщения
+      let errorMessage = 'Ошибка API'
+      try {
+        const errorJson = JSON.parse(errorText)
+        errorMessage = errorJson.error?.message || errorText
+      } catch {
+        errorMessage = errorText
+      }
+      
       return new Response(JSON.stringify({ 
-        error: 'Failed to get response from AI',
-        details: `Status: ${response.status}`,
+        error: 'OpenAI API error',
+        details: errorMessage,
+        status: response.status
       }), {
         status: 500,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...corsHeaders },
       })
     }
 
     const data = await response.json()
-    const assistantMessage = data.choices[0]?.message?.content || 'Извините, не могу ответить. Свяжитесь с менеджером: @deleverme'
+    const assistantMessage = data.choices?.[0]?.message?.content
+
+    if (!assistantMessage) {
+      console.error('No message in response:', data)
+      return new Response(JSON.stringify({ 
+        error: 'Empty response from AI',
+        debug: 'No choices in response'
+      }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json', ...corsHeaders },
+      })
+    }
+
+    console.log('Success! Message length:', assistantMessage.length)
 
     return new Response(JSON.stringify({ 
       message: assistantMessage,
     }), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
     })
   } catch (error) {
     console.error('Chat error:', error)
-    return new Response(JSON.stringify({ error: 'Internal server error' }), {
+    return new Response(JSON.stringify({ 
+      error: 'Internal server error',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
     })
   }
 }
-
