@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, ShoppingCart, Truck, BarChart3, Megaphone, Plug, ChevronDown } from 'lucide-react'
+import { Menu, X, ShoppingCart, Truck, BarChart3, Megaphone, Plug, ChevronDown, Layers } from 'lucide-react'
 import { Button } from './ui/Button'
 import { ContactForm } from './ContactForm'
 import { Logo } from './Logo'
@@ -43,6 +43,12 @@ export function Header() {
       categoryKey: 'header.marketing',
       items: [
         { path: '/products/marketing', labelKey: 'header.marketingItem', icon: <Megaphone className="h-5 w-5" />, descKey: 'header.marketingDesc' },
+      ],
+    },
+    {
+      categoryKey: 'header.aggregatorsCategory',
+      items: [
+        { path: '/aggregators', labelKey: 'nav.aggregators', icon: <Layers className="h-5 w-5" />, descKey: 'header.aggregatorsDesc' },
         { path: '/integrations', labelKey: 'nav.integrations', icon: <Plug className="h-5 w-5" />, descKey: 'header.integrationsDesc' },
       ],
     },
@@ -101,8 +107,8 @@ export function Header() {
                   {t('nav.products')}
                   <ChevronDown className={cn('h-3.5 w-3.5 transition-transform duration-200', productsMenuOpen && 'rotate-180')} />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-[680px] p-8 mt-2 shadow-lg border border-brand-lightTeal/30 bg-white">
-                  <div className="grid grid-cols-4 gap-8">
+                <DropdownMenuContent align="start" className="w-[820px] p-8 mt-2 shadow-lg border border-brand-lightTeal/30 bg-white">
+                  <div className="grid grid-cols-5 gap-6">
                     {productCategories.map((category, catIdx) => (
                       <div key={catIdx} className="space-y-4">
                         <h4 className="text-[10px] font-bold text-brand-darkBlue/50 uppercase tracking-widest mb-4">
