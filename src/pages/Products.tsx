@@ -5,6 +5,7 @@ import { ContactForm } from '@/components/ContactForm'
 import { PageNavigation } from '@/components/PageNavigation'
 import { ProcessFlow } from '@/components/home/ProcessFlow'
 import { FadeInOnScroll } from '@/components/ui/FadeInOnScroll'
+import { ArchitectureDiagram } from '@/components/ArchitectureDiagram'
 import { 
   ShoppingCart, 
   Truck, 
@@ -148,6 +149,11 @@ export function Products() {
 
         {/* Process Flow */}
         <ProcessFlow />
+
+        {/* Architecture Diagram */}
+        <section className="container mx-auto max-w-7xl py-20">
+          <ArchitectureDiagram />
+        </section>
 
         {/* Products Grid */}
         <section className="container mx-auto max-w-7xl space-y-24 mb-20 mt-20">
