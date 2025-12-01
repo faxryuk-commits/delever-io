@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
+import { useLocale } from '@/i18n/LocaleContext'
 import { 
   ArrowRight, 
   Smartphone,
@@ -14,55 +15,56 @@ import {
   Zap
 } from 'lucide-react'
 
-const categories = [
-  {
-    id: 'pos',
-    name: 'POS-системы',
-    icon: Receipt,
-    color: 'from-emerald-500 to-emerald-600',
-    items: ['iiko', 'R-Keeper', 'Jowi', 'Poster', 'Paloma', 'Syrve', 'Yaros', 'Clopos', 'AliPos', 'Loook', 'Neon Alisa', 'Dodo Pizza']
-  },
-  {
-    id: 'aggregators',
-    name: 'Агрегаторы',
-    icon: ShoppingBag,
-    color: 'from-orange-500 to-orange-600',
-    items: ['Uzum Tezkor', 'Glovo', 'Yandex Eats', 'Wolt', 'Chocofood', 'Foody']
-  },
-  {
-    id: 'payments',
-    name: 'Платежи',
-    icon: CreditCard,
-    color: 'from-purple-500 to-purple-600',
-    items: ['Payme', 'Click', 'Uzum Bank', 'Kaspi', 'Epay', 'TipTop Pay', 'Atmos', 'Anorbank']
-  },
-  {
-    id: 'delivery',
-    name: 'Доставка',
-    icon: Truck,
-    color: 'from-rose-500 to-rose-600',
-    items: ['Yandex Delivery', 'Wolt Drive', 'Taxi Millennium', 'Noor']
-  },
-  {
-    id: 'channels',
-    name: 'Каналы продаж',
-    icon: Smartphone,
-    color: 'from-blue-500 to-blue-600',
-    items: ['Telegram Bot', 'Website', 'Mobile App', 'QR Menu', 'Admin Panel']
-  },
-  {
-    id: 'sms',
-    name: 'SMS/Push',
-    icon: MessageSquare,
-    color: 'from-indigo-500 to-indigo-600',
-    items: ['Eskiz', 'PlayMobile', 'SMS.UZ', 'OneSignal']
-  },
-]
-
 export function Integrations() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const { t } = useLocale()
+
+  const categories = [
+    {
+      id: 'pos',
+      nameKey: 'integrations.posSystems',
+      icon: Receipt,
+      color: 'from-emerald-500 to-emerald-600',
+      items: ['iiko', 'R-Keeper', 'Jowi', 'Poster', 'Paloma', 'Syrve', 'Yaros', 'Clopos', 'AliPos', 'Loook', 'Neon Alisa', 'Dodo Pizza']
+    },
+    {
+      id: 'aggregators',
+      nameKey: 'integrations.aggregators',
+      icon: ShoppingBag,
+      color: 'from-orange-500 to-orange-600',
+      items: ['Uzum Tezkor', 'Glovo', 'Yandex Eats', 'Wolt', 'Chocofood', 'Foody']
+    },
+    {
+      id: 'payments',
+      nameKey: 'integrations.payments',
+      icon: CreditCard,
+      color: 'from-purple-500 to-purple-600',
+      items: ['Payme', 'Click', 'Uzum Bank', 'Kaspi', 'Epay', 'TipTop Pay', 'Atmos', 'Anorbank']
+    },
+    {
+      id: 'delivery',
+      nameKey: 'integrations.delivery',
+      icon: Truck,
+      color: 'from-rose-500 to-rose-600',
+      items: ['Yandex Delivery', 'Wolt Drive', 'Taxi Millennium', 'Noor']
+    },
+    {
+      id: 'channels',
+      nameKey: 'integrations.salesChannels',
+      icon: Smartphone,
+      color: 'from-blue-500 to-blue-600',
+      items: ['Telegram Bot', 'Website', 'Mobile App', 'QR Menu', 'Admin Panel']
+    },
+    {
+      id: 'sms',
+      nameKey: 'integrations.smsPush',
+      icon: MessageSquare,
+      color: 'from-indigo-500 to-indigo-600',
+      items: ['Eskiz', 'PlayMobile', 'SMS.UZ', 'OneSignal']
+    },
+  ]
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -100,13 +102,13 @@ export function Integrations() {
               transition={{ delay: 0.2 }}
             >
               <Plug className="w-4 h-4" />
-              Экосистема
+              {t('integrations.badge')}
             </motion.div>
             <h1 className="text-4xl lg:text-5xl font-bold text-brand-darkBlue mb-4 tracking-tight">
-              40+ интеграций
+              {t('integrations.title')}
             </h1>
             <p className="text-lg text-brand-darkBlue/70 max-w-xl mx-auto">
-              Подключите все системы, которые используете, к единой платформе
+              {t('integrations.subtitle')}
             </p>
           </motion.div>
         </section>
@@ -136,7 +138,7 @@ export function Integrations() {
                     >
                       <Icon className="h-6 w-6" />
                     </motion.div>
-                    <h3 className="font-semibold text-brand-darkBlue">{category.name}</h3>
+                    <h3 className="font-semibold text-brand-darkBlue">{t(category.nameKey)}</h3>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {category.items.map((item, itemIdx) => (
@@ -174,9 +176,9 @@ export function Integrations() {
             >
               <Zap className="h-7 w-7 text-white" />
             </motion.div>
-            <h3 className="text-xl font-bold text-brand-darkBlue mb-2">Открытый API</h3>
+            <h3 className="text-xl font-bold text-brand-darkBlue mb-2">{t('integrations.openApi')}</h3>
             <p className="text-brand-darkBlue/70 mb-4">
-              Подключите любую систему через наш API
+              {t('integrations.connectAny')}
             </p>
             <a 
               href="https://delever.gitbook.io/delever/for-developers/soon" 
@@ -184,7 +186,7 @@ export function Integrations() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm font-medium text-brand-darkBlue hover:underline"
             >
-              Документация API
+              {t('integrations.apiDocs')}
               <ArrowRight className="h-4 w-4" />
             </a>
           </motion.div>
@@ -199,13 +201,13 @@ export function Integrations() {
             transition={{ delay: 0.8 }}
           >
             <h2 className="text-2xl lg:text-3xl font-bold mb-3 text-white tracking-tight">
-              Готовы к интеграции?
+              {t('integrations.readyToIntegrate')}
             </h2>
             <p className="text-white/70 mb-6">
-              Подключим вашу систему за 1-2 дня
+              {t('integrations.connectIn1Day')}
             </p>
             <Button size="lg" variant="secondary" onClick={() => setContactFormOpen(true)}>
-              Обсудить интеграцию
+              {t('integrations.discussIntegration')}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </motion.div>

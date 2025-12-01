@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
+import { useLocale } from '@/i18n/LocaleContext'
 import { motion, useInView } from 'framer-motion'
 import { 
   ShoppingCart, 
@@ -11,48 +12,49 @@ import {
   ArrowRight,
 } from 'lucide-react'
 
-const products = [
-  {
-    icon: ShoppingCart,
-    title: 'Каналы продаж',
-    description: 'Сайт, приложение, Telegram-бот — все заказы в одной системе без комиссий.',
-    link: '/products/channels',
-    color: 'from-blue-500 to-blue-600',
-  },
-  {
-    icon: Truck,
-    title: 'Операции',
-    description: 'Диспетчеризация, курьеры, кухня — автоматизация снижает ошибки на 30%.',
-    link: '/products/operations',
-    color: 'from-green-500 to-green-600',
-  },
-  {
-    icon: BarChart3,
-    title: 'Аналитика',
-    description: 'Дашборды, отчёты, AI-прогнозы — решения на основе данных.',
-    link: '/products/analytics',
-    color: 'from-purple-500 to-purple-600',
-  },
-  {
-    icon: Megaphone,
-    title: 'Маркетинг',
-    description: 'RFM-анализ, рассылки, лояльность — рост среднего чека на 25%.',
-    link: '/products/marketing',
-    color: 'from-orange-500 to-orange-600',
-  },
-]
-
-const stats = [
-  { value: '40+', label: 'Интеграций' },
-  { value: '99.9%', label: 'Uptime' },
-  { value: '24/7', label: 'Поддержка' },
-  { value: '1 нед', label: 'Запуск' },
-]
-
 export function Products() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const { t } = useLocale()
+
+  const products = [
+    {
+      icon: ShoppingCart,
+      titleKey: 'products.channels',
+      descKey: 'products.channelsDesc',
+      link: '/products/channels',
+      color: 'from-blue-500 to-blue-600',
+    },
+    {
+      icon: Truck,
+      titleKey: 'products.operations',
+      descKey: 'products.operationsDesc',
+      link: '/products/operations',
+      color: 'from-green-500 to-green-600',
+    },
+    {
+      icon: BarChart3,
+      titleKey: 'products.analyticsTitle',
+      descKey: 'products.analyticsDesc',
+      link: '/products/analytics',
+      color: 'from-purple-500 to-purple-600',
+    },
+    {
+      icon: Megaphone,
+      titleKey: 'products.marketing',
+      descKey: 'products.marketingDesc',
+      link: '/products/marketing',
+      color: 'from-orange-500 to-orange-600',
+    },
+  ]
+
+  const stats = [
+    { value: '40+', labelKey: 'stats.integrations' },
+    { value: '99.9%', labelKey: 'stats.uptime' },
+    { value: '24/7', labelKey: 'products.support' },
+    { value: t('products.week'), labelKey: 'products.launch' },
+  ]
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -88,13 +90,13 @@ export function Products() {
               animate={{ scale: 1 }}
               transition={{ delay: 0.2 }}
             >
-              Единая платформа
+              {t('products.badge')}
             </motion.span>
             <h1 className="text-4xl lg:text-5xl font-bold text-brand-darkBlue mb-4 tracking-tight">
-              Продукты платформы
+              {t('products.title')}
             </h1>
             <p className="text-lg text-brand-darkBlue/70 max-w-2xl mx-auto">
-              Четыре модуля, которые работают как единая система
+              {t('products.subtitle')}
             </p>
           </motion.div>
         </section>
@@ -125,7 +127,7 @@ export function Products() {
                       </motion.div>
                       <div className="flex-1 min-w-0">
                         <h3 className="text-lg font-semibold text-brand-darkBlue mb-2 flex items-center gap-2">
-                          {product.title}
+                          {t(product.titleKey)}
                           <motion.span
                             initial={{ opacity: 0, x: -10 }}
                             whileHover={{ opacity: 1, x: 0 }}
@@ -135,7 +137,7 @@ export function Products() {
                           </motion.span>
                         </h3>
                         <p className="text-sm text-brand-darkBlue/60 leading-relaxed">
-                          {product.description}
+                          {t(product.descKey)}
                         </p>
                       </div>
                     </div>
@@ -163,7 +165,7 @@ export function Products() {
                   transition={{ delay: 0.6 + idx * 0.1 }}
                 >
                   <div className="text-3xl font-bold text-brand-darkBlue mb-1">{stat.value}</div>
-                  <div className="text-sm text-brand-darkBlue/60">{stat.label}</div>
+                  <div className="text-sm text-brand-darkBlue/60">{t(stat.labelKey)}</div>
                 </motion.div>
               ))}
             </div>
@@ -179,10 +181,10 @@ export function Products() {
             transition={{ delay: 0.8, duration: 0.5 }}
           >
             <h2 className="text-2xl lg:text-3xl font-bold mb-3 text-white tracking-tight">
-              Готовы начать?
+              {t('products.readyToStart')}
             </h2>
             <p className="text-white/70 mb-6">
-              Запустите собственную доставку за неделю
+              {t('products.launchInWeek')}
             </p>
             <motion.div
               whileHover={{ scale: 1.02 }}
@@ -193,7 +195,7 @@ export function Products() {
                 variant="secondary"
                 onClick={() => setContactFormOpen(true)}
               >
-                Получить демо
+                {t('common.getDemo')}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </motion.div>
