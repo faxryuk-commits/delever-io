@@ -67,7 +67,7 @@ export function FinalCTA() {
                       viewport={{ once: true }}
                       transition={{ delay: idx * 0.1 }}
                     >
-                      <Icon className="h-5 w-5 text-brand-lightTeal" />
+                      <Icon className="h-5 w-5 text-brand-green" />
                       <span>{t(benefit.text)}</span>
                     </motion.div>
                   )
@@ -119,15 +119,15 @@ export function FinalCTA() {
                 transition={{ delay: 0.4 }}
               >
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="h-4 w-4 text-brand-lightTeal" />
+                  <CheckCircle className="h-4 w-4 text-brand-green" />
                   {t('finalCta.guarantee1')}
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="h-4 w-4 text-brand-lightTeal" />
+                  <CheckCircle className="h-4 w-4 text-brand-green" />
                   {t('finalCta.guarantee2')}
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="h-4 w-4 text-brand-lightTeal" />
+                  <CheckCircle className="h-4 w-4 text-brand-green" />
                   {t('finalCta.guarantee3')}
                 </div>
               </motion.div>

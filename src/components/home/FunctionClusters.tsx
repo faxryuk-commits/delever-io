@@ -159,9 +159,9 @@ export function FunctionClusters() {
                       <div className={`w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${
                         isActive 
                           ? 'bg-white/20' 
-                          : 'bg-brand-lightTeal/30'
+                          : 'bg-brand-blue/10'
                       }`}>
-                        <Icon className={`h-7 w-7 ${isActive ? 'text-white' : 'text-brand-darkBlue'}`} />
+                        <Icon className={`h-7 w-7 ${isActive ? 'text-white' : 'text-brand-blue'}`} />
                       </div>
                       <div>
                         <h3 className={`font-bold text-lg mb-1 ${isActive ? 'text-white' : 'text-brand-darkBlue'}`}>

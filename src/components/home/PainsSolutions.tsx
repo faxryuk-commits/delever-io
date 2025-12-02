@@ -101,13 +101,13 @@ export function PainsSolutions() {
                 transition={{ delay: idx * 0.1 }}
               >
                 {/* Боль */}
-                <div className="p-5 bg-brand-lightBeige/50 border-b border-brand-lightTeal/20">
+                <div className="p-5 bg-brand-orange/5 border-b border-brand-orange/10">
                   <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-brand-darkBlue/10 flex items-center justify-center flex-shrink-0">
-                      <AlertTriangle className="h-5 w-5 text-brand-darkBlue/60" />
+                    <div className="w-10 h-10 rounded-lg bg-brand-orange/10 flex items-center justify-center flex-shrink-0">
+                      <AlertTriangle className="h-5 w-5 text-brand-orange" />
                     </div>
                     <div>
-                      <div className="text-xs font-medium text-brand-darkBlue/50 uppercase tracking-wider mb-1">
+                      <div className="text-xs font-medium text-brand-orange uppercase tracking-wider mb-1">
                         {t('pains.problem')}
                       </div>
                       <p className="text-brand-darkBlue font-medium text-sm">
@@ -120,11 +120,11 @@ export function PainsSolutions() {
                 {/* Решение */}
                 <div className="p-5">
                   <div className="flex items-start gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-brand-lightTeal/30 flex items-center justify-center flex-shrink-0">
-                      <Check className="h-5 w-5 text-brand-darkBlue" />
+                    <div className="w-10 h-10 rounded-lg bg-brand-green/10 flex items-center justify-center flex-shrink-0">
+                      <Check className="h-5 w-5 text-brand-green" />
                     </div>
                     <div>
-                      <div className="text-xs font-medium text-brand-darkBlue/50 uppercase tracking-wider mb-1">
+                      <div className="text-xs font-medium text-brand-green uppercase tracking-wider mb-1">
                         {t('pains.solution')}
                       </div>
                       <p className="text-brand-darkBlue/70 text-sm">
@@ -134,21 +134,21 @@ export function PainsSolutions() {
                   </div>
 
                   {/* Статистика было/стало */}
-                  <div className="flex items-center justify-between bg-brand-lightBlue/30 rounded-xl p-3">
+                  <div className="flex items-center justify-between bg-brand-lightBlue/50 rounded-xl p-3">
                     <div className="text-center">
                       <div className="text-xs text-brand-darkBlue/50 mb-1">{t('pains.before')}</div>
-                      <div className="text-lg font-bold text-brand-darkBlue/40 line-through decoration-2">
+                      <div className="text-lg font-bold text-brand-orange/60 line-through decoration-2">
                         {item.statBefore}
                       </div>
                     </div>
                     <div className="flex items-center">
                       <div className="w-8 h-[2px] bg-brand-darkBlue/20" />
-                      <PainIcon className="h-5 w-5 text-brand-darkBlue/40 mx-2" />
+                      <PainIcon className="h-5 w-5 text-brand-blue mx-2" />
                       <div className="w-8 h-[2px] bg-brand-darkBlue/20" />
                     </div>
                     <div className="text-center">
                       <div className="text-xs text-brand-darkBlue/50 mb-1">{t('pains.after')}</div>
-                      <div className="text-lg font-bold text-brand-darkBlue">
+                      <div className="text-lg font-bold text-brand-green">
                         {item.statAfter}
                       </div>
                     </div>

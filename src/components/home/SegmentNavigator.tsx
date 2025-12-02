@@ -320,9 +320,9 @@ export function SegmentNavigator() {
                   
                   <div className="relative z-10">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${
-                      isSelected ? 'bg-white/20' : 'bg-brand-darkBlue/10'
+                      isSelected ? 'bg-white/20' : 'bg-brand-blue/10'
                     }`}>
-                      <Icon className={`h-6 w-6 ${isSelected ? 'text-white' : 'text-brand-darkBlue'}`} />
+                      <Icon className={`h-6 w-6 ${isSelected ? 'text-white' : 'text-brand-blue'}`} />
                     </div>
                     
                     <h3 className={`font-semibold text-lg mb-2 ${isSelected ? 'text-white' : 'text-brand-darkBlue'}`}>

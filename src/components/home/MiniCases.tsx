@@ -113,8 +113,8 @@ export function MiniCases() {
                 </div>
 
                 {/* Главная метрика */}
-                <div className="bg-brand-lightTeal/20 rounded-xl p-4 text-center mb-4">
-                  <div className="text-3xl font-bold text-brand-darkBlue">
+                <div className="bg-brand-green/10 rounded-xl p-4 text-center mb-4">
+                  <div className="text-3xl font-bold text-brand-green">
                     {caseItem.metric}
                   </div>
                   <div className="text-sm text-brand-darkBlue/60">

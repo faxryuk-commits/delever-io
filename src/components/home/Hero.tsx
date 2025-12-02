@@ -40,7 +40,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             className="flex justify-center mb-6"
           >
-            <div className="inline-flex items-center gap-2 bg-brand-lightTeal/30 text-brand-darkBlue px-4 py-2 rounded-full text-sm font-medium">
+            <div className="inline-flex items-center gap-2 bg-brand-green/10 text-brand-green px-4 py-2 rounded-full text-sm font-medium">
               <Zap className="h-4 w-4" />
               {t('hero.badge')}
             </div>
@@ -56,7 +56,7 @@ export function Hero() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-darkBlue mb-6 leading-[1.15] tracking-tight">
               {t('hero.title')}
               <br />
-              <span className="text-brand-darkBlue/70">
+              <span className="text-brand-blue">
                 {t('hero.titleHighlight')}
               </span>
             </h1>

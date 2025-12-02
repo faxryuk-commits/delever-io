@@ -80,8 +80,8 @@ export function PlatformDiagram() {
                   <div className="relative group">
                     <div className="w-40 h-40 rounded-2xl bg-brand-darkBlue p-[2px] shadow-lg group-hover:shadow-xl transition-shadow">
                       <div className="w-full h-full bg-white rounded-[14px] flex flex-col items-center justify-center p-4 text-center">
-                        <div className="w-12 h-12 rounded-xl bg-brand-lightTeal/30 flex items-center justify-center mb-3">
-                          <Icon className="h-6 w-6 text-brand-darkBlue" />
+                        <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center mb-3">
+                          <Icon className="h-6 w-6 text-brand-blue" />
                         </div>
                         <h3 className="font-semibold text-brand-darkBlue text-sm">
                           {t(step.labelKey)}
