@@ -369,15 +369,15 @@ export function SegmentNavigator() {
 
                 {/* Персонализированный Hero */}
                 <motion.div 
-                  className="text-center text-white mb-16"
+                  className="text-center mb-16"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  <h2 className="text-3xl lg:text-5xl font-bold mb-4">
+                  <h2 className="text-3xl lg:text-5xl font-bold mb-4 text-white">
                     {t(currentData.heroTitle)}
                   </h2>
-                  <p className="text-xl text-white/80 max-w-2xl mx-auto mb-8">
+                  <p className="text-xl text-white/90 max-w-2xl mx-auto mb-8">
                     {t(currentData.heroSubtitle)}
                   </p>
                   <div className="flex flex-wrap justify-center gap-4">
@@ -412,16 +412,16 @@ export function SegmentNavigator() {
                     {currentData.pains.map((pain, idx) => {
                       const PainIcon = pain.icon
                       return (
-                        <div key={idx} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+                        <div key={idx} className="bg-white/15 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
                           <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center">
-                              <PainIcon className="h-5 w-5 text-red-200" />
+                            <div className="w-10 h-10 rounded-lg bg-brand-orange/20 flex items-center justify-center">
+                              <PainIcon className="h-5 w-5 text-brand-orange" />
                             </div>
                             <h4 className="font-semibold text-white">{t(pain.title)}</h4>
                           </div>
                           <div className="flex items-start gap-2">
-                            <Check className="h-5 w-5 text-emerald-300 flex-shrink-0 mt-0.5" />
-                            <p className="text-white/80 text-sm">{t(pain.solution)}</p>
+                            <Check className="h-5 w-5 text-brand-green flex-shrink-0 mt-0.5" />
+                            <p className="text-white/90 text-sm">{t(pain.solution)}</p>
                           </div>
                         </div>
                       )
@@ -453,7 +453,7 @@ export function SegmentNavigator() {
                         <ul className="space-y-2 mb-6">
                           {solution.features.map((feature, fIdx) => (
                             <li key={fIdx} className="flex items-center gap-2 text-sm text-brand-darkBlue/70">
-                              <Check className="h-4 w-4 text-emerald-500 flex-shrink-0" />
+                              <Check className="h-4 w-4 text-brand-green flex-shrink-0" />
                               {t(feature)}
                             </li>
                           ))}
