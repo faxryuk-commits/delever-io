@@ -39,12 +39,12 @@ interface Segment {
 }
 
 const segments: Segment[] = [
-  { id: 'small', icon: Store, labelKey: 'segment.small.label', descKey: 'segment.small.desc', color: 'from-blue-500 to-cyan-500' },
-  { id: 'chain', icon: Building2, labelKey: 'segment.chain.label', descKey: 'segment.chain.desc', color: 'from-purple-500 to-pink-500' },
-  { id: 'digital', icon: Smartphone, labelKey: 'segment.digital.label', descKey: 'segment.digital.desc', color: 'from-emerald-500 to-teal-500' },
-  { id: 'delivery', icon: Truck, labelKey: 'segment.delivery.label', descKey: 'segment.delivery.desc', color: 'from-orange-500 to-red-500' },
-  { id: 'aggregators', icon: PiggyBank, labelKey: 'segment.aggregators.label', descKey: 'segment.aggregators.desc', color: 'from-amber-500 to-yellow-500' },
-  { id: 'custom', icon: Briefcase, labelKey: 'segment.custom.label', descKey: 'segment.custom.desc', color: 'from-indigo-500 to-violet-500' },
+  { id: 'small', icon: Store, labelKey: 'segment.small.label', descKey: 'segment.small.desc', color: 'from-brand-darkBlue to-brand-darkBlue/80' },
+  { id: 'chain', icon: Building2, labelKey: 'segment.chain.label', descKey: 'segment.chain.desc', color: 'from-brand-darkBlue to-brand-darkBlue/80' },
+  { id: 'digital', icon: Smartphone, labelKey: 'segment.digital.label', descKey: 'segment.digital.desc', color: 'from-brand-darkBlue to-brand-darkBlue/80' },
+  { id: 'delivery', icon: Truck, labelKey: 'segment.delivery.label', descKey: 'segment.delivery.desc', color: 'from-brand-darkBlue to-brand-darkBlue/80' },
+  { id: 'aggregators', icon: PiggyBank, labelKey: 'segment.aggregators.label', descKey: 'segment.aggregators.desc', color: 'from-brand-darkBlue to-brand-darkBlue/80' },
+  { id: 'custom', icon: Briefcase, labelKey: 'segment.custom.label', descKey: 'segment.custom.desc', color: 'from-brand-darkBlue to-brand-darkBlue/80' },
 ]
 
 // Данные для каждого сегмента
@@ -320,9 +320,9 @@ export function SegmentNavigator() {
                   
                   <div className="relative z-10">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${
-                      isSelected ? 'bg-white/20' : `bg-gradient-to-br ${segment.color} text-white`
+                      isSelected ? 'bg-white/20' : 'bg-brand-darkBlue/10'
                     }`}>
-                      <Icon className="h-6 w-6" />
+                      <Icon className={`h-6 w-6 ${isSelected ? 'text-white' : 'text-brand-darkBlue'}`} />
                     </div>
                     
                     <h3 className={`font-semibold text-lg mb-2 ${isSelected ? 'text-white' : 'text-brand-darkBlue'}`}>

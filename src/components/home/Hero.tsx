@@ -30,8 +30,8 @@ export function Hero() {
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-lightTeal/20 to-transparent -z-10" />
         
         {/* Decorative elements */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-emerald-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl -z-10" />
+        <div className="absolute top-20 left-10 w-72 h-72 bg-brand-lightTeal/20 rounded-full blur-3xl -z-10" />
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-brand-lightBlue/30 rounded-full blur-3xl -z-10" />
         
         <div className="container mx-auto max-w-6xl">
           {/* Badge */}
@@ -40,7 +40,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             className="flex justify-center mb-6"
           >
-            <div className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-sm font-medium">
+            <div className="inline-flex items-center gap-2 bg-brand-lightTeal/30 text-brand-darkBlue px-4 py-2 rounded-full text-sm font-medium">
               <Zap className="h-4 w-4" />
               {t('hero.badge')}
             </div>
@@ -56,7 +56,7 @@ export function Hero() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-darkBlue mb-6 leading-[1.15] tracking-tight">
               {t('hero.title')}
               <br />
-              <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
+              <span className="text-brand-darkBlue/70">
                 {t('hero.titleHighlight')}
               </span>
             </h1>

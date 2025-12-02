@@ -15,35 +15,30 @@ const steps = [
     icon: ShoppingCart, 
     labelKey: 'diagram.channels',
     descKey: 'diagram.channels.desc',
-    color: 'from-blue-500 to-cyan-500'
   },
   { 
     id: 'operations', 
     icon: Settings, 
     labelKey: 'diagram.operations',
     descKey: 'diagram.operations.desc',
-    color: 'from-purple-500 to-pink-500'
   },
   { 
     id: 'delivery', 
     icon: Truck, 
     labelKey: 'diagram.delivery',
     descKey: 'diagram.delivery.desc',
-    color: 'from-orange-500 to-red-500'
   },
   { 
     id: 'customers', 
     icon: Users, 
     labelKey: 'diagram.customers',
     descKey: 'diagram.customers.desc',
-    color: 'from-emerald-500 to-teal-500'
   },
   { 
     id: 'analytics', 
     icon: BarChart3, 
     labelKey: 'diagram.analytics',
     descKey: 'diagram.analytics.desc',
-    color: 'from-amber-500 to-yellow-500'
   },
 ]
 
@@ -83,10 +78,10 @@ export function PlatformDiagram() {
                 >
                   {/* Карточка шага */}
                   <div className="relative group">
-                    <div className={`w-40 h-40 rounded-2xl bg-gradient-to-br ${step.color} p-1 shadow-lg group-hover:shadow-xl transition-shadow`}>
-                      <div className="w-full h-full bg-white rounded-xl flex flex-col items-center justify-center p-4 text-center">
-                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center mb-3`}>
-                          <Icon className="h-6 w-6 text-white" />
+                    <div className="w-40 h-40 rounded-2xl bg-brand-darkBlue p-[2px] shadow-lg group-hover:shadow-xl transition-shadow">
+                      <div className="w-full h-full bg-white rounded-[14px] flex flex-col items-center justify-center p-4 text-center">
+                        <div className="w-12 h-12 rounded-xl bg-brand-lightTeal/30 flex items-center justify-center mb-3">
+                          <Icon className="h-6 w-6 text-brand-darkBlue" />
                         </div>
                         <h3 className="font-semibold text-brand-darkBlue text-sm">
                           {t(step.labelKey)}
@@ -126,7 +121,7 @@ export function PlatformDiagram() {
             viewport={{ once: true }}
             transition={{ delay: 0.5, duration: 0.8 }}
           >
-            <div className="h-1 bg-gradient-to-r from-blue-500 via-purple-500 via-orange-500 via-emerald-500 to-amber-500 rounded-full" />
+            <div className="h-1 bg-gradient-to-r from-brand-lightTeal via-brand-darkBlue to-brand-lightTeal rounded-full" />
           </motion.div>
         </div>
 
@@ -143,8 +138,8 @@ export function PlatformDiagram() {
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}
                 >
-                  <div className={`flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r ${step.color} bg-opacity-10`}>
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center flex-shrink-0`}>
+                  <div className="flex items-center gap-4 p-4 rounded-xl bg-brand-lightBlue/30 border border-brand-lightTeal/20">
+                    <div className="w-12 h-12 rounded-xl bg-brand-darkBlue flex items-center justify-center flex-shrink-0">
                       <Icon className="h-6 w-6 text-white" />
                     </div>
                     <div>

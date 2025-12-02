@@ -30,12 +30,11 @@ export function FinalCTA() {
 
   return (
     <>
-      <section className="py-16 lg:py-24 bg-gradient-to-br from-brand-darkBlue via-brand-darkBlue to-indigo-900 relative overflow-hidden">
+      <section className="py-16 lg:py-24 bg-brand-darkBlue relative overflow-hidden">
         {/* Декоративные элементы */}
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
-          <div className="absolute top-0 right-0 w-full h-full bg-[url('/grid.svg')] opacity-5" />
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-brand-lightTeal/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-lightBlue/10 rounded-full blur-3xl" />
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -68,7 +67,7 @@ export function FinalCTA() {
                       viewport={{ once: true }}
                       transition={{ delay: idx * 0.1 }}
                     >
-                      <Icon className="h-5 w-5 text-emerald-400" />
+                      <Icon className="h-5 w-5 text-brand-lightTeal" />
                       <span>{t(benefit.text)}</span>
                     </motion.div>
                   )
@@ -120,15 +119,15 @@ export function FinalCTA() {
                 transition={{ delay: 0.4 }}
               >
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="h-4 w-4 text-emerald-400" />
+                  <CheckCircle className="h-4 w-4 text-brand-lightTeal" />
                   {t('finalCta.guarantee1')}
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="h-4 w-4 text-emerald-400" />
+                  <CheckCircle className="h-4 w-4 text-brand-lightTeal" />
                   {t('finalCta.guarantee2')}
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="h-4 w-4 text-emerald-400" />
+                  <CheckCircle className="h-4 w-4 text-brand-lightTeal" />
                   {t('finalCta.guarantee3')}
                 </div>
               </motion.div>

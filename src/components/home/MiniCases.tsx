@@ -17,7 +17,6 @@ const cases = [
     metricLabel: 'cases.burger.metric',
     quote: 'cases.burger.quote',
     author: 'cases.burger.author',
-    color: 'from-orange-500 to-red-500'
   },
   {
     id: 'coffee',
@@ -30,7 +29,6 @@ const cases = [
     metricLabel: 'cases.coffee.metric',
     quote: 'cases.coffee.quote',
     author: 'cases.coffee.author',
-    color: 'from-amber-500 to-yellow-600'
   },
   {
     id: 'sushi',
@@ -43,7 +41,6 @@ const cases = [
     metricLabel: 'cases.sushi.metric',
     quote: 'cases.sushi.quote',
     author: 'cases.sushi.author',
-    color: 'from-emerald-500 to-teal-500'
   },
 ]
 
@@ -78,7 +75,7 @@ export function MiniCases() {
               transition={{ delay: idx * 0.1 }}
             >
               {/* Заголовок кейса */}
-              <div className={`bg-gradient-to-r ${caseItem.color} p-4`}>
+              <div className="bg-brand-darkBlue p-4">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center p-2">
                     <img 
@@ -116,8 +113,8 @@ export function MiniCases() {
                 </div>
 
                 {/* Главная метрика */}
-                <div className="bg-brand-lightBlue/20 rounded-xl p-4 text-center mb-4">
-                  <div className={`text-3xl font-bold bg-gradient-to-r ${caseItem.color} bg-clip-text text-transparent`}>
+                <div className="bg-brand-lightTeal/20 rounded-xl p-4 text-center mb-4">
+                  <div className="text-3xl font-bold text-brand-darkBlue">
                     {caseItem.metric}
                   </div>
                   <div className="text-sm text-brand-darkBlue/60">

@@ -19,7 +19,6 @@ const clusters = [
     icon: ShoppingCart,
     labelKey: 'clusters.channels.label',
     descKey: 'clusters.channels.desc',
-    color: 'from-blue-500 to-cyan-500',
     link: '/products/channels',
     features: [
       'clusters.channels.f1',
@@ -35,7 +34,6 @@ const clusters = [
     icon: Settings,
     labelKey: 'clusters.operations.label',
     descKey: 'clusters.operations.desc',
-    color: 'from-purple-500 to-pink-500',
     link: '/products/operations',
     features: [
       'clusters.operations.f1',
@@ -51,7 +49,6 @@ const clusters = [
     icon: Truck,
     labelKey: 'clusters.delivery.label',
     descKey: 'clusters.delivery.desc',
-    color: 'from-orange-500 to-red-500',
     link: '/products/operations',
     features: [
       'clusters.delivery.f1',
@@ -67,7 +64,6 @@ const clusters = [
     icon: Users,
     labelKey: 'clusters.crm.label',
     descKey: 'clusters.crm.desc',
-    color: 'from-emerald-500 to-teal-500',
     link: '/products/marketing',
     features: [
       'clusters.crm.f1',
@@ -83,7 +79,6 @@ const clusters = [
     icon: BarChart3,
     labelKey: 'clusters.analytics.label',
     descKey: 'clusters.analytics.desc',
-    color: 'from-amber-500 to-yellow-500',
     link: '/products/analytics',
     features: [
       'clusters.analytics.f1',
@@ -99,7 +94,6 @@ const clusters = [
     icon: CreditCard,
     labelKey: 'clusters.payments.label',
     descKey: 'clusters.payments.desc',
-    color: 'from-indigo-500 to-violet-500',
     link: '/integrations#payments',
     features: [
       'clusters.payments.f1',
@@ -151,11 +145,11 @@ export function FunctionClusters() {
               >
                 <div className={`h-full rounded-2xl border-2 transition-all overflow-hidden ${
                   isActive 
-                    ? 'border-transparent shadow-xl' 
-                    : 'border-brand-lightTeal/20 hover:border-brand-darkBlue/20'
+                    ? 'border-brand-darkBlue shadow-xl' 
+                    : 'border-brand-lightTeal/20 hover:border-brand-darkBlue/30'
                 }`}>
                   {/* Градиент фон при активации */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${cluster.color} transition-opacity ${
+                  <div className={`absolute inset-0 bg-brand-darkBlue transition-opacity ${
                     isActive ? 'opacity-100' : 'opacity-0'
                   }`} />
                   
@@ -165,9 +159,9 @@ export function FunctionClusters() {
                       <div className={`w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${
                         isActive 
                           ? 'bg-white/20' 
-                          : `bg-gradient-to-br ${cluster.color}`
+                          : 'bg-brand-lightTeal/30'
                       }`}>
-                        <Icon className={`h-7 w-7 ${isActive ? 'text-white' : 'text-white'}`} />
+                        <Icon className={`h-7 w-7 ${isActive ? 'text-white' : 'text-brand-darkBlue'}`} />
                       </div>
                       <div>
                         <h3 className={`font-bold text-lg mb-1 ${isActive ? 'text-white' : 'text-brand-darkBlue'}`}>

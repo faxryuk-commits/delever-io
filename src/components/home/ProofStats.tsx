@@ -19,7 +19,6 @@ const stats = [
     value: 1000,
     suffix: '+',
     labelKey: 'stats.restaurants',
-    color: 'from-blue-500 to-cyan-500'
   },
   {
     id: 'orders',
@@ -27,7 +26,6 @@ const stats = [
     value: 25000,
     suffix: '+',
     labelKey: 'stats.ordersDaily',
-    color: 'from-purple-500 to-pink-500'
   },
   {
     id: 'countries',
@@ -35,7 +33,6 @@ const stats = [
     value: 7,
     suffix: '',
     labelKey: 'stats.countries',
-    color: 'from-emerald-500 to-teal-500'
   },
   {
     id: 'speed',
@@ -43,7 +40,6 @@ const stats = [
     value: 35,
     suffix: '%',
     labelKey: 'stats.speedUp',
-    color: 'from-orange-500 to-red-500'
   },
 ]
 
@@ -117,8 +113,8 @@ export function ProofStats() {
               >
                 <div className="text-center p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
                   {/* Иконка */}
-                  <div className={`w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center`}>
-                    <Icon className="h-7 w-7 text-white" />
+                  <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-brand-lightTeal/20 flex items-center justify-center">
+                    <Icon className="h-7 w-7 text-brand-lightTeal" />
                   </div>
 
                   {/* Число */}
@@ -145,11 +141,11 @@ export function ProofStats() {
           transition={{ delay: 0.5 }}
         >
           <div className="flex items-center gap-2 text-white/80">
-            <TrendingUp className="h-5 w-5 text-emerald-400" />
+            <TrendingUp className="h-5 w-5 text-brand-lightTeal" />
             <span>{t('stats.benefit1')}</span>
           </div>
           <div className="flex items-center gap-2 text-white/80">
-            <Clock className="h-5 w-5 text-amber-400" />
+            <Clock className="h-5 w-5 text-brand-lightTeal" />
             <span>{t('stats.benefit2')}</span>
           </div>
         </motion.div>
