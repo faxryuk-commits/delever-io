@@ -1,13 +1,19 @@
 import { useState } from 'react'
 import { Button } from '../ui/Button'
 import { ContactForm } from '../ContactForm'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Play, Zap } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useLocale } from '@/i18n/LocaleContext'
 
 export function Hero() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
+  const [contactTag, setContactTag] = useState('')
   const { t } = useLocale()
+
+  const handleCTA = (tag: string) => {
+    setContactTag(tag)
+    setContactFormOpen(true)
+  }
 
   const stats = [
     { value: '13M+', labelKey: 'stats.orders' },
@@ -18,18 +24,34 @@ export function Hero() {
 
   return (
     <>
-      <section className="relative pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section className="relative pt-28 pb-12 lg:pt-36 lg:pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Background pattern */}
         <div className="absolute inset-0 bg-gradient-to-b from-brand-lightBlue/40 to-white -z-10" />
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-lightTeal/20 to-transparent -z-10" />
         
+        {/* Decorative elements */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-emerald-400/10 rounded-full blur-3xl -z-10" />
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl -z-10" />
+        
         <div className="container mx-auto max-w-6xl">
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex justify-center mb-6"
+          >
+            <div className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-sm font-medium">
+              <Zap className="h-4 w-4" />
+              {t('hero.badge')}
+            </div>
+          </motion.div>
+
           {/* Main content */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-center max-w-4xl mx-auto mb-12 lg:mb-16"
+            className="text-center max-w-4xl mx-auto mb-10"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-darkBlue mb-6 leading-[1.15] tracking-tight">
               {t('hero.title')}
@@ -44,7 +66,7 @@ export function Hero() {
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
               <Button
                 size="lg"
-                onClick={() => setContactFormOpen(true)}
+                onClick={() => handleCTA('hero-start')}
                 className="w-full sm:w-auto px-8"
               >
                 {t('hero.cta')}
@@ -53,10 +75,11 @@ export function Hero() {
               <Button
                 variant="outline"
                 size="lg"
-                onClick={() => window.open('https://admin.delever.uz/#/login', '_blank')}
+                onClick={() => handleCTA('hero-demo')}
                 className="w-full sm:w-auto px-8"
               >
-                {t('nav.login')}
+                <Play className="mr-2 h-4 w-4" />
+                {t('hero.ctaDemo')}
               </Button>
             </div>
           </motion.div>
@@ -66,7 +89,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex flex-wrap justify-center gap-8 lg:gap-16 mb-4"
+            className="flex flex-wrap justify-center gap-8 lg:gap-16"
           >
             {stats.map((stat, idx) => (
               <div key={idx} className="text-center">
@@ -79,11 +102,14 @@ export function Hero() {
               </div>
             ))}
           </motion.div>
-
         </div>
       </section>
 
-      <ContactForm open={contactFormOpen} onOpenChange={setContactFormOpen} />
+      <ContactForm 
+        open={contactFormOpen} 
+        onOpenChange={setContactFormOpen}
+        tag={contactTag}
+      />
     </>
   )
 }
