@@ -357,12 +357,12 @@ export function SegmentNavigator() {
             exit={{ opacity: 0, height: 0 }}
             className="overflow-hidden"
           >
-            <div className={`bg-gradient-to-br ${currentSegment.color} py-16 lg:py-24`}>
+            <div className="bg-gradient-to-br from-brand-lightBlue via-brand-lightTeal/50 to-brand-lightBeige py-16 lg:py-24">
               <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Кнопка закрытия */}
                 <button 
                   onClick={closeSegment}
-                  className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition-colors"
+                  className="absolute top-4 right-4 w-10 h-10 rounded-full bg-brand-darkBlue/10 hover:bg-brand-darkBlue/20 flex items-center justify-center text-brand-darkBlue transition-colors"
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -374,16 +374,16 @@ export function SegmentNavigator() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  <h2 className="text-3xl lg:text-5xl font-bold mb-4 text-white">
+                  <h2 className="text-3xl lg:text-5xl font-bold mb-4 text-brand-darkBlue">
                     {t(currentData.heroTitle)}
                   </h2>
-                  <p className="text-xl text-white/90 max-w-2xl mx-auto mb-8">
+                  <p className="text-xl text-brand-darkBlue/70 max-w-2xl mx-auto mb-8">
                     {t(currentData.heroSubtitle)}
                   </p>
                   <div className="flex flex-wrap justify-center gap-4">
                     <Button 
                       onClick={() => handleCTA(`segment-${selectedSegment}-start`)}
-                      className="bg-white text-brand-darkBlue hover:bg-white/90"
+                      className="bg-brand-darkBlue text-white hover:bg-brand-darkBlue/90"
                     >
                       <Zap className="h-4 w-4 mr-2" />
                       {t('segment.cta.start')}
@@ -391,7 +391,7 @@ export function SegmentNavigator() {
                     <Button 
                       onClick={() => handleCTA(`segment-${selectedSegment}-demo`)}
                       variant="outline"
-                      className="border-white/30 text-white hover:bg-white/10"
+                      className="border-brand-darkBlue/30 text-brand-darkBlue hover:bg-brand-darkBlue/5"
                     >
                       {t('segment.cta.demo')}
                     </Button>
@@ -405,23 +405,23 @@ export function SegmentNavigator() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
                 >
-                  <h3 className="text-2xl font-bold text-white text-center mb-8">
+                  <h3 className="text-2xl font-bold text-brand-darkBlue text-center mb-8">
                     {t('segment.pains.title')}
                   </h3>
                   <div className="grid md:grid-cols-3 gap-6">
                     {currentData.pains.map((pain, idx) => {
                       const PainIcon = pain.icon
                       return (
-                        <div key={idx} className="bg-white/15 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+                        <div key={idx} className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-brand-lightTeal/30 shadow-soft">
                           <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 rounded-lg bg-brand-orange/20 flex items-center justify-center">
+                            <div className="w-10 h-10 rounded-lg bg-brand-orange/10 flex items-center justify-center">
                               <PainIcon className="h-5 w-5 text-brand-orange" />
                             </div>
-                            <h4 className="font-semibold text-white">{t(pain.title)}</h4>
+                            <h4 className="font-semibold text-brand-darkBlue">{t(pain.title)}</h4>
                           </div>
                           <div className="flex items-start gap-2">
                             <Check className="h-5 w-5 text-brand-green flex-shrink-0 mt-0.5" />
-                            <p className="text-white/90 text-sm">{t(pain.solution)}</p>
+                            <p className="text-brand-darkBlue/70 text-sm">{t(pain.solution)}</p>
                           </div>
                         </div>
                       )
@@ -435,12 +435,12 @@ export function SegmentNavigator() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
                 >
-                  <h3 className="text-2xl font-bold text-white text-center mb-8">
+                  <h3 className="text-2xl font-bold text-brand-darkBlue text-center mb-8">
                     {t('segment.solutions.title')}
                   </h3>
                   <div className="grid md:grid-cols-3 gap-6">
                     {currentData.solutions.map((solution, idx) => (
-                      <div key={idx} className="bg-white rounded-2xl p-6 shadow-xl">
+                      <div key={idx} className="bg-white rounded-2xl p-6 shadow-soft border border-brand-lightTeal/20 hover:shadow-medium transition-shadow">
                         <div className="text-xs font-medium text-brand-darkBlue/50 uppercase tracking-wider mb-2">
                           {t('segment.solution')} #{idx + 1}
                         </div>
@@ -477,14 +477,14 @@ export function SegmentNavigator() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
                   >
-                    <h3 className="text-xl font-semibold text-white mb-6">
+                    <h3 className="text-xl font-semibold text-brand-darkBlue mb-6">
                       {t('segment.businessTypes')}
                     </h3>
                     <div className="flex flex-wrap justify-center gap-3">
                       {currentData.businessTypes.map((type, idx) => {
                         const TypeIcon = type.icon
                         return (
-                          <div key={idx} className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full text-white/90 text-sm">
+                          <div key={idx} className="flex items-center gap-2 bg-brand-darkBlue/10 px-4 py-2 rounded-full text-brand-darkBlue text-sm">
                             <TypeIcon className="h-4 w-4" />
                             {t(type.label)}
                           </div>
