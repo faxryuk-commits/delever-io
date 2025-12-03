@@ -49,10 +49,10 @@ const stats = [
 const clientExamples = {
   restaurants: [
     { name: 'Yaponamama', url: 'https://yaponamama.uz/', logo: '/logos/yapona.png' },
-    { name: 'Evos', url: 'https://evos.delever.uz/ru', logo: '/logos/evos.png' },
+    { name: 'Evos', url: 'https://evosqruz.delever.uz/', logo: '/logos/evos.png' },
     { name: 'Kamolon Osh', url: 'https://kamolonosh.uz/', logo: '/logos/kamolonosh.svg' },
-    { name: 'Dodo Pizza', url: 'https://dodopizza.delever.uz/ru', logo: '/logos/dodo.png' },
-    { name: 'Pinkberry', url: 'https://pinkberry.delever.uz/ru', logo: '/logos/pinkberry.png' },
+    { name: 'Manana', url: 'https://manana.delever.uz/ru', logo: '/logos/dodo.png' },
+    { name: 'Brasserie', url: 'https://brasserie.delever.uz/ru', logo: '/logos/pinkberry.png' },
   ],
   fastfood: [
     { name: 'Maxway', url: 'https://maxway.uz/ru', logo: '/logos/maxway.png' },
@@ -60,17 +60,18 @@ const clientExamples = {
     { name: 'Pizza Hut', url: 'https://pizzahutuz.delever.uz/ru', logo: '/logos/pizza-hut-logo-png_seeklogo-257097.png' },
   ],
   stores: [
-    { name: 'Wolt', url: 'https://wolt.com', logo: '/logos/wolt.png' },
-    { name: 'Glovo', url: 'https://glovo.com', logo: '/logos/Glovo.png' },
-    { name: 'Uzum Tezkor', url: 'https://uzum.uz', logo: '/logos/Uzum tezkor.png' },
-    { name: 'Bolt Food', url: 'https://food.bolt.eu', logo: '/logos/Bolt food.png' },
+    { name: 'Fati Flowers', url: 'https://fatiflowers.delever.uz/ru', logo: '/logos/pinkberry.png' },
+    { name: 'Zoo Planeta', url: 'https://zooplaneta.delever.uz/ru', logo: '/logos/evos.png' },
+    { name: 'Movex', url: 'https://movex.uz/ru', logo: '/logos/dodo.png' },
+    { name: 'Animal Planet', url: 'https://animalplanet.delever.uz/ru', logo: '/logos/maxway.png' },
   ],
   apps: [
     { name: 'Yaponamama', url: 'https://apps.apple.com/uz/app/yaponamama-oila/id1457179873', platform: 'iOS', logo: '/logos/yapona.png' },
     { name: 'Maxway', url: 'https://apps.apple.com/uz/app/maxway/id1565502018', platform: 'iOS', logo: '/logos/maxway.png' },
     { name: 'Kamolon Osh', url: 'https://apps.apple.com/uz/app/kamolon-osh/id6745427808', platform: 'iOS', logo: '/logos/kamolonosh.svg' },
-    { name: 'Evos', url: 'https://apps.apple.com/uz/app/evos/id1234567890', platform: 'iOS', logo: '/logos/evos.png' },
-    { name: 'Dodo Pizza', url: 'https://apps.apple.com/uz/app/dodo-pizza/id1234567891', platform: 'iOS', logo: '/logos/dodo.png' },
+    { name: 'Takumi Sushi', url: 'https://apps.apple.com/uz/app/takumi-sushi/id6499478612', platform: 'iOS', logo: '/logos/pinkberry.png' },
+    { name: 'Chicago Pizza', url: 'https://apps.apple.com/uz/app/chicago-pizza/id6670315321', platform: 'iOS', logo: '/logos/hardees.jpg' },
+    { name: 'Zoo Planeta', url: 'https://apps.apple.com/uz/app/zoo-planeta/id6752120554', platform: 'iOS', logo: '/logos/evos.png' },
   ],
 }
 
