@@ -197,16 +197,22 @@ export default async function handler(req: Request): Promise<Response> {
   }
 
   const openaiKey = process.env.OPENAI_API_KEY
-  console.log('Chatbot: OPENAI_API_KEY exists:', !!openaiKey)
-  console.log('Chatbot: Key prefix:', openaiKey?.substring(0, 7))
   
+  // Диагностика — временно возвращаем info о ключе
   if (!openaiKey) {
-    console.error('Chatbot: OPENAI_API_KEY is not set!')
-    return new Response(JSON.stringify({ error: 'AI not configured' }), {
-      status: 500,
+    return new Response(JSON.stringify({ 
+      error: 'OPENAI_API_KEY not found',
+      debug: {
+        hasKey: !!openaiKey,
+        envKeys: Object.keys(process.env).filter(k => k.includes('OPENAI') || k.includes('AMO')).join(', ')
+      }
+    }), {
+      status: 200,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })
   }
+  
+  console.log('Chatbot: Key found, prefix:', openaiKey.substring(0, 10))
 
   try {
     const body = await req.json()
