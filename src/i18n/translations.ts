@@ -3503,7 +3503,22 @@ export const translations: Record<Language, Record<string, string>> = {
     'segment.custom.solution3.f4': 'SLA kafolati',
     'segment.custom.solution3.cta': 'Bog\'lanish',
     
-    // What is Delever
+    // What is Delever (diagram)
+    'diagram.title': 'Delever nima',
+    'diagram.subtitle': 'Biznesingizning barcha jarayonlari uchun yagona platforma',
+    'diagram.channels': 'Sotuv kanallari',
+    'diagram.channels.desc': 'Sayt, ilova, Telegram, QR-menyu, call-markaz',
+    'diagram.operations': 'Operatsiyalar',
+    'diagram.operations.desc': 'Buyurtmalarni qabul qilish, POS, oshxona, ombor',
+    'diagram.delivery': 'Yetkazib berish',
+    'diagram.delivery.desc': 'Kuryerlar, logistika, zonalar',
+    'diagram.customers': 'Mijozlar',
+    'diagram.customers.desc': 'CRM, baza, segmentatsiya, jo\'natmalar',
+    'diagram.analytics': 'Tahlil',
+    'diagram.analytics.desc': 'Dashboardlar, hisobotlar, prognozlar',
+    'diagram.result': 'Hammasi bitta tizimda — foyda o\'sishi',
+    
+    // What is Delever (whatIs alias)
     'whatIs.title': 'Delever nima',
     'whatIs.subtitle': 'Biznesingizning barcha jarayonlari uchun yagona platforma',
     'whatIs.channels': 'Sotuv kanallari',
