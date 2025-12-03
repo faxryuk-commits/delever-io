@@ -849,10 +849,10 @@ export function SmartCalculator() {
                     {formatPrice(basePrice * branches)}
                   </span>
                 </button>
-                {/* Тултип с описанием */}
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-brand-darkBlue text-white text-xs rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50 shadow-lg">
+                {/* Тултип с описанием - адаптивный */}
+                <div className="absolute bottom-full left-0 sm:left-1/2 sm:-translate-x-1/2 mb-2 px-3 py-2 bg-brand-darkBlue text-white text-xs rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 w-64 max-w-[90vw] z-50 shadow-lg pointer-events-none">
                   {t(descKey)}
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-brand-darkBlue"></div>
+                  <div className="absolute top-full left-4 sm:left-1/2 sm:-translate-x-1/2 border-4 border-transparent border-t-brand-darkBlue"></div>
                 </div>
               </div>
             )
@@ -906,10 +906,10 @@ export function SmartCalculator() {
                     {formatPrice(basePrice * branches)}
                   </span>
                 </button>
-                {/* Тултип с описанием */}
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-brand-darkBlue text-white text-xs rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50 shadow-lg">
+                {/* Тултип с описанием - адаптивный */}
+                <div className="absolute bottom-full left-0 sm:left-1/2 sm:-translate-x-1/2 mb-2 px-3 py-2 bg-brand-darkBlue text-white text-xs rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 w-64 max-w-[90vw] z-50 shadow-lg pointer-events-none">
                   {t(descKey)}
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-brand-darkBlue"></div>
+                  <div className="absolute top-full left-4 sm:left-1/2 sm:-translate-x-1/2 border-4 border-transparent border-t-brand-darkBlue"></div>
                 </div>
               </div>
             )
@@ -935,9 +935,9 @@ export function SmartCalculator() {
               {t('calc2.kioskProduct')}
               <span className="relative group cursor-help">
                 <Info className="h-4 w-4 text-orange-400" />
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-brand-darkBlue text-white text-xs rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 w-64 text-center z-50 shadow-lg">
+                <div className="absolute bottom-full left-0 sm:left-1/2 sm:-translate-x-1/2 mb-2 px-3 py-2 bg-brand-darkBlue text-white text-xs rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 w-64 max-w-[90vw] z-50 shadow-lg pointer-events-none">
                   {t('calc.module.kiosk.desc')}
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-brand-darkBlue"></div>
+                  <div className="absolute top-full left-4 sm:left-1/2 sm:-translate-x-1/2 border-4 border-transparent border-t-brand-darkBlue"></div>
                 </div>
               </span>
             </h3>
@@ -1108,10 +1108,10 @@ export function SmartCalculator() {
                     )}
                   </div>
                 </label>
-                {/* Тултип с описанием */}
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-brand-darkBlue text-white text-xs rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 w-64 text-center z-50 shadow-lg">
+                {/* Тултип с описанием - адаптивный */}
+                <div className="absolute bottom-full left-0 sm:left-1/2 sm:-translate-x-1/2 mb-2 px-3 py-2 bg-brand-darkBlue text-white text-xs rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 w-64 max-w-[90vw] z-50 shadow-lg pointer-events-none">
                   {t(descKey)}
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-brand-darkBlue"></div>
+                  <div className="absolute top-full left-4 sm:left-1/2 sm:-translate-x-1/2 border-4 border-transparent border-t-brand-darkBlue"></div>
                 </div>
               </div>
             )
