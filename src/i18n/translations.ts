@@ -601,7 +601,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'cta.button': 'Получить демо',
     
     // Clients Component
-    'clients.title': 'Нам доверяют',
+    'clients.title': 'Им доверяют миллионы, а они доверяют нам',
     'clients.businesses': 'Бизнесов',
     'clients.countries': 'Стран',
     'clients.sales': 'Продаж',
@@ -1668,7 +1668,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'cta.button': 'Get Demo',
     
     // Clients Component
-    'clients.title': 'Trusted By',
+    'clients.title': 'Millions trust them, and they trust us',
     'clients.businesses': 'Businesses',
     'clients.countries': 'Countries',
     'clients.sales': 'In Sales',
