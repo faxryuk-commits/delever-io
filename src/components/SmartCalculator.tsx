@@ -62,10 +62,20 @@ const moduleCategories = [
     ]
   },
   {
+    id: 'deliveryServices',
+    icon: Truck,
+    modules: [
+      { id: 'yandexDelivery', nameKey: 'calc.module.yandexDelivery', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const },
+      { id: 'woltDrive', nameKey: 'calc.module.woltDrive', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const },
+      { id: 'taxiMillennium', nameKey: 'calc.module.taxiMillennium', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const },
+      { id: 'noor', nameKey: 'calc.module.noor', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const },
+      { id: 'allDeliveryServices', nameKey: 'calc.module.allDeliveryServices', priceUZS: 520000, priceUSD: 80, perType: 'branch' as const },
+    ]
+  },
+  {
     id: 'operations',
     icon: Store,
     modules: [
-      { id: 'courier', nameKey: 'calc.module.courier', priceUZS: 195000, priceUSD: 30, perType: 'fixed' as const },
       { id: 'courierApp', nameKey: 'calc.module.courierApp', priceUZS: 260000, priceUSD: 35, perType: 'brand' as const },
       { id: 'kiosk', nameKey: 'calc.module.kiosk', priceUZS: 910000, priceUSD: 90, perType: 'kiosk' as const },
       { id: 'kds', nameKey: 'calc.module.kds', priceUZS: 65000, priceUSD: 10, perType: 'branch' as const },
@@ -903,6 +913,44 @@ export function SmartCalculator() {
         )}
       </div>
       
+      {/* Службы доставки */}
+      <div className="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-2xl p-6 shadow-sm border border-teal-200">
+        <div className="mb-4">
+          <h3 className="text-lg font-bold text-brand-darkBlue flex items-center gap-2">
+            <Truck className="h-5 w-5 text-teal-500" />
+            {t('calc2.deliveryServices')}
+          </h3>
+          <p className="text-sm text-brand-darkBlue/60 mt-1">{t('calc2.deliveryServicesHint')}</p>
+        </div>
+        
+        <div className="flex flex-wrap gap-2">
+          {moduleCategories[1].modules.map((module) => {
+            const isSelected = selectedModules.includes(module.id)
+            const basePrice = getPrice(module.priceUZS, module.priceUSD)
+            const isAll = module.id === 'allDeliveryServices'
+            return (
+              <button
+                key={module.id}
+                onClick={() => toggleModule(module.id)}
+                className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${
+                  isSelected 
+                    ? isAll 
+                      ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white shadow-lg scale-105' 
+                      : 'bg-teal-600 text-white shadow-md'
+                    : 'bg-white text-brand-darkBlue hover:bg-teal-50 border border-teal-200'
+                }`}
+              >
+                {isSelected && <Check className="h-4 w-4" />}
+                <span>{t(module.nameKey)}</span>
+                <span className={`text-xs font-bold ${isSelected ? 'text-white/90' : 'text-teal-600'}`}>
+                  {formatPrice(basePrice * branches)}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+      </div>
+      
       {/* Киоск как отдельный продукт */}
       <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl p-6 shadow-sm border border-orange-200">
         <div className="flex items-center justify-between mb-4">
@@ -1021,7 +1069,7 @@ export function SmartCalculator() {
         
         {/* Операции и Маркетинг - сетка с красивыми карточками */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          {[...moduleCategories[1].modules, ...moduleCategories[2].modules].filter(m => m.id !== 'kiosk').map((module) => {
+          {[...moduleCategories[2].modules, ...moduleCategories[3].modules].filter(m => m.id !== 'kiosk').map((module) => {
             const isSelected = selectedModules.includes(module.id)
             const basePrice = getPrice(module.priceUZS, module.priceUSD)
             let multiplier = 1
