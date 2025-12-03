@@ -54,6 +54,9 @@ const moduleCategories = [
       { id: 'uzum', nameKey: 'calc.module.uzum', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const },
       { id: 'wolt', nameKey: 'calc.module.wolt', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const },
       { id: 'yandex', nameKey: 'calc.module.yandex', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const },
+      { id: 'glovo', nameKey: 'calc.module.glovo', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const },
+      { id: 'bolt', nameKey: 'calc.module.bolt', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const },
+      { id: 'talabat', nameKey: 'calc.module.talabat', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const },
       { id: 'allAggregators', nameKey: 'calc.module.allAggregators', priceUZS: 650000, priceUSD: 100, perType: 'branch' as const },
     ]
   },
@@ -143,6 +146,7 @@ export function SmartCalculator() {
   // Тариф
   const [selectedPlanId, setSelectedPlanId] = useState('medium')
   const [onlyAggregatorsMode, setOnlyAggregatorsMode] = useState(false)
+  const [onlyKioskMode, setOnlyKioskMode] = useState(false)
   
   // Модули
   const [selectedModules, setSelectedModules] = useState<string[]>([])
@@ -196,14 +200,18 @@ export function SmartCalculator() {
   }
   
   // Общая стоимость
-  const planCost = onlyAggregatorsMode ? 0 : getPrice(selectedPlan.priceUZS, selectedPlan.priceUSD)
+  const skipBasePlan = onlyAggregatorsMode || onlyKioskMode
+  const planCost = skipBasePlan ? 0 : getPrice(selectedPlan.priceUZS, selectedPlan.priceUSD)
   const modulesCost = calculateModulesCost()
-  const totalMonthlyCost = planCost + (onlyAggregatorsMode ? 0 : extraOrdersCost) + modulesCost
+  const totalMonthlyCost = planCost + (skipBasePlan ? 0 : extraOrdersCost) + modulesCost
   
-  // Депозит: базовый или специальный для режима "только агрегаторы"
-  const deposit = onlyAggregatorsMode 
-    ? (language === 'en' ? 600 : 3900000) // Депозит для только агрегаторов
-    : (language === 'en' ? 520 : 6500000)  // Стандартный депозит
+  // Депозит: базовый или специальный для режимов
+  const getDeposit = () => {
+    if (onlyAggregatorsMode) return language === 'en' ? 600 : 3900000
+    if (onlyKioskMode) return language === 'en' ? 600 : 6500000
+    return language === 'en' ? 520 : 6500000
+  }
+  const deposit = getDeposit()
   
   // ROI расчёты
   const calculateROI = () => {
@@ -250,7 +258,7 @@ export function SmartCalculator() {
   // Переключение модуля
   // Переключение модуля с логикой автозамены агрегаторов
   const toggleModule = (id: string) => {
-    const singleAggregators = ['uzum', 'wolt', 'yandex']
+    const singleAggregators = ['uzum', 'wolt', 'yandex', 'glovo', 'bolt', 'talabat']
     
     setSelectedModules(prev => {
       let newModules = prev.includes(id) 
@@ -292,7 +300,7 @@ export function SmartCalculator() {
   
   // Проверка скидки на агрегаторы
   const getAggregatorsDiscount = () => {
-    const singleAggregators = ['uzum', 'wolt', 'yandex']
+    const singleAggregators = ['uzum', 'wolt', 'yandex', 'glovo', 'bolt', 'talabat']
     const selectedSingle = selectedModules.filter(m => singleAggregators.includes(m))
     if (selectedSingle.length >= 2 && !selectedModules.includes('allAggregators')) {
       // Показываем что "Все" дешевле
@@ -891,23 +899,125 @@ export function SmartCalculator() {
         )}
       </div>
       
+      {/* Киоск как отдельный продукт */}
+      <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl p-6 shadow-sm border border-orange-200">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h3 className="text-lg font-bold text-brand-darkBlue flex items-center gap-2">
+              <Store className="h-5 w-5 text-brand-orange" />
+              {t('calc2.kioskProduct')}
+            </h3>
+            <p className="text-sm text-brand-darkBlue/60 mt-1">{t('calc2.kioskProductDesc')}</p>
+          </div>
+          <label className="flex items-center gap-2 cursor-pointer">
+            <span className="text-sm text-brand-darkBlue/70">{t('calc2.onlyKiosk')}</span>
+            <div className="relative">
+              <input 
+                type="checkbox" 
+                checked={onlyKioskMode}
+                onChange={(e) => {
+                  setOnlyKioskMode(e.target.checked)
+                  if (e.target.checked) {
+                    setOnlyAggregatorsMode(false)
+                    if (!selectedModules.includes('kiosk')) {
+                      toggleModule('kiosk')
+                      setKiosks(1)
+                    }
+                  }
+                }}
+                className="sr-only peer"
+              />
+              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+            </div>
+          </label>
+        </div>
+        
+        {onlyKioskMode && (
+          <div className="mb-4 p-3 bg-orange-100 rounded-xl border border-orange-200">
+            <div className="flex items-center gap-2 text-orange-800">
+              <Info className="h-4 w-4" />
+              <span className="text-sm font-medium">{t('calc2.onlyKioskInfo')}</span>
+            </div>
+            <div className="text-xs text-orange-600 mt-1">
+              {t('calc2.onlyKioskDeposit')}: {formatPrice(language === 'en' ? 600 : 6500000)}
+            </div>
+          </div>
+        )}
+        
+        <div className="flex items-center justify-between bg-white rounded-xl p-4 border border-orange-200">
+          <div className="flex items-center gap-3">
+            <input
+              type="checkbox"
+              checked={selectedModules.includes('kiosk')}
+              onChange={() => {
+                if (selectedModules.includes('kiosk')) {
+                  setKiosks(0)
+                  toggleModule('kiosk')
+                  if (onlyKioskMode) setOnlyKioskMode(false)
+                } else {
+                  setKiosks(1)
+                  toggleModule('kiosk')
+                }
+              }}
+              className="w-5 h-5 rounded text-brand-orange"
+            />
+            <div>
+              <div className="font-medium text-brand-darkBlue">{t('calc.module.kiosk')}</div>
+              <div className="text-xs text-brand-darkBlue/50">{formatPrice(getPrice(910000, 90))}/{t('calc2.pcs')}</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            {selectedModules.includes('kiosk') && (
+              <div className="flex items-center gap-1 bg-orange-100 rounded-lg p-1">
+                <button 
+                  onClick={() => {
+                    if (kiosks <= 1) {
+                      setKiosks(0)
+                      toggleModule('kiosk')
+                      if (onlyKioskMode) setOnlyKioskMode(false)
+                    } else {
+                      setKiosks(kiosks - 1)
+                    }
+                  }}
+                  className="w-7 h-7 rounded bg-white flex items-center justify-center hover:bg-red-100"
+                >
+                  {kiosks <= 1 ? <X className="h-3 w-3 text-red-500" /> : <Minus className="h-3 w-3" />}
+                </button>
+                <span className="text-lg font-bold text-brand-darkBlue w-8 text-center">{kiosks || 1}</span>
+                <button 
+                  onClick={() => setKiosks((kiosks || 1) + 1)}
+                  className="w-7 h-7 rounded bg-white flex items-center justify-center hover:bg-orange-200"
+                >
+                  <Plus className="h-3 w-3" />
+                </button>
+              </div>
+            )}
+            <div className="text-right">
+              <div className="text-lg font-bold text-brand-orange">
+                {formatPrice(getPrice(910000, 90) * Math.max(1, kiosks))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       {/* Дополнительные модули - компактный вид */}
       <div className="bg-white rounded-2xl p-6 shadow-sm border border-brand-lightTeal/20">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-bold text-brand-darkBlue flex items-center gap-2">
-            <Package className="h-5 w-5 text-brand-orange" />
+            <Package className="h-5 w-5 text-brand-blue" />
             {t('calc2.additionalModules')}
           </h3>
-          {selectedModules.filter(m => !['uzum', 'wolt', 'yandex', 'allAggregators'].includes(m)).length > 0 && (
+          {selectedModules.filter(m => !['uzum', 'wolt', 'yandex', 'allAggregators', 'kiosk'].includes(m)).length > 0 && (
             <span className="bg-brand-blue text-white text-xs font-bold px-3 py-1 rounded-full">
-              {selectedModules.filter(m => !['uzum', 'wolt', 'yandex', 'allAggregators'].includes(m)).length} {t('calc2.selected')}
+              {selectedModules.filter(m => !['uzum', 'wolt', 'yandex', 'allAggregators', 'kiosk'].includes(m)).length} {t('calc2.selected')}
             </span>
           )}
         </div>
         
         {/* Операции и Маркетинг - сетка с красивыми карточками */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          {[...moduleCategories[1].modules, ...moduleCategories[2].modules].map((module) => {
+          {[...moduleCategories[1].modules, ...moduleCategories[2].modules].filter(m => m.id !== 'kiosk').map((module) => {
             const isSelected = selectedModules.includes(module.id)
             const basePrice = getPrice(module.priceUZS, module.priceUSD)
             let multiplier = 1
@@ -922,81 +1032,6 @@ export function SmartCalculator() {
                 multiplier = brands
                 label = `× ${brands}`
                 break
-              case 'kiosk':
-                multiplier = Math.max(1, kiosks)
-                label = `× ${kiosks || 1}`
-                break
-            }
-            
-            // Киоск со счётчиком
-            if (module.id === 'kiosk') {
-              return (
-                <div
-                  key={module.id}
-                  className={`p-3 rounded-xl transition-all ${
-                    isSelected 
-                      ? 'bg-brand-orange/10 border-2 border-brand-orange' 
-                      : 'bg-brand-lightBeige/30 border-2 border-transparent hover:border-brand-lightTeal'
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <label className="flex items-center gap-2 cursor-pointer flex-1">
-                      <input
-                        type="checkbox"
-                        checked={isSelected}
-                        onChange={() => {
-                          if (isSelected) {
-                            setKiosks(0)
-                            toggleModule(module.id)
-                          } else {
-                            setKiosks(1)
-                            toggleModule(module.id)
-                          }
-                        }}
-                        className="w-4 h-4 rounded text-brand-orange"
-                      />
-                      <div>
-                        <div className="font-medium text-brand-darkBlue text-sm flex items-center gap-2">
-                          {t(module.nameKey)}
-                          <span className="bg-brand-orange/20 text-brand-orange text-xs px-2 py-0.5 rounded-full">
-                            {t('calc2.kioskLabel')}
-                          </span>
-                        </div>
-                        <div className="text-xs text-brand-darkBlue/50">{formatPrice(basePrice)}/{t('calc2.pcs')}</div>
-                      </div>
-                    </label>
-                    {isSelected && (
-                      <div className="flex items-center gap-1 bg-white rounded-lg p-1">
-                        <button 
-                          onClick={() => {
-                            if (kiosks <= 1) {
-                              setKiosks(0)
-                              toggleModule(module.id)
-                            } else {
-                              setKiosks(kiosks - 1)
-                            }
-                          }}
-                          className="w-6 h-6 rounded bg-brand-lightBlue/50 flex items-center justify-center hover:bg-red-100"
-                        >
-                          {kiosks <= 1 ? <X className="h-3 w-3 text-red-500" /> : <Minus className="h-3 w-3" />}
-                        </button>
-                        <span className="text-sm font-bold text-brand-darkBlue w-6 text-center">{kiosks || 1}</span>
-                        <button 
-                          onClick={() => setKiosks((kiosks || 1) + 1)}
-                          className="w-6 h-6 rounded bg-brand-lightBlue/50 flex items-center justify-center hover:bg-brand-lightBlue"
-                        >
-                          <Plus className="h-3 w-3" />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                  {isSelected && (
-                    <div className="mt-2 text-right text-sm font-bold text-brand-orange">
-                      {formatPrice(basePrice * (kiosks || 1))}
-                    </div>
-                  )}
-                </div>
-              )
             }
             
             return (
