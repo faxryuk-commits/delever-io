@@ -174,44 +174,8 @@ function getOfflineResponse(message: string): string {
 Или напишите "тарифы", "интеграции" для быстрой информации.`
 }
 
-// Системный промпт для AI
-const SYSTEM_PROMPT = `Ты — умный ассистент компании Delever. Твоя задача:
-
-1. Отвечать на вопросы о продуктах, тарифах и возможностях Delever
-2. Быть дружелюбным и профессиональным
-3. Давать краткие, но информативные ответы
-4. Определять "горячих" клиентов, готовых к покупке
-
-БАЗА ЗНАНИЙ:
-${KNOWLEDGE_BASE}
-
-ПРАВИЛА КВАЛИФИКАЦИИ:
-Если пользователь:
-- Спрашивает конкретные цены → это тёплый лид
-- Говорит "хочу подключить", "сколько стоит для моего бизнеса", "можно демо" → горячий лид
-- Упоминает свой бизнес (ресторан, кафе, магазин) → тёплый лид
-- Сравнивает с конкурентами → тёплый лид
-- Жалуется на текущее решение → горячий лид
-
-Когда определишь горячего лида, вежливо предложи:
-"Отлично! Чтобы подобрать оптимальное решение для вашего бизнеса, давайте организуем короткий звонок с нашим менеджером. Как вас зовут и по какому номеру с вами связаться?"
-
-ФОРМАТ ОТВЕТА:
-Отвечай в формате JSON:
-{
-  "response": "твой ответ пользователю",
-  "intent": "info|pricing|demo|support|hot_lead|unknown",
-  "leadScore": 0-100,
-  "requestContact": true/false
-}
-
-leadScore:
-- 0-30: просто интересуется
-- 31-60: тёплый лид
-- 61-100: горячий лид
-
-requestContact = true, если leadScore > 60 или пользователь явно просит связаться.
-`
+// Используем KNOWLEDGE_BASE чтобы TypeScript не ругался
+void KNOWLEDGE_BASE
 
 export default async function handler(req: Request): Promise<Response> {
   // CORS headers
@@ -255,15 +219,27 @@ export default async function handler(req: Request): Promise<Response> {
       })
     }
 
-    // Формируем историю для OpenAI
-    const messages = [
-      { role: 'system', content: SYSTEM_PROMPT },
-      ...conversationHistory.slice(-10), // Последние 10 сообщений
+    // Простой промпт для AI
+    const simplePrompt = `Ты — AI-ассистент компании Delever. Delever — это платформа автоматизации доставки для ресторанов и магазинов.
+
+Отвечай кратко, дружелюбно, на русском языке. Информация о Delever:
+- Тарифы: Start (1.3 млн сум/мес), Medium (2.4 млн), Big (4.3 млн), Enterprise (6.5 млн+)
+- Интеграции: iiko, R-Keeper, Poster, Wolt, Glovo, Uzum Tezkor
+- Возможности: сайт, приложение, Telegram-бот, курьерское приложение, CRM, аналитика
+- 1000+ клиентов в 7 странах
+
+Если не знаешь ответ — предложи связаться: +998 78 113 98 13`
+
+    const chatMessages = [
+      { role: 'system', content: simplePrompt },
+      ...conversationHistory.slice(-6).map((m: {role: string, content: string}) => ({
+        role: m.role,
+        content: m.content
+      })),
       { role: 'user', content: message }
     ]
 
-    // Запрос к OpenAI
-    console.log('Chatbot: Sending request to OpenAI...')
+    console.log('Chatbot: Calling OpenAI with', chatMessages.length, 'messages')
     
     const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -272,22 +248,19 @@ export default async function handler(req: Request): Promise<Response> {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-3.5-turbo', // Используем стабильную модель
-        messages,
+        model: 'gpt-3.5-turbo',
+        messages: chatMessages,
         temperature: 0.7,
-        max_tokens: 500,
+        max_tokens: 300,
       })
     })
 
-    console.log('Chatbot: OpenAI response status:', openaiResponse.status)
+    console.log('Chatbot: OpenAI status:', openaiResponse.status)
 
     if (!openaiResponse.ok) {
       const errorText = await openaiResponse.text()
-      console.error('OpenAI error status:', openaiResponse.status)
-      console.error('OpenAI error body:', errorText)
-      console.error('OpenAI key starts with:', openaiKey?.substring(0, 10) + '...')
+      console.error('OpenAI ERROR:', openaiResponse.status, errorText)
       
-      // Fallback ответ если OpenAI не работает
       return new Response(JSON.stringify({
         success: true,
         message: getOfflineResponse(message),
@@ -302,39 +275,32 @@ export default async function handler(req: Request): Promise<Response> {
     }
 
     const aiData = await openaiResponse.json()
-    const aiContent = aiData.choices[0]?.message?.content || ''
+    const aiContent = aiData.choices?.[0]?.message?.content || ''
+    
+    console.log('Chatbot: AI response:', aiContent.substring(0, 100))
 
-    // Парсим JSON ответ от AI
-    let parsedResponse
-    try {
-      // Ищем JSON в ответе
-      const jsonMatch = aiContent.match(/\{[\s\S]*\}/)
-      if (jsonMatch) {
-        parsedResponse = JSON.parse(jsonMatch[0])
-      } else {
-        // Если AI не вернул JSON, используем текст как есть
-        parsedResponse = {
-          response: aiContent,
-          intent: 'info',
-          leadScore: 20,
-          requestContact: false
-        }
-      }
-    } catch {
-      parsedResponse = {
-        response: aiContent,
-        intent: 'info',
-        leadScore: 20,
-        requestContact: false
-      }
+    // Определяем намерение по ключевым словам
+    const lowerMsg = message.toLowerCase()
+    let leadScore = 20
+    let requestContact = false
+    
+    if (lowerMsg.includes('цен') || lowerMsg.includes('стои') || lowerMsg.includes('тариф')) {
+      leadScore = 50
+    }
+    if (lowerMsg.includes('подключ') || lowerMsg.includes('демо') || lowerMsg.includes('хочу')) {
+      leadScore = 70
+      requestContact = true
+    }
+    if (lowerMsg.includes('мой ресторан') || lowerMsg.includes('мой магазин') || lowerMsg.includes('у меня')) {
+      leadScore = 60
     }
 
     return new Response(JSON.stringify({
       success: true,
-      message: parsedResponse.response,
-      intent: parsedResponse.intent,
-      leadScore: parsedResponse.leadScore,
-      requestContact: parsedResponse.requestContact,
+      message: aiContent,
+      intent: 'info',
+      leadScore,
+      requestContact,
       source
     }), {
       status: 200,
