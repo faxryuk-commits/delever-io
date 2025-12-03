@@ -1,46 +1,48 @@
 import { motion } from 'framer-motion'
 import { 
-  ArrowRight,
-  Quote
+  TrendingUp, 
+  Clock, 
+  Users,
+  DollarSign,
+  ShoppingCart,
+  AlertCircle,
+  BarChart3
 } from 'lucide-react'
 import { useLocale } from '@/i18n/LocaleContext'
 
 const cases = [
   {
-    id: 'maxway',
-    company: 'Max Way',
-    logo: '/logos/maxway.png',
-    industry: 'cases.industry.fastfood',
-    problem: 'cases.maxway.problem',
-    result: 'cases.maxway.result',
-    metric: '+156%',
-    metricLabel: 'cases.maxway.metric',
-    quote: 'cases.maxway.quote',
-    author: 'cases.maxway.author',
+    id: 'yaponamama',
+    company: 'Yaponamama',
+    location: 'cases.location.tashkent',
+    metrics: [
+      { icon: TrendingUp, value: '+45%', label: 'cases.yaponamama.metric1' },
+      { icon: Clock, value: '-30%', label: 'cases.yaponamama.metric2' },
+      { icon: DollarSign, value: '+28%', label: 'cases.yaponamama.metric3' },
+    ],
+    summary: 'cases.yaponamama.summary',
   },
   {
     id: 'gippo',
-    company: 'Gippo',
-    logo: '/logos/gippo.png',
-    industry: 'cases.industry.grocery',
-    problem: 'cases.gippo.problem',
-    result: 'cases.gippo.result',
-    metric: '+89%',
-    metricLabel: 'cases.gippo.metric',
-    quote: 'cases.gippo.quote',
-    author: 'cases.gippo.author',
+    company: 'GIPPO',
+    location: 'cases.location.tashkent',
+    metrics: [
+      { icon: ShoppingCart, value: '+60%', label: 'cases.gippo.metric1' },
+      { icon: TrendingUp, value: '+35%', label: 'cases.gippo.metric2' },
+      { icon: AlertCircle, value: '-25%', label: 'cases.gippo.metric3' },
+    ],
+    summary: 'cases.gippo.summary',
   },
   {
-    id: 'yaponamama',
-    company: 'Yapona Mama',
-    logo: '/logos/yaponamama.png',
-    industry: 'cases.industry.restaurant',
-    problem: 'cases.yaponamama.problem',
-    result: 'cases.yaponamama.result',
-    metric: '-40%',
-    metricLabel: 'cases.yaponamama.metric',
-    quote: 'cases.yaponamama.quote',
-    author: 'cases.yaponamama.author',
+    id: 'maxway',
+    company: 'MAXWAY',
+    location: 'cases.location.tashkent',
+    metrics: [
+      { icon: DollarSign, value: '+40%', label: 'cases.maxway.metric1' },
+      { icon: Users, value: '+50%', label: 'cases.maxway.metric2' },
+      { icon: BarChart3, value: '+32%', label: 'cases.maxway.metric3' },
+    ],
+    summary: 'cases.maxway.summary',
   },
 ]
 
@@ -68,93 +70,54 @@ export function MiniCases() {
           {cases.map((caseItem, idx) => (
             <motion.div
               key={caseItem.id}
-              className="bg-white rounded-2xl border border-brand-lightTeal/20 overflow-hidden shadow-soft hover:shadow-lg transition-all group"
+              className="bg-white rounded-2xl border border-brand-lightTeal/20 p-6 shadow-soft hover:shadow-medium transition-all"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
             >
-              {/* Заголовок кейса */}
-              <div className="bg-brand-darkBlue p-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center p-2">
-                    <img 
-                      src={caseItem.logo} 
-                      alt={caseItem.company}
-                      className="w-full h-full object-contain"
-                      onError={(e) => {
-                        e.currentTarget.src = '/logo.svg'
-                      }}
-                    />
-                  </div>
-                  <div className="text-white">
-                    <h3 className="font-bold">{caseItem.company}</h3>
-                    <p className="text-sm text-white/80">{t(caseItem.industry)}</p>
-                  </div>
-                </div>
+              {/* Заголовок */}
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold text-brand-darkBlue mb-1">
+                  {caseItem.company}
+                </h3>
+                <p className="text-sm text-brand-darkBlue/50">
+                  {t(caseItem.location)}
+                </p>
               </div>
 
-              {/* Контент */}
-              <div className="p-5">
-                {/* Проблема → Результат */}
-                <div className="space-y-3 mb-4">
-                  <div className="flex items-start gap-2">
-                    <div className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-red-500 text-xs">✕</span>
+              {/* Метрики */}
+              <div className="space-y-4 mb-6">
+                {caseItem.metrics.map((metric, mIdx) => {
+                  const Icon = metric.icon
+                  return (
+                    <div key={mIdx} className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-brand-lightTeal/20 flex items-center justify-center flex-shrink-0">
+                        <Icon className="h-4 w-4 text-brand-darkBlue/60" />
+                      </div>
+                      <div>
+                        <span className="text-xl font-bold text-brand-darkBlue">
+                          {metric.value}
+                        </span>
+                        <span className="text-sm text-brand-darkBlue/60 ml-2">
+                          {t(metric.label)}
+                        </span>
+                      </div>
                     </div>
-                    <p className="text-sm text-brand-darkBlue/70">{t(caseItem.problem)}</p>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <div className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-emerald-500 text-xs">✓</span>
-                    </div>
-                    <p className="text-sm text-brand-darkBlue/70">{t(caseItem.result)}</p>
-                  </div>
-                </div>
+                  )
+                })}
+              </div>
 
-                {/* Главная метрика */}
-                <div className="bg-brand-green/10 rounded-xl p-4 text-center mb-4">
-                  <div className="text-3xl font-bold text-brand-green">
-                    {caseItem.metric}
-                  </div>
-                  <div className="text-sm text-brand-darkBlue/60">
-                    {t(caseItem.metricLabel)}
-                  </div>
-                </div>
-
-                {/* Цитата */}
-                <div className="relative">
-                  <Quote className="absolute -top-1 -left-1 h-6 w-6 text-brand-lightTeal/30" />
-                  <p className="text-sm text-brand-darkBlue/70 italic pl-5">
-                    "{t(caseItem.quote)}"
-                  </p>
-                  <p className="text-xs text-brand-darkBlue/50 mt-2 pl-5">
-                    — {t(caseItem.author)}
-                  </p>
-                </div>
+              {/* Описание */}
+              <div className="bg-brand-lightBlue/30 rounded-xl p-4">
+                <p className="text-sm text-brand-darkBlue/80">
+                  {t(caseItem.summary)}
+                </p>
               </div>
             </motion.div>
           ))}
         </div>
-
-        {/* Ссылка на все кейсы */}
-        <motion.div 
-          className="text-center mt-10"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-        >
-          <a 
-            href="/about#cases"
-            className="inline-flex items-center gap-2 text-brand-darkBlue font-medium hover:text-brand-darkBlue/70 transition-colors"
-          >
-            {t('cases.viewAll')}
-            <ArrowRight className="h-4 w-4" />
-          </a>
-        </motion.div>
       </div>
     </section>
   )
 }
-
