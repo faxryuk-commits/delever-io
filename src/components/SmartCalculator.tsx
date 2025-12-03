@@ -20,7 +20,15 @@ import {
   Megaphone,
   TrendingUp,
   Percent,
-  Info
+  Info,
+  Check,
+  Users,
+  BarChart3,
+  Headphones,
+  Globe,
+  CreditCard,
+  X,
+  BadgePercent
 } from 'lucide-react'
 import { Button } from './ui/Button'
 import { ContactForm } from './ContactForm'
@@ -70,6 +78,35 @@ const moduleCategories = [
       { id: 'dashboard', nameKey: 'calc.module.dashboard', priceUZS: 130000, priceUSD: 20, perType: 'brand' as const },
       { id: 'manager', nameKey: 'calc.module.manager', priceUZS: 1300000, priceUSD: 150, perType: 'brand' as const },
     ]
+  },
+]
+
+// Функции платформы (включены в тариф)
+const platformFeatures = [
+  {
+    category: 'calc.feature.channels',
+    icon: Globe,
+    features: ['calc.feature.pos', 'calc.feature.telegram', 'calc.feature.website', 'calc.feature.qr', 'calc.feature.callcenter'],
+  },
+  {
+    category: 'calc.feature.crm',
+    icon: Users,
+    features: ['calc.feature.clients', 'calc.feature.rfm', 'calc.feature.segments', 'calc.feature.reviews', 'calc.feature.mailings'],
+  },
+  {
+    category: 'calc.feature.analytics',
+    icon: BarChart3,
+    features: ['calc.feature.reports', 'calc.feature.dashboards', 'calc.feature.abc', 'calc.feature.forecasts'],
+  },
+  {
+    category: 'calc.feature.payments',
+    icon: CreditCard,
+    features: ['calc.feature.online', 'calc.feature.cash', 'calc.feature.reconciliation', 'calc.feature.fiscalization'],
+  },
+  {
+    category: 'calc.feature.support',
+    icon: Headphones,
+    features: ['calc.feature.tech', 'calc.feature.sla', 'calc.feature.docs', 'calc.feature.api'],
   },
 ]
 
@@ -207,11 +244,64 @@ export function SmartCalculator() {
   const roi = calculateROI()
   
   // Переключение модуля
+  // Переключение модуля с логикой автозамены агрегаторов
   const toggleModule = (id: string) => {
-    setSelectedModules(prev => 
-      prev.includes(id) ? prev.filter(m => m !== id) : [...prev, id]
-    )
+    const singleAggregators = ['uzum', 'wolt', 'yandex']
+    
+    setSelectedModules(prev => {
+      let newModules = prev.includes(id) 
+        ? prev.filter(m => m !== id) 
+        : [...prev, id]
+      
+      // Логика агрегаторов
+      if (singleAggregators.includes(id)) {
+        // Если выбрали "Все", убираем отдельные
+        if (id === 'allAggregators' && newModules.includes('allAggregators')) {
+          newModules = newModules.filter(m => !singleAggregators.includes(m))
+        }
+        
+        // Если выбрали 3 отдельных - автозамена на "Все"
+        const selectedSingle = newModules.filter(m => singleAggregators.includes(m))
+        if (selectedSingle.length >= 3) {
+          newModules = newModules.filter(m => !singleAggregators.includes(m))
+          if (!newModules.includes('allAggregators')) {
+            newModules.push('allAggregators')
+          }
+        }
+        
+        // Если выбрали "Все", убираем отдельные
+        if (newModules.includes('allAggregators')) {
+          newModules = newModules.filter(m => !singleAggregators.includes(m) || m === 'allAggregators')
+        }
+      }
+      
+      // Если выбрали "Все агрегаторы"
+      if (id === 'allAggregators') {
+        if (newModules.includes('allAggregators')) {
+          newModules = newModules.filter(m => !singleAggregators.includes(m))
+        }
+      }
+      
+      return newModules
+    })
   }
+  
+  // Проверка скидки на агрегаторы
+  const getAggregatorsDiscount = () => {
+    const singleAggregators = ['uzum', 'wolt', 'yandex']
+    const selectedSingle = selectedModules.filter(m => singleAggregators.includes(m))
+    if (selectedSingle.length >= 2 && !selectedModules.includes('allAggregators')) {
+      // Показываем что "Все" дешевле
+      const singleTotal = selectedSingle.length * getPrice(260000, 35) * branches
+      const allPrice = getPrice(650000, 100) * branches
+      if (allPrice < singleTotal) {
+        return { show: true, savings: singleTotal - allPrice }
+      }
+    }
+    return { show: false, savings: 0 }
+  }
+  
+  const aggregatorsDiscount = getAggregatorsDiscount()
   
   // Генерация детальной сметы
   const getInvoiceItems = () => {
@@ -701,6 +791,35 @@ export function SmartCalculator() {
             </span>
           </div>
         )}
+        
+        {/* Функции входящие в тариф */}
+        <div className="mt-6 pt-6 border-t border-brand-lightTeal/20">
+          <h4 className="text-sm font-bold text-brand-darkBlue mb-4 flex items-center gap-2">
+            <Check className="h-4 w-4 text-brand-green" />
+            {t('calc2.includedFeatures')}
+          </h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+            {platformFeatures.map((category) => {
+              const CategoryIcon = category.icon
+              return (
+                <div key={category.category} className="bg-brand-lightBlue/20 rounded-xl p-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <CategoryIcon className="h-4 w-4 text-brand-darkBlue/60" />
+                    <span className="text-xs font-medium text-brand-darkBlue">{t(category.category)}</span>
+                  </div>
+                  <ul className="space-y-1">
+                    {category.features.map((feature) => (
+                      <li key={feature} className="text-xs text-brand-darkBlue/60 flex items-center gap-1">
+                        <Check className="h-3 w-3 text-brand-green" />
+                        {t(feature)}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )
+            })}
+          </div>
+        </div>
       </div>
       
       {/* Все модули по категориям */}
@@ -737,8 +856,117 @@ export function SmartCalculator() {
                         break
                       case 'kiosk':
                         multiplier = Math.max(1, kiosks)
-                        multiplierText = kiosks > 0 ? `× ${kiosks} ${t('calc2.pcs')}` : ''
+                        multiplierText = `× ${kiosks || 1} ${t('calc2.pcs')}`
                         break
+                    }
+                    
+                    // Специальная обработка киоска - счётчик в строке
+                    if (module.id === 'kiosk') {
+                      return (
+                        <div 
+                          key={module.id}
+                          className={`p-3 rounded-lg transition-all ${
+                            isSelected 
+                              ? 'bg-brand-darkBlue/5 border border-brand-darkBlue/20' 
+                              : 'bg-brand-lightBlue/20'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-3">
+                              <input
+                                type="checkbox"
+                                checked={isSelected}
+                                onChange={() => {
+                                  if (isSelected) {
+                                    setKiosks(0)
+                                    toggleModule(module.id)
+                                  } else {
+                                    setKiosks(1)
+                                    toggleModule(module.id)
+                                  }
+                                }}
+                                className="w-4 h-4 rounded text-brand-darkBlue"
+                              />
+                              <div>
+                                <div className="font-medium text-brand-darkBlue text-sm">{t(module.nameKey)}</div>
+                                <div className="text-xs text-brand-darkBlue/50">{t('calc2.kioskDesc')}</div>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <div className="font-bold text-brand-darkBlue text-sm">
+                                {formatPrice(basePrice * (kiosks || 1))}
+                              </div>
+                              <div className="text-xs text-brand-darkBlue/50">
+                                {formatPrice(basePrice)}/{t('calc2.pcs')}
+                              </div>
+                            </div>
+                          </div>
+                          {isSelected && (
+                            <div className="flex items-center gap-2 bg-white rounded-lg p-1 w-fit ml-7">
+                              <button 
+                                onClick={() => {
+                                  if (kiosks <= 1) {
+                                    setKiosks(0)
+                                    toggleModule(module.id)
+                                  } else {
+                                    setKiosks(kiosks - 1)
+                                  }
+                                }}
+                                className="w-7 h-7 rounded bg-brand-lightBlue/50 flex items-center justify-center hover:bg-brand-lightBlue transition-colors"
+                              >
+                                {kiosks <= 1 ? <X className="h-3 w-3 text-red-500" /> : <Minus className="h-3 w-3" />}
+                              </button>
+                              <span className="text-lg font-bold text-brand-darkBlue w-8 text-center">{kiosks || 1}</span>
+                              <button 
+                                onClick={() => setKiosks((kiosks || 1) + 1)}
+                                className="w-7 h-7 rounded bg-brand-lightBlue/50 flex items-center justify-center hover:bg-brand-lightBlue transition-colors"
+                              >
+                                <Plus className="h-3 w-3" />
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      )
+                    }
+                    
+                    // Специальная обработка курьерского приложения
+                    if (module.id === 'courierApp') {
+                      return (
+                        <label 
+                          key={module.id}
+                          className={`flex items-center justify-between p-3 rounded-lg cursor-pointer transition-all ${
+                            isSelected 
+                              ? 'bg-brand-darkBlue/5 border border-brand-darkBlue/20' 
+                              : 'bg-brand-lightBlue/20 hover:bg-brand-lightBlue/40'
+                          }`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <input
+                              type="checkbox"
+                              checked={isSelected}
+                              onChange={() => toggleModule(module.id)}
+                              className="w-4 h-4 rounded text-brand-darkBlue"
+                            />
+                            <div>
+                              <div className="font-medium text-brand-darkBlue text-sm">{t(module.nameKey)}</div>
+                              <div className="text-xs text-brand-darkBlue/50">{t('calc2.courierAppDesc')}</div>
+                              {multiplierText && (
+                                <div className="text-xs text-brand-darkBlue/50">{multiplierText}</div>
+                              )}
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="font-bold text-brand-darkBlue text-sm">
+                              {formatPrice(basePrice * multiplier)}
+                            </div>
+                            {multiplier > 1 && (
+                              <div className="text-xs text-brand-darkBlue/50">
+                                {formatPrice(basePrice)}/{t('calc2.perBrand')}
+                              </div>
+                            )}
+                          </div>
+                        </label>
+                      )
                     }
                     
                     return (
@@ -779,25 +1007,13 @@ export function SmartCalculator() {
                   })}
                 </div>
                 
-                {/* Кнопка для киосков */}
-                {category.id === 'operations' && selectedModules.includes('kiosk') && (
-                  <div className="px-4 pb-3">
-                    <label className="text-sm text-brand-darkBlue/60 mb-2 block">{t('calc2.kiosksCount')}</label>
-                    <div className="flex items-center gap-2 bg-brand-lightBlue/30 rounded-xl p-2 w-fit">
-                      <button 
-                        onClick={() => setKiosks(Math.max(1, kiosks - 1))}
-                        className="w-8 h-8 rounded-lg bg-white flex items-center justify-center hover:bg-brand-lightBlue transition-colors"
-                      >
-                        <Minus className="h-4 w-4" />
-                      </button>
-                      <span className="text-xl font-bold text-brand-darkBlue w-12 text-center">{kiosks || 1}</span>
-                      <button 
-                        onClick={() => setKiosks(kiosks + 1)}
-                        className="w-8 h-8 rounded-lg bg-white flex items-center justify-center hover:bg-brand-lightBlue transition-colors"
-                      >
-                        <Plus className="h-4 w-4" />
-                      </button>
-                    </div>
+                {/* Подсказка о скидке на агрегаторы */}
+                {category.id === 'aggregators' && aggregatorsDiscount.show && (
+                  <div className="mx-3 mb-3 p-3 bg-brand-green/10 rounded-lg border border-brand-green/20 flex items-center gap-2">
+                    <BadgePercent className="h-4 w-4 text-brand-green" />
+                    <span className="text-sm text-brand-green font-medium">
+                      {t('calc2.aggregatorsDiscountHint', { savings: formatPrice(aggregatorsDiscount.savings) })}
+                    </span>
                   </div>
                 )}
               </div>
