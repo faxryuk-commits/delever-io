@@ -5,6 +5,7 @@ declare global {
       ADMIN_EDIT_TOKEN?: string
       TELEGRAM_BOT_TOKEN?: string
       TELEGRAM_CHAT_ID?: string
+      TELEGRAM_CLIENT_BOT_TOKEN?: string
       OPENAI_API_KEY?: string
       AMOCRM_SUBDOMAIN?: string
       AMOCRM_CLIENT_ID?: string
