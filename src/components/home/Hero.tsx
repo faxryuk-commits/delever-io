@@ -87,15 +87,41 @@ export function Hero() {
               <span className="text-brand-darkBlue/80">
                 {t('hero.titlePrefix')}
               </span>{' '}
-              <span className="relative inline-block min-w-[280px] md:min-w-[320px] text-left">
+              <span className="relative inline-block min-w-[280px] md:min-w-[320px] text-left overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={wordIndex}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.4 }}
-                    className="inline-block bg-gradient-to-r from-brand-blue via-brand-green to-brand-blue bg-clip-text text-transparent"
+                    initial={{ 
+                      opacity: 0, 
+                      y: 30,
+                      filter: 'blur(8px)',
+                      scale: 0.95
+                    }}
+                    animate={{ 
+                      opacity: 1, 
+                      y: 0,
+                      filter: 'blur(0px)',
+                      scale: 1
+                    }}
+                    exit={{ 
+                      opacity: 0, 
+                      y: -30,
+                      filter: 'blur(8px)',
+                      scale: 0.95
+                    }}
+                    transition={{ 
+                      type: 'spring',
+                      stiffness: 100,
+                      damping: 15,
+                      mass: 0.5,
+                      opacity: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
+                      filter: { duration: 0.4, ease: [0.4, 0, 0.2, 1] }
+                    }}
+                    className="inline-block bg-gradient-to-r from-brand-blue via-brand-green to-brand-blue bg-clip-text text-transparent will-change-transform"
+                    style={{ 
+                      backfaceVisibility: 'hidden',
+                      transform: 'translateZ(0)'
+                    }}
                   >
                     {t(`hero.word.${rotatingWords[wordIndex]}`)}
                   </motion.span>
