@@ -83,6 +83,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'hero.description': 'Управляйте всеми каналами продаж, операциями доставки и аналитикой из одного места. Запустите собственные каналы продаж, автоматизируйте работу с агрегаторами и увеличьте прибыль уже через неделю.',
     'hero.cta': 'Начать бесплатно',
     'hero.ctaDemo': 'Запросить демо',
+    'hero.downloadPresentation': 'Скачать презентацию о платформе',
     'hero.demo': 'Смотреть демо',
     
     // Segment Navigator
@@ -1233,6 +1234,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'calc2.month': 'мес',
     'calc2.freeGift': '🎁 в подарок',
     'calc2.downloadKP': 'Скачать КП',
+    'calc2.downloadPresentation': 'Скачать презентацию',
     'calc2.start': 'Начать',
     'calc2.skipToCalculator': 'Сразу к калькулятору',
     'calc2.brands': 'Бренды',
@@ -1392,6 +1394,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'hero.description': 'Manage all sales channels, delivery operations and analytics from one place. Launch your own sales channels, automate work with aggregators and increase profits within a week.',
     'hero.cta': 'Start Free',
     'hero.ctaDemo': 'Request Demo',
+    'hero.downloadPresentation': 'Download platform presentation',
     'hero.demo': 'Watch Demo',
     
     // Segment Navigator
@@ -2542,6 +2545,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'calc2.month': 'mo',
     'calc2.freeGift': '🎁 free gift',
     'calc2.downloadKP': 'Download Proposal',
+    'calc2.downloadPresentation': 'Download Presentation',
     'calc2.start': 'Get Started',
     'calc2.skipToCalculator': 'Skip to calculator',
     'calc2.brands': 'Brands',

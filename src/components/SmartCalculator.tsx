@@ -27,12 +27,14 @@ import {
   Globe,
   CreditCard,
   X,
-  BadgePercent
+  BadgePercent,
+  FileText
 } from 'lucide-react'
 import { Button } from './ui/Button'
 import { ContactForm } from './ContactForm'
 import { useLocale } from '@/i18n/LocaleContext'
 import { trackEvents } from './Analytics'
+import { downloadPresentation } from '@/utils/generatePresentation'
 
 // Типы ситуаций
 type Situation = 'commissions' | 'manual' | 'fragmented' | 'migrate' | 'scratch'
@@ -1523,6 +1525,29 @@ export function SmartCalculator() {
         
         {/* CTA */}
         <div className="p-4 bg-brand-lightBeige/30 flex flex-col sm:flex-row gap-3 justify-center">
+          <Button 
+            variant="outline" 
+            size="lg"
+            onClick={() => {
+              downloadPresentation({
+                language: language as 'ru' | 'en',
+                customData: {
+                  planName: selectedPlan.name,
+                  branches,
+                  monthlyOrders,
+                  avgCheck: formatPrice(avgCheck),
+                  totalCost: formatPriceConverted(totalMonthlyCost),
+                  deposit: formatPriceConverted(deposit),
+                  roiSavings: roi.switchSavings > 0 ? formatPriceConverted(roi.switchSavings) : undefined,
+                  roiYearlySavings: roi.switchSavings > 0 ? formatPriceConverted(roi.switchSavings * 12) : undefined,
+                }
+              }, 'Delever_Presentation')
+            }}
+            className="border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white"
+          >
+            <FileText className="mr-2 h-5 w-5" />
+            {t('calc2.downloadPresentation')}
+          </Button>
           <Button 
             variant="outline" 
             size="lg"

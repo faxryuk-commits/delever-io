@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Button } from '../ui/Button'
 import { ContactForm } from '../ContactForm'
-import { ArrowRight, Play, Trophy } from 'lucide-react'
+import { ArrowRight, Play, Trophy, FileText } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLocale } from '@/i18n/LocaleContext'
+import { downloadPresentation } from '@/utils/generatePresentation'
 
 // Слова для анимации
 const rotatingWords = [
@@ -28,7 +29,7 @@ export function Hero() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const [contactTag, setContactTag] = useState('')
   const [wordIndex, setWordIndex] = useState(0)
-  const { t } = useLocale()
+  const { t, language } = useLocale()
   
   // Смена слова каждые 2 секунды
   useEffect(() => {
@@ -143,6 +144,17 @@ export function Hero() {
                 {t('hero.ctaDemo')}
               </Button>
             </div>
+            
+            {/* Скачать презентацию */}
+            <button
+              onClick={() => downloadPresentation({ language: language as 'ru' | 'en' })}
+              className="mt-4 inline-flex items-center gap-2 text-brand-darkBlue/60 hover:text-brand-blue transition-colors text-sm group"
+            >
+              <FileText className="h-4 w-4" />
+              <span className="underline underline-offset-2 decoration-brand-darkBlue/30 group-hover:decoration-brand-blue">
+                {t('hero.downloadPresentation')}
+              </span>
+            </button>
           </motion.div>
 
           {/* Stats */}
