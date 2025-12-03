@@ -164,57 +164,125 @@ async function sendToAmoCRM(params: {
   }
 }) {
   const { subdomain, accessToken, lead } = params
-  
-  // Создаём контакт
-  const contactResponse = await fetch(`https://${subdomain}.amocrm.ru/api/v4/contacts`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify([{
+  const baseUrl = `https://${subdomain}.amocrm.ru/api/v4`
+  const headers = {
+    'Authorization': `Bearer ${accessToken}`,
+    'Content-Type': 'application/json',
+  }
+
+  console.log('amoCRM: Starting integration...')
+  console.log('amoCRM: Subdomain:', subdomain)
+
+  try {
+    // Шаг 1: Создаём сделку (лид) с неразобранным статусом
+    const leadPayload = [{
+      name: lead.name,
+      created_at: Math.floor(Date.now() / 1000),
+      _embedded: {
+        tags: lead.tag ? [{ name: lead.tag }, { name: 'Сайт' }] : [{ name: 'Сайт' }]
+      }
+    }]
+
+    console.log('amoCRM: Creating lead...', JSON.stringify(leadPayload))
+
+    const leadResponse = await fetch(`${baseUrl}/leads`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(leadPayload)
+    })
+
+    const leadResult = await leadResponse.json()
+    console.log('amoCRM: Lead response:', JSON.stringify(leadResult))
+
+    if (!leadResponse.ok) {
+      console.error('amoCRM: Lead creation failed:', leadResult)
+      return { error: 'Lead creation failed', details: leadResult }
+    }
+
+    const leadId = leadResult?._embedded?.leads?.[0]?.id
+    console.log('amoCRM: Lead created with ID:', leadId)
+
+    // Шаг 2: Создаём контакт
+    const contactPayload = [{
       name: lead.name.replace('Заявка с сайта: ', ''),
       custom_fields_values: [
         {
           field_code: 'PHONE',
-          values: [{ value: lead.phone, enum_code: 'WORK' }]
+          values: [{ 
+            value: lead.phone,
+            enum_code: 'WORK'
+          }]
         },
         ...(lead.email ? [{
-          field_code: 'EMAIL',
-          values: [{ value: lead.email, enum_code: 'WORK' }]
-        }] : []),
-        ...(lead.company ? [{
-          field_code: 'COMPANY',
-          values: [{ value: lead.company }]
+          field_code: 'EMAIL', 
+          values: [{ 
+            value: lead.email,
+            enum_code: 'WORK'
+          }]
         }] : [])
       ]
-    }])
-  })
+    }]
 
-  const contactData = await contactResponse.json()
-  const contactId = contactData?._embedded?.contacts?.[0]?.id
+    console.log('amoCRM: Creating contact...', JSON.stringify(contactPayload))
 
-  // Создаём сделку
-  const leadData = await fetch(`https://${subdomain}.amocrm.ru/api/v4/leads`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify([{
-      name: lead.name,
-      _embedded: {
-        contacts: contactId ? [{ id: contactId }] : undefined
-      },
-      custom_fields_values: [
-        {
-          field_id: 0, // Замените на реальный ID поля для ID заявки
-          values: [{ value: lead.leadId }]
-        }
-      ],
-      _tags: lead.tag ? [{ name: lead.tag }] : undefined
-    }])
-  })
+    const contactResponse = await fetch(`${baseUrl}/contacts`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(contactPayload)
+    })
 
-  return await leadData.json()
+    const contactResult = await contactResponse.json()
+    console.log('amoCRM: Contact response:', JSON.stringify(contactResult))
+
+    const contactId = contactResult?._embedded?.contacts?.[0]?.id
+    console.log('amoCRM: Contact created with ID:', contactId)
+
+    // Шаг 3: Связываем контакт со сделкой
+    if (leadId && contactId) {
+      console.log('amoCRM: Linking contact to lead...')
+      
+      const linkResponse = await fetch(`${baseUrl}/leads/${leadId}/link`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify([{
+          to_entity_id: contactId,
+          to_entity_type: 'contacts'
+        }])
+      })
+
+      const linkResult = await linkResponse.json()
+      console.log('amoCRM: Link response:', JSON.stringify(linkResult))
+    }
+
+    // Шаг 4: Добавляем примечание с деталями
+    if (leadId) {
+      const noteText = `📌 ID заявки: ${lead.leadId}
+${lead.company ? `🏢 Компания: ${lead.company}` : ''}
+${lead.message ? `💬 Сообщение: ${lead.message}` : ''}
+📞 Телефон: ${lead.phone}
+${lead.email ? `📧 Email: ${lead.email}` : ''}`
+
+      await fetch(`${baseUrl}/leads/${leadId}/notes`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify([{
+          note_type: 'common',
+          params: {
+            text: noteText
+          }
+        }])
+      })
+    }
+
+    return { 
+      success: true, 
+      leadId, 
+      contactId,
+      message: 'Lead and contact created successfully'
+    }
+
+  } catch (error) {
+    console.error('amoCRM: Error:', error)
+    return { error: String(error) }
+  }
 }
