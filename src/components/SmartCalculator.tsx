@@ -164,7 +164,7 @@ export function SmartCalculator() {
   
   // ROI параметры
   const [roiScenario, setRoiScenario] = useState<ROIScenario>('switch')
-  const [aggregatorFee, setAggregatorFee] = useState(20)
+  const [aggregatorFee, setAggregatorFee] = useState(30)
   const [operatorsCount, setOperatorsCount] = useState(2)
   const [operatorSalary, setOperatorSalary] = useState(5000000)
   const [marketingBudget, setMarketingBudget] = useState(5000000)
@@ -689,7 +689,96 @@ export function SmartCalculator() {
         {t('calc2.back')}
       </button>
       
-      {/* Компактный калькулятор: Ситуация + Параметры + Функционал */}
+      {/* Параметры бизнеса - отдельный блок над калькулятором */}
+      <div className="bg-gradient-to-r from-brand-lightBlue/30 to-brand-lightTeal/20 rounded-2xl p-4 mb-6 shadow-sm border border-brand-lightTeal/30">
+        <div className="flex items-center gap-2 mb-3">
+          <Calculator className="h-5 w-5 text-brand-blue" />
+          <span className="font-bold text-brand-darkBlue">{t('calc2.businessParams')}</span>
+        </div>
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+          {/* Филиалы */}
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-brand-darkBlue/70">{t('calc2.branches')}:</span>
+            <div className="flex items-center gap-1 bg-white rounded-lg px-2 py-1 shadow-sm">
+              <button 
+                onClick={() => setBranches(Math.max(1, branches - 1))}
+                className="w-7 h-7 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
+              >
+                <Minus className="h-3 w-3" />
+              </button>
+              <span className="text-base font-bold text-brand-darkBlue w-8 text-center">{branches}</span>
+              <button 
+                onClick={() => setBranches(branches + 1)}
+                className="w-7 h-7 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
+              >
+                <Plus className="h-3 w-3" />
+              </button>
+            </div>
+          </div>
+          
+          {/* Бренды */}
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-brand-darkBlue/70">{t('calc2.brands')}:</span>
+            <div className="flex items-center gap-1 bg-white rounded-lg px-2 py-1 shadow-sm">
+              <button 
+                onClick={() => setBrands(Math.max(1, brands - 1))}
+                className="w-7 h-7 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
+              >
+                <Minus className="h-3 w-3" />
+              </button>
+              <span className="text-base font-bold text-brand-darkBlue w-8 text-center">{brands}</span>
+              <button 
+                onClick={() => setBrands(brands + 1)}
+                className="w-7 h-7 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
+              >
+                <Plus className="h-3 w-3" />
+              </button>
+            </div>
+          </div>
+          
+          {/* Заказы */}
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-brand-darkBlue/70">{t('calc2.ordersPerMonth')}:</span>
+            <div className="flex items-center gap-1 bg-white rounded-lg px-2 py-1 shadow-sm">
+              <button 
+                onClick={() => setMonthlyOrders(Math.max(100, monthlyOrders - 500))}
+                className="w-7 h-7 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
+              >
+                <Minus className="h-3 w-3" />
+              </button>
+              <span className="text-base font-bold text-brand-darkBlue min-w-[60px] text-center">{monthlyOrders.toLocaleString()}</span>
+              <button 
+                onClick={() => setMonthlyOrders(monthlyOrders + 500)}
+                className="w-7 h-7 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
+              >
+                <Plus className="h-3 w-3" />
+              </button>
+            </div>
+          </div>
+          
+          {/* Средний чек */}
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-brand-darkBlue/70">{t('calc2.avgCheck')}:</span>
+            <div className="flex items-center gap-1 bg-white rounded-lg px-2 py-1 shadow-sm">
+              <button 
+                onClick={() => setAvgCheck(Math.max(10000, avgCheck - 10000))}
+                className="w-7 h-7 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
+              >
+                <Minus className="h-3 w-3" />
+              </button>
+              <span className="text-sm font-bold text-brand-darkBlue min-w-[80px] text-center">{formatPrice(avgCheck)}</span>
+              <button 
+                onClick={() => setAvgCheck(avgCheck + 10000)}
+                className="w-7 h-7 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
+              >
+                <Plus className="h-3 w-3" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Тарифы */}
       <div className="bg-white rounded-2xl shadow-sm border border-brand-lightTeal/20 overflow-hidden">
         {/* Контекст ситуации - компактный хедер */}
         {situation && (
@@ -702,93 +791,7 @@ export function SmartCalculator() {
           </div>
         )}
         
-        {/* Параметры бизнеса - компактная строка */}
-        <div className="px-4 py-3 bg-brand-lightBlue/10 border-b border-brand-lightTeal/20">
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            {/* Филиалы */}
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-brand-darkBlue/60">{t('calc2.branches')}:</span>
-              <div className="flex items-center gap-1 bg-white rounded-lg px-1">
-                <button 
-                  onClick={() => setBranches(Math.max(1, branches - 1))}
-                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
-                >
-                  <Minus className="h-3 w-3" />
-                </button>
-                <span className="text-sm font-bold text-brand-darkBlue w-6 text-center">{branches}</span>
-                <button 
-                  onClick={() => setBranches(branches + 1)}
-                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
-                >
-                  <Plus className="h-3 w-3" />
-                </button>
-              </div>
-            </div>
-            
-            {/* Бренды */}
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-brand-darkBlue/60">{t('calc2.brands')}:</span>
-              <div className="flex items-center gap-1 bg-white rounded-lg px-1">
-                <button 
-                  onClick={() => setBrands(Math.max(1, brands - 1))}
-                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
-                >
-                  <Minus className="h-3 w-3" />
-                </button>
-                <span className="text-sm font-bold text-brand-darkBlue w-6 text-center">{brands}</span>
-                <button 
-                  onClick={() => setBrands(brands + 1)}
-                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
-                >
-                  <Plus className="h-3 w-3" />
-                </button>
-              </div>
-            </div>
-            
-            {/* Заказы */}
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-brand-darkBlue/60">{t('calc2.ordersPerMonth')}:</span>
-              <div className="flex items-center gap-1 bg-white rounded-lg px-1">
-                <button 
-                  onClick={() => setMonthlyOrders(Math.max(100, monthlyOrders - 500))}
-                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
-                >
-                  <Minus className="h-3 w-3" />
-                </button>
-                <span className="text-sm font-bold text-brand-darkBlue min-w-[50px] text-center">{monthlyOrders.toLocaleString()}</span>
-                <button 
-                  onClick={() => setMonthlyOrders(monthlyOrders + 500)}
-                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
-                >
-                  <Plus className="h-3 w-3" />
-                </button>
-              </div>
-            </div>
-            
-            {/* Средний чек */}
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-brand-darkBlue/60">{t('calc2.avgCheck')}:</span>
-              <div className="flex items-center gap-1 bg-white rounded-lg px-1">
-                <button 
-                  onClick={() => setAvgCheck(Math.max(10000, avgCheck - 10000))}
-                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
-                >
-                  <Minus className="h-3 w-3" />
-                </button>
-                <span className="text-xs font-bold text-brand-darkBlue min-w-[70px] text-center">{formatPrice(avgCheck)}</span>
-                <button 
-                  onClick={() => setAvgCheck(avgCheck + 10000)}
-                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
-                >
-                  <Plus className="h-3 w-3" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Тарифы - внутри объединённого блока */}
-        <div className="px-4 pb-4">
+        <div className="px-4 py-4">
           <div className="flex items-center gap-2 mb-3">
             <Sparkles className="h-4 w-4 text-brand-yellow" />
             <span className="text-sm font-bold text-brand-darkBlue">{t('calc2.selectPlan')}</span>
@@ -1119,7 +1122,7 @@ export function SmartCalculator() {
             }
             
             return (
-              <label
+                <label
                 key={module.id}
                 className={`p-3 rounded-xl cursor-pointer transition-all flex items-center justify-between ${
                   isSelected 
@@ -1144,7 +1147,11 @@ export function SmartCalculator() {
                   </div>
                 </div>
                 <div className="font-bold text-brand-darkBlue text-sm">
-                  {formatPrice(basePrice * multiplier)}
+                  {basePrice === 0 ? (
+                    <span className="text-brand-green">{t('calc2.freeGift')}</span>
+                  ) : (
+                    formatPrice(basePrice * multiplier)
+                  )}
                 </div>
               </label>
             )
@@ -1432,14 +1439,32 @@ export function SmartCalculator() {
             </div>
           </div>
           
-          {roi.switchSavings > 0 && roiScenario === 'switch' && (
-            <div className="mt-4 p-4 bg-emerald-50 rounded-xl border border-emerald-200">
-              <div className="flex items-center justify-between">
-                <span className="text-emerald-800 font-medium">{t('calc2.yourBenefit')}</span>
-                <span className="text-xl font-bold text-emerald-600">+{formatPrice(roi.switchSavings)}/{t('calc2.month')}</span>
-              </div>
-            </div>
-          )}
+          {/* Общая экономия */}
+          {(() => {
+            // Считаем общую экономию: ROI + скидки на модули
+            const moduleSavings = aggregatorsDiscount.savings + deliveryServicesDiscount.savings
+            const totalSavings = (roi.switchSavings > 0 ? roi.switchSavings : 0) + moduleSavings
+            
+            if (totalSavings > 0) {
+              return (
+                <div className="mt-4 p-4 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl border border-emerald-200">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-emerald-800 font-bold">{t('calc2.totalSavingsLabel')}</span>
+                    <span className="text-2xl font-bold text-emerald-600">+{formatPrice(totalSavings)}/{t('calc2.month')}</span>
+                  </div>
+                  <div className="text-xs text-emerald-600/70">
+                    {t('calc2.totalSavingsHint')}
+                  </div>
+                  {totalSavings > 0 && (
+                    <div className="mt-2 pt-2 border-t border-emerald-200/50 text-sm text-emerald-700">
+                      {t('calc2.yearSavings')}: <span className="font-bold">{formatPrice(totalSavings * 12)}</span>
+                    </div>
+                  )}
+                </div>
+              )
+            }
+            return null
+          })()}
         </div>
         
         {/* CTA */}
