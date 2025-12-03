@@ -1401,17 +1401,12 @@ export function SmartCalculator() {
                     <span className="text-sm font-medium text-brand-darkBlue">{t(category.category)}</span>
                   </div>
                   <ul className="space-y-1">
-                    {category.features.slice(0, 3).map((feature, idx) => (
+                    {category.features.map((feature, idx) => (
                       <li key={idx} className="text-xs text-brand-darkBlue/60 flex items-center gap-1">
-                        <span className="w-1 h-1 bg-brand-green rounded-full" />
+                        <span className="w-1 h-1 bg-brand-green rounded-full flex-shrink-0" />
                         {t(feature)}
                       </li>
                     ))}
-                    {category.features.length > 3 && (
-                      <li className="text-xs text-brand-darkBlue/40">
-                        +{category.features.length - 3} {t('calc2.more')}
-                      </li>
-                    )}
                   </ul>
                 </div>
               )
