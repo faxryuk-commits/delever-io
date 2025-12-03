@@ -326,6 +326,23 @@ export function SmartCalculator() {
   
   const aggregatorsDiscount = getAggregatorsDiscount()
   
+  // Проверка скидки на службы доставки
+  const getDeliveryServicesDiscount = () => {
+    const singleServices = ['yandexDelivery', 'woltDrive', 'taxiMillennium', 'noor']
+    const selectedSingle = selectedModules.filter(m => singleServices.includes(m))
+    if (selectedSingle.length >= 2 && !selectedModules.includes('allDeliveryServices')) {
+      // Показываем что "Все" дешевле
+      const singleTotal = selectedSingle.length * getPrice(195000, 30) * branches
+      const allPrice = getPrice(520000, 80) * branches
+      if (allPrice < singleTotal) {
+        return { show: true, savings: singleTotal - allPrice }
+      }
+    }
+    return { show: false, savings: 0 }
+  }
+  
+  const deliveryServicesDiscount = getDeliveryServicesDiscount()
+  
   // Генерация детальной сметы
   const getInvoiceItems = () => {
     const items: { name: string; qty?: string; price: number }[] = []
@@ -952,6 +969,15 @@ export function SmartCalculator() {
             )
           })}
         </div>
+        
+        {deliveryServicesDiscount.show && (
+          <div className="mt-3 p-2 bg-green-100 rounded-lg border border-green-200 flex items-center gap-2">
+            <BadgePercent className="h-4 w-4 text-green-600" />
+            <span className="text-sm text-green-800 font-medium">
+              {t('calc2.saveTip')} — {t('calc2.savingsAmount')}: {formatPrice(deliveryServicesDiscount.savings)}
+            </span>
+          </div>
+        )}
       </div>
       
       {/* Киоск как отдельный продукт */}
