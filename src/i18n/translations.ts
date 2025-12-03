@@ -3567,13 +3567,21 @@ export const translations: Record<Language, Record<string, string>> = {
     'faq.title': 'Ko\'p beriladigan savollar',
     'faq.subtitle': 'Delever platformasi haqida mashhur savollarga javoblar',
     'faq.q1': 'Ulash qancha turadi?',
+    'faq.a1': 'Narx tanlangan tarif va nuqtalar soniga bog\'liq. Asosiy tarif bitta nuqta uchun oyiga $99 dan boshlanadi. Aniq hisob-kitob uchun biz bilan bog\'laning — biznesingiz uchun optimal tarifni tanlaymiz.',
     'faq.q2': 'Sozlash qancha vaqt oladi?',
+    'faq.a2': 'Standart sozlash 7-14 kun davom etadi. Bu vaqt ichida sotuv kanallarini ulaymiz, POS-tizimingiz bilan integratsiyalaymiz, menyuni sozlaymiz va jamoangizni o\'rgatamiz. Kerak bo\'lsa jarayonni tezlashtirishimiz mumkin.',
     'faq.q3': 'Qaysi sotuv kanallarini ishga tushirish mumkin?',
+    'faq.a3': 'Delever barcha asosiy kanallarni qo\'llab-quvvatlaydi: Telegram-bot, veb-sayt, mobil ilova (iOS/Android), QR-menyu, kiosklar va call-markaz. Barcha kanallar yagona platformada umumiy katalog va mijozlar bazasi bilan ishlaydi.',
     'faq.q4': 'Delever qaysi POS-tizimlar bilan integratsiyalanadi?',
+    'faq.a4': 'Mashhur POS-tizimlar bilan integratsiyalaymiz: iiko, R-Keeper/Syrve, Poster, Paloma va boshqalar. Integratsiya API orqali avtomatik amalga oshiriladi — buyurtmalar kassangizga qo\'lda kiritmasdan to\'g\'ridan-to\'g\'ri tushadi.',
     'faq.q5': 'Agregatorlardan buyurtmalar qanday ishlaydi?',
+    'faq.a5': 'Delever barcha mashhur agregatorlardan buyurtmalarni qabul qiladi: Wolt, Yandex Eats, Uzum Tezkor va boshqalar. Barcha buyurtmalar yagona Delever oynasiga keladi — endi oshxonada bir nechta planshet saqlash shart emas.',
     'faq.q6': 'Qaysi to\'lov usullari qo\'llab-quvvatlanadi?',
+    'faq.a6': 'Barcha mashhur to\'lov tizimlari qo\'llab-quvvatlanadi: Click, Payme, Uzum va boshqalar. Mijozlar karta, elektron hamyon yoki buyurtmani olishda naqd pul bilan to\'lashlari mumkin.',
     'faq.q7': 'Qanday tahlil mavjud?',
+    'faq.a7': 'Platformaga kuchli tahlil kiritilgan: egalar va menejerlar uchun dashboardlar, mahsulotlarning ABC-XYZ tahlili, kanallar, kuryerlar va nuqtalar bo\'yicha KPI. Barcha ma\'lumotlar real vaqtda yangilanadi.',
     'faq.q8': 'Sodiqlik tizimi bormi?',
+    'faq.a8': 'Ha, Delever to\'liq sodiqlik tizimini o\'z ichiga oladi: bonus dasturlari, promokodlar, shaxsiy takliflar, mijozlarning RFM-tahlili va o\'rtacha chekni oshirish uchun avtomatik trigger jo\'natmalar.',
     
     // CTA Section
     'cta.title': 'Tizimingizni ishga tushirishga tayyormisiz?',
@@ -3586,6 +3594,18 @@ export const translations: Record<Language, Record<string, string>> = {
     'cta.noHiddenFees': 'Yashirin to\'lovlarsiz',
     'cta.cancelAnytime': 'Istalgan vaqtda bekor qilish',
     'cta.getDemo': 'Demo olish',
+    
+    // Final CTA (bottom hero)
+    'finalCta.title': 'Tizimingizni ishga tushirishga tayyormisiz?',
+    'finalCta.subtitle': 'Delever bilan allaqachon o\'sayotgan 1000+ bizneslarga qo\'shiling',
+    'finalCta.benefit1': '1 kunda ishga tushirish',
+    'finalCta.benefit2': 'Bepul sinov davri',
+    'finalCta.benefit3': '24/7 qo\'llab-quvvatlash',
+    'finalCta.startButton': 'Tizimni ishga tushirish',
+    'finalCta.consultButton': 'Maslahat olish',
+    'finalCta.guarantee1': 'Yashirin to\'lovlarsiz',
+    'finalCta.guarantee2': 'Istalgan vaqtda bekor qilish',
+    'finalCta.guarantee3': 'SLA 99.9%',
     
     // Trusted By
     'trustedBy.title': 'Millionlar ularga ishonadi, ular esa bizga ishonadi',
