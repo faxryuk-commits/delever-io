@@ -8,12 +8,13 @@ import { ScrollToTop } from './components/ScrollToTop'
 import { ChatWidget } from './components/ChatWidget'
 import { CookieConsent } from './components/CookieConsent'
 import { SEO } from './components/SEO'
+import { Analytics as GoogleAnalytics } from './components/Analytics'
 import { Home } from './pages/Home'
 import { Products } from './pages/Products'
 import { Pricing } from './pages/Pricing'
 import { Channels } from './pages/products/Channels'
 import { Operations } from './pages/products/Operations'
-import { Analytics } from './pages/products/Analytics'
+import { Analytics as AnalyticsPage } from './pages/products/Analytics'
 import { Marketing } from './pages/products/Marketing'
 import { Integrations } from './pages/Integrations'
 import { Partners } from './pages/Partners'
@@ -29,6 +30,7 @@ function App() {
         <BrowserRouter>
         <ScrollToTop />
         <SEO />
+        <GoogleAnalytics measurementId="G-CWX242TQDH" />
         <div className="min-h-screen flex flex-col bg-white">
             <Header />
             <main className="flex-1">
@@ -37,7 +39,7 @@ function App() {
                 <Route path="/products" element={<Products />} />
                 <Route path="/products/channels" element={<Channels />} />
                 <Route path="/products/operations" element={<Operations />} />
-                <Route path="/products/analytics" element={<Analytics />} />
+                <Route path="/products/analytics" element={<AnalyticsPage />} />
                 <Route path="/products/marketing" element={<Marketing />} />
                 <Route path="/pricing" element={<Pricing />} />
                 <Route path="/integrations" element={<Integrations />} />

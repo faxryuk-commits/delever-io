@@ -11,6 +11,7 @@ import { Textarea } from './ui/Textarea'
 import { Button } from './ui/Button'
 import { useLocale } from '@/i18n/LocaleContext'
 import { AlertCircle, CheckCircle2 } from 'lucide-react'
+import { trackEvents } from './Analytics'
 
 interface ContactFormProps {
   open: boolean
@@ -154,6 +155,10 @@ export function ContactForm({ open, onOpenChange, tag }: ContactFormProps) {
 
       setSubmitSuccess(true)
       setFormData({ name: '', phone: '', email: '', company: '', message: '' })
+      
+      // Отслеживание конверсии в Google Analytics
+      trackEvents.contactFormSubmit(tag || 'general')
+      
       setTimeout(() => onOpenChange(false), 2000)
     } catch (error) {
       console.error('Error submitting form:', error)

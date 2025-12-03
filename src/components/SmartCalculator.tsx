@@ -32,6 +32,7 @@ import {
 import { Button } from './ui/Button'
 import { ContactForm } from './ContactForm'
 import { useLocale } from '@/i18n/LocaleContext'
+import { trackEvents } from './Analytics'
 
 // Типы ситуаций
 type Situation = 'commissions' | 'manual' | 'fragmented' | 'migrate' | 'scratch'
@@ -371,6 +372,9 @@ export function SmartCalculator() {
   
   // Генерация КП
   const downloadInvoice = async () => {
+    // Отслеживание в Google Analytics
+    trackEvents.downloadProposal(selectedPlan.name, totalMonthlyCost)
+    
     const isEn = language === 'en'
     const date = new Date().toLocaleDateString(isEn ? 'en-US' : 'ru-RU')
     const invoiceNumber = `DEL-${Date.now().toString().slice(-8)}`
