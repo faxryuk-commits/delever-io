@@ -208,7 +208,7 @@ export function About() {
             <MapPin className="h-6 w-6 text-brand-darkBlue" />
             <h3 className="text-xl font-bold text-brand-darkBlue">{t('about.geography')}</h3>
           </div>
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
             {countries.map((country, idx) => (
               <motion.div 
                 key={idx}
@@ -229,6 +229,28 @@ export function About() {
               </motion.div>
             ))}
           </div>
+          
+          {/* Карта покрытия Delever */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ delay: 0.9 }}
+            className="bg-white rounded-xl overflow-hidden shadow-lg"
+          >
+            <div className="p-4 border-b border-gray-100">
+              <h4 className="font-semibold text-brand-darkBlue text-center">
+                {t('about.coverageMap')}
+              </h4>
+            </div>
+            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+              <iframe 
+                src="https://datalens.yandex/eurdibfb0zyqz"
+                className="absolute inset-0 w-full h-full border-0"
+                title="Delever Coverage Map"
+                allowFullScreen
+              />
+            </div>
+          </motion.div>
         </motion.div>
       </section>
 

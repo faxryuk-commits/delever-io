@@ -894,6 +894,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'about.result': 'Результат',
     'about.resultDesc': 'Рост выручки, снижение издержек',
     'about.geography': 'География',
+    'about.coverageMap': 'Карта локаций наших брендов',
     'about.office': 'Офис в Ташкенте',
     'about.openMap': 'Открыть на карте',
     
@@ -2222,6 +2223,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'about.result': 'Results',
     'about.resultDesc': 'Revenue growth, cost reduction',
     'about.geography': 'Geography',
+    'about.coverageMap': 'Map of our brand locations',
     'about.office': 'Office in Tashkent',
     'about.openMap': 'Open on map',
     
@@ -3037,6 +3039,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'about.values.result': 'Natija',
     'about.values.resultDesc': 'Daromad o\'sishi, xarajatlar kamayishi',
     'about.geography': 'Geografiya',
+    'about.coverageMap': 'Brendlarimiz joylashuvi xaritasi',
     'about.office': 'Toshkent ofisi',
     'about.officeAddress': 'Toshkent, Amir Temur 129B',
     'about.openOnMap': 'Xaritada ochish',
