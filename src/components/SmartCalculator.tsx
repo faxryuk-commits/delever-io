@@ -138,11 +138,11 @@ export function SmartCalculator() {
   const [situation, setSituation] = useState<Situation | null>(null)
   
   // Параметры бизнеса
-  const [branches, setBranches] = useState(3)
+  const [branches, setBranches] = useState(1)
   const [brands, setBrands] = useState(1)
   const [kiosks, setKiosks] = useState(0)
-  const [monthlyOrders, setMonthlyOrders] = useState(2000)
-  const [avgCheck, setAvgCheck] = useState(80000)
+  const [monthlyOrders, setMonthlyOrders] = useState(500)
+  const [avgCheck, setAvgCheck] = useState(50000)
   
   // Тариф
   const [selectedPlanId, setSelectedPlanId] = useState('medium')
@@ -159,7 +159,7 @@ export function SmartCalculator() {
   const [operatorSalary, setOperatorSalary] = useState(5000000)
   const [marketingBudget, setMarketingBudget] = useState(5000000)
   const [courierSalary, setCourierSalary] = useState(4000000)
-  const [couriersCount, setCouriersCount] = useState(3)
+  const [couriersCount, setCouriersCount] = useState(1)
   
   // Получить цену в правильной валюте
   const getPrice = (priceUZS: number, priceUSD: number) => {
