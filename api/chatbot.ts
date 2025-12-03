@@ -267,12 +267,15 @@ export default async function handler(req: Request): Promise<Response> {
       const errorText = await openaiResponse.text()
       console.error('OpenAI ERROR:', openaiResponse.status, errorText)
       
+      // Возвращаем ошибку для отладки
       return new Response(JSON.stringify({
-        success: true,
+        success: false,
+        error: 'OpenAI failed',
+        debug: {
+          status: openaiResponse.status,
+          error: errorText.substring(0, 200)
+        },
         message: getOfflineResponse(message),
-        intent: 'info',
-        leadScore: 30,
-        requestContact: false,
         source
       }), {
         status: 200,
