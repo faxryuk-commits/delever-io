@@ -15,22 +15,22 @@ interface PresentationData {
   }
 }
 
-// Примеры реализованных проектов
+// Примеры реализованных проектов с логотипами
 const clientExamples = {
   websites: [
-    { name: 'Yaponamama', url: 'yaponamama.uz' },
-    { name: 'Maxway', url: 'maxway.uz' },
-    { name: 'Kamolon Osh', url: 'kamolonosh.uz' },
-    { name: "Hardee's", url: 'hardees.delever.uz' },
-    { name: 'Pizza Hut', url: 'pizzahutuz.delever.uz' },
-    { name: 'Cheeseria (KZ)', url: 'cheeseria.delever.kz' },
+    { name: 'Yaponamama', url: 'yaponamama.uz', logo: 'https://yaponamama.uz/images/logo.jpg' },
+    { name: 'Maxway', url: 'maxway.uz', logo: 'https://maxway.uz/favicon.ico' },
+    { name: 'Kamolon Osh', url: 'kamolonosh.uz', logo: 'https://kamolonosh.uz/images/logo.svg' },
+    { name: "Hardee's", url: 'hardees.delever.uz', logo: 'https://cdn.delever.uz/delever/hardees_logo.png' },
+    { name: 'Pizza Hut', url: 'pizzahutuz.delever.uz', logo: 'https://cdn.delever.uz/delever/pizzahut_logo.png' },
+    { name: 'Cheeseria', url: 'cheeseria.delever.kz', logo: 'https://cheeseria.delever.kz/favicon.ico' },
   ],
   apps: [
-    { name: 'Yaponamama', platform: 'iOS & Android' },
-    { name: 'Maxway', platform: 'iOS & Android' },
-    { name: 'Chicago Pizza', platform: 'iOS' },
-    { name: 'Takumi Sushi', platform: 'iOS' },
-    { name: 'Zoo Planeta', platform: 'iOS' },
+    { name: 'Yaponamama', platform: 'iOS & Android', logo: 'https://yaponamama.uz/images/logo.jpg' },
+    { name: 'Maxway', platform: 'iOS & Android', logo: 'https://maxway.uz/favicon.ico' },
+    { name: 'Chicago Pizza', platform: 'iOS', logo: 'https://cdn.delever.uz/delever/chicago_logo.png' },
+    { name: 'Takumi Sushi', platform: 'iOS', logo: 'https://cdn.delever.uz/delever/takumi_logo.png' },
+    { name: 'Zoo Planeta', platform: 'iOS', logo: 'https://zooplaneta.delever.uz/favicon.ico' },
   ],
 }
 
@@ -976,14 +976,17 @@ export function generatePresentation(data: PresentationData): string {
     </div>
     <div class="grid-2">
       ${[
-        { name: 'Yaponamama', result: isRu ? '+45% повторных заказов' : '+45% repeat orders' },
-        { name: 'Maxway', result: isRu ? '60% заказов через свои каналы' : '60% orders via own channels' },
-        { name: 'Chicago Pizza', result: isRu ? '+35% средний чек' : '+35% average check' },
-        { name: 'Kamolon Osh', result: isRu ? 'Экономия 8 млн сум/мес' : '$700/mo savings' },
+        { name: 'Yaponamama', result: isRu ? '+45% повторных заказов' : '+45% repeat orders', logo: 'https://yaponamama.uz/images/logo.jpg' },
+        { name: 'Maxway', result: isRu ? '60% заказов через свои каналы' : '60% orders via own channels', logo: 'https://maxway.uz/favicon.ico' },
+        { name: 'Chicago Pizza', result: isRu ? '+35% средний чек' : '+35% average check', logo: 'https://cdn.delever.uz/delever/chicago_logo.png' },
+        { name: 'Kamolon Osh', result: isRu ? 'Экономия 8 млн сум/мес' : '$700/mo savings', logo: 'https://kamolonosh.uz/images/logo.svg' },
       ].map(c => `
-        <div class="card" style="display: flex; justify-content: space-between; align-items: center;">
-          <span style="font-weight: 600;">${c.name}</span>
-          <span style="color: #10B981; font-weight: 600;">${c.result}</span>
+        <div class="card" style="display: flex; justify-content: space-between; align-items: center; padding: 16px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <img src="${c.logo}" alt="${c.name}" style="width: 36px; height: 36px; border-radius: 8px; object-fit: cover; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" onerror="this.style.display='none'">
+            <span style="font-weight: 600;">${c.name}</span>
+          </div>
+          <span style="color: #10B981; font-weight: 600; font-size: 14px;">${c.result}</span>
         </div>
       `).join('')}
     </div>
@@ -1002,9 +1005,12 @@ export function generatePresentation(data: PresentationData): string {
         <div style="font-weight: 600; margin-bottom: 16px;">🌐 ${t.websitesLabel}</div>
         <div class="grid-2" style="gap: 10px;">
           ${clientExamples.websites.map(c => `
-            <div style="padding: 10px; background: #f8fafc; border-radius: 8px;">
-              <div style="font-weight: 600; color: #002A47; font-size: 13px;">${c.name}</div>
-              <div style="font-size: 11px; color: #64748b;">${c.url}</div>
+            <div style="padding: 12px; background: #f8fafc; border-radius: 10px; display: flex; align-items: center; gap: 12px;">
+              <img src="${c.logo}" alt="${c.name}" style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" onerror="this.style.display='none'">
+              <div>
+                <div style="font-weight: 600; color: #002A47; font-size: 13px;">${c.name}</div>
+                <div style="font-size: 11px; color: #64748b;">${c.url}</div>
+              </div>
             </div>
           `).join('')}
         </div>
@@ -1013,9 +1019,12 @@ export function generatePresentation(data: PresentationData): string {
         <div style="font-weight: 600; margin-bottom: 16px;">📱 ${t.appsLabel}</div>
         <div class="grid-2" style="gap: 10px;">
           ${clientExamples.apps.map(c => `
-            <div style="padding: 10px; background: #f8fafc; border-radius: 8px;">
-              <div style="font-weight: 600; color: #002A47; font-size: 13px;">${c.name}</div>
-              <div style="font-size: 11px; color: #64748b;">${c.platform}</div>
+            <div style="padding: 12px; background: #f8fafc; border-radius: 10px; display: flex; align-items: center; gap: 12px;">
+              <img src="${c.logo}" alt="${c.name}" style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" onerror="this.style.display='none'">
+              <div>
+                <div style="font-weight: 600; color: #002A47; font-size: 13px;">${c.name}</div>
+                <div style="font-size: 11px; color: #64748b;">${c.platform}</div>
+              </div>
             </div>
           `).join('')}
         </div>
