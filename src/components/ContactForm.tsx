@@ -240,9 +240,13 @@ const validatePhone = (phone: string): string | undefined => {
   // Проверка на последовательные цифры (123456789, 987654321)
   if (/^(0123456789|1234567890|9876543210|0987654321)/.test(digitsOnly)) return 'invalid'
   
-  // Определение страны и валидация
+  // Для известных регионов - строгая валидация
+  // Для неизвестных - разрешаем (чтобы не терять заявки из других стран)
   const result = detectPhoneCountry(phone)
-  if (!result.isValid) {
+  
+  // Если страна определена, но есть ошибка (неверный оператор/длина) - показываем ошибку
+  // Если страна НЕ определена (unsupportedCountry) - разрешаем номер
+  if (!result.isValid && result.error !== 'unsupportedCountry') {
     return result.error || 'invalid'
   }
   
@@ -411,11 +415,11 @@ export function ContactForm({ open, onOpenChange, tag }: ContactFormProps) {
     value = value.replace(/[^\d\s\+\-\(\)]/g, '')
     setFormData(prev => ({ ...prev, phone: value }))
     
-    // Определяем страну
+    // Определяем страну (только для визуальной подсказки)
     const digitsOnly = value.replace(/\D/g, '')
     if (digitsOnly.length >= 10) {
       const country = getPhoneCountryInfo(value, language as 'ru' | 'en' | 'uz')
-      setDetectedCountry(country)
+      setDetectedCountry(country) // null если страна не определена - это ОК
     } else {
       setDetectedCountry(null)
     }
@@ -522,6 +526,11 @@ export function ContactForm({ open, onOpenChange, tag }: ContactFormProps) {
               <p className="mt-1 text-xs text-emerald-600 flex items-center gap-1">
                 <CheckCircle2 className="w-3 h-3" />
                 {detectedCountry}
+              </p>
+            ) : formData.phone.replace(/\D/g, '').length >= 10 && !errors.phone ? (
+              <p className="mt-1 text-xs text-blue-600 flex items-center gap-1">
+                <CheckCircle2 className="w-3 h-3" />
+                {t('form.phoneAccepted')}
               </p>
             ) : (
               <p className="mt-1 text-xs text-brand-darkBlue/40">{t('form.phoneHint')}</p>
