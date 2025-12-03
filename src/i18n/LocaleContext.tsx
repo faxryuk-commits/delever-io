@@ -16,13 +16,14 @@ function detectLanguage(): Language {
   const browserLang = navigator.language.toLowerCase().split('-')[0]
   
   if (browserLang === 'ru') return 'ru'
+  if (browserLang === 'uz') return 'uz'
   return 'en' // По умолчанию английский для остальных
 }
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>(() => {
     const saved = localStorage.getItem('delever_language')
-    if (saved === 'ru' || saved === 'en') return saved
+    if (saved === 'ru' || saved === 'en' || saved === 'uz') return saved
     return detectLanguage()
   })
 
@@ -52,7 +53,8 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   const countryConfig = countries[0] // UZ по умолчанию
 
   const formatPrice = (price: number, isAlreadyConverted = false): string => {
-    if (language === 'ru') {
+    // Русский и узбекский - цены в сумах
+    if (language === 'ru' || language === 'uz') {
       return `${price.toLocaleString('ru-RU')} ${countryConfig.currencySymbol}`
     }
     // Для английского: если цена уже в USD (isAlreadyConverted), не конвертируем

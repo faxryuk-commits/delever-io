@@ -22,6 +22,7 @@ export function LocaleSwitcher() {
   const languageFlags: Record<Language, string> = {
     ru: '🇷🇺',
     en: '🇬🇧',
+    uz: '🇺🇿',
   }
 
   return (

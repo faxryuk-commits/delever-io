@@ -33,11 +33,13 @@ function generateUrlEntry(page) {
   const fullUrl = `${baseUrl}${page.path}`;
   const ruUrl = page.path === '/' ? `${baseUrl}/?lang=ru` : `${baseUrl}${page.path}?lang=ru`;
   const enUrl = page.path === '/' ? `${baseUrl}/?lang=en` : `${baseUrl}${page.path}?lang=en`;
+  const uzUrl = page.path === '/' ? `${baseUrl}/?lang=uz` : `${baseUrl}${page.path}?lang=uz`;
   
   return `  <url>
     <loc>${fullUrl}</loc>
     <xhtml:link rel="alternate" hreflang="ru" href="${ruUrl}"/>
     <xhtml:link rel="alternate" hreflang="en" href="${enUrl}"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="${uzUrl}"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="${fullUrl}"/>
     <lastmod>${today}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
