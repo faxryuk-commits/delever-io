@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Button } from '../ui/Button'
 import { ContactForm } from '../ContactForm'
-import { ArrowRight, Play, Zap } from 'lucide-react'
+import { ArrowRight, Play } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLocale } from '@/i18n/LocaleContext'
 
@@ -62,18 +62,6 @@ export function Hero() {
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-brand-lightBlue/30 rounded-full blur-3xl -z-10" />
         
         <div className="container mx-auto max-w-6xl">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex justify-center mb-6"
-          >
-            <div className="inline-flex items-center gap-2 bg-brand-green/10 text-brand-green px-4 py-2 rounded-full text-sm font-medium">
-              <Zap className="h-4 w-4" />
-              {t('hero.badge')}
-            </div>
-          </motion.div>
-
           {/* Main content */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}

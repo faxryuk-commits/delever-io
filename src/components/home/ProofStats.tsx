@@ -4,11 +4,9 @@ import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { 
   Store, 
-  ShoppingCart, 
   Globe, 
   Zap,
-  TrendingUp,
-  Clock
+  TrendingUp
 } from 'lucide-react'
 import { useLocale } from '@/i18n/LocaleContext'
 
@@ -19,13 +17,6 @@ const stats = [
     value: 1000,
     suffix: '+',
     labelKey: 'stats.restaurants',
-  },
-  {
-    id: 'orders',
-    icon: ShoppingCart,
-    value: 25000,
-    suffix: '+',
-    labelKey: 'stats.ordersDaily',
   },
   {
     id: 'countries',
@@ -143,10 +134,6 @@ export function ProofStats() {
           <div className="flex items-center gap-2 text-white/80">
             <TrendingUp className="h-5 w-5 text-brand-green" />
             <span>{t('stats.benefit1')}</span>
-          </div>
-          <div className="flex items-center gap-2 text-white/80">
-            <Clock className="h-5 w-5 text-brand-yellow" />
-            <span>{t('stats.benefit2')}</span>
           </div>
         </motion.div>
       </div>

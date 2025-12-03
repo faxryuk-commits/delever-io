@@ -52,24 +52,23 @@ const moduleCategories = [
     id: 'aggregators',
     icon: Layers,
     modules: [
-      { id: 'uzum', nameKey: 'calc.module.uzum', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const },
-      { id: 'wolt', nameKey: 'calc.module.wolt', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const },
-      { id: 'yandex', nameKey: 'calc.module.yandex', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const },
-      { id: 'glovo', nameKey: 'calc.module.glovo', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const },
-      { id: 'bolt', nameKey: 'calc.module.bolt', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const },
-      { id: 'talabat', nameKey: 'calc.module.talabat', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const },
-      { id: 'allAggregators', nameKey: 'calc.module.allAggregators', priceUZS: 650000, priceUSD: 100, perType: 'branch' as const },
+      { id: 'uzum', nameKey: 'calc.module.uzum', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: 'https://play-lh.googleusercontent.com/7xKGO6z_L_YTi6lAi8qVL3oDxwODW7_x9x5xJF6uPxlrVJ0mCNPR6v6lqJzQhvR5VQ=w240-h480-rw' },
+      { id: 'wolt', nameKey: 'calc.module.wolt', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Wolt-Logo-Black.png/220px-Wolt-Logo-Black.png' },
+      { id: 'yandex', nameKey: 'calc.module.yandex', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: 'https://avatars.mds.yandex.net/get-bunker/60661/3dc0ffe47a5c7c4c33cd0f0e849a4a87bcb9b2a7/orig' },
+      { id: 'glovo', nameKey: 'calc.module.glovo', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: 'https://res.cloudinary.com/glovoapp/image/fetch/f_svg,h_50/https://glovoapp.com/images/glovo-logo.svg' },
+      { id: 'bolt', nameKey: 'calc.module.bolt', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Bolt_logo.png/220px-Bolt_logo.png' },
+      { id: 'allAggregators', nameKey: 'calc.module.allAggregators', priceUZS: 650000, priceUSD: 100, perType: 'branch' as const, logo: '' },
     ]
   },
   {
     id: 'deliveryServices',
     icon: Truck,
     modules: [
-      { id: 'yandexDelivery', nameKey: 'calc.module.yandexDelivery', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const },
-      { id: 'woltDrive', nameKey: 'calc.module.woltDrive', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const },
-      { id: 'taxiMillennium', nameKey: 'calc.module.taxiMillennium', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const },
-      { id: 'noor', nameKey: 'calc.module.noor', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const },
-      { id: 'allDeliveryServices', nameKey: 'calc.module.allDeliveryServices', priceUZS: 520000, priceUSD: 80, perType: 'branch' as const },
+      { id: 'yandexDelivery', nameKey: 'calc.module.yandexDelivery', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const, logo: 'https://avatars.mds.yandex.net/get-bunker/60661/3dc0ffe47a5c7c4c33cd0f0e849a4a87bcb9b2a7/orig' },
+      { id: 'woltDrive', nameKey: 'calc.module.woltDrive', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const, logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Wolt-Logo-Black.png/220px-Wolt-Logo-Black.png' },
+      { id: 'taxiMillennium', nameKey: 'calc.module.taxiMillennium', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const, logo: '' },
+      { id: 'noor', nameKey: 'calc.module.noor', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const, logo: '' },
+      { id: 'allDeliveryServices', nameKey: 'calc.module.allDeliveryServices', priceUZS: 520000, priceUSD: 80, perType: 'branch' as const, logo: '' },
     ]
   },
   {
@@ -268,7 +267,7 @@ export function SmartCalculator() {
   
   // Переключение модуля с логикой автозамены
   const toggleModule = (id: string) => {
-    const singleAggregators = ['uzum', 'wolt', 'yandex', 'glovo', 'bolt', 'talabat']
+    const singleAggregators = ['uzum', 'wolt', 'yandex', 'glovo', 'bolt']
     const singleDeliveryServices = ['yandexDelivery', 'woltDrive', 'taxiMillennium', 'noor']
     
     setSelectedModules(prev => {
@@ -316,7 +315,7 @@ export function SmartCalculator() {
   
   // Проверка скидки на агрегаторы
   const getAggregatorsDiscount = () => {
-    const singleAggregators = ['uzum', 'wolt', 'yandex', 'glovo', 'bolt', 'talabat']
+    const singleAggregators = ['uzum', 'wolt', 'yandex', 'glovo', 'bolt']
     const selectedSingle = selectedModules.filter(m => singleAggregators.includes(m))
     if (selectedSingle.length >= 2 && !selectedModules.includes('allAggregators')) {
       // Показываем что "Все" дешевле
@@ -719,6 +718,14 @@ export function SmartCalculator() {
               const isRecommended = monthlyOrders <= plan.orders && 
                 (basePlans.indexOf(plan) === 0 || monthlyOrders > basePlans[basePlans.indexOf(plan) - 1].orders)
               
+              // Градиенты для каждого тарифа
+              const planGradients: Record<string, string> = {
+                start: 'bg-gradient-to-br from-slate-50 to-blue-50',
+                medium: 'bg-gradient-to-br from-blue-50 to-indigo-50',
+                big: 'bg-gradient-to-br from-indigo-50 to-purple-50',
+                enterprise: 'bg-gradient-to-br from-purple-50 to-pink-50',
+              }
+              
               return (
                 <button
                   key={plan.id}
@@ -726,7 +733,7 @@ export function SmartCalculator() {
                   className={`relative p-3 rounded-xl border-2 text-left transition-all ${
                     isSelected 
                       ? 'border-brand-darkBlue bg-brand-darkBlue text-white shadow-lg' 
-                      : 'border-brand-lightTeal/30 bg-brand-lightBlue/10 hover:border-brand-darkBlue/30'
+                      : `border-brand-lightTeal/30 ${planGradients[plan.id]} hover:border-brand-darkBlue/30 hover:shadow-md`
                   }`}
                 >
                   {plan.popular && (
@@ -834,6 +841,9 @@ export function SmartCalculator() {
                   }`}
                 >
                   {isSelected && <Check className="h-4 w-4" />}
+                  {'logo' in module && module.logo && (
+                    <img src={module.logo} alt="" className="h-5 w-5 object-contain rounded" />
+                  )}
                   <span>{t(module.nameKey)}</span>
                   <span className={`text-xs font-bold ${isSelected ? 'text-white/90' : 'text-purple-600'}`}>
                     {formatPrice(basePrice * branches)}
@@ -888,6 +898,9 @@ export function SmartCalculator() {
                   }`}
                 >
                   {isSelected && <Check className="h-4 w-4" />}
+                  {'logo' in module && module.logo && (
+                    <img src={module.logo} alt="" className="h-5 w-5 object-contain rounded" />
+                  )}
                   <span>{t(module.nameKey)}</span>
                   <span className={`text-xs font-bold ${isSelected ? 'text-white/90' : 'text-teal-600'}`}>
                     {formatPrice(basePrice * branches)}
@@ -920,6 +933,13 @@ export function SmartCalculator() {
             <h3 className="text-lg font-bold text-brand-darkBlue flex items-center gap-2">
               <Store className="h-5 w-5 text-brand-orange" />
               {t('calc2.kioskProduct')}
+              <span className="relative group cursor-help">
+                <Info className="h-4 w-4 text-orange-400" />
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-brand-darkBlue text-white text-xs rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 w-64 text-center z-50 shadow-lg">
+                  {t('calc.module.kiosk.desc')}
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-brand-darkBlue"></div>
+                </div>
+              </span>
             </h3>
             <p className="text-sm text-brand-darkBlue/60 mt-1">{t('calc2.kioskProductDesc')}</p>
             <p className="text-xs text-orange-600 mt-1">
