@@ -820,24 +820,31 @@ export function SmartCalculator() {
             const isSelected = selectedModules.includes(module.id)
             const basePrice = getPrice(module.priceUZS, module.priceUSD)
             const isAll = module.id === 'allAggregators'
+            const descKey = `${module.nameKey}.desc`
             return (
-              <button
-                key={module.id}
-                onClick={() => toggleModule(module.id)}
-                className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${
-                  isSelected 
-                    ? isAll 
-                      ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg scale-105' 
-                      : 'bg-purple-600 text-white shadow-md'
-                    : 'bg-white text-brand-darkBlue hover:bg-purple-50 border border-purple-200'
-                }`}
-              >
-                {isSelected && <Check className="h-4 w-4" />}
-                <span>{t(module.nameKey)}</span>
-                <span className={`text-xs font-bold ${isSelected ? 'text-white/90' : 'text-purple-600'}`}>
-                  {formatPrice(basePrice * branches)}
-                </span>
-              </button>
+              <div key={module.id} className="relative group">
+                <button
+                  onClick={() => toggleModule(module.id)}
+                  className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${
+                    isSelected 
+                      ? isAll 
+                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg scale-105' 
+                        : 'bg-purple-600 text-white shadow-md'
+                      : 'bg-white text-brand-darkBlue hover:bg-purple-50 border border-purple-200'
+                  }`}
+                >
+                  {isSelected && <Check className="h-4 w-4" />}
+                  <span>{t(module.nameKey)}</span>
+                  <span className={`text-xs font-bold ${isSelected ? 'text-white/90' : 'text-purple-600'}`}>
+                    {formatPrice(basePrice * branches)}
+                  </span>
+                </button>
+                {/* Тултип с описанием */}
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-brand-darkBlue text-white text-xs rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50 shadow-lg">
+                  {t(descKey)}
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-brand-darkBlue"></div>
+                </div>
+              </div>
             )
           })}
         </div>
@@ -867,24 +874,31 @@ export function SmartCalculator() {
             const isSelected = selectedModules.includes(module.id)
             const basePrice = getPrice(module.priceUZS, module.priceUSD)
             const isAll = module.id === 'allDeliveryServices'
+            const descKey = `${module.nameKey}.desc`
             return (
-              <button
-                key={module.id}
-                onClick={() => toggleModule(module.id)}
-                className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${
-                  isSelected 
-                    ? isAll 
-                      ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white shadow-lg scale-105' 
-                      : 'bg-teal-600 text-white shadow-md'
-                    : 'bg-white text-brand-darkBlue hover:bg-teal-50 border border-teal-200'
-                }`}
-              >
-                {isSelected && <Check className="h-4 w-4" />}
-                <span>{t(module.nameKey)}</span>
-                <span className={`text-xs font-bold ${isSelected ? 'text-white/90' : 'text-teal-600'}`}>
-                  {formatPrice(basePrice * branches)}
-                </span>
-              </button>
+              <div key={module.id} className="relative group">
+                <button
+                  onClick={() => toggleModule(module.id)}
+                  className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${
+                    isSelected 
+                      ? isAll 
+                        ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white shadow-lg scale-105' 
+                        : 'bg-teal-600 text-white shadow-md'
+                      : 'bg-white text-brand-darkBlue hover:bg-teal-50 border border-teal-200'
+                  }`}
+                >
+                  {isSelected && <Check className="h-4 w-4" />}
+                  <span>{t(module.nameKey)}</span>
+                  <span className={`text-xs font-bold ${isSelected ? 'text-white/90' : 'text-teal-600'}`}>
+                    {formatPrice(basePrice * branches)}
+                  </span>
+                </button>
+                {/* Тултип с описанием */}
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-brand-darkBlue text-white text-xs rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50 shadow-lg">
+                  {t(descKey)}
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-brand-darkBlue"></div>
+                </div>
+              </div>
             )
           })}
         </div>
@@ -1023,6 +1037,7 @@ export function SmartCalculator() {
           {[...moduleCategories[2].modules, ...moduleCategories[3].modules].filter(m => m.id !== 'kiosk').map((module) => {
             const isSelected = selectedModules.includes(module.id)
             const basePrice = getPrice(module.priceUZS, module.priceUSD)
+            const descKey = `${module.nameKey}.desc`
             let multiplier = 1
             let label = ''
             
@@ -1038,38 +1053,47 @@ export function SmartCalculator() {
             }
             
             return (
+              <div key={module.id} className="relative group">
                 <label
-                key={module.id}
-                className={`p-3 rounded-xl cursor-pointer transition-all flex items-center justify-between ${
-                  isSelected 
-                    ? 'bg-brand-blue/10 border-2 border-brand-blue' 
-                    : 'bg-brand-lightBeige/30 border-2 border-transparent hover:border-brand-lightTeal'
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={isSelected}
-                    onChange={() => toggleModule(module.id)}
-                    className="w-4 h-4 rounded text-brand-blue"
-                  />
-                  <div>
-                    <div className="font-medium text-brand-darkBlue text-sm">{t(module.nameKey)}</div>
-                    {module.perType !== 'fixed' && (
-                      <div className="text-xs text-brand-darkBlue/50">
-                        {formatPrice(basePrice)} {label}
+                  className={`p-3 rounded-xl cursor-pointer transition-all flex items-center justify-between ${
+                    isSelected 
+                      ? 'bg-brand-blue/10 border-2 border-brand-blue' 
+                      : 'bg-brand-lightBeige/30 border-2 border-transparent hover:border-brand-lightTeal'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={isSelected}
+                      onChange={() => toggleModule(module.id)}
+                      className="w-4 h-4 rounded text-brand-blue"
+                    />
+                    <div>
+                      <div className="font-medium text-brand-darkBlue text-sm flex items-center gap-1">
+                        {t(module.nameKey)}
+                        <Info className="h-3 w-3 text-brand-darkBlue/30" />
                       </div>
+                      {module.perType !== 'fixed' && (
+                        <div className="text-xs text-brand-darkBlue/50">
+                          {formatPrice(basePrice)} {label}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="font-bold text-brand-darkBlue text-sm">
+                    {basePrice === 0 ? (
+                      <span className="text-brand-green">{t('calc2.freeGift')}</span>
+                    ) : (
+                      formatPrice(basePrice * multiplier)
                     )}
                   </div>
+                </label>
+                {/* Тултип с описанием */}
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-brand-darkBlue text-white text-xs rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 w-64 text-center z-50 shadow-lg">
+                  {t(descKey)}
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-brand-darkBlue"></div>
                 </div>
-                <div className="font-bold text-brand-darkBlue text-sm">
-                  {basePrice === 0 ? (
-                    <span className="text-brand-green">{t('calc2.freeGift')}</span>
-                  ) : (
-                    formatPrice(basePrice * multiplier)
-                  )}
-                </div>
-              </label>
+              </div>
             )
           })}
         </div>
