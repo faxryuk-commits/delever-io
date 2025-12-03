@@ -142,6 +142,7 @@ export function SmartCalculator() {
   
   // Тариф
   const [selectedPlanId, setSelectedPlanId] = useState('medium')
+  const [onlyAggregatorsMode, setOnlyAggregatorsMode] = useState(false)
   
   // Модули
   const [selectedModules, setSelectedModules] = useState<string[]>([])
@@ -195,10 +196,14 @@ export function SmartCalculator() {
   }
   
   // Общая стоимость
-  const planCost = getPrice(selectedPlan.priceUZS, selectedPlan.priceUSD)
+  const planCost = onlyAggregatorsMode ? 0 : getPrice(selectedPlan.priceUZS, selectedPlan.priceUSD)
   const modulesCost = calculateModulesCost()
-  const totalMonthlyCost = planCost + extraOrdersCost + modulesCost
-  const deposit = language === 'en' ? 520 : 6500000
+  const totalMonthlyCost = planCost + (onlyAggregatorsMode ? 0 : extraOrdersCost) + modulesCost
+  
+  // Депозит: базовый или специальный для режима "только агрегаторы"
+  const deposit = onlyAggregatorsMode 
+    ? (language === 'en' ? 600 : 3900000) // Депозит для только агрегаторов
+    : (language === 'en' ? 520 : 6500000)  // Стандартный депозит
   
   // ROI расчёты
   const calculateROI = () => {
@@ -808,6 +813,84 @@ export function SmartCalculator() {
         </div>
       </div>
       
+      {/* Интеграция с агрегаторами - как отдельный продукт */}
+      <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 shadow-sm border border-purple-200">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h3 className="text-lg font-bold text-brand-darkBlue flex items-center gap-2">
+              <Layers className="h-5 w-5 text-purple-500" />
+              {t('calc2.aggregatorsProduct')}
+            </h3>
+            <p className="text-sm text-brand-darkBlue/60 mt-1">{t('calc2.aggregatorsDesc')}</p>
+          </div>
+          <label className="flex items-center gap-2 cursor-pointer">
+            <span className="text-sm text-brand-darkBlue/70">{t('calc2.onlyAggregators')}</span>
+            <div className="relative">
+              <input 
+                type="checkbox" 
+                checked={onlyAggregatorsMode}
+                onChange={(e) => {
+                  setOnlyAggregatorsMode(e.target.checked)
+                  if (e.target.checked && !selectedModules.some(m => ['uzum', 'wolt', 'yandex', 'allAggregators'].includes(m))) {
+                    toggleModule('allAggregators')
+                  }
+                }}
+                className="sr-only peer"
+              />
+              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-500"></div>
+            </div>
+          </label>
+        </div>
+        
+        {onlyAggregatorsMode && (
+          <div className="mb-4 p-3 bg-purple-100 rounded-xl border border-purple-200">
+            <div className="flex items-center gap-2 text-purple-800">
+              <Info className="h-4 w-4" />
+              <span className="text-sm font-medium">{t('calc2.onlyAggregatorsInfo')}</span>
+            </div>
+            <div className="text-xs text-purple-600 mt-1">
+              {t('calc2.onlyAggregatorsDeposit')}: {formatPrice(language === 'en' ? 600 : 3900000)}
+            </div>
+          </div>
+        )}
+        
+        <div className="flex flex-wrap gap-2">
+          {moduleCategories[0].modules.map((module) => {
+            const isSelected = selectedModules.includes(module.id)
+            const basePrice = getPrice(module.priceUZS, module.priceUSD)
+            const isAll = module.id === 'allAggregators'
+            return (
+              <button
+                key={module.id}
+                onClick={() => toggleModule(module.id)}
+                className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${
+                  isSelected 
+                    ? isAll 
+                      ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg scale-105' 
+                      : 'bg-purple-600 text-white shadow-md'
+                    : 'bg-white text-brand-darkBlue hover:bg-purple-50 border border-purple-200'
+                }`}
+              >
+                {isSelected && <Check className="h-4 w-4" />}
+                <span>{t(module.nameKey)}</span>
+                <span className={`text-xs font-bold ${isSelected ? 'text-white/90' : 'text-purple-600'}`}>
+                  {formatPrice(basePrice * branches)}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+        
+        {aggregatorsDiscount.show && (
+          <div className="mt-3 p-2 bg-green-100 rounded-lg border border-green-200 flex items-center gap-2">
+            <BadgePercent className="h-4 w-4 text-green-600" />
+            <span className="text-sm text-green-800 font-medium">
+              {t('calc2.saveTip')} — {t('calc2.savingsAmount')}: {formatPrice(aggregatorsDiscount.savings)}
+            </span>
+          </div>
+        )}
+      </div>
+      
       {/* Дополнительные модули - компактный вид */}
       <div className="bg-white rounded-2xl p-6 shadow-sm border border-brand-lightTeal/20">
         <div className="flex items-center justify-between mb-4">
@@ -815,51 +898,11 @@ export function SmartCalculator() {
             <Package className="h-5 w-5 text-brand-orange" />
             {t('calc2.additionalModules')}
           </h3>
-          {selectedModules.length > 0 && (
+          {selectedModules.filter(m => !['uzum', 'wolt', 'yandex', 'allAggregators'].includes(m)).length > 0 && (
             <span className="bg-brand-blue text-white text-xs font-bold px-3 py-1 rounded-full">
-              {selectedModules.length} {t('calc2.selected')}
+              {selectedModules.filter(m => !['uzum', 'wolt', 'yandex', 'allAggregators'].includes(m)).length} {t('calc2.selected')}
             </span>
           )}
-        </div>
-        
-        {/* Агрегаторы - горизонтальный ряд */}
-        <div className="mb-4">
-          <div className="flex items-center gap-2 mb-3">
-            <Layers className="h-4 w-4 text-purple-500" />
-            <span className="text-sm font-medium text-brand-darkBlue">{t('calc2.category.aggregators')}</span>
-            {aggregatorsDiscount.show && (
-              <span className="bg-brand-green/10 text-brand-green text-xs px-2 py-0.5 rounded-full flex items-center gap-1">
-                <BadgePercent className="h-3 w-3" />
-                {t('calc2.saveTip')}
-              </span>
-            )}
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {moduleCategories[0].modules.map((module) => {
-              const isSelected = selectedModules.includes(module.id)
-              const basePrice = getPrice(module.priceUZS, module.priceUSD)
-              const isAll = module.id === 'allAggregators'
-              return (
-                <button
-                  key={module.id}
-                  onClick={() => toggleModule(module.id)}
-                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${
-                    isSelected 
-                      ? isAll 
-                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg' 
-                        : 'bg-brand-darkBlue text-white shadow-md'
-                      : 'bg-brand-lightBlue/30 text-brand-darkBlue hover:bg-brand-lightBlue/50'
-                  }`}
-                >
-                  {isSelected && <Check className="h-4 w-4" />}
-                  <span>{t(module.nameKey)}</span>
-                  <span className={`text-xs ${isSelected ? 'opacity-80' : 'opacity-60'}`}>
-                    {formatPrice(basePrice * branches)}
-                  </span>
-                </button>
-              )
-            })}
-          </div>
         </div>
         
         {/* Операции и Маркетинг - сетка с красивыми карточками */}
@@ -1264,9 +1307,34 @@ export function SmartCalculator() {
               <span className="text-lg font-bold text-brand-darkBlue">{t('calc2.monthlyTotal')}</span>
               <span className="text-2xl font-bold text-brand-darkBlue">{formatPrice(totalMonthlyCost)}</span>
             </div>
-            <div className="flex justify-between items-center text-brand-darkBlue/70">
+            <div className="flex justify-between items-center text-brand-darkBlue/70 mb-2">
               <span>{t('calc2.deposit')}</span>
               <span className="font-medium">{formatPrice(deposit)}</span>
+            </div>
+          </div>
+          
+          {/* Скидки при предоплате */}
+          <div className="mt-4 p-4 bg-gradient-to-r from-amber-50 to-yellow-50 rounded-xl border border-amber-200">
+            <h4 className="font-bold text-amber-800 mb-3 flex items-center gap-2">
+              <BadgePercent className="h-4 w-4" />
+              {t('calc2.prepaymentDiscounts')}
+            </h4>
+            <div className="grid grid-cols-3 gap-2 text-center">
+              <div className="bg-white/80 rounded-lg p-2">
+                <div className="text-xs text-amber-600 mb-1">3 {t('calc2.months')}</div>
+                <div className="font-bold text-amber-800">-5%</div>
+                <div className="text-xs text-brand-darkBlue/60">{formatPrice(totalMonthlyCost * 3 * 0.95)}</div>
+              </div>
+              <div className="bg-white/80 rounded-lg p-2 ring-2 ring-amber-400">
+                <div className="text-xs text-amber-600 mb-1">6 {t('calc2.months')}</div>
+                <div className="font-bold text-amber-800">-10%</div>
+                <div className="text-xs text-brand-darkBlue/60">{formatPrice(totalMonthlyCost * 6 * 0.90)}</div>
+              </div>
+              <div className="bg-white/80 rounded-lg p-2">
+                <div className="text-xs text-amber-600 mb-1">12 {t('calc2.months')}</div>
+                <div className="font-bold text-amber-800">-15%</div>
+                <div className="text-xs text-brand-darkBlue/60">{formatPrice(totalMonthlyCost * 12 * 0.85)}</div>
+              </div>
             </div>
           </div>
           
