@@ -235,7 +235,14 @@ export function ContactForm({ open, onOpenChange, tag }: ContactFormProps) {
             {t('form.subtitle')}
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+        
+        {/* Пояснение почему запрашиваем данные */}
+        <div className="bg-brand-lightBlue/30 rounded-lg p-3 text-xs text-brand-darkBlue/70 flex items-start gap-2">
+          <span className="text-brand-blue text-lg leading-none">🔒</span>
+          <span>{t('form.whyWeAsk')}</span>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="space-y-4">
           {/* Honeypot поле - скрыто от пользователей, но боты его заполняют */}
           <div className="absolute -left-[9999px] opacity-0 pointer-events-none" aria-hidden="true">
             <input
@@ -258,11 +265,13 @@ export function ContactForm({ open, onOpenChange, tag }: ContactFormProps) {
               required
               className={`w-full ${errors.name && touched.name ? 'border-red-500 focus:border-red-500' : ''}`}
             />
-            {errors.name && touched.name && (
+            {errors.name && touched.name ? (
               <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
                 <AlertCircle className="w-3 h-3" />
                 {getErrorText('name', errors.name)}
               </p>
+            ) : (
+              <p className="mt-1 text-xs text-brand-darkBlue/40">{t('form.nameHint')}</p>
             )}
           </div>
 
@@ -277,11 +286,13 @@ export function ContactForm({ open, onOpenChange, tag }: ContactFormProps) {
               required
               className={`w-full ${errors.phone && touched.phone ? 'border-red-500 focus:border-red-500' : ''}`}
             />
-            {errors.phone && touched.phone && (
+            {errors.phone && touched.phone ? (
               <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
                 <AlertCircle className="w-3 h-3" />
                 {getErrorText('phone', errors.phone)}
               </p>
+            ) : (
+              <p className="mt-1 text-xs text-brand-darkBlue/40">{t('form.phoneHint')}</p>
             )}
           </div>
 
@@ -295,11 +306,13 @@ export function ContactForm({ open, onOpenChange, tag }: ContactFormProps) {
               onBlur={handleBlur}
               className={`w-full ${errors.email && touched.email ? 'border-red-500 focus:border-red-500' : ''}`}
             />
-            {errors.email && touched.email && (
+            {errors.email && touched.email ? (
               <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
                 <AlertCircle className="w-3 h-3" />
                 {getErrorText('email', errors.email)}
               </p>
+            ) : (
+              <p className="mt-1 text-xs text-brand-darkBlue/40">{t('form.emailHint')}</p>
             )}
           </div>
 
@@ -311,6 +324,7 @@ export function ContactForm({ open, onOpenChange, tag }: ContactFormProps) {
               onChange={handleChange}
               className="w-full"
             />
+            <p className="mt-1 text-xs text-brand-darkBlue/40">{t('form.companyHint')}</p>
           </div>
 
           <div>
@@ -322,6 +336,7 @@ export function ContactForm({ open, onOpenChange, tag }: ContactFormProps) {
               rows={3}
               className="w-full resize-none"
             />
+            <p className="mt-1 text-xs text-brand-darkBlue/40">{t('form.messageHint')}</p>
           </div>
 
           <Button
