@@ -1,7 +1,7 @@
 // Генератор PDF презентации Delever
 
 interface PresentationData {
-  language: 'ru' | 'en'
+  language: 'ru' | 'en' | 'uz'
   brandName?: string
   customData?: {
     planName: string
@@ -37,6 +37,14 @@ const clientExamples = {
 export function generatePresentation(data: PresentationData): string {
   const { language, customData, brandName } = data
   const isRu = language === 'ru'
+  const isUz = language === 'uz'
+  
+  // Функция выбора текста по языку
+  const txt = <T>(ru: T, en: T, uz: T): T => {
+    if (isRu) return ru
+    if (isUz) return uz
+    return en
+  }
   
   const personalizedTitle = brandName ? `${brandName} × Delever` : 'Delever'
 
@@ -385,263 +393,399 @@ export function generatePresentation(data: PresentationData): string {
   // Тексты
   const t = {
     // Обложка
-    badge: isRu ? '🏆 №1 Платформа для автоматизации доставки' : '🏆 #1 Delivery Automation Platform',
-    tagline: isRu ? 'Единая платформа управления' : 'Unified Management Platform',
+    badge: txt('🏆 №1 Платформа для автоматизации доставки', '🏆 #1 Delivery Automation Platform', '🏆 №1 Yetkazib berish avtomatlashtirish platformasi'),
+    tagline: txt('Единая платформа управления', 'Unified Management Platform', 'Yagona boshqaruv platformasi'),
     subtitle: brandName 
-      ? (isRu ? `Персональное предложение для ${brandName}` : `Personal offer for ${brandName}`)
-      : (isRu ? 'для ресторанов, кафе и магазинов' : 'for restaurants, cafes and stores'),
-    coverStats: isRu ? [
-      { value: '1000+', label: 'Бизнесов' },
-      { value: '13M+', label: 'Заказов' },
-      { value: '7', label: 'Стран' },
-      { value: '+30%', label: 'Рост выручки' },
-    ] : [
-      { value: '1000+', label: 'Businesses' },
-      { value: '13M+', label: 'Orders' },
-      { value: '7', label: 'Countries' },
-      { value: '+30%', label: 'Revenue growth' },
-    ],
+      ? txt(`Персональное предложение для ${brandName}`, `Personal offer for ${brandName}`, `${brandName} uchun shaxsiy taklif`)
+      : txt('для ресторанов, кафе и магазинов', 'for restaurants, cafes and stores', 'restoranlar, kafelar va do\'konlar uchun'),
+    coverStats: txt(
+      [
+        { value: '1000+', label: 'Бизнесов' },
+        { value: '13M+', label: 'Заказов' },
+        { value: '7', label: 'Стран' },
+        { value: '+30%', label: 'Рост выручки' },
+      ],
+      [
+        { value: '1000+', label: 'Businesses' },
+        { value: '13M+', label: 'Orders' },
+        { value: '7', label: 'Countries' },
+        { value: '+30%', label: 'Revenue growth' },
+      ],
+      [
+        { value: '1000+', label: 'Bizneslar' },
+        { value: '13M+', label: 'Buyurtmalar' },
+        { value: '7', label: 'Mamlakatlar' },
+        { value: '+30%', label: 'Daromad o\'sishi' },
+      ]
+    ),
     
     // Проблемы
-    problemsTitle: isRu ? 'Знакомые проблемы?' : 'Familiar problems?',
-    problemsSubtitle: isRu ? 'С этими проблемами сталкивается каждый бизнес доставки' : 'Every delivery business faces these challenges',
-    problems: isRu ? [
-      { icon: '💸', text: 'Теряете 20-35% на комиссиях агрегаторов', stat: '-5 млн сум/мес' },
-      { icon: '⏱️', text: '3 из 10 заказов доставляются с опозданием', stat: '30% опозданий' },
-      { icon: '👋', text: '85% клиентов покупают один раз и уходят', stat: 'Нет лояльности' },
-      { icon: '🔀', text: 'Хаос: заказы в 5 разных системах', stat: 'Потеря времени' },
-      { icon: '📊', text: 'Нет данных для принятия решений', stat: 'Слепые решения' },
-      { icon: '🚴', text: 'Курьеры без контроля и оптимизации', stat: 'Лишние расходы' },
-    ] : [
-      { icon: '💸', text: 'Losing 20-35% on aggregator commissions', stat: '-$500/mo' },
-      { icon: '⏱️', text: '3 out of 10 orders delivered late', stat: '30% delays' },
-      { icon: '👋', text: '85% of customers buy once and leave', stat: 'No loyalty' },
-      { icon: '🔀', text: 'Chaos: orders in 5 different systems', stat: 'Time waste' },
-      { icon: '📊', text: 'No data for decision making', stat: 'Blind decisions' },
-      { icon: '🚴', text: 'Couriers without control & optimization', stat: 'Extra costs' },
-    ],
+    problemsTitle: txt('Знакомые проблемы?', 'Familiar problems?', 'Tanish muammolar?'),
+    problemsSubtitle: txt('С этими проблемами сталкивается каждый бизнес доставки', 'Every delivery business faces these challenges', 'Har bir yetkazib berish biznesi bu muammolarga duch keladi'),
+    problems: txt(
+      [
+        { icon: '💸', text: 'Теряете 20-35% на комиссиях агрегаторов', stat: '-5 млн сум/мес' },
+        { icon: '⏱️', text: '3 из 10 заказов доставляются с опозданием', stat: '30% опозданий' },
+        { icon: '👋', text: '85% клиентов покупают один раз и уходят', stat: 'Нет лояльности' },
+        { icon: '🔀', text: 'Хаос: заказы в 5 разных системах', stat: 'Потеря времени' },
+        { icon: '📊', text: 'Нет данных для принятия решений', stat: 'Слепые решения' },
+        { icon: '🚴', text: 'Курьеры без контроля и оптимизации', stat: 'Лишние расходы' },
+      ],
+      [
+        { icon: '💸', text: 'Losing 20-35% on aggregator commissions', stat: '-$500/mo' },
+        { icon: '⏱️', text: '3 out of 10 orders delivered late', stat: '30% delays' },
+        { icon: '👋', text: '85% of customers buy once and leave', stat: 'No loyalty' },
+        { icon: '🔀', text: 'Chaos: orders in 5 different systems', stat: 'Time waste' },
+        { icon: '📊', text: 'No data for decision making', stat: 'Blind decisions' },
+        { icon: '🚴', text: 'Couriers without control & optimization', stat: 'Extra costs' },
+      ],
+      [
+        { icon: '💸', text: 'Agregator komissiyalarida 20-35% yo\'qotish', stat: '-5 mln so\'m/oy' },
+        { icon: '⏱️', text: '10 ta buyurtmadan 3 tasi kechikib yetkaziladi', stat: '30% kechikish' },
+        { icon: '👋', text: 'Mijozlarning 85% bir marta sotib olib ketadi', stat: 'Sodiqlik yo\'q' },
+        { icon: '🔀', text: 'Xaos: 5 xil tizimda buyurtmalar', stat: 'Vaqt yo\'qotish' },
+        { icon: '📊', text: 'Qaror qabul qilish uchun ma\'lumotlar yo\'q', stat: 'Ko\'r qarorlar' },
+        { icon: '🚴', text: 'Kuryerlar nazorat va optimizatsiyasiz', stat: 'Qo\'shimcha xarajatlar' },
+      ]
+    ),
     
     // Решения - детальные слайды
     solutions: {
       // 1. Своя доставка
       ownDelivery: {
-        title: isRu ? 'Своя доставка' : 'Own Delivery',
-        subtitle: isRu ? 'Полный контроль над процессом доставки' : 'Full control over delivery process',
-        description: isRu 
-          ? 'Создайте собственную службу доставки с современными инструментами управления курьерами, оптимизации маршрутов и контроля качества.'
-          : 'Create your own delivery service with modern tools for courier management, route optimization, and quality control.',
-        features: isRu ? [
-          { title: 'Курьерское приложение', desc: 'GPS-трекинг, навигация, история заказов' },
-          { title: 'Автораспределение', desc: 'Умное назначение курьеров на заказы' },
-          { title: 'Оптимизация маршрутов', desc: 'Экономия времени и топлива' },
-          { title: 'Зарплатный модуль', desc: 'Автоматический расчёт выплат курьерам' },
-          { title: 'Контроль качества', desc: 'Фото доставки, рейтинги, отзывы' },
-        ] : [
-          { title: 'Courier App', desc: 'GPS tracking, navigation, order history' },
-          { title: 'Auto-assignment', desc: 'Smart courier assignment to orders' },
-          { title: 'Route optimization', desc: 'Save time and fuel' },
-          { title: 'Salary module', desc: 'Automatic courier payout calculation' },
-          { title: 'Quality control', desc: 'Delivery photos, ratings, reviews' },
-        ],
-        stats: isRu ? [
-          { label: 'Ускорение доставки', value: '+35%', type: 'green' },
-          { label: 'Экономия на курьерах', value: '+20%', type: 'green' },
-          { label: 'Опоздания', value: '-70%', type: 'red' },
-        ] : [
-          { label: 'Delivery speed', value: '+35%', type: 'green' },
-          { label: 'Courier savings', value: '+20%', type: 'green' },
-          { label: 'Late deliveries', value: '-70%', type: 'red' },
-        ],
+        title: txt('Своя доставка', 'Own Delivery', 'O\'z yetkazib berish'),
+        subtitle: txt('Полный контроль над процессом доставки', 'Full control over delivery process', 'Yetkazib berish jarayoni ustidan to\'liq nazorat'),
+        description: txt(
+          'Создайте собственную службу доставки с современными инструментами управления курьерами, оптимизации маршрутов и контроля качества.',
+          'Create your own delivery service with modern tools for courier management, route optimization, and quality control.',
+          'Kuryerlarni boshqarish, marshrutlarni optimallashtirish va sifat nazorati uchun zamonaviy vositalar bilan o\'z yetkazib berish xizmatingizni yarating.'
+        ),
+        features: txt(
+          [
+            { title: 'Курьерское приложение', desc: 'GPS-трекинг, навигация, история заказов' },
+            { title: 'Автораспределение', desc: 'Умное назначение курьеров на заказы' },
+            { title: 'Оптимизация маршрутов', desc: 'Экономия времени и топлива' },
+            { title: 'Зарплатный модуль', desc: 'Автоматический расчёт выплат курьерам' },
+            { title: 'Контроль качества', desc: 'Фото доставки, рейтинги, отзывы' },
+          ],
+          [
+            { title: 'Courier App', desc: 'GPS tracking, navigation, order history' },
+            { title: 'Auto-assignment', desc: 'Smart courier assignment to orders' },
+            { title: 'Route optimization', desc: 'Save time and fuel' },
+            { title: 'Salary module', desc: 'Automatic courier payout calculation' },
+            { title: 'Quality control', desc: 'Delivery photos, ratings, reviews' },
+          ],
+          [
+            { title: 'Kuryer ilovasi', desc: 'GPS-kuzatuv, navigatsiya, buyurtmalar tarixi' },
+            { title: 'Avtotaqsimlash', desc: 'Buyurtmalarga kuryerlarni aqlli tayinlash' },
+            { title: 'Marshrutlarni optimallashtirish', desc: 'Vaqt va yoqilg\'ini tejash' },
+            { title: 'Ish haqi moduli', desc: 'Kuryerlarga to\'lovlarni avtomatik hisoblash' },
+            { title: 'Sifat nazorati', desc: 'Yetkazib berish fotolari, reytinglar, sharhlar' },
+          ]
+        ),
+        stats: txt(
+          [
+            { label: 'Ускорение доставки', value: '+35%', type: 'green' },
+            { label: 'Экономия на курьерах', value: '+20%', type: 'green' },
+            { label: 'Опоздания', value: '-70%', type: 'red' },
+          ],
+          [
+            { label: 'Delivery speed', value: '+35%', type: 'green' },
+            { label: 'Courier savings', value: '+20%', type: 'green' },
+            { label: 'Late deliveries', value: '-70%', type: 'red' },
+          ],
+          [
+            { label: 'Yetkazib berish tezligi', value: '+35%', type: 'green' },
+            { label: 'Kuryerlarda tejash', value: '+20%', type: 'green' },
+            { label: 'Kechikishlar', value: '-70%', type: 'red' },
+          ]
+        ),
       },
       
       // 2. Агрегаторы
       aggregators: {
-        title: isRu ? 'Интеграция с агрегаторами' : 'Aggregator Integration',
-        subtitle: isRu ? 'Все заказы в одном месте' : 'All orders in one place',
-        description: isRu 
-          ? 'Подключите Yandex Eats, Wolt, Glovo, Uzum Tezkor и других агрегаторов. Все заказы поступают в единый интерфейс, автоматически синхронизируется меню и цены.'
-          : 'Connect Yandex Eats, Wolt, Glovo, Uzum Tezkor and other aggregators. All orders come to a single interface, menu and prices sync automatically.',
-        features: isRu ? [
-          { title: 'Единый интерфейс', desc: 'Все агрегаторы в одном окне' },
-          { title: 'Синхронизация меню', desc: 'Одно изменение — везде обновлено' },
-          { title: 'Управление стоп-листом', desc: 'Автоматическая остановка позиций' },
-          { title: 'Аналитика по каналам', desc: 'Сравнение эффективности агрегаторов' },
-          { title: 'Автоприём заказов', desc: 'Заказы принимаются автоматически' },
-        ] : [
-          { title: 'Single interface', desc: 'All aggregators in one window' },
-          { title: 'Menu sync', desc: 'One change — updated everywhere' },
-          { title: 'Stop-list management', desc: 'Automatic item stopping' },
-          { title: 'Channel analytics', desc: 'Compare aggregator performance' },
-          { title: 'Auto-accept orders', desc: 'Orders accepted automatically' },
-        ],
+        title: txt('Интеграция с агрегаторами', 'Aggregator Integration', 'Agregatorlar bilan integratsiya'),
+        subtitle: txt('Все заказы в одном месте', 'All orders in one place', 'Barcha buyurtmalar bir joyda'),
+        description: txt(
+          'Подключите Yandex Eats, Wolt, Glovo, Uzum Tezkor и других агрегаторов. Все заказы поступают в единый интерфейс, автоматически синхронизируется меню и цены.',
+          'Connect Yandex Eats, Wolt, Glovo, Uzum Tezkor and other aggregators. All orders come to a single interface, menu and prices sync automatically.',
+          'Yandex Eats, Wolt, Glovo, Uzum Tezkor va boshqa agregatorlarni ulang. Barcha buyurtmalar yagona interfeysga keladi, menyu va narxlar avtomatik sinxronlanadi.'
+        ),
+        features: txt(
+          [
+            { title: 'Единый интерфейс', desc: 'Все агрегаторы в одном окне' },
+            { title: 'Синхронизация меню', desc: 'Одно изменение — везде обновлено' },
+            { title: 'Управление стоп-листом', desc: 'Автоматическая остановка позиций' },
+            { title: 'Аналитика по каналам', desc: 'Сравнение эффективности агрегаторов' },
+            { title: 'Автоприём заказов', desc: 'Заказы принимаются автоматически' },
+          ],
+          [
+            { title: 'Single interface', desc: 'All aggregators in one window' },
+            { title: 'Menu sync', desc: 'One change — updated everywhere' },
+            { title: 'Stop-list management', desc: 'Automatic item stopping' },
+            { title: 'Channel analytics', desc: 'Compare aggregator performance' },
+            { title: 'Auto-accept orders', desc: 'Orders accepted automatically' },
+          ],
+          [
+            { title: 'Yagona interfeys', desc: 'Barcha agregatorlar bitta oynada' },
+            { title: 'Menyu sinxronlash', desc: 'Bitta o\'zgartirish — hamma joyda yangilangan' },
+            { title: 'Stop-listni boshqarish', desc: 'Pozitsiyalarni avtomatik to\'xtatish' },
+            { title: 'Kanallar tahlili', desc: 'Agregatorlar samaradorligini solishtirish' },
+            { title: 'Buyurtmalarni avto-qabul qilish', desc: 'Buyurtmalar avtomatik qabul qilinadi' },
+          ]
+        ),
         integrations: ['Yandex Eats', 'Wolt', 'Glovo', 'Uzum Tezkor', 'Bolt Food', 'Express 24'],
       },
       
       // 3. Каналы продаж
       salesChannels: {
-        title: isRu ? 'Свои каналы продаж' : 'Own Sales Channels',
-        subtitle: isRu ? '0% комиссии на собственных каналах' : '0% commission on own channels',
-        description: isRu 
-          ? 'Запустите брендированный сайт, мобильное приложение и Telegram-бот. Принимайте заказы напрямую без комиссий агрегаторов.'
-          : 'Launch a branded website, mobile app, and Telegram bot. Accept orders directly without aggregator commissions.',
-        channels: isRu ? [
-          { icon: '🌐', name: 'Веб-сайт', desc: 'Брендированный сайт с онлайн-меню, корзиной и оплатой', examples: 'yaponamama.uz, maxway.uz' },
-          { icon: '📱', name: 'Мобильное приложение', desc: 'iOS и Android приложения под вашим брендом', examples: 'App Store, Google Play' },
-          { icon: '💬', name: 'Telegram-бот', desc: 'Заказы прямо в мессенджере, уведомления о статусе', examples: '@yaponamama_bot' },
-          { icon: '📋', name: 'QR-меню', desc: 'Заказ со столика в заведении без официанта', examples: 'QR на столах' },
-        ] : [
-          { icon: '🌐', name: 'Website', desc: 'Branded website with online menu, cart and payment', examples: 'yaponamama.uz, maxway.uz' },
-          { icon: '📱', name: 'Mobile App', desc: 'iOS and Android apps under your brand', examples: 'App Store, Google Play' },
-          { icon: '💬', name: 'Telegram Bot', desc: 'Orders directly in messenger, status notifications', examples: '@yaponamama_bot' },
-          { icon: '📋', name: 'QR Menu', desc: 'Order from table without waiter', examples: 'QR on tables' },
-        ],
-        stats: isRu ? [
-          { label: 'Экономия на комиссиях', value: '20-35%', type: 'green' },
-          { label: 'Доля своих каналов', value: 'до 60%', type: 'green' },
-          { label: 'Срок окупаемости', value: '1-2 мес', type: 'green' },
-        ] : [
-          { label: 'Commission savings', value: '20-35%', type: 'green' },
-          { label: 'Own channels share', value: 'up to 60%', type: 'green' },
-          { label: 'Payback period', value: '1-2 mo', type: 'green' },
-        ],
+        title: txt('Свои каналы продаж', 'Own Sales Channels', 'O\'z sotuv kanallari'),
+        subtitle: txt('0% комиссии на собственных каналах', '0% commission on own channels', 'O\'z kanallarida 0% komissiya'),
+        description: txt(
+          'Запустите брендированный сайт, мобильное приложение и Telegram-бот. Принимайте заказы напрямую без комиссий агрегаторов.',
+          'Launch a branded website, mobile app, and Telegram bot. Accept orders directly without aggregator commissions.',
+          'Brendlangan sayt, mobil ilova va Telegram-botni ishga tushiring. Agregator komissiyalarisiz to\'g\'ridan-to\'g\'ri buyurtmalarni qabul qiling.'
+        ),
+        channels: txt(
+          [
+            { icon: '🌐', name: 'Веб-сайт', desc: 'Брендированный сайт с онлайн-меню, корзиной и оплатой', examples: 'yaponamama.uz, maxway.uz' },
+            { icon: '📱', name: 'Мобильное приложение', desc: 'iOS и Android приложения под вашим брендом', examples: 'App Store, Google Play' },
+            { icon: '💬', name: 'Telegram-бот', desc: 'Заказы прямо в мессенджере, уведомления о статусе', examples: '@yaponamama_bot' },
+            { icon: '📋', name: 'QR-меню', desc: 'Заказ со столика в заведении без официанта', examples: 'QR на столах' },
+          ],
+          [
+            { icon: '🌐', name: 'Website', desc: 'Branded website with online menu, cart and payment', examples: 'yaponamama.uz, maxway.uz' },
+            { icon: '📱', name: 'Mobile App', desc: 'iOS and Android apps under your brand', examples: 'App Store, Google Play' },
+            { icon: '💬', name: 'Telegram Bot', desc: 'Orders directly in messenger, status notifications', examples: '@yaponamama_bot' },
+            { icon: '📋', name: 'QR Menu', desc: 'Order from table without waiter', examples: 'QR on tables' },
+          ],
+          [
+            { icon: '🌐', name: 'Veb-sayt', desc: 'Onlayn menyu, savat va to\'lov bilan brendlangan sayt', examples: 'yaponamama.uz, maxway.uz' },
+            { icon: '📱', name: 'Mobil ilova', desc: 'Sizning brendingiz ostida iOS va Android ilovalari', examples: 'App Store, Google Play' },
+            { icon: '💬', name: 'Telegram-bot', desc: 'Messenjerda to\'g\'ridan-to\'g\'ri buyurtmalar, status xabarlari', examples: '@yaponamama_bot' },
+            { icon: '📋', name: 'QR-menyu', desc: 'Ofitsiantsiz stoldan buyurtma berish', examples: 'Stollarda QR' },
+          ]
+        ),
+        stats: txt(
+          [
+            { label: 'Экономия на комиссиях', value: '20-35%', type: 'green' },
+            { label: 'Доля своих каналов', value: 'до 60%', type: 'green' },
+            { label: 'Срок окупаемости', value: '1-2 мес', type: 'green' },
+          ],
+          [
+            { label: 'Commission savings', value: '20-35%', type: 'green' },
+            { label: 'Own channels share', value: 'up to 60%', type: 'green' },
+            { label: 'Payback period', value: '1-2 mo', type: 'green' },
+          ],
+          [
+            { label: 'Komissiyalarda tejash', value: '20-35%', type: 'green' },
+            { label: 'O\'z kanallari ulushi', value: '60% gacha', type: 'green' },
+            { label: 'Qoplash muddati', value: '1-2 oy', type: 'green' },
+          ]
+        ),
       },
       
       // 4. Внешние курьеры
       externalCouriers: {
-        title: isRu ? 'Внешние курьерские службы' : 'External Courier Services',
-        subtitle: isRu ? 'Подключите профессиональных курьеров' : 'Connect professional couriers',
-        description: isRu 
-          ? 'Интеграция с Yandex Delivery, Wolt Drive, Millennium Taxi и другими службами. Автоматический вызов курьера при оформлении заказа.'
-          : 'Integration with Yandex Delivery, Wolt Drive, Millennium Taxi and other services. Automatic courier call when order is placed.',
-        features: isRu ? [
-          { title: 'Автовызов курьера', desc: 'Курьер вызывается автоматически при готовности заказа' },
-          { title: 'Сравнение цен', desc: 'Выбор оптимальной службы по цене и времени' },
-          { title: 'Трекинг в реальном времени', desc: 'Отслеживание курьера на карте' },
-          { title: 'Гибкие правила', desc: 'Настройка условий вызова для разных зон' },
-        ] : [
-          { title: 'Auto courier call', desc: 'Courier is called automatically when order is ready' },
-          { title: 'Price comparison', desc: 'Choose optimal service by price and time' },
-          { title: 'Real-time tracking', desc: 'Track courier on map' },
-          { title: 'Flexible rules', desc: 'Configure call conditions for different zones' },
-        ],
+        title: txt('Внешние курьерские службы', 'External Courier Services', 'Tashqi kuryer xizmatlari'),
+        subtitle: txt('Подключите профессиональных курьеров', 'Connect professional couriers', 'Professional kuryerlarni ulang'),
+        description: txt(
+          'Интеграция с Yandex Delivery, Wolt Drive, Millennium Taxi и другими службами. Автоматический вызов курьера при оформлении заказа.',
+          'Integration with Yandex Delivery, Wolt Drive, Millennium Taxi and other services. Automatic courier call when order is placed.',
+          'Yandex Delivery, Wolt Drive, Millennium Taxi va boshqa xizmatlar bilan integratsiya. Buyurtma rasmiylashtirish paytida kuryerni avtomatik chaqirish.'
+        ),
+        features: txt(
+          [
+            { title: 'Автовызов курьера', desc: 'Курьер вызывается автоматически при готовности заказа' },
+            { title: 'Сравнение цен', desc: 'Выбор оптимальной службы по цене и времени' },
+            { title: 'Трекинг в реальном времени', desc: 'Отслеживание курьера на карте' },
+            { title: 'Гибкие правила', desc: 'Настройка условий вызова для разных зон' },
+          ],
+          [
+            { title: 'Auto courier call', desc: 'Courier is called automatically when order is ready' },
+            { title: 'Price comparison', desc: 'Choose optimal service by price and time' },
+            { title: 'Real-time tracking', desc: 'Track courier on map' },
+            { title: 'Flexible rules', desc: 'Configure call conditions for different zones' },
+          ],
+          [
+            { title: 'Kuryerni avto-chaqirish', desc: 'Buyurtma tayyor bo\'lganda kuryer avtomatik chaqiriladi' },
+            { title: 'Narxlarni solishtirish', desc: 'Narx va vaqt bo\'yicha optimal xizmatni tanlash' },
+            { title: 'Real vaqtda kuzatish', desc: 'Kuryerni xaritada kuzatish' },
+            { title: 'Moslashuvchan qoidalar', desc: 'Turli zonalar uchun chaqirish shartlarini sozlash' },
+          ]
+        ),
         services: ['Yandex Delivery', 'Wolt Drive', 'Millennium Taxi', 'Noor Taxi'],
       },
       
       // 5. Курьерское приложение
       courierApp: {
-        title: isRu ? 'Курьерское приложение' : 'Courier App',
-        subtitle: isRu ? 'Полный контроль над курьерами' : 'Full control over couriers',
-        description: isRu 
-          ? 'Мобильное приложение для курьеров с GPS-трекингом, навигацией, историей заказов и расчётом зарплаты. Доступно для iOS и Android.'
-          : 'Mobile app for couriers with GPS tracking, navigation, order history and salary calculation. Available for iOS and Android.',
-        features: isRu ? [
-          { title: 'GPS-трекинг', desc: 'Отслеживание местоположения в реальном времени' },
-          { title: 'Оптимальные маршруты', desc: 'Автоматическое построение маршрутов' },
-          { title: 'Push-уведомления', desc: 'Мгновенные уведомления о новых заказах' },
-          { title: 'Зарплатный кабинет', desc: 'Курьер видит свой заработок в приложении' },
-          { title: 'Фото доставки', desc: 'Подтверждение доставки фотографией' },
-          { title: 'Учёт посещений', desc: 'Отметка начала и конца смены' },
-        ] : [
-          { title: 'GPS tracking', desc: 'Real-time location tracking' },
-          { title: 'Optimal routes', desc: 'Automatic route building' },
-          { title: 'Push notifications', desc: 'Instant notifications about new orders' },
-          { title: 'Salary cabinet', desc: 'Courier sees earnings in app' },
-          { title: 'Delivery photo', desc: 'Delivery confirmation with photo' },
-          { title: 'Attendance tracking', desc: 'Shift start and end marking' },
-        ],
+        title: txt('Курьерское приложение', 'Courier App', 'Kuryer ilovasi'),
+        subtitle: txt('Полный контроль над курьерами', 'Full control over couriers', 'Kuryerlar ustidan to\'liq nazorat'),
+        description: txt(
+          'Мобильное приложение для курьеров с GPS-трекингом, навигацией, историей заказов и расчётом зарплаты. Доступно для iOS и Android.',
+          'Mobile app for couriers with GPS tracking, navigation, order history and salary calculation. Available for iOS and Android.',
+          'GPS-kuzatuv, navigatsiya, buyurtmalar tarixi va ish haqi hisoblash bilan kuryerlar uchun mobil ilova. iOS va Android uchun mavjud.'
+        ),
+        features: txt(
+          [
+            { title: 'GPS-трекинг', desc: 'Отслеживание местоположения в реальном времени' },
+            { title: 'Оптимальные маршруты', desc: 'Автоматическое построение маршрутов' },
+            { title: 'Push-уведомления', desc: 'Мгновенные уведомления о новых заказах' },
+            { title: 'Зарплатный кабинет', desc: 'Курьер видит свой заработок в приложении' },
+            { title: 'Фото доставки', desc: 'Подтверждение доставки фотографией' },
+            { title: 'Учёт посещений', desc: 'Отметка начала и конца смены' },
+          ],
+          [
+            { title: 'GPS tracking', desc: 'Real-time location tracking' },
+            { title: 'Optimal routes', desc: 'Automatic route building' },
+            { title: 'Push notifications', desc: 'Instant notifications about new orders' },
+            { title: 'Salary cabinet', desc: 'Courier sees earnings in app' },
+            { title: 'Delivery photo', desc: 'Delivery confirmation with photo' },
+            { title: 'Attendance tracking', desc: 'Shift start and end marking' },
+          ],
+          [
+            { title: 'GPS-kuzatuv', desc: 'Real vaqtda joylashuvni kuzatish' },
+            { title: 'Optimal marshrutlar', desc: 'Avtomatik marshrutlar yaratish' },
+            { title: 'Push-bildirishnomalar', desc: 'Yangi buyurtmalar haqida tezkor xabarlar' },
+            { title: 'Ish haqi kabineti', desc: 'Kuryer ilovada o\'z daromadini ko\'radi' },
+            { title: 'Yetkazib berish fotosi', desc: 'Yetkazib berishni foto bilan tasdiqlash' },
+            { title: 'Tashrif hisobi', desc: 'Smena boshlanishi va tugashini belgilash' },
+          ]
+        ),
       },
       
       // 6. Аналитика
       analytics: {
-        title: isRu ? 'Аналитика и отчёты' : 'Analytics & Reports',
-        subtitle: isRu ? 'Данные для принятия решений' : 'Data for decision making',
-        description: isRu 
-          ? 'Дашборды с ключевыми метриками бизнеса: продажи, популярные товары, эффективность курьеров, LTV клиентов и многое другое.'
-          : 'Dashboards with key business metrics: sales, popular items, courier efficiency, customer LTV and much more.',
-        features: isRu ? [
-          { title: 'Продажи в реальном времени', desc: 'Выручка, заказы, средний чек' },
-          { title: 'ABC-анализ меню', desc: 'Популярные и прибыльные позиции' },
-          { title: 'RFM-анализ клиентов', desc: 'Сегментация по лояльности' },
-          { title: 'Эффективность каналов', desc: 'Сравнение агрегаторов и своих каналов' },
-          { title: 'KPI курьеров', desc: 'Скорость, качество, количество доставок' },
-          { title: 'Экспорт отчётов', desc: 'Excel, PDF для бухгалтерии' },
-        ] : [
-          { title: 'Real-time sales', desc: 'Revenue, orders, average check' },
-          { title: 'ABC menu analysis', desc: 'Popular and profitable items' },
-          { title: 'RFM customer analysis', desc: 'Segmentation by loyalty' },
-          { title: 'Channel efficiency', desc: 'Compare aggregators and own channels' },
-          { title: 'Courier KPIs', desc: 'Speed, quality, delivery count' },
-          { title: 'Report export', desc: 'Excel, PDF for accounting' },
-        ],
+        title: txt('Аналитика и отчёты', 'Analytics & Reports', 'Tahlil va hisobotlar'),
+        subtitle: txt('Данные для принятия решений', 'Data for decision making', 'Qaror qabul qilish uchun ma\'lumotlar'),
+        description: txt(
+          'Дашборды с ключевыми метриками бизнеса: продажи, популярные товары, эффективность курьеров, LTV клиентов и многое другое.',
+          'Dashboards with key business metrics: sales, popular items, courier efficiency, customer LTV and much more.',
+          'Asosiy biznes ko\'rsatkichlari bilan dashboardlar: sotuvlar, mashhur mahsulotlar, kuryerlar samaradorligi, mijozlar LTV va boshqalar.'
+        ),
+        features: txt(
+          [
+            { title: 'Продажи в реальном времени', desc: 'Выручка, заказы, средний чек' },
+            { title: 'ABC-анализ меню', desc: 'Популярные и прибыльные позиции' },
+            { title: 'RFM-анализ клиентов', desc: 'Сегментация по лояльности' },
+            { title: 'Эффективность каналов', desc: 'Сравнение агрегаторов и своих каналов' },
+            { title: 'KPI курьеров', desc: 'Скорость, качество, количество доставок' },
+            { title: 'Экспорт отчётов', desc: 'Excel, PDF для бухгалтерии' },
+          ],
+          [
+            { title: 'Real-time sales', desc: 'Revenue, orders, average check' },
+            { title: 'ABC menu analysis', desc: 'Popular and profitable items' },
+            { title: 'RFM customer analysis', desc: 'Segmentation by loyalty' },
+            { title: 'Channel efficiency', desc: 'Compare aggregators and own channels' },
+            { title: 'Courier KPIs', desc: 'Speed, quality, delivery count' },
+            { title: 'Report export', desc: 'Excel, PDF for accounting' },
+          ],
+          [
+            { title: 'Real vaqtda sotuvlar', desc: 'Daromad, buyurtmalar, o\'rtacha chek' },
+            { title: 'Menyu ABC-tahlili', desc: 'Mashhur va foydali pozitsiyalar' },
+            { title: 'Mijozlar RFM-tahlili', desc: 'Sodiqlik bo\'yicha segmentatsiya' },
+            { title: 'Kanallar samaradorligi', desc: 'Agregatorlar va o\'z kanallarini solishtirish' },
+            { title: 'Kuryerlar KPI', desc: 'Tezlik, sifat, yetkazib berishlar soni' },
+            { title: 'Hisobotlarni eksport qilish', desc: 'Buxgalteriya uchun Excel, PDF' },
+          ]
+        ),
       },
       
       // 7. CRM и лояльность
       crm: {
-        title: isRu ? 'CRM и программа лояльности' : 'CRM & Loyalty Program',
-        subtitle: isRu ? 'Превращайте разовых клиентов в постоянных' : 'Turn one-time customers into regulars',
-        description: isRu 
-          ? 'База клиентов с историей заказов, система бонусов и кешбэка, автоматические рассылки и персонализированные предложения.'
-          : 'Customer database with order history, bonus and cashback system, automated campaigns and personalized offers.',
-        features: isRu ? [
-          { title: 'База клиентов', desc: 'История заказов, контакты, предпочтения' },
-          { title: 'Кешбэк и бонусы', desc: 'Гибкие правила начисления' },
-          { title: 'Push и SMS рассылки', desc: 'Автоматические и ручные кампании' },
-          { title: 'Промокоды', desc: 'Создание и отслеживание промокодов' },
-          { title: 'Сегментация', desc: 'Группировка клиентов по поведению' },
-        ] : [
-          { title: 'Customer base', desc: 'Order history, contacts, preferences' },
-          { title: 'Cashback & bonuses', desc: 'Flexible accrual rules' },
-          { title: 'Push & SMS campaigns', desc: 'Automatic and manual campaigns' },
-          { title: 'Promo codes', desc: 'Create and track promo codes' },
-          { title: 'Segmentation', desc: 'Group customers by behavior' },
-        ],
-        stats: isRu ? [
-          { label: 'Рост повторных заказов', value: '+300%', type: 'green' },
-          { label: 'LTV клиента', value: '+150%', type: 'green' },
-        ] : [
-          { label: 'Repeat orders growth', value: '+300%', type: 'green' },
-          { label: 'Customer LTV', value: '+150%', type: 'green' },
-        ],
+        title: txt('CRM и программа лояльности', 'CRM & Loyalty Program', 'CRM va sodiqlik dasturi'),
+        subtitle: txt('Превращайте разовых клиентов в постоянных', 'Turn one-time customers into regulars', 'Bir martalik mijozlarni doimiyga aylantiring'),
+        description: txt(
+          'База клиентов с историей заказов, система бонусов и кешбэка, автоматические рассылки и персонализированные предложения.',
+          'Customer database with order history, bonus and cashback system, automated campaigns and personalized offers.',
+          'Buyurtmalar tarixi bilan mijozlar bazasi, bonus va keshbek tizimi, avtomatik jo\'natmalar va shaxsiylashtirilgan takliflar.'
+        ),
+        features: txt(
+          [
+            { title: 'База клиентов', desc: 'История заказов, контакты, предпочтения' },
+            { title: 'Кешбэк и бонусы', desc: 'Гибкие правила начисления' },
+            { title: 'Push и SMS рассылки', desc: 'Автоматические и ручные кампании' },
+            { title: 'Промокоды', desc: 'Создание и отслеживание промокодов' },
+            { title: 'Сегментация', desc: 'Группировка клиентов по поведению' },
+          ],
+          [
+            { title: 'Customer base', desc: 'Order history, contacts, preferences' },
+            { title: 'Cashback & bonuses', desc: 'Flexible accrual rules' },
+            { title: 'Push & SMS campaigns', desc: 'Automatic and manual campaigns' },
+            { title: 'Promo codes', desc: 'Create and track promo codes' },
+            { title: 'Segmentation', desc: 'Group customers by behavior' },
+          ],
+          [
+            { title: 'Mijozlar bazasi', desc: 'Buyurtmalar tarixi, kontaktlar, afzalliklar' },
+            { title: 'Keshbek va bonuslar', desc: 'Moslashuvchan hisoblash qoidalari' },
+            { title: 'Push va SMS jo\'natmalar', desc: 'Avtomatik va qo\'lda kampaniyalar' },
+            { title: 'Promokodlar', desc: 'Promokodlarni yaratish va kuzatish' },
+            { title: 'Segmentatsiya', desc: 'Mijozlarni xatti-harakatlar bo\'yicha guruhlash' },
+          ]
+        ),
+        stats: txt(
+          [
+            { label: 'Рост повторных заказов', value: '+300%', type: 'green' },
+            { label: 'LTV клиента', value: '+150%', type: 'green' },
+          ],
+          [
+            { label: 'Repeat orders growth', value: '+300%', type: 'green' },
+            { label: 'Customer LTV', value: '+150%', type: 'green' },
+          ],
+          [
+            { label: 'Takroriy buyurtmalar o\'sishi', value: '+300%', type: 'green' },
+            { label: 'Mijoz LTV', value: '+150%', type: 'green' },
+          ]
+        ),
       },
     },
     
     // Тарифы
-    pricingTitle: isRu ? 'Тарифы' : 'Pricing',
-    pricingSubtitle: isRu ? 'Выберите подходящий тариф для вашего бизнеса' : 'Choose the right plan for your business',
-    plans: isRu ? [
-      { name: 'Start', orders: 'до 1 000 заказов', price: '1,3 млн сум' },
-      { name: 'Medium', orders: 'до 3 000 заказов', price: '3,25 млн сум', popular: true },
-      { name: 'Big', orders: 'до 6 000 заказов', price: '6,5 млн сум' },
-      { name: 'Enterprise', orders: 'до 10 000 заказов', price: '13 млн сум' },
-    ] : [
-      { name: 'Start', orders: 'up to 1,000 orders', price: '$150' },
-      { name: 'Medium', orders: 'up to 3,000 orders', price: '$280', popular: true },
-      { name: 'Big', orders: 'up to 6,000 orders', price: '$580' },
-      { name: 'Enterprise', orders: 'up to 10,000 orders', price: '$1,100' },
-    ],
+    pricingTitle: txt('Тарифы', 'Pricing', 'Tariflar'),
+    pricingSubtitle: txt('Выберите подходящий тариф для вашего бизнеса', 'Choose the right plan for your business', 'Biznesingiz uchun mos tarifni tanlang'),
+    plans: txt(
+      [
+        { name: 'Start', orders: 'до 1 000 заказов', price: '1,3 млн сум' },
+        { name: 'Medium', orders: 'до 3 000 заказов', price: '3,25 млн сум', popular: true },
+        { name: 'Big', orders: 'до 6 000 заказов', price: '6,5 млн сум' },
+        { name: 'Enterprise', orders: 'до 10 000 заказов', price: '13 млн сум' },
+      ],
+      [
+        { name: 'Start', orders: 'up to 1,000 orders', price: '$150' },
+        { name: 'Medium', orders: 'up to 3,000 orders', price: '$280', popular: true },
+        { name: 'Big', orders: 'up to 6,000 orders', price: '$580' },
+        { name: 'Enterprise', orders: 'up to 10,000 orders', price: '$1,100' },
+      ],
+      [
+        { name: 'Start', orders: '1 000 tagacha buyurtma', price: '1,3 mln so\'m' },
+        { name: 'Medium', orders: '3 000 tagacha buyurtma', price: '3,25 mln so\'m', popular: true },
+        { name: 'Big', orders: '6 000 tagacha buyurtma', price: '6,5 mln so\'m' },
+        { name: 'Enterprise', orders: '10 000 tagacha buyurtma', price: '13 mln so\'m' },
+      ]
+    ),
     
     // Клиенты
-    clientsTitle: isRu ? 'Наши клиенты' : 'Our Clients',
-    clientsSubtitle: isRu ? 'Реализованные проекты на платформе Delever' : 'Projects built on Delever platform',
-    websitesLabel: isRu ? 'Сайты' : 'Websites',
-    appsLabel: isRu ? 'Приложения' : 'Apps',
+    clientsTitle: txt('Наши клиенты', 'Our Clients', 'Bizning mijozlar'),
+    clientsSubtitle: txt('Реализованные проекты на платформе Delever', 'Projects built on Delever platform', 'Delever platformasida amalga oshirilgan loyihalar'),
+    websitesLabel: txt('Сайты', 'Websites', 'Saytlar'),
+    appsLabel: txt('Приложения', 'Apps', 'Ilovalar'),
     
     // Контакты
-    contactsTitle: isRu ? 'Готовы начать?' : 'Ready to start?',
-    contactsSubtitle: isRu ? 'Свяжитесь с нами для бесплатной консультации' : 'Contact us for a free consultation',
+    contactsTitle: txt('Готовы начать?', 'Ready to start?', 'Boshlashga tayyormisiz?'),
+    contactsSubtitle: txt('Свяжитесь с нами для бесплатной консультации', 'Contact us for a free consultation', 'Bepul maslahat uchun biz bilan bog\'laning'),
     
     // Персональное
-    customTitle: isRu ? 'Ваше персональное предложение' : 'Your Personal Offer',
-    customFor: isRu ? 'Специально для вашего бизнеса' : 'Specially for your business',
-    customPlan: isRu ? 'Выбранный тариф' : 'Selected Plan',
-    customParams: isRu ? 'Параметры бизнеса' : 'Business Parameters',
-    branches: isRu ? 'Филиалов' : 'Branches',
-    orders: isRu ? 'Заказов/мес' : 'Orders/mo',
-    avgCheck: isRu ? 'Средний чек' : 'Avg Check',
-    monthly: isRu ? 'Ежемесячно' : 'Monthly',
-    deposit: isRu ? 'Депозит' : 'Deposit',
-    savings: isRu ? 'Ваша выгода' : 'Your Savings',
-    yearly: isRu ? 'Годовая экономия' : 'Yearly savings',
+    customTitle: txt('Ваше персональное предложение', 'Your Personal Offer', 'Sizning shaxsiy taklifingiz'),
+    customFor: txt('Специально для вашего бизнеса', 'Specially for your business', 'Biznesingiz uchun maxsus'),
+    customPlan: txt('Выбранный тариф', 'Selected Plan', 'Tanlangan tarif'),
+    customParams: txt('Параметры бизнеса', 'Business Parameters', 'Biznes parametrlari'),
+    branches: txt('Филиалов', 'Branches', 'Filiallar'),
+    orders: txt('Заказов/мес', 'Orders/mo', 'Buyurtmalar/oy'),
+    avgCheck: txt('Средний чек', 'Avg Check', 'O\'rtacha chek'),
+    monthly: txt('Ежемесячно', 'Monthly', 'Oylik'),
+    deposit: txt('Депозит', 'Deposit', 'Depozit'),
+    savings: txt('Ваша выгода', 'Your Savings', 'Sizning foydangiz'),
+    yearly: txt('Годовая экономия', 'Yearly savings', 'Yillik tejash'),
   }
 
   const html = `
@@ -742,7 +886,7 @@ export function generatePresentation(data: PresentationData): string {
         </ul>
       </div>
       <div class="feature-visual">
-        <div style="font-weight: 600; margin-bottom: 12px; color: #002A47;">${isRu ? 'Поддерживаемые агрегаторы' : 'Supported aggregators'}</div>
+        <div style="font-weight: 600; margin-bottom: 12px; color: #002A47;">${txt('Поддерживаемые агрегаторы', 'Supported aggregators', 'Qo\'llab-quvvatlanadigan agregatorlar')}</div>
         <div class="integration-grid" style="grid-template-columns: repeat(2, 1fr);">
           ${t.solutions.aggregators.integrations.map(name => `
             <div class="integration-item">
@@ -803,7 +947,7 @@ export function generatePresentation(data: PresentationData): string {
         </ul>
       </div>
       <div class="feature-visual">
-        <div style="font-weight: 600; margin-bottom: 12px; color: #002A47;">${isRu ? 'Интегрированные службы' : 'Integrated services'}</div>
+        <div style="font-weight: 600; margin-bottom: 12px; color: #002A47;">${txt('Интегрированные службы', 'Integrated services', 'Integratsiyalangan xizmatlar')}</div>
         ${t.solutions.externalCouriers.services.map(name => `
           <div class="visual-stat">
             <span class="visual-stat-label">${name}</span>
@@ -837,8 +981,8 @@ export function generatePresentation(data: PresentationData): string {
       <div class="feature-visual">
         <div style="text-align: center; padding: 20px;">
           <div style="font-size: 64px; margin-bottom: 16px;">📱</div>
-          <div style="font-weight: 600; color: #002A47; margin-bottom: 8px;">${isRu ? 'iOS & Android' : 'iOS & Android'}</div>
-          <div style="font-size: 13px; color: #64748b;">${isRu ? 'Доступно в App Store и Google Play' : 'Available on App Store and Google Play'}</div>
+          <div style="font-weight: 600; color: #002A47; margin-bottom: 8px;">iOS & Android</div>
+          <div style="font-size: 13px; color: #64748b;">${txt('Доступно в App Store и Google Play', 'Available on App Store and Google Play', 'App Store va Google Play\'da mavjud')}</div>
         </div>
         ${t.solutions.courierApp.features.slice(4).map(f => `
           <div class="visual-stat">
@@ -898,7 +1042,7 @@ export function generatePresentation(data: PresentationData): string {
         `).join('')}
         <div style="margin-top: 20px; padding: 20px; background: white; border-radius: 12px; text-align: center;">
           <div style="font-size: 48px;">🎁</div>
-          <div style="font-weight: 600; color: #002A47; margin-top: 8px;">${isRu ? 'Кешбэк, бонусы, промокоды' : 'Cashback, bonuses, promo codes'}</div>
+          <div style="font-weight: 600; color: #002A47; margin-top: 8px;">${txt('Кешбэк, бонусы, промокоды', 'Cashback, bonuses, promo codes', 'Keshbek, bonuslar, promokodlar')}</div>
         </div>
       </div>
     </div>
@@ -909,15 +1053,15 @@ export function generatePresentation(data: PresentationData): string {
   <div class="slide">
     <div class="slide-header">
       <div class="slide-icon" style="background: #DBEAFE;">🔌</div>
-      <h1 class="slide-title">${isRu ? 'Все интеграции' : 'All Integrations'}</h1>
+      <h1 class="slide-title">${txt('Все интеграции', 'All Integrations', 'Barcha integratsiyalar')}</h1>
     </div>
-    <p class="slide-subtitle">${isRu ? 'Работаем со всеми популярными сервисами' : 'We work with all popular services'}</p>
+    <p class="slide-subtitle">${txt('Работаем со всеми популярными сервисами', 'We work with all popular services', 'Barcha mashhur xizmatlar bilan ishlaymiz')}</p>
     <div class="grid-4" style="gap: 12px;">
       ${[
-        { cat: isRu ? 'Агрегаторы' : 'Aggregators', items: ['Yandex Eats', 'Wolt', 'Glovo', 'Uzum Tezkor', 'Bolt Food', 'Express 24'] },
-        { cat: isRu ? 'Курьерские службы' : 'Courier services', items: ['Yandex Delivery', 'Wolt Drive', 'Millennium', 'Noor Taxi'] },
-        { cat: isRu ? 'Платёжные системы' : 'Payment systems', items: ['Payme', 'Click', 'Uzum Pay', 'Visa', 'Mastercard'] },
-        { cat: isRu ? 'POS системы' : 'POS systems', items: ['R-Keeper', 'iiko', 'Poster', 'Jowi', '1C'] },
+        { cat: txt('Агрегаторы', 'Aggregators', 'Agregatorlar'), items: ['Yandex Eats', 'Wolt', 'Glovo', 'Uzum Tezkor', 'Bolt Food', 'Express 24'] },
+        { cat: txt('Курьерские службы', 'Courier services', 'Kuryer xizmatlari'), items: ['Yandex Delivery', 'Wolt Drive', 'Millennium', 'Noor Taxi'] },
+        { cat: txt('Платёжные системы', 'Payment systems', 'To\'lov tizimlari'), items: ['Payme', 'Click', 'Uzum Pay', 'Visa', 'Mastercard'] },
+        { cat: txt('POS системы', 'POS systems', 'POS tizimlar'), items: ['R-Keeper', 'iiko', 'Poster', 'Jowi', '1C'] },
       ].map(c => `
         <div class="card">
           <div style="font-weight: 600; color: #002A47; margin-bottom: 12px; font-size: 14px;">${c.cat}</div>
@@ -932,17 +1076,17 @@ export function generatePresentation(data: PresentationData): string {
   <div class="slide">
     <div class="slide-header">
       <div class="slide-icon" style="background: #FEF3C7;">⚡</div>
-      <h1 class="slide-title">${isRu ? 'Дополнительные модули' : 'Additional Modules'}</h1>
+      <h1 class="slide-title">${txt('Дополнительные модули', 'Additional Modules', 'Qo\'shimcha modullar')}</h1>
     </div>
-    <p class="slide-subtitle">${isRu ? 'Расширьте возможности платформы' : 'Extend platform capabilities'}</p>
+    <p class="slide-subtitle">${txt('Расширьте возможности платформы', 'Extend platform capabilities', 'Platforma imkoniyatlarini kengaytiring')}</p>
     <div class="grid-3">
       ${[
-        { icon: '🖥️', name: isRu ? 'Киоск самообслуживания' : 'Self-service kiosk', desc: isRu ? 'Приём заказов в зале без официанта' : 'Order taking in hall without waiter' },
-        { icon: '📞', name: isRu ? 'Колл-центр' : 'Call center', desc: isRu ? 'Модуль для операторов телефонных заказов' : 'Module for phone order operators' },
-        { icon: '🍳', name: isRu ? 'Кухонный дисплей (KDS)' : 'Kitchen Display (KDS)', desc: isRu ? 'Экраны заказов для поваров' : 'Order screens for chefs' },
-        { icon: '🏷️', name: isRu ? 'Управление меню' : 'Menu management', desc: isRu ? 'Централизованное управление меню' : 'Centralized menu control' },
-        { icon: '📦', name: isRu ? 'Складской учёт' : 'Inventory', desc: isRu ? 'Контроль остатков и списаний' : 'Stock and write-off control' },
-        { icon: '📈', name: isRu ? 'Маркетинг' : 'Marketing', desc: isRu ? 'Push, SMS, Email рассылки' : 'Push, SMS, Email campaigns' },
+        { icon: '🖥️', name: txt('Киоск самообслуживания', 'Self-service kiosk', 'O\'z-o\'ziga xizmat ko\'rsatish kioski'), desc: txt('Приём заказов в зале без официанта', 'Order taking in hall without waiter', 'Ofitsiantsiz zalda buyurtmalarni qabul qilish') },
+        { icon: '📞', name: txt('Колл-центр', 'Call center', 'Call-markaz'), desc: txt('Модуль для операторов телефонных заказов', 'Module for phone order operators', 'Telefon buyurtmalari operatorlari uchun modul') },
+        { icon: '🍳', name: txt('Кухонный дисплей (KDS)', 'Kitchen Display (KDS)', 'Oshxona displeyi (KDS)'), desc: txt('Экраны заказов для поваров', 'Order screens for chefs', 'Oshpazlar uchun buyurtma ekranlari') },
+        { icon: '🏷️', name: txt('Управление меню', 'Menu management', 'Menyuni boshqarish'), desc: txt('Централизованное управление меню', 'Centralized menu control', 'Markazlashtirilgan menyu boshqaruvi') },
+        { icon: '📦', name: txt('Складской учёт', 'Inventory', 'Ombor hisobi'), desc: txt('Контроль остатков и списаний', 'Stock and write-off control', 'Qoldiqlar va hisobdan chiqarishlarni nazorat qilish') },
+        { icon: '📈', name: txt('Маркетинг', 'Marketing', 'Marketing'), desc: txt('Push, SMS, Email рассылки', 'Push, SMS, Email campaigns', 'Push, SMS, Email jo\'natmalar') },
       ].map(m => `
         <div class="card">
           <div class="card-icon">${m.icon}</div>
@@ -958,15 +1102,15 @@ export function generatePresentation(data: PresentationData): string {
   <div class="slide">
     <div class="slide-header">
       <div class="slide-icon" style="background: #D1FAE5;">📈</div>
-      <h1 class="slide-title">${isRu ? 'Результаты клиентов' : 'Client Results'}</h1>
+      <h1 class="slide-title">${txt('Результаты клиентов', 'Client Results', 'Mijozlar natijalari')}</h1>
     </div>
-    <p class="slide-subtitle">${isRu ? 'Проверено на 1000+ бизнесов' : 'Proven on 1000+ businesses'}</p>
+    <p class="slide-subtitle">${txt('Проверено на 1000+ бизнесов', 'Proven on 1000+ businesses', '1000+ biznesda tasdiqlangan')}</p>
     <div class="grid-4" style="margin-bottom: 30px;">
       ${[
-        { value: '1000+', label: isRu ? 'Бизнесов' : 'Businesses' },
-        { value: '13M+', label: isRu ? 'Заказов' : 'Orders' },
-        { value: '7', label: isRu ? 'Стран' : 'Countries' },
-        { value: '+30%', label: isRu ? 'Рост выручки' : 'Revenue growth' },
+        { value: '1000+', label: txt('Бизнесов', 'Businesses', 'Bizneslar') },
+        { value: '13M+', label: txt('Заказов', 'Orders', 'Buyurtmalar') },
+        { value: '7', label: txt('Стран', 'Countries', 'Mamlakatlar') },
+        { value: '+30%', label: txt('Рост выручки', 'Revenue growth', 'Daromad o\'sishi') },
       ].map(s => `
         <div class="metric-card">
           <div class="metric-value">${s.value}</div>
@@ -976,10 +1120,10 @@ export function generatePresentation(data: PresentationData): string {
     </div>
     <div class="grid-2">
       ${[
-        { name: 'Yaponamama', result: isRu ? '+45% повторных заказов' : '+45% repeat orders', logo: 'https://yaponamama.uz/images/logo.jpg' },
-        { name: 'Maxway', result: isRu ? '60% заказов через свои каналы' : '60% orders via own channels', logo: 'https://maxway.uz/favicon.ico' },
-        { name: 'Chicago Pizza', result: isRu ? '+35% средний чек' : '+35% average check', logo: 'https://cdn.delever.uz/delever/chicago_logo.png' },
-        { name: 'Kamolon Osh', result: isRu ? 'Экономия 8 млн сум/мес' : '$700/mo savings', logo: 'https://kamolonosh.uz/images/logo.svg' },
+        { name: 'Yaponamama', result: txt('+45% повторных заказов', '+45% repeat orders', '+45% takroriy buyurtmalar'), logo: 'https://yaponamama.uz/images/logo.jpg' },
+        { name: 'Maxway', result: txt('60% заказов через свои каналы', '60% orders via own channels', '60% buyurtmalar o\'z kanallar orqali'), logo: 'https://maxway.uz/favicon.ico' },
+        { name: 'Chicago Pizza', result: txt('+35% средний чек', '+35% average check', '+35% o\'rtacha chek'), logo: 'https://cdn.delever.uz/delever/chicago_logo.png' },
+        { name: 'Kamolon Osh', result: txt('Экономия 8 млн сум/мес', '$700/mo savings', '8 mln so\'m/oy tejash'), logo: 'https://kamolonosh.uz/images/logo.svg' },
       ].map(c => `
         <div class="card" style="display: flex; justify-content: space-between; align-items: center; padding: 16px;">
           <div style="display: flex; align-items: center; gap: 12px;">
@@ -1043,7 +1187,7 @@ export function generatePresentation(data: PresentationData): string {
     <div class="grid-4">
       ${t.plans.map(p => `
         <div class="plan-card ${p.popular ? 'popular' : ''}">
-          ${p.popular ? `<div class="plan-badge">${isRu ? 'Популярный' : 'Popular'}</div>` : '<div style="height: 22px;"></div>'}
+          ${p.popular ? `<div class="plan-badge">${txt('Популярный', 'Popular', 'Mashhur')}</div>` : '<div style="height: 22px;"></div>'}
           <div class="plan-name">${p.name}</div>
           <div class="plan-orders">${p.orders}</div>
           <div class="plan-price">${p.price}</div>
@@ -1051,7 +1195,7 @@ export function generatePresentation(data: PresentationData): string {
       `).join('')}
     </div>
     <div style="margin-top: 24px; padding: 20px; background: #f8fafc; border-radius: 12px; text-align: center;">
-      <div style="font-size: 14px; color: #64748b;">${isRu ? 'Все тарифы включают: веб-сайт, Telegram-бот, курьерское приложение, CRM, аналитику' : 'All plans include: website, Telegram bot, courier app, CRM, analytics'}</div>
+      <div style="font-size: 14px; color: #64748b;">${txt('Все тарифы включают: веб-сайт, Telegram-бот, курьерское приложение, CRM, аналитику', 'All plans include: website, Telegram bot, courier app, CRM, analytics', 'Barcha tariflar quyidagilarni o\'z ichiga oladi: veb-sayt, Telegram-bot, kuryer ilovasi, CRM, tahlil')}</div>
     </div>
     <div class="slide-footer"><span>delever.io</span><span>14/17</span></div>
   </div>
@@ -1060,15 +1204,15 @@ export function generatePresentation(data: PresentationData): string {
   <div class="slide">
     <div class="slide-header">
       <div class="slide-icon" style="background: #CFFAFE;">🚀</div>
-      <h1 class="slide-title">${isRu ? 'Как мы работаем' : 'How we work'}</h1>
+      <h1 class="slide-title">${txt('Как мы работаем', 'How we work', 'Qanday ishlaymiz')}</h1>
     </div>
-    <p class="slide-subtitle">${isRu ? 'Запуск за 3-7 дней' : 'Launch in 3-7 days'}</p>
+    <p class="slide-subtitle">${txt('Запуск за 3-7 дней', 'Launch in 3-7 days', '3-7 kunda ishga tushirish')}</p>
     <div class="grid-4">
       ${[
-        { step: '1', title: isRu ? 'Консультация' : 'Consultation', desc: isRu ? 'Анализ бизнеса и потребностей' : 'Business & needs analysis', time: isRu ? '1 день' : '1 day' },
-        { step: '2', title: isRu ? 'Настройка' : 'Setup', desc: isRu ? 'Меню, интеграции, дизайн' : 'Menu, integrations, design', time: isRu ? '2-3 дня' : '2-3 days' },
-        { step: '3', title: isRu ? 'Обучение' : 'Training', desc: isRu ? 'Обучение команды работе' : 'Team training', time: isRu ? '1 день' : '1 day' },
-        { step: '4', title: isRu ? 'Запуск' : 'Launch', desc: isRu ? 'Старт и поддержка' : 'Start & support', time: isRu ? '∞' : '∞' },
+        { step: '1', title: txt('Консультация', 'Consultation', 'Maslahat'), desc: txt('Анализ бизнеса и потребностей', 'Business & needs analysis', 'Biznes va ehtiyojlar tahlili'), time: txt('1 день', '1 day', '1 kun') },
+        { step: '2', title: txt('Настройка', 'Setup', 'Sozlash'), desc: txt('Меню, интеграции, дизайн', 'Menu, integrations, design', 'Menyu, integratsiyalar, dizayn'), time: txt('2-3 дня', '2-3 days', '2-3 kun') },
+        { step: '3', title: txt('Обучение', 'Training', 'O\'qitish'), desc: txt('Обучение команды работе', 'Team training', 'Jamoa o\'qitish'), time: txt('1 день', '1 day', '1 kun') },
+        { step: '4', title: txt('Запуск', 'Launch', 'Ishga tushirish'), desc: txt('Старт и поддержка', 'Start & support', 'Start va qo\'llab-quvvatlash'), time: '∞' },
       ].map(s => `
         <div class="card" style="text-align: center;">
           <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #002A47, #004d7a); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-weight: 700;">${s.step}</div>
@@ -1098,7 +1242,7 @@ export function generatePresentation(data: PresentationData): string {
   <div class="slide custom-slide">
     <div class="custom-header">
       <h1 style="font-size: 28px; margin-bottom: 6px;">${t.customTitle}</h1>
-      <p style="opacity: 0.9; font-size: 14px;">${brandName ? `${isRu ? 'Для' : 'For'} ${brandName}` : t.customFor}</p>
+      <p style="opacity: 0.9; font-size: 14px;">${brandName ? `${txt('Для', 'For', '')} ${brandName}${txt('', '', ' uchun')}` : t.customFor}</p>
     </div>
     <div class="custom-grid">
       <div class="custom-section">
@@ -1131,7 +1275,7 @@ export function generatePresentation(data: PresentationData): string {
     </div>
     ${customData.roiSavings ? `
     <div class="savings-box">
-      <div class="savings-value">+${customData.roiSavings}/${isRu ? 'мес' : 'mo'}</div>
+      <div class="savings-value">+${customData.roiSavings}/${txt('мес', 'mo', 'oy')}</div>
       <div class="savings-label">${t.savings}</div>
       ${customData.roiYearlySavings ? `<div style="margin-top: 8px; opacity: 0.9; font-size: 13px;">${t.yearly}: ${customData.roiYearlySavings}</div>` : ''}
     </div>

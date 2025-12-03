@@ -3553,6 +3553,25 @@ export const translations: Record<Language, Record<string, string>> = {
     // Cases Section
     'cases.title': 'Haqiqiy o\'sish raqamlari',
     'cases.subtitle': 'Delever joriy etilgandan keyin haqiqiy o\'sish raqamlari',
+    'cases.viewAll': 'Barcha keyslarni ko\'rish',
+    'cases.location.tashkent': 'Toshkent, O\'zbekiston',
+    'cases.location.kazakhstan': 'Qozog\'iston',
+    // GIPPO
+    'cases.gippo.metric1': 'Onlayn-buyurtmalar',
+    'cases.gippo.metric2': 'Daromad',
+    'cases.gippo.metric3': 'Xatolar',
+    'cases.gippo.summary': '42 ta nuqtali tarmoq uchun yagona platforma',
+    // Yaponamama
+    'cases.yaponamama.metric1': 'Buyurtmalar o\'sishi',
+    'cases.yaponamama.metric2': 'Yetkazib berish vaqti',
+    'cases.yaponamama.metric3': 'O\'rtacha chek',
+    'cases.yaponamama.summary': 'Call-markazdan kuryerlar va marketinggacha barcha jarayonlarni to\'liq avtomatlashtirish',
+    // MAXWAY
+    'cases.maxway.metric1': 'GMV',
+    'cases.maxway.metric2': 'Faol mijozlar',
+    'cases.maxway.metric3': 'Konversiya',
+    'cases.maxway.summary': 'Agregatorlar va o\'z kanallari bilan integratsiya',
+    // Aliases
     'cases.onlineOrders': 'Onlayn-buyurtmalar',
     'cases.revenue': 'Daromad',
     'cases.errors': 'Xatolar',
