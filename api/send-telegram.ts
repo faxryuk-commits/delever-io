@@ -61,6 +61,7 @@ ${detectedCountry ? `🌍 Страна: ${detectedCountry}\n` : ''}${language ? 
 📊 *Статус:* 🟡 Ожидает обработки`
 
     // Inline-кнопка "Принять заявку"
+    const phoneDigits = phone.replace(/\D/g, '')
     const inlineKeyboard = {
       inline_keyboard: [
         [
@@ -71,12 +72,12 @@ ${detectedCountry ? `🌍 Страна: ${detectedCountry}\n` : ''}${language ? 
         ],
         [
           {
-            text: '📞 Позвонить',
-            url: `tel:${phone.replace(/\s/g, '')}`
+            text: '💬 WhatsApp',
+            url: `https://wa.me/${phoneDigits}`
           },
           {
-            text: '💬 WhatsApp',
-            url: `https://wa.me/${phone.replace(/\D/g, '')}`
+            text: '📱 Telegram',
+            url: `https://t.me/+${phoneDigits}`
           }
         ]
       ]

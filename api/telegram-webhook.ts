@@ -46,16 +46,17 @@ export default async function handler(req: Request): Promise<Response> {
           + `\n\n━━━━━━━━━━━━━━━━━━━━━\n✅ *Принято:* ${managerName} ${managerUsername}\n🕐 *Когда:* ${timestamp}`
 
         // Обновляем кнопки - убираем "Принять", добавляем другие действия
+        const phoneDigits = extractPhone(originalText).replace(/\D/g, '')
         const updatedKeyboard = {
           inline_keyboard: [
             [
               {
-                text: '📞 Позвонить',
-                url: `tel:${extractPhone(originalText)}`
+                text: '💬 WhatsApp',
+                url: `https://wa.me/${phoneDigits}`
               },
               {
-                text: '💬 WhatsApp',
-                url: `https://wa.me/${extractPhone(originalText).replace(/\D/g, '')}`
+                text: '📱 Telegram',
+                url: `https://t.me/+${phoneDigits}`
               }
             ],
             [
