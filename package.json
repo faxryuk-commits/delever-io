@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/generate-sitemap.cjs",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint . --max-warnings 0"
+    "lint": "eslint . --max-warnings 0",
+    "sitemap": "node scripts/generate-sitemap.cjs"
   },
   "dependencies": {
     "react": "^18.2.0",
