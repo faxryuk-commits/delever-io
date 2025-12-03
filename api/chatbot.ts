@@ -129,6 +129,51 @@ Yaponamama, EVOS, Maxway, Les Ailes, Brasserie, Pizza Hut, Hardee's, GIPPO и д
 type UserIntent = 'info' | 'pricing' | 'demo' | 'support' | 'hot_lead' | 'unknown'
 void ('' as UserIntent) // Используется в SYSTEM_PROMPT
 
+// Offline ответы когда OpenAI недоступен
+function getOfflineResponse(message: string): string {
+  const lowerMessage = message.toLowerCase()
+  
+  if (lowerMessage.includes('тариф') || lowerMessage.includes('цен') || lowerMessage.includes('стои')) {
+    return `💰 Тарифы Delever:
+
+• Start — от 1.3 млн сум/мес (до 1000 заказов)
+• Medium — от 2.4 млн сум/мес (до 3000 заказов)
+• Big — от 4.3 млн сум/мес (до 6000 заказов)
+• Enterprise — от 6.5 млн сум/мес (10,000+ заказов)
+
+Хотите узнать точную стоимость? Свяжитесь с нами: +998 78 113 98 13`
+  }
+  
+  if (lowerMessage.includes('интеграц') || lowerMessage.includes('pos') || lowerMessage.includes('iiko')) {
+    return `🔗 Delever интегрируется с:
+
+• POS: iiko, R-Keeper, Poster, Jowi
+• Агрегаторы: Wolt, Glovo, Uzum Tezkor
+• Оплата: Payme, Click, Uzum
+
+Для подробностей: +998 78 113 98 13`
+  }
+  
+  if (lowerMessage.includes('привет') || lowerMessage.includes('здравств') || lowerMessage.includes('добр')) {
+    return `Привет! 👋
+
+Я могу рассказать о:
+• Тарифах и ценах
+• Интеграциях (iiko, R-Keeper, агрегаторы)
+• Возможностях платформы
+
+Что вас интересует?`
+  }
+  
+  return `Спасибо за вопрос! 
+
+Для подробной консультации свяжитесь с нами:
+📞 +998 78 113 98 13
+📧 support@delever.uz
+
+Или напишите "тарифы", "интеграции" для быстрой информации.`
+}
+
 // Системный промпт для AI
 const SYSTEM_PROMPT = `Ты — умный ассистент компании Delever. Твоя задача:
 
@@ -214,6 +259,8 @@ export default async function handler(req: Request): Promise<Response> {
     ]
 
     // Запрос к OpenAI
+    console.log('Chatbot: Sending request to OpenAI...')
+    
     const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -228,10 +275,24 @@ export default async function handler(req: Request): Promise<Response> {
       })
     })
 
+    console.log('Chatbot: OpenAI response status:', openaiResponse.status)
+
     if (!openaiResponse.ok) {
-      const error = await openaiResponse.json()
-      console.error('OpenAI error:', error)
-      throw new Error('AI request failed')
+      const errorText = await openaiResponse.text()
+      console.error('OpenAI error:', errorText)
+      
+      // Fallback ответ если OpenAI не работает
+      return new Response(JSON.stringify({
+        success: true,
+        message: getOfflineResponse(message),
+        intent: 'info',
+        leadScore: 30,
+        requestContact: false,
+        source
+      }), {
+        status: 200,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      })
     }
 
     const aiData = await openaiResponse.json()
