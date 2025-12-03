@@ -175,6 +175,9 @@ export function SmartCalculator() {
     return language === 'en' ? priceUSD : priceUZS
   }
   
+  // Форматирование цены (уже в правильной валюте)
+  const formatPriceConverted = (price: number) => formatPrice(price, language === 'en')
+  
   // Текущий тариф
   const selectedPlan = basePlans.find(p => p.id === selectedPlanId) || basePlans[1]
   
@@ -361,7 +364,7 @@ export function SmartCalculator() {
     if (extraOrders > 0) {
       items.push({
         name: t('calc2.extraOrders'),
-        qty: `${extraOrders} × ${formatPrice(getPrice(selectedPlan.perOrderUZS, selectedPlan.perOrderUSD))}`,
+        qty: `${extraOrders} × ${formatPriceConverted(getPrice(selectedPlan.perOrderUZS, selectedPlan.perOrderUSD))}`,
         price: extraOrdersCost
       })
     }
@@ -531,16 +534,16 @@ export function SmartCalculator() {
         <tr>
           <td>${item.name}</td>
           <td>${item.qty || '—'}</td>
-          <td class="text-right">${formatPrice(item.price)}</td>
+          <td class="text-right">${formatPriceConverted(item.price)}</td>
         </tr>
         `).join('')}
         <tr class="total-row">
           <td colspan="2">${kpText.totalMonthly}</td>
-          <td class="text-right">${formatPrice(totalMonthlyCost)}</td>
+          <td class="text-right">${formatPriceConverted(totalMonthlyCost)}</td>
         </tr>
         <tr class="deposit-row">
           <td colspan="2">${kpText.deposit}</td>
-          <td class="text-right">${formatPrice(deposit)}</td>
+          <td class="text-right">${formatPriceConverted(deposit)}</td>
         </tr>
       </tbody>
     </table>
@@ -595,8 +598,8 @@ export function SmartCalculator() {
           monthlyOrders,
           avgCheck: formatPrice(avgCheck),
           modules: selectedModules.join(', '),
-          monthlyTotal: formatPrice(totalMonthlyCost),
-          deposit: formatPrice(deposit),
+          monthlyTotal: formatPriceConverted(totalMonthlyCost),
+          deposit: formatPriceConverted(deposit),
           benefit: roi.switchSavings > 0 ? formatPrice(roi.switchSavings) : '—',
           timestamp: new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Tashkent' })
         })
@@ -754,10 +757,10 @@ export function SmartCalculator() {
                     {t('calc2.upToOrders', { orders: plan.orders.toLocaleString() })}
                   </div>
                   <div className={`text-lg font-bold ${isSelected ? 'text-white' : 'text-brand-darkBlue'}`}>
-                    {formatPrice(getPrice(plan.priceUZS, plan.priceUSD))}
+                    {formatPriceConverted(getPrice(plan.priceUZS, plan.priceUSD))}
                   </div>
                   <div className={`text-[10px] ${isSelected ? 'text-white/60' : 'text-brand-darkBlue/50'}`}>
-                    +{formatPrice(getPrice(plan.perOrderUZS, plan.perOrderUSD))}/{t('calc2.orderAfterLimit')}
+                    +{formatPriceConverted(getPrice(plan.perOrderUZS, plan.perOrderUSD))}/{t('calc2.orderAfterLimit')}
                   </div>
                 </button>
               )
@@ -770,7 +773,7 @@ export function SmartCalculator() {
               <span className="text-xs text-amber-800">
                 {t('calc2.extraOrdersNote', { 
                   extra: extraOrders.toLocaleString(), 
-                  cost: formatPrice(extraOrdersCost) 
+                  cost: formatPriceConverted(extraOrdersCost) 
                 })}
               </span>
             </div>
@@ -817,7 +820,7 @@ export function SmartCalculator() {
               <span className="text-sm font-medium">{t('calc2.onlyAggregatorsInfo')}</span>
             </div>
             <div className="text-xs text-purple-600 mt-1">
-              {t('calc2.onlyAggregatorsDeposit')}: {formatPrice(language === 'en' ? 600 : 3900000)}
+              {t('calc2.onlyAggregatorsDeposit')}: {formatPriceConverted(language === 'en' ? 600 : 3900000)}
             </div>
           </div>
         )}
@@ -846,7 +849,7 @@ export function SmartCalculator() {
                   )}
                   <span>{t(module.nameKey)}</span>
                   <span className={`text-xs font-bold ${isSelected ? 'text-white/90' : 'text-purple-600'}`}>
-                    {formatPrice(basePrice * branches)}
+                    {formatPriceConverted(basePrice * branches)}
                   </span>
                 </button>
                 {/* Тултип с описанием - адаптивный */}
@@ -863,7 +866,7 @@ export function SmartCalculator() {
           <div className="mt-3 p-2 bg-green-100 rounded-lg border border-green-200 flex items-center gap-2">
             <BadgePercent className="h-4 w-4 text-green-600" />
             <span className="text-sm text-green-800 font-medium">
-              {t('calc2.saveTip')} — {t('calc2.savingsAmount')}: {formatPrice(aggregatorsDiscount.savings)}
+              {t('calc2.saveTip')} — {t('calc2.savingsAmount')}: {formatPriceConverted(aggregatorsDiscount.savings)}
             </span>
           </div>
         )}
@@ -903,7 +906,7 @@ export function SmartCalculator() {
                   )}
                   <span>{t(module.nameKey)}</span>
                   <span className={`text-xs font-bold ${isSelected ? 'text-white/90' : 'text-teal-600'}`}>
-                    {formatPrice(basePrice * branches)}
+                    {formatPriceConverted(basePrice * branches)}
                   </span>
                 </button>
                 {/* Тултип с описанием - адаптивный */}
@@ -920,7 +923,7 @@ export function SmartCalculator() {
           <div className="mt-3 p-2 bg-green-100 rounded-lg border border-green-200 flex items-center gap-2">
             <BadgePercent className="h-4 w-4 text-green-600" />
             <span className="text-sm text-green-800 font-medium">
-              {t('calc2.saveTip')} — {t('calc2.savingsAmount')}: {formatPrice(deliveryServicesDiscount.savings)}
+              {t('calc2.saveTip')} — {t('calc2.savingsAmount')}: {formatPriceConverted(deliveryServicesDiscount.savings)}
             </span>
           </div>
         )}
@@ -976,7 +979,7 @@ export function SmartCalculator() {
               <span className="text-sm font-medium">{t('calc2.onlyKioskInfo')}</span>
             </div>
             <div className="text-xs text-orange-600 mt-1">
-              {t('calc2.onlyKioskDeposit')}: {formatPrice(language === 'en' ? 600 : 6500000)}
+              {t('calc2.onlyKioskDeposit')}: {formatPriceConverted(language === 'en' ? 600 : 6500000)}
             </div>
           </div>
         )}
@@ -1000,7 +1003,7 @@ export function SmartCalculator() {
             />
             <div>
               <div className="font-medium text-brand-darkBlue">{t('calc.module.kiosk')}</div>
-              <div className="text-xs text-brand-darkBlue/50">{formatPrice(getPrice(910000, 90))}/{t('calc2.pcs')}</div>
+              <div className="text-xs text-brand-darkBlue/50">{formatPriceConverted(getPrice(910000, 90))}/{t('calc2.pcs')}</div>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -1031,7 +1034,7 @@ export function SmartCalculator() {
             )}
             <div className="text-right">
               <div className="text-lg font-bold text-brand-orange">
-                {formatPrice(getPrice(910000, 90) * Math.max(1, kiosks))}
+                {formatPriceConverted(getPrice(910000, 90) * Math.max(1, kiosks))}
               </div>
             </div>
           </div>
@@ -1095,7 +1098,7 @@ export function SmartCalculator() {
                       </div>
                       {module.perType !== 'fixed' && (
                         <div className="text-xs text-brand-darkBlue/50">
-                          {formatPrice(basePrice)} {label}
+                          {formatPriceConverted(basePrice)} {label}
                         </div>
                       )}
                     </div>
@@ -1104,7 +1107,7 @@ export function SmartCalculator() {
                     {basePrice === 0 ? (
                       <span className="text-brand-green">{t('calc2.freeGift')}</span>
                     ) : (
-                      formatPrice(basePrice * multiplier)
+                      formatPriceConverted(basePrice * multiplier)
                     )}
                   </div>
                 </label>
@@ -1377,7 +1380,7 @@ export function SmartCalculator() {
             </div>
             <div className="bg-white/10 rounded-xl p-4 text-center">
               <div className="text-xs text-white/70 mb-1">{t('calc2.deleverCost')}</div>
-              <div className="text-lg font-bold">-{formatPrice(totalMonthlyCost)}</div>
+              <div className="text-lg font-bold">-{formatPriceConverted(totalMonthlyCost)}</div>
             </div>
             <div className="bg-white/20 rounded-xl p-4 text-center">
               <div className="text-xs text-white/70 mb-1">{t('calc2.netProfit')}</div>
@@ -1424,7 +1427,7 @@ export function SmartCalculator() {
                 <div className="text-sm space-y-1">
                   <div className="flex justify-between">
                     <span className="text-white/60">Delever:</span>
-                    <span>{formatPrice(totalMonthlyCost)}</span>
+                    <span>{formatPriceConverted(totalMonthlyCost)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-white/60">{t('calc2.marketing')}:</span>
@@ -1473,7 +1476,7 @@ export function SmartCalculator() {
                 <tr key={index} className="border-b border-brand-lightTeal/20">
                   <td className="py-3 text-brand-darkBlue">{item.name}</td>
                   <td className="py-3 text-brand-darkBlue/60 text-sm">{item.qty}</td>
-                  <td className="py-3 text-right font-bold text-brand-darkBlue">{formatPrice(item.price)}</td>
+                  <td className="py-3 text-right font-bold text-brand-darkBlue">{formatPriceConverted(item.price)}</td>
                 </tr>
               ))}
             </tbody>
@@ -1482,11 +1485,11 @@ export function SmartCalculator() {
           <div className="mt-4 pt-4 border-t-2 border-brand-darkBlue">
             <div className="flex justify-between items-center mb-2">
               <span className="text-lg font-bold text-brand-darkBlue">{t('calc2.monthlyTotal')}</span>
-              <span className="text-2xl font-bold text-brand-darkBlue">{formatPrice(totalMonthlyCost)}</span>
+              <span className="text-2xl font-bold text-brand-darkBlue">{formatPriceConverted(totalMonthlyCost)}</span>
             </div>
             <div className="flex justify-between items-center text-brand-darkBlue/70 mb-2">
               <span>{t('calc2.deposit')}</span>
-              <span className="font-medium">{formatPrice(deposit)}</span>
+              <span className="font-medium">{formatPriceConverted(deposit)}</span>
             </div>
           </div>
           

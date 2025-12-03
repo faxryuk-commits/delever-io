@@ -5,7 +5,7 @@ interface LocaleContextType {
   language: Language
   setLanguage: (lang: Language) => void
   t: (key: string, params?: Record<string, string | number>) => string
-  formatPrice: (priceInUZS: number) => string
+  formatPrice: (price: number, isAlreadyConverted?: boolean) => string
   languageName: string
 }
 
@@ -51,12 +51,16 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   // Для Узбекистана - цены в сумах, для остальных - доллары
   const countryConfig = countries[0] // UZ по умолчанию
 
-  const formatPrice = (priceInUZS: number): string => {
+  const formatPrice = (price: number, isAlreadyConverted = false): string => {
     if (language === 'ru') {
-      return `${priceInUZS.toLocaleString('ru-RU')} ${countryConfig.currencySymbol}`
+      return `${price.toLocaleString('ru-RU')} ${countryConfig.currencySymbol}`
     }
-    // Для английского показываем в долларах (конвертация примерная)
-    const priceInUSD = Math.ceil(priceInUZS / 12500)
+    // Для английского: если цена уже в USD (isAlreadyConverted), не конвертируем
+    if (isAlreadyConverted) {
+      return `$${price.toLocaleString('en-US')}`
+    }
+    // Конвертация UZS -> USD (для старых вызовов)
+    const priceInUSD = Math.ceil(price / 12500)
     return `$${priceInUSD.toLocaleString('en-US')}`
   }
 
