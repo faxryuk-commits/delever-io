@@ -61,7 +61,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.start': 'Начать бесплатно',
     
     // Hero
-    'hero.badge': 'Запуск за 1 день',
+    'hero.badge': '№1 Платформа для автоматизации доставки',
     'hero.title': 'Единая платформа',
     'hero.titleHighlight': 'для управления доставкой',
     'hero.titlePrefix': 'для управления',
@@ -1072,7 +1072,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'calc.module.uzum.desc': 'Автоприём заказов • Синхронизация меню • Управление стоп-листом • Статусы в реальном времени',
     'calc.module.wolt': 'Wolt',
     'calc.module.wolt.desc': 'Автоприём заказов • Синхронизация меню • Управление стоп-листом • Статусы в реальном времени',
-    'calc.module.yandex': 'Яндекс Еда',
+    'calc.module.yandex': 'Yandex Eats',
     'calc.module.yandex.desc': 'Автоприём заказов • Синхронизация меню • Управление стоп-листом • Статусы в реальном времени',
     'calc.module.glovo': 'Glovo',
     'calc.module.glovo.desc': 'Автоприём заказов • Синхронизация меню • Управление стоп-листом • Статусы в реальном времени',
@@ -1358,7 +1358,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.start': 'Start Free',
     
     // Hero
-    'hero.badge': 'Launch in 1 day',
+    'hero.badge': '#1 Delivery Automation Platform',
     'hero.title': 'Unified platform',
     'hero.titleHighlight': 'for delivery management',
     'hero.titlePrefix': 'for managing',
