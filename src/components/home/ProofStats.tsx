@@ -219,7 +219,7 @@ export function ProofStats() {
                 href={client.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col items-center p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-brand-blue/50 transition-all w-[140px] sm:w-[150px]"
+                className="group flex flex-col items-center justify-center p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-brand-blue/50 transition-all w-[140px] sm:w-[150px] min-h-[140px]"
               >
                 <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-2 group-hover:bg-brand-blue/20 transition-colors overflow-hidden">
                   {'logo' in client && client.logo ? (
