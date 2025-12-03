@@ -1225,6 +1225,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'calc2.kioskDesc': 'Самообслуживание в зале',
     'calc2.courierAppDesc': 'GPS-трекинг, задания, отчёты',
     'calc2.includedFeatures': 'Входит в тариф',
+    'calc2.platformFeatures': 'Функционал платформы',
+    'calc2.platformFeaturesDesc': 'Все функции ниже включены в любой тариф без дополнительной оплаты',
     'calc2.aggregatorsDiscountHint': 'Выберите "Все агрегаторы" — экономия {savings}',
     // Функции платформы
     'calc.feature.channels': 'Каналы продаж',
@@ -2454,6 +2456,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'calc2.kioskDesc': 'Self-service in hall',
     'calc2.courierAppDesc': 'GPS tracking, tasks, reports',
     'calc2.includedFeatures': 'Included in plan',
+    'calc2.platformFeatures': 'Platform Features',
+    'calc2.platformFeaturesDesc': 'All features below are included in any plan at no extra cost',
     'calc2.aggregatorsDiscountHint': 'Select "All aggregators" — save {savings}',
     // Platform features
     'calc.feature.channels': 'Sales Channels',

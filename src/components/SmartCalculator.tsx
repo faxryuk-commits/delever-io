@@ -783,34 +783,39 @@ export function SmartCalculator() {
             </span>
           </div>
         )}
-        
-        {/* Функции входящие в тариф */}
-        <div className="mt-6 pt-6 border-t border-brand-lightTeal/20">
-          <h4 className="text-sm font-bold text-brand-darkBlue mb-4 flex items-center gap-2">
-            <Check className="h-4 w-4 text-brand-green" />
-            {t('calc2.includedFeatures')}
-          </h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-            {platformFeatures.map((category) => {
-              const CategoryIcon = category.icon
-              return (
-                <div key={category.category} className="bg-brand-lightBlue/20 rounded-xl p-3">
-                  <div className="flex items-center gap-2 mb-2">
-                    <CategoryIcon className="h-4 w-4 text-brand-darkBlue/60" />
-                    <span className="text-xs font-medium text-brand-darkBlue">{t(category.category)}</span>
+      </div>
+      
+      {/* Функционал платформы - отдельный блок */}
+      <div className="bg-white rounded-2xl p-6 shadow-sm border border-brand-lightTeal/20">
+        <h3 className="text-lg font-bold text-brand-darkBlue mb-4 flex items-center gap-2">
+          <Check className="h-5 w-5 text-brand-green" />
+          {t('calc2.platformFeatures')}
+        </h3>
+        <p className="text-sm text-brand-darkBlue/60 mb-6">
+          {t('calc2.platformFeaturesDesc')}
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+          {platformFeatures.map((category) => {
+            const CategoryIcon = category.icon
+            return (
+              <div key={category.category} className="bg-brand-lightBlue/20 rounded-xl p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-8 h-8 rounded-lg bg-brand-darkBlue/10 flex items-center justify-center">
+                    <CategoryIcon className="h-4 w-4 text-brand-darkBlue" />
                   </div>
-                  <ul className="space-y-1">
-                    {category.features.map((feature) => (
-                      <li key={feature} className="text-xs text-brand-darkBlue/60 flex items-center gap-1">
-                        <Check className="h-3 w-3 text-brand-green" />
-                        {t(feature)}
-                      </li>
-                    ))}
-                  </ul>
+                  <span className="text-sm font-bold text-brand-darkBlue">{t(category.category)}</span>
                 </div>
-              )
-            })}
-          </div>
+                <ul className="space-y-2">
+                  {category.features.map((feature) => (
+                    <li key={feature} className="text-sm text-brand-darkBlue/70 flex items-center gap-2">
+                      <Check className="h-4 w-4 text-brand-green flex-shrink-0" />
+                      {t(feature)}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          })}
         </div>
       </div>
       
