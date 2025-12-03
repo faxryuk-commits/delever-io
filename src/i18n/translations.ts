@@ -3589,6 +3589,47 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Trusted By
     'trustedBy.title': 'Millionlar ularga ishonadi, ular esa bizga ishonadi',
+    'clients.title': 'Millionlar ularga ishonadi, ular esa bizga ishonadi',
+    
+    // Business Types
+    'segment.type.restaurant': 'Restoranlar',
+    'segment.type.cafe': 'Kafe',
+    'segment.type.flowers': 'Gullar',
+    'segment.type.shop': 'Do\'konlar',
+    'segment.type.pharmacy': 'Dorixonalar',
+    'segment.type.water': 'Suv',
+    
+    // Contact Form
+    'form.title': 'Demo olish',
+    'form.subtitle': 'Ariza qoldiring va biz tez orada siz bilan bog\'lanamiz',
+    'form.name': 'Ismingiz',
+    'form.nameHint': 'Sizga shaxsan murojaat qilish uchun',
+    'form.phone': 'Telefon',
+    'form.phoneHint': 'Tez bog\'lanish va demo uchun',
+    'form.email': 'Email',
+    'form.emailHint': 'Shaxsiy taklif yuboramiz',
+    'form.company': 'Kompaniya',
+    'form.companyHint': 'Biznesingizga mos yechim tanlaymiz',
+    'form.message': 'Xabar (ixtiyoriy)',
+    'form.messageHint': 'Vazifangiz haqida aytib bering',
+    'form.whyWeAsk': 'Biz bu ma\'lumotlarni siz bilan bog\'lanish va biznesingiz uchun optimal yechim taklif qilish uchun so\'raymiz. Biz ma\'lumotlarni uchinchi shaxslarga bermaydi.',
+    'form.submit': 'Ariza yuborish',
+    'form.sending': 'Yuborilmoqda...',
+    'form.success': 'Rahmat! Tez orada siz bilan bog\'lanamiz.',
+    'form.error': 'Yuborishda xatolik yuz berdi. Keyinroq urinib ko\'ring yoki Telegram orqali bog\'laning: @deleverme',
+    'form.successTitle': 'Ariza uchun rahmat!',
+    'form.successMessage': 'Tez orada siz bilan bog\'lanamiz',
+    'form.privacyNote': 'Tugmani bosish orqali siz maxfiylik siyosatiga rozilik bildirasiz',
+    'form.validation.required': 'Majburiy maydon',
+    'form.validation.name.required': 'Ismingizni kiriting',
+    'form.validation.name.tooShort': 'Kamida 2 ta belgi',
+    'form.validation.name.invalidChars': 'Faqat harflar, bo\'shliqlar va chiziqlar',
+    'form.validation.phone.required': 'Telefon raqamini kiriting',
+    'form.validation.phone.tooShort': 'Kamida 9 ta raqam',
+    'form.validation.phone.tooLong': 'Raqam juda uzun',
+    'form.validation.phone.invalid': 'Noto\'g\'ri telefon raqami',
+    'form.validation.email.invalid': 'Noto\'g\'ri email manzili',
+    'form.validation.email.suspicious': 'Ish emailingizdan foydalaning',
   },
 }
 
