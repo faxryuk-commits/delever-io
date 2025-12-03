@@ -721,6 +721,32 @@ export function SmartCalculator() {
         </div>
       </div>
       
+      {/* Функционал платформы - компактный */}
+      <div className="bg-gradient-to-r from-brand-lightBlue/30 to-brand-lightTeal/30 rounded-2xl p-5 border border-brand-lightTeal/20">
+        <div className="flex flex-wrap items-center gap-2 mb-3">
+          <span className="bg-brand-green text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+            <Check className="h-3 w-3" />
+            {t('calc2.includedFree')}
+          </span>
+          <span className="text-sm text-brand-darkBlue/60">{t('calc2.platformFeaturesDesc')}</span>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {platformFeatures.map((category) => {
+            const CategoryIcon = category.icon
+            return (
+              <div 
+                key={category.category} 
+                className="bg-white/80 backdrop-blur rounded-xl px-3 py-2 flex items-center gap-2 border border-white shadow-sm"
+              >
+                <CategoryIcon className="h-4 w-4 text-brand-blue" />
+                <span className="text-sm font-medium text-brand-darkBlue">{t(category.category)}</span>
+                <span className="text-xs text-brand-darkBlue/50">({category.features.length})</span>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+      
       {/* Все тарифы */}
       <div className="bg-white rounded-2xl p-6 shadow-sm border border-brand-lightTeal/20">
         <h3 className="text-lg font-bold text-brand-darkBlue mb-4 flex items-center gap-2">
@@ -785,235 +811,183 @@ export function SmartCalculator() {
         )}
       </div>
       
-      {/* Функционал платформы - отдельный блок */}
+      {/* Дополнительные модули - компактный вид */}
       <div className="bg-white rounded-2xl p-6 shadow-sm border border-brand-lightTeal/20">
-        <h3 className="text-lg font-bold text-brand-darkBlue mb-4 flex items-center gap-2">
-          <Check className="h-5 w-5 text-brand-green" />
-          {t('calc2.platformFeatures')}
-        </h3>
-        <p className="text-sm text-brand-darkBlue/60 mb-6">
-          {t('calc2.platformFeaturesDesc')}
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-          {platformFeatures.map((category) => {
-            const CategoryIcon = category.icon
-            return (
-              <div key={category.category} className="bg-brand-lightBlue/20 rounded-xl p-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-8 h-8 rounded-lg bg-brand-darkBlue/10 flex items-center justify-center">
-                    <CategoryIcon className="h-4 w-4 text-brand-darkBlue" />
-                  </div>
-                  <span className="text-sm font-bold text-brand-darkBlue">{t(category.category)}</span>
-                </div>
-                <ul className="space-y-2">
-                  {category.features.map((feature) => (
-                    <li key={feature} className="text-sm text-brand-darkBlue/70 flex items-center gap-2">
-                      <Check className="h-4 w-4 text-brand-green flex-shrink-0" />
-                      {t(feature)}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )
-          })}
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-bold text-brand-darkBlue flex items-center gap-2">
+            <Package className="h-5 w-5 text-brand-orange" />
+            {t('calc2.additionalModules')}
+          </h3>
+          {selectedModules.length > 0 && (
+            <span className="bg-brand-blue text-white text-xs font-bold px-3 py-1 rounded-full">
+              {selectedModules.length} {t('calc2.selected')}
+            </span>
+          )}
         </div>
-      </div>
-      
-      {/* Все модули по категориям */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-brand-lightTeal/20">
-        <h3 className="text-lg font-bold text-brand-darkBlue mb-4 flex items-center gap-2">
-          <Package className="h-5 w-5 text-brand-orange" />
-          {t('calc2.additionalModules')}
-        </h3>
         
-        <div className="space-y-4">
-          {moduleCategories.map((category) => {
-            const CategoryIcon = category.icon
-            return (
-              <div key={category.id} className="border border-brand-lightTeal/20 rounded-xl overflow-hidden">
-                <div className="bg-brand-lightBeige/30 px-4 py-3 flex items-center gap-2">
-                  <CategoryIcon className="h-4 w-4 text-brand-darkBlue/60" />
-                  <span className="font-medium text-brand-darkBlue">{t(`calc2.category.${category.id}`)}</span>
-                </div>
-                <div className="p-3 grid grid-cols-1 md:grid-cols-2 gap-2">
-                  {category.modules.map((module) => {
-                    const isSelected = selectedModules.includes(module.id)
-                    const basePrice = getPrice(module.priceUZS, module.priceUSD)
-                    let multiplier = 1
-                    let multiplierText = ''
-                    
-                    switch (module.perType) {
-                      case 'branch':
-                        multiplier = branches
-                        multiplierText = `× ${branches} ${t('calc2.branchesShort')}`
-                        break
-                      case 'brand':
-                        multiplier = brands
-                        multiplierText = `× ${brands} ${t('calc2.brandsShort')}`
-                        break
-                      case 'kiosk':
-                        multiplier = Math.max(1, kiosks)
-                        multiplierText = `× ${kiosks || 1} ${t('calc2.pcs')}`
-                        break
-                    }
-                    
-                    // Специальная обработка киоска - счётчик в строке
-                    if (module.id === 'kiosk') {
-                      return (
-                        <div 
-                          key={module.id}
-                          className={`p-3 rounded-lg transition-all ${
-                            isSelected 
-                              ? 'bg-brand-darkBlue/5 border border-brand-darkBlue/20' 
-                              : 'bg-brand-lightBlue/20'
-                          }`}
+        {/* Агрегаторы - горизонтальный ряд */}
+        <div className="mb-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Layers className="h-4 w-4 text-purple-500" />
+            <span className="text-sm font-medium text-brand-darkBlue">{t('calc2.category.aggregators')}</span>
+            {aggregatorsDiscount.show && (
+              <span className="bg-brand-green/10 text-brand-green text-xs px-2 py-0.5 rounded-full flex items-center gap-1">
+                <BadgePercent className="h-3 w-3" />
+                {t('calc2.saveTip')}
+              </span>
+            )}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {moduleCategories[0].modules.map((module) => {
+              const isSelected = selectedModules.includes(module.id)
+              const basePrice = getPrice(module.priceUZS, module.priceUSD)
+              const isAll = module.id === 'allAggregators'
+              return (
+                <button
+                  key={module.id}
+                  onClick={() => toggleModule(module.id)}
+                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${
+                    isSelected 
+                      ? isAll 
+                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg' 
+                        : 'bg-brand-darkBlue text-white shadow-md'
+                      : 'bg-brand-lightBlue/30 text-brand-darkBlue hover:bg-brand-lightBlue/50'
+                  }`}
+                >
+                  {isSelected && <Check className="h-4 w-4" />}
+                  <span>{t(module.nameKey)}</span>
+                  <span className={`text-xs ${isSelected ? 'opacity-80' : 'opacity-60'}`}>
+                    {formatPrice(basePrice * branches)}
+                  </span>
+                </button>
+              )
+            })}
+          </div>
+        </div>
+        
+        {/* Операции и Маркетинг - сетка с красивыми карточками */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          {[...moduleCategories[1].modules, ...moduleCategories[2].modules].map((module) => {
+            const isSelected = selectedModules.includes(module.id)
+            const basePrice = getPrice(module.priceUZS, module.priceUSD)
+            let multiplier = 1
+            let label = ''
+            
+            switch (module.perType) {
+              case 'branch':
+                multiplier = branches
+                label = `× ${branches}`
+                break
+              case 'brand':
+                multiplier = brands
+                label = `× ${brands}`
+                break
+              case 'kiosk':
+                multiplier = Math.max(1, kiosks)
+                label = `× ${kiosks || 1}`
+                break
+            }
+            
+            // Киоск со счётчиком
+            if (module.id === 'kiosk') {
+              return (
+                <div
+                  key={module.id}
+                  className={`p-3 rounded-xl transition-all ${
+                    isSelected 
+                      ? 'bg-brand-orange/10 border-2 border-brand-orange' 
+                      : 'bg-brand-lightBeige/30 border-2 border-transparent hover:border-brand-lightTeal'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <label className="flex items-center gap-2 cursor-pointer flex-1">
+                      <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => {
+                          if (isSelected) {
+                            setKiosks(0)
+                            toggleModule(module.id)
+                          } else {
+                            setKiosks(1)
+                            toggleModule(module.id)
+                          }
+                        }}
+                        className="w-4 h-4 rounded text-brand-orange"
+                      />
+                      <div>
+                        <div className="font-medium text-brand-darkBlue text-sm flex items-center gap-2">
+                          {t(module.nameKey)}
+                          <span className="bg-brand-orange/20 text-brand-orange text-xs px-2 py-0.5 rounded-full">
+                            {t('calc2.kioskLabel')}
+                          </span>
+                        </div>
+                        <div className="text-xs text-brand-darkBlue/50">{formatPrice(basePrice)}/{t('calc2.pcs')}</div>
+                      </div>
+                    </label>
+                    {isSelected && (
+                      <div className="flex items-center gap-1 bg-white rounded-lg p-1">
+                        <button 
+                          onClick={() => {
+                            if (kiosks <= 1) {
+                              setKiosks(0)
+                              toggleModule(module.id)
+                            } else {
+                              setKiosks(kiosks - 1)
+                            }
+                          }}
+                          className="w-6 h-6 rounded bg-brand-lightBlue/50 flex items-center justify-center hover:bg-red-100"
                         >
-                          <div className="flex items-center justify-between mb-2">
-                            <div className="flex items-center gap-3">
-                              <input
-                                type="checkbox"
-                                checked={isSelected}
-                                onChange={() => {
-                                  if (isSelected) {
-                                    setKiosks(0)
-                                    toggleModule(module.id)
-                                  } else {
-                                    setKiosks(1)
-                                    toggleModule(module.id)
-                                  }
-                                }}
-                                className="w-4 h-4 rounded text-brand-darkBlue"
-                              />
-                              <div>
-                                <div className="font-medium text-brand-darkBlue text-sm">{t(module.nameKey)}</div>
-                                <div className="text-xs text-brand-darkBlue/50">{t('calc2.kioskDesc')}</div>
-                              </div>
-                            </div>
-                            <div className="text-right">
-                              <div className="font-bold text-brand-darkBlue text-sm">
-                                {formatPrice(basePrice * (kiosks || 1))}
-                              </div>
-                              <div className="text-xs text-brand-darkBlue/50">
-                                {formatPrice(basePrice)}/{t('calc2.pcs')}
-                              </div>
-                            </div>
-                          </div>
-                          {isSelected && (
-                            <div className="flex items-center gap-2 bg-white rounded-lg p-1 w-fit ml-7">
-                              <button 
-                                onClick={() => {
-                                  if (kiosks <= 1) {
-                                    setKiosks(0)
-                                    toggleModule(module.id)
-                                  } else {
-                                    setKiosks(kiosks - 1)
-                                  }
-                                }}
-                                className="w-7 h-7 rounded bg-brand-lightBlue/50 flex items-center justify-center hover:bg-brand-lightBlue transition-colors"
-                              >
-                                {kiosks <= 1 ? <X className="h-3 w-3 text-red-500" /> : <Minus className="h-3 w-3" />}
-                              </button>
-                              <span className="text-lg font-bold text-brand-darkBlue w-8 text-center">{kiosks || 1}</span>
-                              <button 
-                                onClick={() => setKiosks((kiosks || 1) + 1)}
-                                className="w-7 h-7 rounded bg-brand-lightBlue/50 flex items-center justify-center hover:bg-brand-lightBlue transition-colors"
-                              >
-                                <Plus className="h-3 w-3" />
-                              </button>
-                            </div>
-                          )}
-                        </div>
-                      )
-                    }
-                    
-                    // Специальная обработка курьерского приложения
-                    if (module.id === 'courierApp') {
-                      return (
-                        <label 
-                          key={module.id}
-                          className={`flex items-center justify-between p-3 rounded-lg cursor-pointer transition-all ${
-                            isSelected 
-                              ? 'bg-brand-darkBlue/5 border border-brand-darkBlue/20' 
-                              : 'bg-brand-lightBlue/20 hover:bg-brand-lightBlue/40'
-                          }`}
+                          {kiosks <= 1 ? <X className="h-3 w-3 text-red-500" /> : <Minus className="h-3 w-3" />}
+                        </button>
+                        <span className="text-sm font-bold text-brand-darkBlue w-6 text-center">{kiosks || 1}</span>
+                        <button 
+                          onClick={() => setKiosks((kiosks || 1) + 1)}
+                          className="w-6 h-6 rounded bg-brand-lightBlue/50 flex items-center justify-center hover:bg-brand-lightBlue"
                         >
-                          <div className="flex items-center gap-3">
-                            <input
-                              type="checkbox"
-                              checked={isSelected}
-                              onChange={() => toggleModule(module.id)}
-                              className="w-4 h-4 rounded text-brand-darkBlue"
-                            />
-                            <div>
-                              <div className="font-medium text-brand-darkBlue text-sm">{t(module.nameKey)}</div>
-                              <div className="text-xs text-brand-darkBlue/50">{t('calc2.courierAppDesc')}</div>
-                              {multiplierText && (
-                                <div className="text-xs text-brand-darkBlue/50">{multiplierText}</div>
-                              )}
-                            </div>
-                          </div>
-                          <div className="text-right">
-                            <div className="font-bold text-brand-darkBlue text-sm">
-                              {formatPrice(basePrice * multiplier)}
-                            </div>
-                            {multiplier > 1 && (
-                              <div className="text-xs text-brand-darkBlue/50">
-                                {formatPrice(basePrice)}/{t('calc2.perBrand')}
-                              </div>
-                            )}
-                          </div>
-                        </label>
-                      )
-                    }
-                    
-                    return (
-                      <label 
-                        key={module.id}
-                        className={`flex items-center justify-between p-3 rounded-lg cursor-pointer transition-all ${
-                          isSelected 
-                            ? 'bg-brand-darkBlue/5 border border-brand-darkBlue/20' 
-                            : 'bg-brand-lightBlue/20 hover:bg-brand-lightBlue/40'
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <input
-                            type="checkbox"
-                            checked={isSelected}
-                            onChange={() => toggleModule(module.id)}
-                            className="w-4 h-4 rounded text-brand-darkBlue"
-                          />
-                          <div>
-                            <div className="font-medium text-brand-darkBlue text-sm">{t(module.nameKey)}</div>
-                            {multiplierText && (
-                              <div className="text-xs text-brand-darkBlue/50">{multiplierText}</div>
-                            )}
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <div className="font-bold text-brand-darkBlue text-sm">
-                            {formatPrice(basePrice * multiplier)}
-                          </div>
-                          {multiplier > 1 && (
-                            <div className="text-xs text-brand-darkBlue/50">
-                              {formatPrice(basePrice)}/{t(`calc2.per${module.perType.charAt(0).toUpperCase() + module.perType.slice(1)}`)}
-                            </div>
-                          )}
-                        </div>
-                      </label>
-                    )
-                  })}
-                </div>
-                
-                {/* Подсказка о скидке на агрегаторы */}
-                {category.id === 'aggregators' && aggregatorsDiscount.show && (
-                  <div className="mx-3 mb-3 p-3 bg-brand-green/10 rounded-lg border border-brand-green/20 flex items-center gap-2">
-                    <BadgePercent className="h-4 w-4 text-brand-green" />
-                    <span className="text-sm text-brand-green font-medium">
-                      {t('calc2.aggregatorsDiscountHint', { savings: formatPrice(aggregatorsDiscount.savings) })}
-                    </span>
+                          <Plus className="h-3 w-3" />
+                        </button>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
+                  {isSelected && (
+                    <div className="mt-2 text-right text-sm font-bold text-brand-orange">
+                      {formatPrice(basePrice * (kiosks || 1))}
+                    </div>
+                  )}
+                </div>
+              )
+            }
+            
+            return (
+              <label
+                key={module.id}
+                className={`p-3 rounded-xl cursor-pointer transition-all flex items-center justify-between ${
+                  isSelected 
+                    ? 'bg-brand-blue/10 border-2 border-brand-blue' 
+                    : 'bg-brand-lightBeige/30 border-2 border-transparent hover:border-brand-lightTeal'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={isSelected}
+                    onChange={() => toggleModule(module.id)}
+                    className="w-4 h-4 rounded text-brand-blue"
+                  />
+                  <div>
+                    <div className="font-medium text-brand-darkBlue text-sm">{t(module.nameKey)}</div>
+                    {module.perType !== 'fixed' && (
+                      <div className="text-xs text-brand-darkBlue/50">
+                        {formatPrice(basePrice)} {label}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="font-bold text-brand-darkBlue text-sm">
+                  {formatPrice(basePrice * multiplier)}
+                </div>
+              </label>
             )
           })}
         </div>
