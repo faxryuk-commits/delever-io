@@ -12,6 +12,8 @@ declare global {
       AMOCRM_CLIENT_SECRET?: string
       AMOCRM_ACCESS_TOKEN?: string
       AMOCRM_REFRESH_TOKEN?: string
+      GROQ_API_KEY?: string
+      OPENROUTER_API_KEY?: string
     }
   }
   

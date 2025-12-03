@@ -245,16 +245,41 @@ export default async function handler(req: Request): Promise<Response> {
       { role: 'user', content: message }
     ]
 
-    console.log('Chatbot: Calling OpenAI with', chatMessages.length, 'messages')
+    console.log('Chatbot: Calling AI with', chatMessages.length, 'messages')
     
-    const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
+    // Приоритет: Groq (бесплатно, работает везде) > OpenRouter > OpenAI
+    const groqKey = process.env.GROQ_API_KEY
+    const openRouterKey = process.env.OPENROUTER_API_KEY
+    
+    let apiUrl: string
+    let apiKey: string
+    let model: string
+    
+    if (groqKey) {
+      apiUrl = 'https://api.groq.com/openai/v1/chat/completions'
+      apiKey = groqKey
+      model = 'llama-3.1-8b-instant' // Быстрая и бесплатная модель
+      console.log('Using Groq API')
+    } else if (openRouterKey) {
+      apiUrl = 'https://openrouter.ai/api/v1/chat/completions'
+      apiKey = openRouterKey
+      model = 'openai/gpt-3.5-turbo'
+      console.log('Using OpenRouter API')
+    } else {
+      apiUrl = 'https://api.openai.com/v1/chat/completions'
+      apiKey = openaiKey
+      model = 'gpt-3.5-turbo'
+      console.log('Using OpenAI API')
+    }
+    
+    const openaiResponse = await fetch(apiUrl, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${openaiKey}`,
+        'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
+        model,
         messages: chatMessages,
         temperature: 0.7,
         max_tokens: 300,
