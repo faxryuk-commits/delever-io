@@ -1,15 +1,6 @@
 {
-  "regions": ["iad1"],
   "functions": {
     "api/chatbot.ts": {
-      "memory": 1024,
-      "maxDuration": 30
-    },
-    "api/telegram-webhook.ts": {
-      "memory": 1024,
-      "maxDuration": 30
-    },
-    "api/send-telegram.ts": {
       "memory": 1024,
       "maxDuration": 30
     }
