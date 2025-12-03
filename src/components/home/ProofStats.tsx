@@ -48,11 +48,11 @@ const stats = [
 // Примеры реализованных проектов с логотипами
 const clientExamples = {
   restaurants: [
-    { name: 'Yaponamama', url: 'https://yaponamama.uz/', logo: '/logos/yapona.png' },
+    { name: 'Yaponamama', url: 'https://yaponamama.uz/', logo: '/logos/Yaponamama.webp' },
     { name: 'Evos', url: 'https://evosqruz.delever.uz/', logo: '/logos/evos.png' },
     { name: 'Kamolon Osh', url: 'https://kamolonosh.uz/', logo: '/logos/kamolonosh.svg' },
-    { name: 'Manana', url: 'https://manana.delever.uz/ru', logo: '/logos/dodo.png' },
-    { name: 'Brasserie', url: 'https://brasserie.delever.uz/ru', logo: '/logos/pinkberry.png' },
+    { name: 'Manana', url: 'https://manana.delever.uz/ru', logo: '/logos/manana.webp' },
+    { name: 'Brasserie', url: 'https://brasserie.delever.uz/ru', logo: '/logos/brasserie.webp' },
   ],
   fastfood: [
     { name: 'Maxway', url: 'https://maxway.uz/ru', logo: '/logos/maxway.png' },
@@ -60,18 +60,18 @@ const clientExamples = {
     { name: 'Pizza Hut', url: 'https://pizzahutuz.delever.uz/ru', logo: '/logos/pizza-hut-logo-png_seeklogo-257097.png' },
   ],
   stores: [
-    { name: 'Fati Flowers', url: 'https://fatiflowers.delever.uz/ru', logo: '/logos/pinkberry.png' },
-    { name: 'Zoo Planeta', url: 'https://zooplaneta.delever.uz/ru', logo: '/logos/evos.png' },
-    { name: 'Movex', url: 'https://movex.uz/ru', logo: '/logos/dodo.png' },
-    { name: 'Animal Planet', url: 'https://animalplanet.delever.uz/ru', logo: '/logos/maxway.png' },
+    { name: 'Fati Flowers', url: 'https://fatiflowers.delever.uz/ru', logo: '/logos/fati flowwers.webp' },
+    { name: 'Zoo Planeta', url: 'https://zooplaneta.delever.uz/ru', logo: '/logos/zoo planeta.webp' },
+    { name: 'Movex', url: 'https://movex.uz/ru', logo: '/logos/movex.webp' },
+    { name: 'Animal Planet', url: 'https://animalplanet.delever.uz/ru', logo: '/logos/animal planet.webp' },
   ],
   apps: [
-    { name: 'Yaponamama', url: 'https://apps.apple.com/uz/app/yaponamama-oila/id1457179873', platform: 'iOS', logo: '/logos/yapona.png' },
+    { name: 'Yaponamama', url: 'https://apps.apple.com/uz/app/yaponamama-oila/id1457179873', platform: 'iOS', logo: '/logos/Yaponamama.webp' },
     { name: 'Maxway', url: 'https://apps.apple.com/uz/app/maxway/id1565502018', platform: 'iOS', logo: '/logos/maxway.png' },
     { name: 'Kamolon Osh', url: 'https://apps.apple.com/uz/app/kamolon-osh/id6745427808', platform: 'iOS', logo: '/logos/kamolonosh.svg' },
-    { name: 'Takumi Sushi', url: 'https://apps.apple.com/uz/app/takumi-sushi/id6499478612', platform: 'iOS', logo: '/logos/pinkberry.png' },
-    { name: 'Chicago Pizza', url: 'https://apps.apple.com/uz/app/chicago-pizza/id6670315321', platform: 'iOS', logo: '/logos/hardees.jpg' },
-    { name: 'Zoo Planeta', url: 'https://apps.apple.com/uz/app/zoo-planeta/id6752120554', platform: 'iOS', logo: '/logos/evos.png' },
+    { name: 'Takumi Sushi', url: 'https://apps.apple.com/uz/app/takumi-sushi/id6499478612', platform: 'iOS', logo: '/logos/Takumi.webp' },
+    { name: 'Chicago Pizza', url: 'https://apps.apple.com/uz/app/chicago-pizza/id6670315321', platform: 'iOS', logo: '/logos/chicago pizza.webp' },
+    { name: 'Zoo Planeta', url: 'https://apps.apple.com/uz/app/zoo-planeta/id6752120554', platform: 'iOS', logo: '/logos/zoo planeta.webp' },
   ],
 }
 
