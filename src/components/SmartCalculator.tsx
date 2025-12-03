@@ -717,26 +717,6 @@ export function SmartCalculator() {
           </div>
         </div>
         
-        {/* Функционал платформы - компактные теги */}
-        <div className="px-4 py-3 border-b border-brand-lightTeal/20 flex flex-wrap items-center gap-2">
-          <span className="bg-brand-green/10 text-brand-green text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1">
-            <Check className="h-3 w-3" />
-            {t('calc2.includedFree')}
-          </span>
-          {platformFeatures.map((category) => {
-            const CategoryIcon = category.icon
-            return (
-              <span 
-                key={category.category} 
-                className="bg-brand-lightBlue/30 text-brand-darkBlue/70 text-xs px-2 py-1 rounded-full flex items-center gap-1"
-              >
-                <CategoryIcon className="h-3 w-3" />
-                {t(category.category)}
-              </span>
-            )
-          })}
-        </div>
-        
         {/* Тарифы - внутри объединённого блока */}
         <div className="px-4 pb-4">
           <div className="flex items-center gap-2 mb-3">
@@ -1327,6 +1307,48 @@ export function SmartCalculator() {
           {step === 1 && renderStep1()}
           {step === 2 && renderStep2()}
         </AnimatePresence>
+        
+        {/* Функционал платформы - в конце страницы */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="mt-12 bg-white rounded-2xl p-6 shadow-sm border border-brand-lightTeal/20"
+        >
+          <h3 className="text-lg font-bold text-brand-darkBlue mb-4 flex items-center gap-2">
+            <Check className="h-5 w-5 text-brand-green" />
+            {t('calc2.includedFree')}
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {platformFeatures.map((category) => {
+              const CategoryIcon = category.icon
+              return (
+                <div 
+                  key={category.category}
+                  className="bg-brand-lightBlue/20 rounded-xl p-3"
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <CategoryIcon className="h-4 w-4 text-brand-blue" />
+                    <span className="text-sm font-medium text-brand-darkBlue">{t(category.category)}</span>
+                  </div>
+                  <ul className="space-y-1">
+                    {category.features.slice(0, 3).map((feature, idx) => (
+                      <li key={idx} className="text-xs text-brand-darkBlue/60 flex items-center gap-1">
+                        <span className="w-1 h-1 bg-brand-green rounded-full" />
+                        {t(feature)}
+                      </li>
+                    ))}
+                    {category.features.length > 3 && (
+                      <li className="text-xs text-brand-darkBlue/40">
+                        +{category.features.length - 3} {t('calc2.more')}
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              )
+            })}
+          </div>
+        </motion.div>
       </div>
       
       <ContactForm open={contactFormOpen} onOpenChange={setContactFormOpen} />
