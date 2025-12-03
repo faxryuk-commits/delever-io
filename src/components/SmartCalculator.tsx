@@ -6,7 +6,6 @@ import {
   GitMerge,
   Truck,
   Rocket,
-  Building2,
   Calculator,
   Plus,
   Minus,
@@ -620,195 +619,187 @@ export function SmartCalculator() {
         {t('calc2.back')}
       </button>
       
-      {/* Контекст ситуации */}
-      {situation && (
-        <div className={`bg-gradient-to-r ${situations.find(s => s.id === situation)?.color} rounded-2xl p-4 text-white flex items-center gap-3`}>
-          {(() => {
-            const Icon = situations.find(s => s.id === situation)?.icon || DollarSign
-            return <Icon className="h-5 w-5" />
-          })()}
-          <span className="font-medium">{t(`calc2.situation.${situation}`)}</span>
-        </div>
-      )}
-      
-      {/* Параметры бизнеса */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-brand-lightTeal/20">
-        <h3 className="text-lg font-bold text-brand-darkBlue mb-4 flex items-center gap-2">
-          <Building2 className="h-5 w-5 text-brand-blue" />
-          {t('calc2.step2.title')}
-        </h3>
+      {/* Компактный калькулятор: Ситуация + Параметры + Функционал */}
+      <div className="bg-white rounded-2xl shadow-sm border border-brand-lightTeal/20 overflow-hidden">
+        {/* Контекст ситуации - компактный хедер */}
+        {situation && (
+          <div className={`bg-gradient-to-r ${situations.find(s => s.id === situation)?.color} px-4 py-2 text-white flex items-center gap-2`}>
+            {(() => {
+              const Icon = situations.find(s => s.id === situation)?.icon || DollarSign
+              return <Icon className="h-4 w-4" />
+            })()}
+            <span className="text-sm font-medium">{t(`calc2.situation.${situation}`)}</span>
+          </div>
+        )}
         
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {/* Филиалы */}
-          <div>
-            <label className="text-sm text-brand-darkBlue/60 mb-2 block">{t('calc2.branches')}</label>
-            <div className="flex items-center gap-2 bg-brand-lightBlue/30 rounded-xl p-2">
-              <button 
-                onClick={() => setBranches(Math.max(1, branches - 1))}
-                className="w-8 h-8 rounded-lg bg-white flex items-center justify-center hover:bg-brand-lightBlue transition-colors"
-              >
-                <Minus className="h-4 w-4" />
-              </button>
-              <span className="text-xl font-bold text-brand-darkBlue flex-1 text-center">{branches}</span>
-              <button 
-                onClick={() => setBranches(branches + 1)}
-                className="w-8 h-8 rounded-lg bg-white flex items-center justify-center hover:bg-brand-lightBlue transition-colors"
-              >
-                <Plus className="h-4 w-4" />
-              </button>
+        {/* Параметры бизнеса - компактная строка */}
+        <div className="px-4 py-3 bg-brand-lightBlue/10 border-b border-brand-lightTeal/20">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            {/* Филиалы */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-brand-darkBlue/60">{t('calc2.branches')}:</span>
+              <div className="flex items-center gap-1 bg-white rounded-lg px-1">
+                <button 
+                  onClick={() => setBranches(Math.max(1, branches - 1))}
+                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
+                >
+                  <Minus className="h-3 w-3" />
+                </button>
+                <span className="text-sm font-bold text-brand-darkBlue w-6 text-center">{branches}</span>
+                <button 
+                  onClick={() => setBranches(branches + 1)}
+                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
+                >
+                  <Plus className="h-3 w-3" />
+                </button>
+              </div>
             </div>
-          </div>
-          
-          {/* Бренды */}
-          <div>
-            <label className="text-sm text-brand-darkBlue/60 mb-2 block">{t('calc2.brands')}</label>
-            <div className="flex items-center gap-2 bg-brand-lightBlue/30 rounded-xl p-2">
-              <button 
-                onClick={() => setBrands(Math.max(1, brands - 1))}
-                className="w-8 h-8 rounded-lg bg-white flex items-center justify-center hover:bg-brand-lightBlue transition-colors"
-              >
-                <Minus className="h-4 w-4" />
-              </button>
-              <span className="text-xl font-bold text-brand-darkBlue flex-1 text-center">{brands}</span>
-              <button 
-                onClick={() => setBrands(brands + 1)}
-                className="w-8 h-8 rounded-lg bg-white flex items-center justify-center hover:bg-brand-lightBlue transition-colors"
-              >
-                <Plus className="h-4 w-4" />
-              </button>
+            
+            {/* Бренды */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-brand-darkBlue/60">{t('calc2.brands')}:</span>
+              <div className="flex items-center gap-1 bg-white rounded-lg px-1">
+                <button 
+                  onClick={() => setBrands(Math.max(1, brands - 1))}
+                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
+                >
+                  <Minus className="h-3 w-3" />
+                </button>
+                <span className="text-sm font-bold text-brand-darkBlue w-6 text-center">{brands}</span>
+                <button 
+                  onClick={() => setBrands(brands + 1)}
+                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
+                >
+                  <Plus className="h-3 w-3" />
+                </button>
+              </div>
             </div>
-          </div>
-          
-          {/* Заказы */}
-          <div>
-            <label className="text-sm text-brand-darkBlue/60 mb-2 block">{t('calc2.ordersPerMonth')}</label>
-            <div className="flex items-center gap-2 bg-brand-lightBlue/30 rounded-xl p-2">
-              <button 
-                onClick={() => setMonthlyOrders(Math.max(100, monthlyOrders - 500))}
-                className="w-8 h-8 rounded-lg bg-white flex items-center justify-center hover:bg-brand-lightBlue transition-colors"
-              >
-                <Minus className="h-4 w-4" />
-              </button>
-              <span className="text-lg font-bold text-brand-darkBlue flex-1 text-center">{monthlyOrders.toLocaleString()}</span>
-              <button 
-                onClick={() => setMonthlyOrders(monthlyOrders + 500)}
-                className="w-8 h-8 rounded-lg bg-white flex items-center justify-center hover:bg-brand-lightBlue transition-colors"
-              >
-                <Plus className="h-4 w-4" />
-              </button>
+            
+            {/* Заказы */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-brand-darkBlue/60">{t('calc2.ordersPerMonth')}:</span>
+              <div className="flex items-center gap-1 bg-white rounded-lg px-1">
+                <button 
+                  onClick={() => setMonthlyOrders(Math.max(100, monthlyOrders - 500))}
+                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
+                >
+                  <Minus className="h-3 w-3" />
+                </button>
+                <span className="text-sm font-bold text-brand-darkBlue min-w-[50px] text-center">{monthlyOrders.toLocaleString()}</span>
+                <button 
+                  onClick={() => setMonthlyOrders(monthlyOrders + 500)}
+                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
+                >
+                  <Plus className="h-3 w-3" />
+                </button>
+              </div>
             </div>
-          </div>
-          
-          {/* Средний чек */}
-          <div>
-            <label className="text-sm text-brand-darkBlue/60 mb-2 block">{t('calc2.avgCheck')}</label>
-            <div className="flex items-center gap-2 bg-brand-lightBlue/30 rounded-xl p-2">
-              <button 
-                onClick={() => setAvgCheck(Math.max(10000, avgCheck - 10000))}
-                className="w-8 h-8 rounded-lg bg-white flex items-center justify-center hover:bg-brand-lightBlue transition-colors"
-              >
-                <Minus className="h-4 w-4" />
-              </button>
-              <span className="text-sm font-bold text-brand-darkBlue flex-1 text-center">{formatPrice(avgCheck)}</span>
-              <button 
-                onClick={() => setAvgCheck(avgCheck + 10000)}
-                className="w-8 h-8 rounded-lg bg-white flex items-center justify-center hover:bg-brand-lightBlue transition-colors"
-              >
-                <Plus className="h-4 w-4" />
-              </button>
+            
+            {/* Средний чек */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-brand-darkBlue/60">{t('calc2.avgCheck')}:</span>
+              <div className="flex items-center gap-1 bg-white rounded-lg px-1">
+                <button 
+                  onClick={() => setAvgCheck(Math.max(10000, avgCheck - 10000))}
+                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
+                >
+                  <Minus className="h-3 w-3" />
+                </button>
+                <span className="text-xs font-bold text-brand-darkBlue min-w-[70px] text-center">{formatPrice(avgCheck)}</span>
+                <button 
+                  onClick={() => setAvgCheck(avgCheck + 10000)}
+                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
+                >
+                  <Plus className="h-3 w-3" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      
-      {/* Функционал платформы - компактный */}
-      <div className="bg-gradient-to-r from-brand-lightBlue/30 to-brand-lightTeal/30 rounded-2xl p-5 border border-brand-lightTeal/20">
-        <div className="flex flex-wrap items-center gap-2 mb-3">
-          <span className="bg-brand-green text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+        
+        {/* Функционал платформы - компактные теги */}
+        <div className="px-4 py-3 border-b border-brand-lightTeal/20 flex flex-wrap items-center gap-2">
+          <span className="bg-brand-green/10 text-brand-green text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1">
             <Check className="h-3 w-3" />
             {t('calc2.includedFree')}
           </span>
-          <span className="text-sm text-brand-darkBlue/60">{t('calc2.platformFeaturesDesc')}</span>
-        </div>
-        <div className="flex flex-wrap gap-2">
           {platformFeatures.map((category) => {
             const CategoryIcon = category.icon
             return (
-              <div 
+              <span 
                 key={category.category} 
-                className="bg-white/80 backdrop-blur rounded-xl px-3 py-2 flex items-center gap-2 border border-white shadow-sm"
+                className="bg-brand-lightBlue/30 text-brand-darkBlue/70 text-xs px-2 py-1 rounded-full flex items-center gap-1"
               >
-                <CategoryIcon className="h-4 w-4 text-brand-blue" />
-                <span className="text-sm font-medium text-brand-darkBlue">{t(category.category)}</span>
-                <span className="text-xs text-brand-darkBlue/50">({category.features.length})</span>
-              </div>
-            )
-          })}
-        </div>
-      </div>
-      
-      {/* Все тарифы */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-brand-lightTeal/20">
-        <h3 className="text-lg font-bold text-brand-darkBlue mb-4 flex items-center gap-2">
-          <Sparkles className="h-5 w-5 text-brand-yellow" />
-          {t('calc2.selectPlan')}
-        </h3>
-        
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {basePlans.map((plan) => {
-            const isSelected = selectedPlanId === plan.id
-            const isRecommended = monthlyOrders <= plan.orders && 
-              (basePlans.indexOf(plan) === 0 || monthlyOrders > basePlans[basePlans.indexOf(plan) - 1].orders)
-            
-            return (
-              <button
-                key={plan.id}
-                onClick={() => setSelectedPlanId(plan.id)}
-                className={`relative p-4 rounded-xl border-2 text-left transition-all ${
-                  isSelected 
-                    ? 'border-brand-darkBlue bg-brand-darkBlue text-white shadow-lg' 
-                    : 'border-brand-lightTeal/30 bg-white hover:border-brand-darkBlue/30'
-                }`}
-              >
-                {plan.popular && (
-                  <span className="absolute -top-2 left-1/2 -translate-x-1/2 bg-brand-green text-white text-xs px-2 py-0.5 rounded-full">
-                    {t('calc2.popular')}
-                  </span>
-                )}
-                {isRecommended && !plan.popular && (
-                  <span className="absolute -top-2 left-1/2 -translate-x-1/2 bg-brand-blue text-white text-xs px-2 py-0.5 rounded-full">
-                    {t('calc2.recommended')}
-                  </span>
-                )}
-                
-                <div className={`text-lg font-bold mb-1 ${isSelected ? 'text-white' : 'text-brand-darkBlue'}`}>
-                  {plan.name}
-                </div>
-                <div className={`text-sm mb-3 ${isSelected ? 'text-white/70' : 'text-brand-darkBlue/60'}`}>
-                  {t('calc2.upToOrders', { orders: plan.orders.toLocaleString() })}
-                </div>
-                <div className={`text-xl font-bold ${isSelected ? 'text-white' : 'text-brand-darkBlue'}`}>
-                  {formatPrice(getPrice(plan.priceUZS, plan.priceUSD))}
-                </div>
-                <div className={`text-xs ${isSelected ? 'text-white/60' : 'text-brand-darkBlue/50'}`}>
-                  +{formatPrice(getPrice(plan.perOrderUZS, plan.perOrderUSD))}/{t('calc2.orderAfterLimit')}
-                </div>
-              </button>
+                <CategoryIcon className="h-3 w-3" />
+                {t(category.category)}
+              </span>
             )
           })}
         </div>
         
-        {extraOrders > 0 && (
-          <div className="mt-4 p-3 bg-amber-50 rounded-xl border border-amber-200 flex items-center gap-2">
-            <Info className="h-4 w-4 text-amber-600" />
-            <span className="text-sm text-amber-800">
-              {t('calc2.extraOrdersNote', { 
-                extra: extraOrders.toLocaleString(), 
-                cost: formatPrice(extraOrdersCost) 
-              })}
-            </span>
+        {/* Тарифы - внутри объединённого блока */}
+        <div className="px-4 pb-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Sparkles className="h-4 w-4 text-brand-yellow" />
+            <span className="text-sm font-bold text-brand-darkBlue">{t('calc2.selectPlan')}</span>
           </div>
-        )}
+          
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            {basePlans.map((plan) => {
+              const isSelected = selectedPlanId === plan.id
+              const isRecommended = monthlyOrders <= plan.orders && 
+                (basePlans.indexOf(plan) === 0 || monthlyOrders > basePlans[basePlans.indexOf(plan) - 1].orders)
+              
+              return (
+                <button
+                  key={plan.id}
+                  onClick={() => setSelectedPlanId(plan.id)}
+                  className={`relative p-3 rounded-xl border-2 text-left transition-all ${
+                    isSelected 
+                      ? 'border-brand-darkBlue bg-brand-darkBlue text-white shadow-lg' 
+                      : 'border-brand-lightTeal/30 bg-brand-lightBlue/10 hover:border-brand-darkBlue/30'
+                  }`}
+                >
+                  {plan.popular && (
+                    <span className="absolute -top-2 left-1/2 -translate-x-1/2 bg-brand-green text-white text-[10px] px-2 py-0.5 rounded-full">
+                      {t('calc2.popular')}
+                    </span>
+                  )}
+                  {isRecommended && !plan.popular && (
+                    <span className="absolute -top-2 left-1/2 -translate-x-1/2 bg-brand-blue text-white text-[10px] px-2 py-0.5 rounded-full">
+                      {t('calc2.recommended')}
+                    </span>
+                  )}
+                  
+                  <div className={`font-bold mb-0.5 ${isSelected ? 'text-white' : 'text-brand-darkBlue'}`}>
+                    {plan.name}
+                  </div>
+                  <div className={`text-xs mb-2 ${isSelected ? 'text-white/70' : 'text-brand-darkBlue/60'}`}>
+                    {t('calc2.upToOrders', { orders: plan.orders.toLocaleString() })}
+                  </div>
+                  <div className={`text-lg font-bold ${isSelected ? 'text-white' : 'text-brand-darkBlue'}`}>
+                    {formatPrice(getPrice(plan.priceUZS, plan.priceUSD))}
+                  </div>
+                  <div className={`text-[10px] ${isSelected ? 'text-white/60' : 'text-brand-darkBlue/50'}`}>
+                    +{formatPrice(getPrice(plan.perOrderUZS, plan.perOrderUSD))}/{t('calc2.orderAfterLimit')}
+                  </div>
+                </button>
+              )
+            })}
+          </div>
+          
+          {extraOrders > 0 && (
+            <div className="mt-3 p-2 bg-amber-50 rounded-lg border border-amber-200 flex items-center gap-2">
+              <Info className="h-3 w-3 text-amber-600" />
+              <span className="text-xs text-amber-800">
+                {t('calc2.extraOrdersNote', { 
+                  extra: extraOrders.toLocaleString(), 
+                  cost: formatPrice(extraOrdersCost) 
+                })}
+              </span>
+            </div>
+          )}
+        </div>
       </div>
       
       {/* Дополнительные модули - компактный вид */}
