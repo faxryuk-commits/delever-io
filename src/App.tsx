@@ -30,7 +30,7 @@ function App() {
         <BrowserRouter>
         <ScrollToTop />
         <SEO />
-        <GoogleAnalytics measurementId="G-CWX242TQDH" />
+        <GoogleAnalytics measurementId="G-CWX242TQDH" yandexId={105636261} />
         <div className="min-h-screen flex flex-col bg-white">
             <Header />
             <main className="flex-1">

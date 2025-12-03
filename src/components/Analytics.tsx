@@ -1,34 +1,32 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
-// Google Analytics 4
+// Google Analytics 4 & Yandex Metrika
 declare global {
   interface Window {
     gtag: (...args: unknown[]) => void
     dataLayer: unknown[]
+    ym: (...args: unknown[]) => void
   }
 }
 
 interface AnalyticsProps {
   measurementId?: string // GA4 Measurement ID (G-XXXXXXXXXX)
+  yandexId?: number // Yandex Metrika ID
 }
 
-export function Analytics({ measurementId }: AnalyticsProps) {
+export function Analytics({ measurementId, yandexId }: AnalyticsProps) {
   const location = useLocation()
 
   useEffect(() => {
-    // Skip if no measurement ID or not in production
-    if (!measurementId) return
-    
-    // Load GA4 script if not already loaded
-    if (!document.getElementById('ga-script')) {
+    // Google Analytics 4
+    if (measurementId && !document.getElementById('ga-script')) {
       const script = document.createElement('script')
       script.id = 'ga-script'
       script.async = true
       script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`
       document.head.appendChild(script)
       
-      // Initialize dataLayer
       window.dataLayer = window.dataLayer || []
       window.gtag = function gtag() {
         window.dataLayer.push(arguments)
@@ -40,10 +38,39 @@ export function Analytics({ measurementId }: AnalyticsProps) {
         page_path: location.pathname,
       })
     }
-  }, [measurementId])
+    
+    // Yandex Metrika
+    if (yandexId && !document.getElementById('ym-script')) {
+      const script = document.createElement('script')
+      script.id = 'ym-script'
+      script.type = 'text/javascript'
+      script.innerHTML = `
+        (function(m,e,t,r,i,k,a){
+          m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+          m[i].l=1*new Date();
+          for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+          k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
+        ym(${yandexId}, 'init', {
+          clickmap: true,
+          trackLinks: true,
+          accurateTrackBounce: true,
+          webvisor: true,
+          ecommerce: 'dataLayer'
+        });
+      `
+      document.head.appendChild(script)
+      
+      // Fallback noscript image
+      const noscript = document.createElement('noscript')
+      noscript.innerHTML = `<div><img src="https://mc.yandex.ru/watch/${yandexId}" style="position:absolute; left:-9999px;" alt="" /></div>`
+      document.body.appendChild(noscript)
+    }
+  }, [measurementId, yandexId])
 
   // Track page views on route change
   useEffect(() => {
+    // Google Analytics
     if (measurementId && window.gtag) {
       window.gtag('event', 'page_view', {
         page_title: document.title,
@@ -51,18 +78,34 @@ export function Analytics({ measurementId }: AnalyticsProps) {
         page_path: location.pathname,
       })
     }
-  }, [location, measurementId])
+    
+    // Yandex Metrika
+    if (yandexId && window.ym) {
+      window.ym(yandexId, 'hit', location.pathname, {
+        title: document.title
+      })
+    }
+  }, [location, measurementId, yandexId])
 
   return null
 }
+
+// Yandex Metrika ID for reachGoal
+const YM_ID = 105636261
 
 // Helper functions for tracking events
 export const trackEvent = (
   eventName: string,
   eventParams?: Record<string, unknown>
 ) => {
+  // Google Analytics
   if (window.gtag) {
     window.gtag('event', eventName, eventParams)
+  }
+  
+  // Yandex Metrika - reachGoal для целей
+  if (window.ym) {
+    window.ym(YM_ID, 'reachGoal', eventName, eventParams)
   }
 }
 
