@@ -151,7 +151,7 @@ export function SmartCalculator() {
   
   // Параметры бизнеса
   const [branches, setBranches] = useState(1)
-  const [brands, setBrands] = useState(1)
+  const brands = 1 // Фиксированное значение (убрано из UI)
   const [kiosks, setKiosks] = useState(0)
   const [monthlyOrders, setMonthlyOrders] = useState(500)
   const [avgCheck, setAvgCheck] = useState(50000)
@@ -1147,26 +1147,6 @@ export function SmartCalculator() {
               <span className="text-lg font-bold flex-1 text-center">{branches}</span>
               <button 
                 onClick={() => setBranches(branches + 1)}
-                className="w-6 h-6 rounded bg-white/20 flex items-center justify-center hover:bg-white/30"
-              >
-                <Plus className="h-3 w-3" />
-              </button>
-            </div>
-          </div>
-          
-          {/* Бренды */}
-          <div className="bg-white/10 rounded-xl p-3">
-            <div className="text-xs text-white/70 mb-2">{t('calc2.brands')}</div>
-            <div className="flex items-center gap-2">
-              <button 
-                onClick={() => setBrands(Math.max(1, brands - 1))}
-                className="w-6 h-6 rounded bg-white/20 flex items-center justify-center hover:bg-white/30"
-              >
-                <Minus className="h-3 w-3" />
-              </button>
-              <span className="text-lg font-bold flex-1 text-center">{brands}</span>
-              <button 
-                onClick={() => setBrands(brands + 1)}
                 className="w-6 h-6 rounded bg-white/20 flex items-center justify-center hover:bg-white/30"
               >
                 <Plus className="h-3 w-3" />
