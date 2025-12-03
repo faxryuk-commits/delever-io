@@ -196,61 +196,105 @@ export function About() {
         </motion.div>
       </section>
 
-      {/* Geography */}
-      <section className="container mx-auto max-w-4xl mb-16">
+      {/* Geography - Countries */}
+      <section className="container mx-auto max-w-4xl mb-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.6 }}
-          className="bg-brand-lightBlue/30 rounded-2xl p-8"
+          className="text-center"
         >
           <div className="flex items-center gap-3 mb-6 justify-center">
-            <MapPin className="h-6 w-6 text-brand-darkBlue" />
-            <h3 className="text-xl font-bold text-brand-darkBlue">{t('about.geography')}</h3>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-blue to-brand-green flex items-center justify-center shadow-lg">
+              <MapPin className="h-5 w-5 text-white" />
+            </div>
+            <h3 className="text-2xl font-bold text-brand-darkBlue">{t('about.geography')}</h3>
           </div>
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
+          <div className="flex flex-wrap justify-center gap-3">
             {countries.map((country, idx) => (
               <motion.div 
                 key={idx}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full ${
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-full shadow-sm ${
                   country.status === 'main' 
-                    ? 'bg-brand-darkBlue text-white' 
-                    : 'bg-white border border-brand-lightTeal/30 text-brand-darkBlue'
-                }`}
+                    ? 'bg-gradient-to-r from-brand-darkBlue to-brand-blue text-white shadow-brand-blue/20' 
+                    : 'bg-white border border-brand-lightTeal/40 text-brand-darkBlue hover:border-brand-blue/40'
+                } transition-all duration-300`}
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ delay: 0.7 + idx * 0.1 }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, y: -2 }}
               >
-                <span className="text-lg">{country.flag}</span>
+                <span className="text-xl">{country.flag}</span>
                 <span className="text-sm font-medium">
                   {countryNames[country.nameKey]?.[language] || countryNames[country.nameKey]?.['en']}
                 </span>
               </motion.div>
             ))}
           </div>
+        </motion.div>
+      </section>
+
+      {/* Coverage Map */}
+      <section className="container mx-auto max-w-6xl mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.8 }}
+          className="relative"
+        >
+          {/* Decorative background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-lightBlue/50 via-brand-lightTeal/30 to-brand-lightGreen/40 rounded-3xl -m-4 blur-xl opacity-60" />
           
-          {/* Карта покрытия Delever */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ delay: 0.9 }}
-            className="bg-white rounded-xl overflow-hidden shadow-lg"
-          >
-            <div className="p-4 border-b border-gray-100">
-              <h4 className="font-semibold text-brand-darkBlue text-center">
+          <div className="relative bg-white/80 backdrop-blur-sm rounded-3xl p-6 md:p-8 shadow-2xl shadow-brand-blue/10 border border-white/50">
+            {/* Header */}
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <div className="h-px flex-1 max-w-[60px] bg-gradient-to-r from-transparent to-brand-blue/30" />
+              <h4 className="text-lg font-semibold text-brand-darkBlue px-4">
                 {t('about.coverageMap')}
               </h4>
+              <div className="h-px flex-1 max-w-[60px] bg-gradient-to-l from-transparent to-brand-blue/30" />
             </div>
-            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-              <iframe 
-                src="https://datalens.yandex/eurdibfb0zyqz"
-                className="absolute inset-0 w-full h-full border-0"
-                title="Delever Coverage Map"
-                allowFullScreen
-              />
+            
+            {/* Map Container */}
+            <div className="relative rounded-2xl overflow-hidden shadow-inner bg-gradient-to-br from-gray-50 to-gray-100">
+              {/* Decorative corners */}
+              <div className="absolute top-0 left-0 w-20 h-20 border-l-4 border-t-4 border-brand-blue/20 rounded-tl-2xl pointer-events-none z-10" />
+              <div className="absolute top-0 right-0 w-20 h-20 border-r-4 border-t-4 border-brand-green/20 rounded-tr-2xl pointer-events-none z-10" />
+              <div className="absolute bottom-0 left-0 w-20 h-20 border-l-4 border-b-4 border-brand-green/20 rounded-bl-2xl pointer-events-none z-10" />
+              <div className="absolute bottom-0 right-0 w-20 h-20 border-r-4 border-b-4 border-brand-blue/20 rounded-br-2xl pointer-events-none z-10" />
+              
+              <div className="relative w-full" style={{ paddingBottom: '50%', minHeight: '400px' }}>
+                <iframe 
+                  src="https://datalens.yandex/eurdibfb0zyqz"
+                  className="absolute inset-0 w-full h-full border-0"
+                  title="Delever Coverage Map"
+                  allowFullScreen
+                />
+              </div>
             </div>
-          </motion.div>
+            
+            {/* Stats mini-bar */}
+            <div className="mt-6 flex flex-wrap justify-center gap-6 md:gap-10">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-brand-blue to-brand-green animate-pulse" />
+                <span className="text-sm text-brand-darkBlue/70">
+                  <span className="font-semibold text-brand-darkBlue">1000+</span> {t('stats.businesses')}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-brand-green to-emerald-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
+                <span className="text-sm text-brand-darkBlue/70">
+                  <span className="font-semibold text-brand-darkBlue">7</span> {t('stats.countries')}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-purple-500 to-brand-blue animate-pulse" style={{ animationDelay: '1s' }} />
+                <span className="text-sm text-brand-darkBlue/70">
+                  <span className="font-semibold text-brand-darkBlue">13M+</span> {t('stats.orders')}
+                </span>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </section>
 
