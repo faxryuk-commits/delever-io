@@ -56,7 +56,7 @@ export function Hero() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-darkBlue mb-6 leading-[1.15] tracking-tight">
               {t('hero.title')}
               <br />
-              <span className="text-brand-blue">
+              <span className="bg-gradient-to-r from-brand-lightTeal via-brand-softMint to-brand-lightTeal bg-clip-text text-transparent">
                 {t('hero.titleHighlight')}
               </span>
             </h1>

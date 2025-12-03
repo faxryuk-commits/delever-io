@@ -62,9 +62,9 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Hero
     'hero.badge': 'Запуск за 1 день',
-    'hero.title': 'Запустите свою доставку',
-    'hero.titleHighlight': 'за 1 день',
-    'hero.description': 'Управляйте всеми каналами продаж из одного окна. Собственное приложение, сайт и Telegram-бот без комиссий агрегаторов.',
+    'hero.title': 'Единая платформа',
+    'hero.titleHighlight': 'для управления доставкой',
+    'hero.description': 'Управляйте всеми каналами продаж, операциями доставки и аналитикой из одного места. Запустите собственные каналы продаж, автоматизируйте работу с агрегаторами и увеличьте прибыль уже через неделю.',
     'hero.cta': 'Начать бесплатно',
     'hero.ctaDemo': 'Запросить демо',
     'hero.demo': 'Смотреть демо',
@@ -1129,9 +1129,9 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Hero
     'hero.badge': 'Launch in 1 day',
-    'hero.title': 'Launch your delivery',
-    'hero.titleHighlight': 'in 1 day',
-    'hero.description': 'Manage all sales channels from one dashboard. Your own app, website and Telegram bot without aggregator fees.',
+    'hero.title': 'Unified platform',
+    'hero.titleHighlight': 'for delivery management',
+    'hero.description': 'Manage all sales channels, delivery operations and analytics from one place. Launch your own sales channels, automate work with aggregators and increase profits within a week.',
     'hero.cta': 'Start Free',
     'hero.ctaDemo': 'Request Demo',
     'hero.demo': 'Watch Demo',
