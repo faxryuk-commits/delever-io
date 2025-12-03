@@ -358,9 +358,35 @@ export function SmartCalculator() {
   
   // Генерация КП
   const downloadInvoice = async () => {
-    const date = new Date().toLocaleDateString('ru-RU')
+    const isEn = language === 'en'
+    const date = new Date().toLocaleDateString(isEn ? 'en-US' : 'ru-RU')
     const invoiceNumber = `DEL-${Date.now().toString().slice(-8)}`
     const items = getInvoiceItems()
+    
+    // Локализация для КП
+    const kpText = {
+      title: isEn ? 'Commercial Proposal' : 'Коммерческое предложение',
+      from: isEn ? 'dated' : 'от',
+      businessParams: isEn ? 'Business Parameters' : 'Параметры бизнеса',
+      branches: isEn ? 'Branches' : 'Филиалов',
+      brands: isEn ? 'Brands' : 'Брендов',
+      ordersMonth: isEn ? 'Orders/mo' : 'Заказов/мес',
+      avgCheck: isEn ? 'Avg Check' : 'Средний чек',
+      estimate: isEn ? 'Detailed Estimate' : 'Детальная смета',
+      service: isEn ? 'Service' : 'Услуга',
+      quantity: isEn ? 'Quantity' : 'Количество',
+      cost: isEn ? 'Cost' : 'Стоимость',
+      totalMonthly: isEn ? 'TOTAL monthly' : 'ИТОГО ежемесячно',
+      deposit: isEn ? 'Deposit (one-time)' : 'Депозит (разовый платёж)',
+      benefit: isEn ? 'Your savings switching from aggregators' : 'Ваша выгода при переходе с агрегаторов',
+      perMonth: isEn ? '/mo' : '/мес',
+      roiTitle: isEn ? 'Detailed ROI Calculation' : 'Детальный расчёт ROI',
+      currentAggregator: isEn ? 'Current aggregator costs' : 'Текущие расходы на агрегаторы',
+      withDelever: isEn ? 'Costs with Delever' : 'Расходы с Delever',
+      yearlySavings: isEn ? 'Yearly savings' : 'Годовая экономия',
+      savingsPercent: isEn ? 'Savings percent' : 'Процент экономии',
+      defaultCalc: isEn ? 'Cost Calculation' : 'Расчёт стоимости',
+    }
     
     const situationNames: Record<Situation, string> = {
       commissions: t('calc2.situation.commissions'),
@@ -375,7 +401,7 @@ export function SmartCalculator() {
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Коммерческое предложение Delever</title>
+  <title>${kpText.title} Delever</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 40px; max-width: 900px; margin: 0 auto; color: #333; }
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; border-bottom: 3px solid #002A47; padding-bottom: 20px; }
@@ -412,44 +438,44 @@ export function SmartCalculator() {
   <div class="header">
     <div class="logo">🚀 Delever</div>
     <div class="invoice-info">
-      <div><strong>Коммерческое предложение</strong></div>
+      <div><strong>${kpText.title}</strong></div>
       <div>№ ${invoiceNumber}</div>
-      <div>от ${date}</div>
+      <div>${kpText.from} ${date}</div>
     </div>
   </div>
 
-  <div class="situation">${situation ? situationNames[situation] : 'Расчёт стоимости'}</div>
+  <div class="situation">${situation ? situationNames[situation] : kpText.defaultCalc}</div>
 
   <div class="section">
-    <div class="section-title">Параметры бизнеса</div>
+    <div class="section-title">${kpText.businessParams}</div>
     <div class="params">
       <div class="param-box">
         <div class="param-value">${branches}</div>
-        <div class="param-label">Филиалов</div>
+        <div class="param-label">${kpText.branches}</div>
       </div>
       <div class="param-box">
         <div class="param-value">${brands}</div>
-        <div class="param-label">Брендов</div>
+        <div class="param-label">${kpText.brands}</div>
       </div>
       <div class="param-box">
         <div class="param-value">${monthlyOrders.toLocaleString()}</div>
-        <div class="param-label">Заказов/мес</div>
+        <div class="param-label">${kpText.ordersMonth}</div>
       </div>
       <div class="param-box">
         <div class="param-value">${formatPrice(avgCheck)}</div>
-        <div class="param-label">Средний чек</div>
+        <div class="param-label">${kpText.avgCheck}</div>
       </div>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-title">Детальная смета</div>
+    <div class="section-title">${kpText.estimate}</div>
     <table>
       <thead>
         <tr>
-          <th>Услуга</th>
-          <th>Количество</th>
-          <th class="text-right">Стоимость</th>
+          <th>${kpText.service}</th>
+          <th>${kpText.quantity}</th>
+          <th class="text-right">${kpText.cost}</th>
         </tr>
       </thead>
       <tbody>
@@ -461,11 +487,11 @@ export function SmartCalculator() {
         </tr>
         `).join('')}
         <tr class="total-row">
-          <td colspan="2">ИТОГО ежемесячно</td>
+          <td colspan="2">${kpText.totalMonthly}</td>
           <td class="text-right">${formatPrice(totalMonthlyCost)}</td>
         </tr>
         <tr class="deposit-row">
-          <td colspan="2">Депозит (разовый платёж)</td>
+          <td colspan="2">${kpText.deposit}</td>
           <td class="text-right">${formatPrice(deposit)}</td>
         </tr>
       </tbody>
@@ -474,27 +500,27 @@ export function SmartCalculator() {
 
   ${roi.switchSavings > 0 ? `
   <div class="benefit">
-    <div class="benefit-label">Ваша выгода при переходе с агрегаторов</div>
-    <div class="benefit-value">+${formatPrice(roi.switchSavings)}/мес</div>
+    <div class="benefit-label">${kpText.benefit}</div>
+    <div class="benefit-value">+${formatPrice(roi.switchSavings)}${kpText.perMonth}</div>
   </div>
 
   <div class="roi-section">
-    <div class="roi-title">Детальный расчёт ROI</div>
+    <div class="roi-title">${kpText.roiTitle}</div>
     <div class="roi-grid">
       <div class="roi-box">
-        <div class="roi-box-title">Текущие расходы на агрегаторы (${aggregatorFee}%)</div>
-        <div class="roi-box-value" style="color: #dc2626;">-${formatPrice(roi.aggregatorCost)}/мес</div>
+        <div class="roi-box-title">${kpText.currentAggregator} (${aggregatorFee}%)</div>
+        <div class="roi-box-value" style="color: #dc2626;">-${formatPrice(roi.aggregatorCost)}${kpText.perMonth}</div>
       </div>
       <div class="roi-box">
-        <div class="roi-box-title">Расходы с Delever</div>
-        <div class="roi-box-value">-${formatPrice(roi.totalOwnDeliveryCost)}/мес</div>
+        <div class="roi-box-title">${kpText.withDelever}</div>
+        <div class="roi-box-value">-${formatPrice(roi.totalOwnDeliveryCost)}${kpText.perMonth}</div>
       </div>
       <div class="roi-box">
-        <div class="roi-box-title">Годовая экономия</div>
+        <div class="roi-box-title">${kpText.yearlySavings}</div>
         <div class="roi-box-value" style="color: #059669;">+${formatPrice(roi.switchSavings * 12)}</div>
       </div>
       <div class="roi-box">
-        <div class="roi-box-title">Процент экономии</div>
+        <div class="roi-box-title">${kpText.savingsPercent}</div>
         <div class="roi-box-value" style="color: #059669;">${Math.round(roi.switchSavingsPercent)}%</div>
       </div>
     </div>
@@ -1170,7 +1196,7 @@ export function SmartCalculator() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div className="bg-red-500/20 rounded-xl p-4">
                 <div className="text-sm text-white/80 mb-2">{t('calc2.withAggregators')}</div>
-                <div className="text-2xl font-bold text-red-300">-{formatPrice(roi.aggregatorCost)}/мес</div>
+                <div className="text-2xl font-bold text-red-300">-{formatPrice(roi.aggregatorCost)}/{t('calc2.month')}</div>
                 <div className="text-xs text-white/60">{aggregatorFee}% {t('calc2.fromRevenue')}</div>
               </div>
               <div className="bg-white/10 rounded-xl p-4">
@@ -1201,7 +1227,7 @@ export function SmartCalculator() {
                 {roi.switchSavings > 0 ? t('calc2.yourSavings') : t('calc2.additionalCost')}
               </div>
               <div className={`text-3xl font-bold ${roi.switchSavings > 0 ? 'text-emerald-200' : 'text-orange-200'}`}>
-                {roi.switchSavings > 0 ? '+' : ''}{formatPrice(roi.switchSavings)}/мес
+                {roi.switchSavings > 0 ? '+' : ''}{formatPrice(roi.switchSavings)}/{t('calc2.month')}
               </div>
               {roi.switchSavings > 0 && (
                 <div className="text-sm text-white/60 mt-2">
