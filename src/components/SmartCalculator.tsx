@@ -32,9 +32,9 @@ import {
 } from 'lucide-react'
 import { Button } from './ui/Button'
 import { ContactForm } from './ContactForm'
+import { PresentationDownload } from './PresentationDownload'
 import { useLocale } from '@/i18n/LocaleContext'
 import { trackEvents } from './Analytics'
-import { downloadPresentation } from '@/utils/generatePresentation'
 
 // Типы ситуаций
 type Situation = 'commissions' | 'manual' | 'fragmented' | 'migrate' | 'scratch'
@@ -143,6 +143,7 @@ const roiScenarios: { id: ROIScenario; icon: typeof Store; color: string }[] = [
 export function SmartCalculator() {
   const { t, formatPrice, language } = useLocale()
   const [contactFormOpen, setContactFormOpen] = useState(false)
+  const [presentationOpen, setPresentationOpen] = useState(false)
   
   // Состояние
   const [step, setStep] = useState(1)
@@ -1528,21 +1529,7 @@ export function SmartCalculator() {
           <Button 
             variant="outline" 
             size="lg"
-            onClick={() => {
-              downloadPresentation({
-                language: language as 'ru' | 'en',
-                customData: {
-                  planName: selectedPlan.name,
-                  branches,
-                  monthlyOrders,
-                  avgCheck: formatPrice(avgCheck),
-                  totalCost: formatPriceConverted(totalMonthlyCost),
-                  deposit: formatPriceConverted(deposit),
-                  roiSavings: roi.switchSavings > 0 ? formatPriceConverted(roi.switchSavings) : undefined,
-                  roiYearlySavings: roi.switchSavings > 0 ? formatPriceConverted(roi.switchSavings * 12) : undefined,
-                }
-              }, 'Delever_Presentation')
-            }}
+            onClick={() => setPresentationOpen(true)}
             className="border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white"
           >
             <FileText className="mr-2 h-5 w-5" />
@@ -1639,6 +1626,21 @@ export function SmartCalculator() {
       </div>
       
       <ContactForm open={contactFormOpen} onOpenChange={setContactFormOpen} />
+      
+      <PresentationDownload
+        open={presentationOpen}
+        onOpenChange={setPresentationOpen}
+        customData={{
+          planName: selectedPlan.name,
+          branches,
+          monthlyOrders,
+          avgCheck: formatPrice(avgCheck),
+          totalCost: formatPriceConverted(totalMonthlyCost),
+          deposit: formatPriceConverted(deposit),
+          roiSavings: roi.switchSavings > 0 ? formatPriceConverted(roi.switchSavings) : undefined,
+          roiYearlySavings: roi.switchSavings > 0 ? formatPriceConverted(roi.switchSavings * 12) : undefined,
+        }}
+      />
     </section>
   )
 }

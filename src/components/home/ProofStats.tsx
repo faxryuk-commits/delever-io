@@ -6,7 +6,11 @@ import {
   Store, 
   Globe, 
   Zap,
-  TrendingUp
+  TrendingUp,
+  ShoppingBag,
+  Package,
+  Smartphone,
+  ExternalLink
 } from 'lucide-react'
 import { useLocale } from '@/i18n/LocaleContext'
 
@@ -26,6 +30,13 @@ const stats = [
     labelKey: 'stats.countries',
   },
   {
+    id: 'orders',
+    icon: Package,
+    value: 13,
+    suffix: 'M+',
+    labelKey: 'stats.ordersProcessed',
+  },
+  {
     id: 'speed',
     icon: Zap,
     value: 35,
@@ -33,6 +44,36 @@ const stats = [
     labelKey: 'stats.speedUp',
   },
 ]
+
+// Примеры реализованных проектов
+const clientExamples = {
+  restaurants: [
+    { name: 'Yaponamama', url: 'https://yaponamama.uz/', logo: '/logos/yaponamama.png' },
+    { name: 'Manana', url: 'https://manana.delever.uz/ru', logo: null },
+    { name: 'Kamolon Osh', url: 'https://kamolonosh.uz/', logo: null },
+    { name: 'Brasserie', url: 'https://brasserie.delever.uz/ru', logo: null },
+    { name: 'Tarnov', url: 'https://tarnov.uz/ru', logo: null },
+    { name: 'Cheeseria (KZ)', url: 'https://cheeseria.delever.kz/ru', logo: null },
+  ],
+  fastfood: [
+    { name: 'Maxway', url: 'https://maxway.uz/ru', logo: '/logos/maxway.png' },
+    { name: "Hardee's", url: 'https://hardees.delever.uz/ru', logo: null },
+    { name: 'Pizza Hut', url: 'https://pizzahutuz.delever.uz/ru', logo: null },
+  ],
+  stores: [
+    { name: 'Fati Flowers', url: 'https://fatiflowers.delever.uz/ru', logo: null },
+    { name: 'Zoo Planeta', url: 'https://zooplaneta.delever.uz/ru', logo: null },
+    { name: 'Movex', url: 'https://movex.uz/ru', logo: null },
+    { name: 'Animal Planet', url: 'https://animalplanet.delever.uz/ru', logo: null },
+  ],
+  apps: [
+    { name: 'Yaponamama', url: 'https://apps.apple.com/uz/app/yaponamama-oila/id1457179873', platform: 'iOS' },
+    { name: 'Maxway', url: 'https://apps.apple.com/uz/app/maxway/id1565502018', platform: 'iOS' },
+    { name: 'Kamolon Osh', url: 'https://apps.apple.com/uz/app/kamolon-osh/id6745427808', platform: 'iOS' },
+    { name: 'Chicago Pizza', url: 'https://apps.apple.com/uz/app/chicago-pizza/id6670315321', platform: 'iOS' },
+    { name: 'Takumi Sushi', url: 'https://apps.apple.com/uz/app/takumi-sushi/id6499478612', platform: 'iOS' },
+  ],
+}
 
 function AnimatedNumber({ value, suffix }: { value: number; suffix: string }) {
   const ref = useRef(null)
@@ -66,6 +107,14 @@ function AnimatedNumber({ value, suffix }: { value: number; suffix: string }) {
 
 export function ProofStats() {
   const { t } = useLocale()
+  const [activeCategory, setActiveCategory] = useState<'restaurants' | 'fastfood' | 'stores' | 'apps'>('restaurants')
+
+  const categories = [
+    { id: 'restaurants' as const, labelKey: 'stats.category.restaurants', icon: Store },
+    { id: 'fastfood' as const, labelKey: 'stats.category.fastfood', icon: ShoppingBag },
+    { id: 'stores' as const, labelKey: 'stats.category.stores', icon: Package },
+    { id: 'apps' as const, labelKey: 'stats.category.apps', icon: Smartphone },
+  ]
 
   return (
     <section className="py-16 lg:py-24 bg-brand-darkBlue relative overflow-hidden">
@@ -90,7 +139,8 @@ export function ProofStats() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-5xl mx-auto">
+        {/* Статистика */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-5xl mx-auto mb-16">
           {stats.map((stat, idx) => {
             const Icon = stat.icon
             return (
@@ -123,6 +173,71 @@ export function ProofStats() {
           })}
         </div>
 
+        {/* Примеры реализованных проектов */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="max-w-5xl mx-auto"
+        >
+          <h3 className="text-xl font-bold text-white text-center mb-6">
+            {t('stats.examples.title')}
+          </h3>
+          
+          {/* Категории */}
+          <div className="flex flex-wrap justify-center gap-2 mb-8">
+            {categories.map((cat) => {
+              const Icon = cat.icon
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                    activeCategory === cat.id
+                      ? 'bg-brand-blue text-white'
+                      : 'bg-white/10 text-white/70 hover:bg-white/20'
+                  }`}
+                >
+                  <Icon className="h-4 w-4" />
+                  {t(cat.labelKey)}
+                </button>
+              )
+            })}
+          </div>
+
+          {/* Список примеров */}
+          <motion.div 
+            key={activeCategory}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3"
+          >
+            {clientExamples[activeCategory].map((client, idx) => (
+              <a
+                key={idx}
+                href={client.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col items-center p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-brand-blue/50 transition-all"
+              >
+                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-2 group-hover:bg-brand-blue/20 transition-colors">
+                  {'platform' in client ? (
+                    <Smartphone className="h-5 w-5 text-brand-blue" />
+                  ) : (
+                    <Globe className="h-5 w-5 text-brand-blue" />
+                  )}
+                </div>
+                <span className="text-white text-sm font-medium text-center">{client.name}</span>
+                {'platform' in client && (
+                  <span className="text-white/40 text-xs">{client.platform}</span>
+                )}
+                <ExternalLink className="h-3 w-3 text-white/30 mt-1 group-hover:text-brand-blue transition-colors" />
+              </a>
+            ))}
+          </motion.div>
+        </motion.div>
+
         {/* Дополнительные преимущества */}
         <motion.div 
           className="mt-12 flex flex-wrap justify-center gap-6"
@@ -140,4 +255,3 @@ export function ProofStats() {
     </section>
   )
 }
-

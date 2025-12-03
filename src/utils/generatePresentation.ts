@@ -2,6 +2,7 @@
 
 interface PresentationData {
   language: 'ru' | 'en'
+  brandName?: string // Название бренда клиента
   // Персональные данные (если есть)
   customData?: {
     planName: string
@@ -15,15 +16,41 @@ interface PresentationData {
   }
 }
 
+// Примеры реализованных проектов
+const clientExamples = {
+  websites: [
+    { name: 'Yaponamama', url: 'yaponamama.uz' },
+    { name: 'Maxway', url: 'maxway.uz' },
+    { name: 'Kamolon Osh', url: 'kamolonosh.uz' },
+    { name: "Hardee's", url: 'hardees.delever.uz' },
+    { name: 'Pizza Hut', url: 'pizzahutuz.delever.uz' },
+    { name: 'Cheeseria (KZ)', url: 'cheeseria.delever.kz' },
+  ],
+  apps: [
+    { name: 'Yaponamama', platform: 'iOS & Android' },
+    { name: 'Maxway', platform: 'iOS & Android' },
+    { name: 'Chicago Pizza', platform: 'iOS' },
+    { name: 'Takumi Sushi', platform: 'iOS' },
+    { name: 'Zoo Planeta', platform: 'iOS' },
+  ],
+}
+
 export function generatePresentation(data: PresentationData): string {
-  const { language, customData } = data
+  const { language, customData, brandName } = data
   const isRu = language === 'ru'
+  
+  // Если есть brandName, показываем персонализированный заголовок
+  const personalizedTitle = brandName 
+    ? `${brandName} × Delever` 
+    : 'Delever'
   
   const text = {
     // Слайд 1 - Обложка
-    title: isRu ? 'Delever' : 'Delever',
+    title: personalizedTitle,
     tagline: isRu ? '№1 Платформа для автоматизации доставки' : '#1 Delivery Automation Platform',
-    subtitle: isRu ? 'Единая система управления для ресторанов, кафе и магазинов' : 'Unified management system for restaurants, cafes and stores',
+    subtitle: brandName 
+      ? (isRu ? `Персональное предложение для ${brandName}` : `Personal offer for ${brandName}`)
+      : (isRu ? 'Единая система управления для ресторанов, кафе и магазинов' : 'Unified management system for restaurants, cafes and stores'),
     
     // Слайд 2 - Проблемы
     problemsTitle: isRu ? 'Знакомые проблемы?' : 'Familiar problems?',
@@ -132,7 +159,13 @@ export function generatePresentation(data: PresentationData): string {
       { name: 'Enterprise', orders: 'up to 10,000 orders', price: '$1,100' },
     ],
     
-    // Слайд 9 - Контакты
+    // Слайд 9 - Примеры клиентов
+    examplesTitle: isRu ? 'Наши клиенты' : 'Our Clients',
+    examplesSubtitle: isRu ? 'Реализованные проекты на платформе Delever' : 'Projects built on Delever platform',
+    websitesLabel: isRu ? 'Сайты' : 'Websites',
+    appsLabel: isRu ? 'Мобильные приложения' : 'Mobile Apps',
+    
+    // Слайд 10 - Контакты
     contactsTitle: isRu ? 'Начните сегодня' : 'Start Today',
     contactsSubtitle: isRu ? 'Свяжитесь с нами для демонстрации' : 'Contact us for a demo',
     
@@ -514,7 +547,37 @@ export function generatePresentation(data: PresentationData): string {
     </div>
   </div>
   
-  <!-- Слайд 9: Контакты -->
+  <!-- Слайд 9: Примеры клиентов -->
+  <div class="slide">
+    <h1 class="slide-title">${text.examplesTitle}</h1>
+    <div class="slide-subtitle">${text.examplesSubtitle}</div>
+    <div class="grid-2" style="gap: 40px;">
+      <div class="card">
+        <div class="card-title" style="font-size: 20px; margin-bottom: 20px;">🌐 ${text.websitesLabel}</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          ${clientExamples.websites.map(c => `
+            <div style="padding: 12px; background: #f8fafc; border-radius: 8px;">
+              <div style="font-weight: 600; color: #002A47;">${c.name}</div>
+              <div style="font-size: 12px; color: #64748b;">${c.url}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="font-size: 20px; margin-bottom: 20px;">📱 ${text.appsLabel}</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          ${clientExamples.apps.map(c => `
+            <div style="padding: 12px; background: #f8fafc; border-radius: 8px;">
+              <div style="font-weight: 600; color: #002A47;">${c.name}</div>
+              <div style="font-size: 12px; color: #64748b;">${c.platform}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Слайд 10: Контакты -->
   <div class="slide slide-contacts">
     <div class="contacts-title">${text.contactsTitle}</div>
     <div class="contacts-subtitle">${text.contactsSubtitle}</div>
@@ -526,7 +589,7 @@ export function generatePresentation(data: PresentationData): string {
   </div>
   
   ${customData ? `
-  <!-- Слайд 10: Персональное предложение -->
+  <!-- Слайд 11: Персональное предложение -->
   <div class="slide custom-slide">
     <div class="custom-header">
       <h1 style="font-size: 32px; margin-bottom: 8px;">${text.customTitle}</h1>

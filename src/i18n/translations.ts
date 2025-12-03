@@ -86,6 +86,16 @@ export const translations: Record<Language, Record<string, string>> = {
     'hero.downloadPresentation': 'Скачать презентацию о платформе',
     'hero.demo': 'Смотреть демо',
     
+    // Presentation Modal
+    'presentation.title': 'Скачать презентацию',
+    'presentation.subtitle': 'Персонализированная презентация Delever',
+    'presentation.brandLabel': 'Название вашего бренда',
+    'presentation.brandPlaceholder': 'Например: Yaponamama',
+    'presentation.brandHint': 'Мы добавим название вашего бренда в презентацию',
+    'presentation.preview': 'Заголовок презентации:',
+    'presentation.skip': 'Пропустить',
+    'presentation.download': 'Скачать',
+    
     // Segment Navigator
     'segment.title': 'Выберите ваш профиль',
     'segment.subtitle': 'Мы покажем решения, которые подходят именно вам',
@@ -413,10 +423,16 @@ export const translations: Record<Language, Record<string, string>> = {
     'stats.title': 'Цифры говорят сами за себя',
     'stats.subtitle': 'Результаты наших клиентов',
     'stats.restaurants': 'Ресторанов и магазинов',
+    'stats.ordersProcessed': 'Обработано заказов',
     'stats.ordersDaily': 'Заказов в день',
     'stats.speedUp': 'Ускорение доставки',
     'stats.benefit1': 'Средний рост выручки +30%',
     'stats.benefit2': 'Запуск за 1 день',
+    'stats.examples.title': 'Примеры реализованных проектов',
+    'stats.category.restaurants': 'Рестораны',
+    'stats.category.fastfood': 'Фастфуд',
+    'stats.category.stores': 'Магазины',
+    'stats.category.apps': 'Приложения',
     
     // Mini Cases
     'cases.title': 'Реальные цифры роста',
@@ -1397,6 +1413,16 @@ export const translations: Record<Language, Record<string, string>> = {
     'hero.downloadPresentation': 'Download platform presentation',
     'hero.demo': 'Watch Demo',
     
+    // Presentation Modal
+    'presentation.title': 'Download Presentation',
+    'presentation.subtitle': 'Personalized Delever presentation',
+    'presentation.brandLabel': 'Your brand name',
+    'presentation.brandPlaceholder': 'e.g. Yaponamama',
+    'presentation.brandHint': 'We\'ll add your brand name to the presentation',
+    'presentation.preview': 'Presentation title:',
+    'presentation.skip': 'Skip',
+    'presentation.download': 'Download',
+    
     // Segment Navigator
     'segment.title': 'Choose your profile',
     'segment.subtitle': 'We\'ll show solutions tailored just for you',
@@ -1724,10 +1750,16 @@ export const translations: Record<Language, Record<string, string>> = {
     'stats.title': 'Numbers speak for themselves',
     'stats.subtitle': 'Results of our clients',
     'stats.restaurants': 'Restaurants and stores',
+    'stats.ordersProcessed': 'Orders processed',
     'stats.ordersDaily': 'Orders per day',
     'stats.speedUp': 'Delivery speedup',
     'stats.benefit1': 'Average revenue growth +30%',
     'stats.benefit2': 'Launch in 1 day',
+    'stats.examples.title': 'Live project examples',
+    'stats.category.restaurants': 'Restaurants',
+    'stats.category.fastfood': 'Fast Food',
+    'stats.category.stores': 'Stores',
+    'stats.category.apps': 'Mobile Apps',
     
     // Mini Cases
     'cases.title': 'Real Growth Numbers',
