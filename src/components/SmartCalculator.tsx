@@ -52,11 +52,11 @@ const moduleCategories = [
     id: 'aggregators',
     icon: Layers,
     modules: [
-      { id: 'uzum', nameKey: 'calc.module.uzum', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: 'https://play-lh.googleusercontent.com/7xKGO6z_L_YTi6lAi8qVL3oDxwODW7_x9x5xJF6uPxlrVJ0mCNPR6v6lqJzQhvR5VQ=w240-h480-rw' },
-      { id: 'wolt', nameKey: 'calc.module.wolt', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Wolt-Logo-Black.png/220px-Wolt-Logo-Black.png' },
-      { id: 'yandex', nameKey: 'calc.module.yandex', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: 'https://avatars.mds.yandex.net/get-bunker/60661/3dc0ffe47a5c7c4c33cd0f0e849a4a87bcb9b2a7/orig' },
-      { id: 'glovo', nameKey: 'calc.module.glovo', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: 'https://res.cloudinary.com/glovoapp/image/fetch/f_svg,h_50/https://glovoapp.com/images/glovo-logo.svg' },
-      { id: 'bolt', nameKey: 'calc.module.bolt', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Bolt_logo.png/220px-Bolt_logo.png' },
+      { id: 'uzum', nameKey: 'calc.module.uzum', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: '/logos/Uzum tezkor.png' },
+      { id: 'wolt', nameKey: 'calc.module.wolt', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: '/logos/wolt.png' },
+      { id: 'yandex', nameKey: 'calc.module.yandex', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: '/logos/Yandex Eats.jpeg' },
+      { id: 'glovo', nameKey: 'calc.module.glovo', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: '/logos/Glovo.png' },
+      { id: 'bolt', nameKey: 'calc.module.bolt', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: '/logos/Bolt food.png' },
       { id: 'allAggregators', nameKey: 'calc.module.allAggregators', priceUZS: 650000, priceUSD: 100, perType: 'branch' as const, logo: '' },
     ]
   },
@@ -64,10 +64,10 @@ const moduleCategories = [
     id: 'deliveryServices',
     icon: Truck,
     modules: [
-      { id: 'yandexDelivery', nameKey: 'calc.module.yandexDelivery', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const, logo: 'https://avatars.mds.yandex.net/get-bunker/60661/3dc0ffe47a5c7c4c33cd0f0e849a4a87bcb9b2a7/orig' },
-      { id: 'woltDrive', nameKey: 'calc.module.woltDrive', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const, logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Wolt-Logo-Black.png/220px-Wolt-Logo-Black.png' },
-      { id: 'taxiMillennium', nameKey: 'calc.module.taxiMillennium', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const, logo: '' },
-      { id: 'noor', nameKey: 'calc.module.noor', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const, logo: '' },
+      { id: 'yandexDelivery', nameKey: 'calc.module.yandexDelivery', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const, logo: '/logos/Yandex go (dostavka).svg.png' },
+      { id: 'woltDrive', nameKey: 'calc.module.woltDrive', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const, logo: '/logos/wolt.png' },
+      { id: 'millenniumTaxi', nameKey: 'calc.module.millenniumTaxi', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const, logo: '/logos/Millenium taxi.png' },
+      { id: 'noor', nameKey: 'calc.module.noor', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const, logo: '/logos/Noor.jpg' },
       { id: 'allDeliveryServices', nameKey: 'calc.module.allDeliveryServices', priceUZS: 520000, priceUSD: 80, perType: 'branch' as const, logo: '' },
     ]
   },
@@ -268,7 +268,7 @@ export function SmartCalculator() {
   // Переключение модуля с логикой автозамены
   const toggleModule = (id: string) => {
     const singleAggregators = ['uzum', 'wolt', 'yandex', 'glovo', 'bolt']
-    const singleDeliveryServices = ['yandexDelivery', 'woltDrive', 'taxiMillennium', 'noor']
+    const singleDeliveryServices = ['yandexDelivery', 'woltDrive', 'millenniumTaxi', 'noor']
     
     setSelectedModules(prev => {
       let newModules = prev.includes(id) 
