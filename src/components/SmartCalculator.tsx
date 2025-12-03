@@ -1428,19 +1428,19 @@ export function SmartCalculator() {
               </div>
             </div>
             
-            <div className={`rounded-xl p-6 text-center ${roi.switchSavings > 0 ? 'bg-emerald-500/30' : 'bg-orange-500/30'}`}>
-              <div className="text-sm text-white/80 mb-2">
-                {roi.switchSavings > 0 ? t('calc2.yourSavings') : t('calc2.additionalCost')}
-              </div>
-              <div className={`text-3xl font-bold ${roi.switchSavings > 0 ? 'text-emerald-200' : 'text-orange-200'}`}>
-                {roi.switchSavings > 0 ? '+' : ''}{formatPrice(roi.switchSavings)}/{t('calc2.month')}
-              </div>
-              {roi.switchSavings > 0 && (
+            {roi.switchSavings > 0 && (
+              <div className="rounded-xl p-6 text-center bg-emerald-500/30">
+                <div className="text-sm text-white/80 mb-2">
+                  {t('calc2.yourSavings')}
+                </div>
+                <div className="text-3xl font-bold text-emerald-200">
+                  +{formatPrice(roi.switchSavings)}/{t('calc2.month')}
+                </div>
                 <div className="text-sm text-white/60 mt-2">
                   {t('calc2.yearSavings')}: {formatPrice(roi.switchSavings * 12)}
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </>
         )}
       </div>

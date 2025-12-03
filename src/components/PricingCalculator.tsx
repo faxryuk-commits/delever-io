@@ -1010,39 +1010,33 @@ export function PricingCalculator() {
               </div>
             </div>
 
-            {/* Результат */}
-            <div className={`rounded-xl p-6 text-center ${roi.switchSavings > 0 ? 'bg-emerald-500/30' : 'bg-orange-500/30'}`}>
-              <div className="text-sm text-white/80 mb-2">{roi.switchSavings > 0 ? t('calc.yourSavings') : t('calc.additionalCost')}</div>
-              <div className={`text-3xl font-bold ${roi.switchSavings > 0 ? 'text-emerald-200' : 'text-orange-200'}`}>
-                {roi.switchSavings > 0 ? '+' : ''}{formatPrice(roi.switchSavings)}/мес
-              </div>
-              <div className="text-sm text-white/60 mt-2">
-                {formatPrice(roi.yearSwitchSavings)}/год
-              </div>
-            </div>
-
+            {/* Результат - только при положительной экономии */}
             {roi.switchSavings > 0 && (
-              <div className="mt-4 text-center">
-                <div className="inline-flex items-center gap-2 bg-white/20 rounded-full px-6 py-3">
-                  <span className="text-white/80">{t('calc.savingsPercent')}:</span>
-                  <span className="text-2xl font-bold">{Math.round(roi.switchSavingsPercent)}%</span>
-                  {totals.oneTime > 0 && roi.paybackMonths > 0 && (
-                    <>
-                      <span className="mx-2">•</span>
-                      <span className="text-white/80">{t('calc.payback')}:</span>
-                      <span className="font-bold">{roi.paybackMonths} {t('calc.months')}</span>
-                    </>
-                  )}
+              <>
+                <div className="rounded-xl p-6 text-center bg-emerald-500/30">
+                  <div className="text-sm text-white/80 mb-2">{t('calc.yourSavings')}</div>
+                  <div className="text-3xl font-bold text-emerald-200">
+                    +{formatPrice(roi.switchSavings)}/мес
+                  </div>
+                  <div className="text-sm text-white/60 mt-2">
+                    {formatPrice(roi.yearSwitchSavings)}/год
+                  </div>
                 </div>
-              </div>
-            )}
 
-            {roi.switchSavings <= 0 && (
-              <div className="mt-4 p-4 bg-white/10 rounded-xl text-center">
-                <p className="text-white/80 text-sm">
-                  💡 {t('calc.switchNotProfitableHint')}
-                </p>
-              </div>
+                <div className="mt-4 text-center">
+                  <div className="inline-flex items-center gap-2 bg-white/20 rounded-full px-6 py-3">
+                    <span className="text-white/80">{t('calc.savingsPercent')}:</span>
+                    <span className="text-2xl font-bold">{Math.round(roi.switchSavingsPercent)}%</span>
+                    {totals.oneTime > 0 && roi.paybackMonths > 0 && (
+                      <>
+                        <span className="mx-2">•</span>
+                        <span className="text-white/80">{t('calc.payback')}:</span>
+                        <span className="font-bold">{roi.paybackMonths} {t('calc.months')}</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </>
             )}
           </>
         )}
