@@ -2,8 +2,7 @@
 
 interface PresentationData {
   language: 'ru' | 'en'
-  brandName?: string // Название бренда клиента
-  // Персональные данные (если есть)
+  brandName?: string
   customData?: {
     planName: string
     branches: number
@@ -39,149 +38,7 @@ export function generatePresentation(data: PresentationData): string {
   const { language, customData, brandName } = data
   const isRu = language === 'ru'
   
-  // Если есть brandName, показываем персонализированный заголовок
-  const personalizedTitle = brandName 
-    ? `${brandName} × Delever` 
-    : 'Delever'
-  
-  const text = {
-    // Слайд 1 - Обложка
-    title: personalizedTitle,
-    tagline: isRu ? '№1 Платформа для автоматизации доставки' : '#1 Delivery Automation Platform',
-    subtitle: brandName 
-      ? (isRu ? `Персональное предложение для ${brandName}` : `Personal offer for ${brandName}`)
-      : (isRu ? 'Единая система управления для ресторанов, кафе и магазинов' : 'Unified management system for restaurants, cafes and stores'),
-    
-    // Слайд 2 - Проблемы
-    problemsTitle: isRu ? 'Знакомые проблемы?' : 'Familiar problems?',
-    problems: isRu ? [
-      { icon: '💸', text: 'Теряете 20-35% на комиссиях агрегаторов' },
-      { icon: '⏱️', text: '3 из 10 заказов доставляются с опозданием' },
-      { icon: '👋', text: '85% клиентов покупают один раз и уходят' },
-      { icon: '🔀', text: 'Хаос: заказы в 5 разных системах' },
-      { icon: '📊', text: 'Нет данных для принятия решений' },
-      { icon: '⭐', text: 'Низкий рейтинг = меньше заказов' },
-    ] : [
-      { icon: '💸', text: 'Losing 20-35% on aggregator commissions' },
-      { icon: '⏱️', text: '3 out of 10 orders delivered late' },
-      { icon: '👋', text: '85% of customers buy once and leave' },
-      { icon: '🔀', text: 'Chaos: orders in 5 different systems' },
-      { icon: '📊', text: 'No data for decision making' },
-      { icon: '⭐', text: 'Low rating = fewer orders' },
-    ],
-    
-    // Слайд 3 - Решение
-    solutionTitle: isRu ? 'Delever решает все эти проблемы' : 'Delever solves all these problems',
-    solutionSubtitle: isRu ? 'Единая платформа для управления всем бизнесом доставки' : 'Single platform to manage your entire delivery business',
-    solutions: isRu ? [
-      { metric: '0%', label: 'Комиссия на своих каналах' },
-      { metric: '35%', label: 'Быстрее доставка' },
-      { metric: '3x', label: 'Рост повторных заказов' },
-      { metric: '1', label: 'Система вместо 5+' },
-    ] : [
-      { metric: '0%', label: 'Commission on own channels' },
-      { metric: '35%', label: 'Faster delivery' },
-      { metric: '3x', label: 'Repeat orders growth' },
-      { metric: '1', label: 'System instead of 5+' },
-    ],
-    
-    // Слайд 4 - Каналы продаж
-    channelsTitle: isRu ? 'Свои каналы продаж' : 'Own Sales Channels',
-    channels: isRu ? [
-      { name: 'Веб-сайт', desc: 'Брендированный сайт с онлайн-заказами' },
-      { name: 'Telegram бот', desc: 'Заказы прямо в мессенджере' },
-      { name: 'Мобильное приложение', desc: 'iOS и Android под вашим брендом' },
-      { name: 'QR-меню', desc: 'Заказ со стола в заведении' },
-    ] : [
-      { name: 'Website', desc: 'Branded website with online orders' },
-      { name: 'Telegram bot', desc: 'Orders directly in messenger' },
-      { name: 'Mobile app', desc: 'iOS and Android under your brand' },
-      { name: 'QR menu', desc: 'Order from table in venue' },
-    ],
-    
-    // Слайд 5 - Интеграции
-    integrationsTitle: isRu ? 'Интеграции' : 'Integrations',
-    integrations: isRu ? [
-      { category: 'Агрегаторы', items: 'Yandex Eats, Wolt, Glovo, Uzum, Bolt' },
-      { category: 'Курьерские службы', items: 'Yandex Delivery, Wolt Drive, Millennium' },
-      { category: 'Оплата', items: 'Payme, Click, Uzum, Visa, Mastercard' },
-      { category: 'POS системы', items: 'R-Keeper, iiko, Poster, Jowi' },
-    ] : [
-      { category: 'Aggregators', items: 'Yandex Eats, Wolt, Glovo, Uzum, Bolt' },
-      { category: 'Courier services', items: 'Yandex Delivery, Wolt Drive, Millennium' },
-      { category: 'Payments', items: 'Payme, Click, Uzum, Visa, Mastercard' },
-      { category: 'POS systems', items: 'R-Keeper, iiko, Poster, Jowi' },
-    ],
-    
-    // Слайд 6 - Функционал
-    featuresTitle: isRu ? 'Полный функционал' : 'Full Functionality',
-    features: isRu ? [
-      { icon: '📦', name: 'Управление заказами', desc: 'Все заказы в одном месте' },
-      { icon: '🚴', name: 'Курьерское приложение', desc: 'GPS-трекинг и маршруты' },
-      { icon: '👥', name: 'CRM и лояльность', desc: 'Кешбэк, бонусы, сегментация' },
-      { icon: '📊', name: 'Аналитика', desc: 'Дашборды и отчёты' },
-      { icon: '📱', name: 'Маркетинг', desc: 'Push, SMS, email рассылки' },
-      { icon: '🍳', name: 'Кухня (KDS)', desc: 'Экраны для поваров' },
-    ] : [
-      { icon: '📦', name: 'Order Management', desc: 'All orders in one place' },
-      { icon: '🚴', name: 'Courier App', desc: 'GPS tracking and routes' },
-      { icon: '👥', name: 'CRM & Loyalty', desc: 'Cashback, bonuses, segmentation' },
-      { icon: '📊', name: 'Analytics', desc: 'Dashboards and reports' },
-      { icon: '📱', name: 'Marketing', desc: 'Push, SMS, email campaigns' },
-      { icon: '🍳', name: 'Kitchen (KDS)', desc: 'Screens for chefs' },
-    ],
-    
-    // Слайд 7 - Результаты
-    resultsTitle: isRu ? 'Результаты клиентов' : 'Client Results',
-    results: isRu ? [
-      { metric: '1000+', label: 'Бизнесов используют Delever' },
-      { metric: '7', label: 'Стран присутствия' },
-      { metric: '+30%', label: 'Средний рост выручки' },
-      { metric: '13M+', label: 'Обработано заказов' },
-    ] : [
-      { metric: '1000+', label: 'Businesses use Delever' },
-      { metric: '7', label: 'Countries presence' },
-      { metric: '+30%', label: 'Average revenue growth' },
-      { metric: '13M+', label: 'Orders processed' },
-    ],
-    
-    // Слайд 8 - Тарифы
-    pricingTitle: isRu ? 'Тарифы' : 'Pricing',
-    plans: isRu ? [
-      { name: 'Start', orders: 'до 1 000 заказов', price: '1 300 000 сум' },
-      { name: 'Medium', orders: 'до 3 000 заказов', price: '3 250 000 сум', popular: true },
-      { name: 'Big', orders: 'до 6 000 заказов', price: '6 500 000 сум' },
-      { name: 'Enterprise', orders: 'до 10 000 заказов', price: '13 000 000 сум' },
-    ] : [
-      { name: 'Start', orders: 'up to 1,000 orders', price: '$150' },
-      { name: 'Medium', orders: 'up to 3,000 orders', price: '$280', popular: true },
-      { name: 'Big', orders: 'up to 6,000 orders', price: '$580' },
-      { name: 'Enterprise', orders: 'up to 10,000 orders', price: '$1,100' },
-    ],
-    
-    // Слайд 9 - Примеры клиентов
-    examplesTitle: isRu ? 'Наши клиенты' : 'Our Clients',
-    examplesSubtitle: isRu ? 'Реализованные проекты на платформе Delever' : 'Projects built on Delever platform',
-    websitesLabel: isRu ? 'Сайты' : 'Websites',
-    appsLabel: isRu ? 'Мобильные приложения' : 'Mobile Apps',
-    
-    // Слайд 10 - Контакты
-    contactsTitle: isRu ? 'Начните сегодня' : 'Start Today',
-    contactsSubtitle: isRu ? 'Свяжитесь с нами для демонстрации' : 'Contact us for a demo',
-    
-    // Персональный слайд
-    customTitle: isRu ? 'Ваше персональное предложение' : 'Your Personal Offer',
-    customPlan: isRu ? 'Выбранный тариф' : 'Selected Plan',
-    customParams: isRu ? 'Параметры бизнеса' : 'Business Parameters',
-    customRoi: isRu ? 'Расчёт выгоды' : 'ROI Calculation',
-    branches: isRu ? 'Филиалов' : 'Branches',
-    orders: isRu ? 'Заказов/мес' : 'Orders/mo',
-    avgCheck: isRu ? 'Средний чек' : 'Avg Check',
-    monthlyCost: isRu ? 'Ежемесячно' : 'Monthly',
-    deposit: isRu ? 'Депозит' : 'Deposit',
-    savings: isRu ? 'Экономия' : 'Savings',
-    yearlySavings: isRu ? 'Годовая экономия' : 'Yearly savings',
-  }
+  const personalizedTitle = brandName ? `${brandName} × Delever` : 'Delever'
 
   const styles = `
     <style>
@@ -193,151 +50,252 @@ export function generatePresentation(data: PresentationData): string {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         background: #f8fafc;
         color: #002A47;
+        line-height: 1.5;
       }
       
       .slide {
         width: 100%;
         min-height: 100vh;
-        padding: 60px 80px;
+        padding: 50px 60px;
         page-break-after: always;
         display: flex;
         flex-direction: column;
+        position: relative;
       }
       
       .slide:last-child { page-break-after: auto; }
       
-      /* Слайд 1 - Обложка */
+      /* Обложка */
       .slide-cover {
-        background: linear-gradient(135deg, #002A47 0%, #004d7a 100%);
+        background: linear-gradient(135deg, #002A47 0%, #004d7a 50%, #006494 100%);
         color: white;
         justify-content: center;
         align-items: center;
         text-align: center;
       }
       
-      .logo { font-size: 72px; font-weight: 800; margin-bottom: 20px; }
-      .tagline { font-size: 28px; font-weight: 600; color: #FFD700; margin-bottom: 16px; }
-      .subtitle { font-size: 20px; opacity: 0.8; max-width: 600px; }
+      .cover-badge {
+        background: rgba(255,215,0,0.2);
+        border: 1px solid rgba(255,215,0,0.5);
+        padding: 8px 20px;
+        border-radius: 30px;
+        font-size: 14px;
+        margin-bottom: 24px;
+        display: inline-block;
+      }
       
-      /* Общие стили слайдов */
+      .logo { font-size: 64px; font-weight: 800; margin-bottom: 16px; letter-spacing: -2px; }
+      .tagline { font-size: 24px; font-weight: 600; color: #FFD700; margin-bottom: 12px; }
+      .subtitle { font-size: 18px; opacity: 0.8; max-width: 500px; }
+      
+      .cover-stats {
+        display: flex;
+        gap: 40px;
+        margin-top: 50px;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255,255,255,0.2);
+      }
+      
+      .cover-stat { text-align: center; }
+      .cover-stat-value { font-size: 32px; font-weight: 800; color: #10B981; }
+      .cover-stat-label { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+      
+      /* Слайд с проблемами */
+      .slide-problems { background: linear-gradient(180deg, #FEF2F2 0%, white 100%); }
+      
+      /* Заголовки */
+      .slide-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 8px;
+      }
+      
+      .slide-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+      }
+      
       .slide-title {
-        font-size: 36px;
+        font-size: 32px;
         font-weight: 700;
-        margin-bottom: 12px;
         color: #002A47;
       }
       
       .slide-subtitle {
-        font-size: 18px;
+        font-size: 16px;
         color: #64748b;
-        margin-bottom: 40px;
+        margin-bottom: 30px;
+        max-width: 600px;
       }
       
       /* Сетки */
-      .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-      .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-      .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-      .grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+      .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
       
       /* Карточки */
       .card {
         background: white;
         border-radius: 16px;
         padding: 24px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        border: 1px solid #e2e8f0;
       }
       
-      .card-icon {
-        font-size: 32px;
-        margin-bottom: 12px;
+      .card-gradient {
+        background: linear-gradient(135deg, #002A47, #004d7a);
+        color: white;
+        border: none;
       }
       
-      .card-title {
-        font-size: 18px;
-        font-weight: 600;
-        margin-bottom: 8px;
-      }
-      
-      .card-desc {
-        font-size: 14px;
-        color: #64748b;
-      }
+      .card-icon { font-size: 28px; margin-bottom: 12px; }
+      .card-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+      .card-desc { font-size: 13px; color: #64748b; line-height: 1.5; }
+      .card-gradient .card-desc { color: rgba(255,255,255,0.8); }
       
       /* Проблемы */
       .problem-card {
-        background: #FFF5F5;
+        background: white;
         border-left: 4px solid #EF4444;
-        padding: 20px;
+        padding: 16px 20px;
         border-radius: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 2px 10px rgba(239,68,68,0.1);
       }
       
-      .problem-icon { font-size: 24px; margin-right: 12px; }
-      .problem-text { font-size: 15px; color: #991B1B; }
+      .problem-icon { font-size: 24px; }
+      .problem-text { font-size: 14px; color: #991B1B; font-weight: 500; }
       
       /* Метрики */
       .metric-card {
         background: linear-gradient(135deg, #002A47, #004d7a);
         color: white;
         border-radius: 16px;
-        padding: 30px;
+        padding: 24px;
         text-align: center;
       }
       
-      .metric-value {
-        font-size: 48px;
-        font-weight: 800;
-        color: #10B981;
+      .metric-value { font-size: 36px; font-weight: 800; color: #10B981; }
+      .metric-label { font-size: 12px; opacity: 0.8; margin-top: 6px; }
+      
+      /* Решение - Feature Slide */
+      .feature-slide {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        flex: 1;
+        align-items: center;
       }
       
-      .metric-label {
-        font-size: 14px;
-        opacity: 0.8;
-        margin-top: 8px;
+      .feature-content h2 { font-size: 28px; font-weight: 700; margin-bottom: 12px; color: #002A47; }
+      .feature-content p { font-size: 15px; color: #64748b; margin-bottom: 24px; line-height: 1.6; }
+      
+      .feature-list { list-style: none; }
+      .feature-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid #f1f5f9;
       }
+      .feature-list li:last-child { border-bottom: none; }
+      
+      .feature-check {
+        width: 24px;
+        height: 24px;
+        background: #10B981;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+      
+      .feature-text { font-size: 14px; color: #334155; }
+      .feature-text strong { color: #002A47; }
+      
+      .feature-visual {
+        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        border-radius: 20px;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      
+      .visual-stat {
+        background: white;
+        border-radius: 12px;
+        padding: 16px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      }
+      
+      .visual-stat-label { font-size: 13px; color: #64748b; }
+      .visual-stat-value { font-size: 20px; font-weight: 700; color: #002A47; }
+      .visual-stat-value.green { color: #10B981; }
+      .visual-stat-value.red { color: #EF4444; }
       
       /* Тарифы */
       .plan-card {
         background: white;
         border-radius: 16px;
-        padding: 24px;
+        padding: 20px;
         text-align: center;
         border: 2px solid #e2e8f0;
+        transition: all 0.3s;
       }
       
       .plan-card.popular {
         border-color: #002A47;
         background: linear-gradient(180deg, #f0f9ff 0%, white 100%);
+        transform: scale(1.02);
       }
       
       .plan-badge {
         background: #10B981;
         color: white;
-        font-size: 11px;
-        padding: 4px 12px;
+        font-size: 10px;
+        padding: 4px 10px;
         border-radius: 20px;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
         display: inline-block;
+        font-weight: 600;
       }
       
-      .plan-name { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
-      .plan-orders { font-size: 14px; color: #64748b; margin-bottom: 16px; }
-      .plan-price { font-size: 28px; font-weight: 700; color: #002A47; }
+      .plan-name { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+      .plan-orders { font-size: 12px; color: #64748b; margin-bottom: 12px; }
+      .plan-price { font-size: 24px; font-weight: 700; color: #002A47; }
       
       /* Интеграции */
-      .integration-row {
-        display: flex;
-        align-items: center;
-        padding: 16px 0;
-        border-bottom: 1px solid #e2e8f0;
+      .integration-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
       }
       
-      .integration-category {
-        font-weight: 600;
-        width: 180px;
-        color: #002A47;
+      .integration-item {
+        background: white;
+        border-radius: 12px;
+        padding: 16px;
+        text-align: center;
+        border: 1px solid #e2e8f0;
       }
       
-      .integration-items { color: #64748b; }
+      .integration-icon { font-size: 24px; margin-bottom: 8px; }
+      .integration-name { font-size: 12px; font-weight: 600; color: #002A47; }
       
       /* Контакты */
       .slide-contacts {
@@ -348,55 +306,38 @@ export function generatePresentation(data: PresentationData): string {
         text-align: center;
       }
       
-      .contacts-title { font-size: 42px; font-weight: 700; margin-bottom: 16px; }
-      .contacts-subtitle { font-size: 20px; opacity: 0.8; margin-bottom: 40px; }
+      .contacts-title { font-size: 36px; font-weight: 700; margin-bottom: 12px; }
+      .contacts-subtitle { font-size: 18px; opacity: 0.8; margin-bottom: 40px; }
       
-      .contact-info {
-        display: flex;
-        gap: 40px;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-      
-      .contact-item {
-        font-size: 18px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
+      .contact-info { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
+      .contact-item { font-size: 16px; display: flex; align-items: center; gap: 8px; }
       
       /* Персональное предложение */
-      .custom-slide {
-        background: linear-gradient(180deg, #f0fdf4 0%, white 100%);
-      }
+      .custom-slide { background: linear-gradient(180deg, #f0fdf4 0%, white 100%); }
       
       .custom-header {
         background: linear-gradient(135deg, #10B981, #059669);
         color: white;
-        padding: 30px;
-        border-radius: 20px;
+        padding: 24px;
+        border-radius: 16px;
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 24px;
       }
       
-      .custom-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-      }
+      .custom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
       
       .custom-section {
         background: white;
         border-radius: 16px;
-        padding: 24px;
+        padding: 20px;
         box-shadow: 0 4px 20px rgba(0,0,0,0.08);
       }
       
       .custom-section-title {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 600;
         color: #64748b;
-        margin-bottom: 16px;
+        margin-bottom: 12px;
         text-transform: uppercase;
         letter-spacing: 1px;
       }
@@ -404,24 +345,36 @@ export function generatePresentation(data: PresentationData): string {
       .custom-row {
         display: flex;
         justify-content: space-between;
-        padding: 12px 0;
+        padding: 10px 0;
         border-bottom: 1px solid #f1f5f9;
       }
       
-      .custom-label { color: #64748b; }
-      .custom-value { font-weight: 600; color: #002A47; }
+      .custom-label { color: #64748b; font-size: 14px; }
+      .custom-value { font-weight: 600; color: #002A47; font-size: 14px; }
       
       .savings-box {
         background: linear-gradient(135deg, #10B981, #059669);
         color: white;
         border-radius: 16px;
-        padding: 30px;
+        padding: 24px;
         text-align: center;
-        margin-top: 30px;
+        margin-top: 24px;
       }
       
-      .savings-value { font-size: 42px; font-weight: 800; }
-      .savings-label { font-size: 16px; opacity: 0.9; margin-top: 8px; }
+      .savings-value { font-size: 36px; font-weight: 800; }
+      .savings-label { font-size: 14px; opacity: 0.9; margin-top: 6px; }
+      
+      /* Footer */
+      .slide-footer {
+        position: absolute;
+        bottom: 20px;
+        left: 60px;
+        right: 60px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 11px;
+        color: #94a3b8;
+      }
       
       @media print {
         .slide { min-height: 100vh; }
@@ -429,209 +382,749 @@ export function generatePresentation(data: PresentationData): string {
     </style>
   `
 
+  // Тексты
+  const t = {
+    // Обложка
+    badge: isRu ? '🏆 №1 Платформа для автоматизации доставки' : '🏆 #1 Delivery Automation Platform',
+    tagline: isRu ? 'Единая платформа управления' : 'Unified Management Platform',
+    subtitle: brandName 
+      ? (isRu ? `Персональное предложение для ${brandName}` : `Personal offer for ${brandName}`)
+      : (isRu ? 'для ресторанов, кафе и магазинов' : 'for restaurants, cafes and stores'),
+    coverStats: isRu ? [
+      { value: '1000+', label: 'Бизнесов' },
+      { value: '13M+', label: 'Заказов' },
+      { value: '7', label: 'Стран' },
+      { value: '+30%', label: 'Рост выручки' },
+    ] : [
+      { value: '1000+', label: 'Businesses' },
+      { value: '13M+', label: 'Orders' },
+      { value: '7', label: 'Countries' },
+      { value: '+30%', label: 'Revenue growth' },
+    ],
+    
+    // Проблемы
+    problemsTitle: isRu ? 'Знакомые проблемы?' : 'Familiar problems?',
+    problemsSubtitle: isRu ? 'С этими проблемами сталкивается каждый бизнес доставки' : 'Every delivery business faces these challenges',
+    problems: isRu ? [
+      { icon: '💸', text: 'Теряете 20-35% на комиссиях агрегаторов', stat: '-5 млн сум/мес' },
+      { icon: '⏱️', text: '3 из 10 заказов доставляются с опозданием', stat: '30% опозданий' },
+      { icon: '👋', text: '85% клиентов покупают один раз и уходят', stat: 'Нет лояльности' },
+      { icon: '🔀', text: 'Хаос: заказы в 5 разных системах', stat: 'Потеря времени' },
+      { icon: '📊', text: 'Нет данных для принятия решений', stat: 'Слепые решения' },
+      { icon: '🚴', text: 'Курьеры без контроля и оптимизации', stat: 'Лишние расходы' },
+    ] : [
+      { icon: '💸', text: 'Losing 20-35% on aggregator commissions', stat: '-$500/mo' },
+      { icon: '⏱️', text: '3 out of 10 orders delivered late', stat: '30% delays' },
+      { icon: '👋', text: '85% of customers buy once and leave', stat: 'No loyalty' },
+      { icon: '🔀', text: 'Chaos: orders in 5 different systems', stat: 'Time waste' },
+      { icon: '📊', text: 'No data for decision making', stat: 'Blind decisions' },
+      { icon: '🚴', text: 'Couriers without control & optimization', stat: 'Extra costs' },
+    ],
+    
+    // Решения - детальные слайды
+    solutions: {
+      // 1. Своя доставка
+      ownDelivery: {
+        title: isRu ? 'Своя доставка' : 'Own Delivery',
+        subtitle: isRu ? 'Полный контроль над процессом доставки' : 'Full control over delivery process',
+        description: isRu 
+          ? 'Создайте собственную службу доставки с современными инструментами управления курьерами, оптимизации маршрутов и контроля качества.'
+          : 'Create your own delivery service with modern tools for courier management, route optimization, and quality control.',
+        features: isRu ? [
+          { title: 'Курьерское приложение', desc: 'GPS-трекинг, навигация, история заказов' },
+          { title: 'Автораспределение', desc: 'Умное назначение курьеров на заказы' },
+          { title: 'Оптимизация маршрутов', desc: 'Экономия времени и топлива' },
+          { title: 'Зарплатный модуль', desc: 'Автоматический расчёт выплат курьерам' },
+          { title: 'Контроль качества', desc: 'Фото доставки, рейтинги, отзывы' },
+        ] : [
+          { title: 'Courier App', desc: 'GPS tracking, navigation, order history' },
+          { title: 'Auto-assignment', desc: 'Smart courier assignment to orders' },
+          { title: 'Route optimization', desc: 'Save time and fuel' },
+          { title: 'Salary module', desc: 'Automatic courier payout calculation' },
+          { title: 'Quality control', desc: 'Delivery photos, ratings, reviews' },
+        ],
+        stats: isRu ? [
+          { label: 'Ускорение доставки', value: '+35%', type: 'green' },
+          { label: 'Экономия на курьерах', value: '+20%', type: 'green' },
+          { label: 'Опоздания', value: '-70%', type: 'red' },
+        ] : [
+          { label: 'Delivery speed', value: '+35%', type: 'green' },
+          { label: 'Courier savings', value: '+20%', type: 'green' },
+          { label: 'Late deliveries', value: '-70%', type: 'red' },
+        ],
+      },
+      
+      // 2. Агрегаторы
+      aggregators: {
+        title: isRu ? 'Интеграция с агрегаторами' : 'Aggregator Integration',
+        subtitle: isRu ? 'Все заказы в одном месте' : 'All orders in one place',
+        description: isRu 
+          ? 'Подключите Yandex Eats, Wolt, Glovo, Uzum Tezkor и других агрегаторов. Все заказы поступают в единый интерфейс, автоматически синхронизируется меню и цены.'
+          : 'Connect Yandex Eats, Wolt, Glovo, Uzum Tezkor and other aggregators. All orders come to a single interface, menu and prices sync automatically.',
+        features: isRu ? [
+          { title: 'Единый интерфейс', desc: 'Все агрегаторы в одном окне' },
+          { title: 'Синхронизация меню', desc: 'Одно изменение — везде обновлено' },
+          { title: 'Управление стоп-листом', desc: 'Автоматическая остановка позиций' },
+          { title: 'Аналитика по каналам', desc: 'Сравнение эффективности агрегаторов' },
+          { title: 'Автоприём заказов', desc: 'Заказы принимаются автоматически' },
+        ] : [
+          { title: 'Single interface', desc: 'All aggregators in one window' },
+          { title: 'Menu sync', desc: 'One change — updated everywhere' },
+          { title: 'Stop-list management', desc: 'Automatic item stopping' },
+          { title: 'Channel analytics', desc: 'Compare aggregator performance' },
+          { title: 'Auto-accept orders', desc: 'Orders accepted automatically' },
+        ],
+        integrations: ['Yandex Eats', 'Wolt', 'Glovo', 'Uzum Tezkor', 'Bolt Food', 'Express 24'],
+      },
+      
+      // 3. Каналы продаж
+      salesChannels: {
+        title: isRu ? 'Свои каналы продаж' : 'Own Sales Channels',
+        subtitle: isRu ? '0% комиссии на собственных каналах' : '0% commission on own channels',
+        description: isRu 
+          ? 'Запустите брендированный сайт, мобильное приложение и Telegram-бот. Принимайте заказы напрямую без комиссий агрегаторов.'
+          : 'Launch a branded website, mobile app, and Telegram bot. Accept orders directly without aggregator commissions.',
+        channels: isRu ? [
+          { icon: '🌐', name: 'Веб-сайт', desc: 'Брендированный сайт с онлайн-меню, корзиной и оплатой', examples: 'yaponamama.uz, maxway.uz' },
+          { icon: '📱', name: 'Мобильное приложение', desc: 'iOS и Android приложения под вашим брендом', examples: 'App Store, Google Play' },
+          { icon: '💬', name: 'Telegram-бот', desc: 'Заказы прямо в мессенджере, уведомления о статусе', examples: '@yaponamama_bot' },
+          { icon: '📋', name: 'QR-меню', desc: 'Заказ со столика в заведении без официанта', examples: 'QR на столах' },
+        ] : [
+          { icon: '🌐', name: 'Website', desc: 'Branded website with online menu, cart and payment', examples: 'yaponamama.uz, maxway.uz' },
+          { icon: '📱', name: 'Mobile App', desc: 'iOS and Android apps under your brand', examples: 'App Store, Google Play' },
+          { icon: '💬', name: 'Telegram Bot', desc: 'Orders directly in messenger, status notifications', examples: '@yaponamama_bot' },
+          { icon: '📋', name: 'QR Menu', desc: 'Order from table without waiter', examples: 'QR on tables' },
+        ],
+        stats: isRu ? [
+          { label: 'Экономия на комиссиях', value: '20-35%', type: 'green' },
+          { label: 'Доля своих каналов', value: 'до 60%', type: 'green' },
+          { label: 'Срок окупаемости', value: '1-2 мес', type: 'green' },
+        ] : [
+          { label: 'Commission savings', value: '20-35%', type: 'green' },
+          { label: 'Own channels share', value: 'up to 60%', type: 'green' },
+          { label: 'Payback period', value: '1-2 mo', type: 'green' },
+        ],
+      },
+      
+      // 4. Внешние курьеры
+      externalCouriers: {
+        title: isRu ? 'Внешние курьерские службы' : 'External Courier Services',
+        subtitle: isRu ? 'Подключите профессиональных курьеров' : 'Connect professional couriers',
+        description: isRu 
+          ? 'Интеграция с Yandex Delivery, Wolt Drive, Millennium Taxi и другими службами. Автоматический вызов курьера при оформлении заказа.'
+          : 'Integration with Yandex Delivery, Wolt Drive, Millennium Taxi and other services. Automatic courier call when order is placed.',
+        features: isRu ? [
+          { title: 'Автовызов курьера', desc: 'Курьер вызывается автоматически при готовности заказа' },
+          { title: 'Сравнение цен', desc: 'Выбор оптимальной службы по цене и времени' },
+          { title: 'Трекинг в реальном времени', desc: 'Отслеживание курьера на карте' },
+          { title: 'Гибкие правила', desc: 'Настройка условий вызова для разных зон' },
+        ] : [
+          { title: 'Auto courier call', desc: 'Courier is called automatically when order is ready' },
+          { title: 'Price comparison', desc: 'Choose optimal service by price and time' },
+          { title: 'Real-time tracking', desc: 'Track courier on map' },
+          { title: 'Flexible rules', desc: 'Configure call conditions for different zones' },
+        ],
+        services: ['Yandex Delivery', 'Wolt Drive', 'Millennium Taxi', 'Noor Taxi'],
+      },
+      
+      // 5. Курьерское приложение
+      courierApp: {
+        title: isRu ? 'Курьерское приложение' : 'Courier App',
+        subtitle: isRu ? 'Полный контроль над курьерами' : 'Full control over couriers',
+        description: isRu 
+          ? 'Мобильное приложение для курьеров с GPS-трекингом, навигацией, историей заказов и расчётом зарплаты. Доступно для iOS и Android.'
+          : 'Mobile app for couriers with GPS tracking, navigation, order history and salary calculation. Available for iOS and Android.',
+        features: isRu ? [
+          { title: 'GPS-трекинг', desc: 'Отслеживание местоположения в реальном времени' },
+          { title: 'Оптимальные маршруты', desc: 'Автоматическое построение маршрутов' },
+          { title: 'Push-уведомления', desc: 'Мгновенные уведомления о новых заказах' },
+          { title: 'Зарплатный кабинет', desc: 'Курьер видит свой заработок в приложении' },
+          { title: 'Фото доставки', desc: 'Подтверждение доставки фотографией' },
+          { title: 'Учёт посещений', desc: 'Отметка начала и конца смены' },
+        ] : [
+          { title: 'GPS tracking', desc: 'Real-time location tracking' },
+          { title: 'Optimal routes', desc: 'Automatic route building' },
+          { title: 'Push notifications', desc: 'Instant notifications about new orders' },
+          { title: 'Salary cabinet', desc: 'Courier sees earnings in app' },
+          { title: 'Delivery photo', desc: 'Delivery confirmation with photo' },
+          { title: 'Attendance tracking', desc: 'Shift start and end marking' },
+        ],
+      },
+      
+      // 6. Аналитика
+      analytics: {
+        title: isRu ? 'Аналитика и отчёты' : 'Analytics & Reports',
+        subtitle: isRu ? 'Данные для принятия решений' : 'Data for decision making',
+        description: isRu 
+          ? 'Дашборды с ключевыми метриками бизнеса: продажи, популярные товары, эффективность курьеров, LTV клиентов и многое другое.'
+          : 'Dashboards with key business metrics: sales, popular items, courier efficiency, customer LTV and much more.',
+        features: isRu ? [
+          { title: 'Продажи в реальном времени', desc: 'Выручка, заказы, средний чек' },
+          { title: 'ABC-анализ меню', desc: 'Популярные и прибыльные позиции' },
+          { title: 'RFM-анализ клиентов', desc: 'Сегментация по лояльности' },
+          { title: 'Эффективность каналов', desc: 'Сравнение агрегаторов и своих каналов' },
+          { title: 'KPI курьеров', desc: 'Скорость, качество, количество доставок' },
+          { title: 'Экспорт отчётов', desc: 'Excel, PDF для бухгалтерии' },
+        ] : [
+          { title: 'Real-time sales', desc: 'Revenue, orders, average check' },
+          { title: 'ABC menu analysis', desc: 'Popular and profitable items' },
+          { title: 'RFM customer analysis', desc: 'Segmentation by loyalty' },
+          { title: 'Channel efficiency', desc: 'Compare aggregators and own channels' },
+          { title: 'Courier KPIs', desc: 'Speed, quality, delivery count' },
+          { title: 'Report export', desc: 'Excel, PDF for accounting' },
+        ],
+      },
+      
+      // 7. CRM и лояльность
+      crm: {
+        title: isRu ? 'CRM и программа лояльности' : 'CRM & Loyalty Program',
+        subtitle: isRu ? 'Превращайте разовых клиентов в постоянных' : 'Turn one-time customers into regulars',
+        description: isRu 
+          ? 'База клиентов с историей заказов, система бонусов и кешбэка, автоматические рассылки и персонализированные предложения.'
+          : 'Customer database with order history, bonus and cashback system, automated campaigns and personalized offers.',
+        features: isRu ? [
+          { title: 'База клиентов', desc: 'История заказов, контакты, предпочтения' },
+          { title: 'Кешбэк и бонусы', desc: 'Гибкие правила начисления' },
+          { title: 'Push и SMS рассылки', desc: 'Автоматические и ручные кампании' },
+          { title: 'Промокоды', desc: 'Создание и отслеживание промокодов' },
+          { title: 'Сегментация', desc: 'Группировка клиентов по поведению' },
+        ] : [
+          { title: 'Customer base', desc: 'Order history, contacts, preferences' },
+          { title: 'Cashback & bonuses', desc: 'Flexible accrual rules' },
+          { title: 'Push & SMS campaigns', desc: 'Automatic and manual campaigns' },
+          { title: 'Promo codes', desc: 'Create and track promo codes' },
+          { title: 'Segmentation', desc: 'Group customers by behavior' },
+        ],
+        stats: isRu ? [
+          { label: 'Рост повторных заказов', value: '+300%', type: 'green' },
+          { label: 'LTV клиента', value: '+150%', type: 'green' },
+        ] : [
+          { label: 'Repeat orders growth', value: '+300%', type: 'green' },
+          { label: 'Customer LTV', value: '+150%', type: 'green' },
+        ],
+      },
+    },
+    
+    // Тарифы
+    pricingTitle: isRu ? 'Тарифы' : 'Pricing',
+    pricingSubtitle: isRu ? 'Выберите подходящий тариф для вашего бизнеса' : 'Choose the right plan for your business',
+    plans: isRu ? [
+      { name: 'Start', orders: 'до 1 000 заказов', price: '1,3 млн сум' },
+      { name: 'Medium', orders: 'до 3 000 заказов', price: '3,25 млн сум', popular: true },
+      { name: 'Big', orders: 'до 6 000 заказов', price: '6,5 млн сум' },
+      { name: 'Enterprise', orders: 'до 10 000 заказов', price: '13 млн сум' },
+    ] : [
+      { name: 'Start', orders: 'up to 1,000 orders', price: '$150' },
+      { name: 'Medium', orders: 'up to 3,000 orders', price: '$280', popular: true },
+      { name: 'Big', orders: 'up to 6,000 orders', price: '$580' },
+      { name: 'Enterprise', orders: 'up to 10,000 orders', price: '$1,100' },
+    ],
+    
+    // Клиенты
+    clientsTitle: isRu ? 'Наши клиенты' : 'Our Clients',
+    clientsSubtitle: isRu ? 'Реализованные проекты на платформе Delever' : 'Projects built on Delever platform',
+    websitesLabel: isRu ? 'Сайты' : 'Websites',
+    appsLabel: isRu ? 'Приложения' : 'Apps',
+    
+    // Контакты
+    contactsTitle: isRu ? 'Готовы начать?' : 'Ready to start?',
+    contactsSubtitle: isRu ? 'Свяжитесь с нами для бесплатной консультации' : 'Contact us for a free consultation',
+    
+    // Персональное
+    customTitle: isRu ? 'Ваше персональное предложение' : 'Your Personal Offer',
+    customFor: isRu ? 'Специально для вашего бизнеса' : 'Specially for your business',
+    customPlan: isRu ? 'Выбранный тариф' : 'Selected Plan',
+    customParams: isRu ? 'Параметры бизнеса' : 'Business Parameters',
+    branches: isRu ? 'Филиалов' : 'Branches',
+    orders: isRu ? 'Заказов/мес' : 'Orders/mo',
+    avgCheck: isRu ? 'Средний чек' : 'Avg Check',
+    monthly: isRu ? 'Ежемесячно' : 'Monthly',
+    deposit: isRu ? 'Депозит' : 'Deposit',
+    savings: isRu ? 'Ваша выгода' : 'Your Savings',
+    yearly: isRu ? 'Годовая экономия' : 'Yearly savings',
+  }
+
   const html = `
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Delever - ${text.tagline}</title>
+  <title>${personalizedTitle} - ${t.tagline}</title>
   ${styles}
 </head>
 <body>
-  <!-- Слайд 1: Обложка -->
+  <!-- 1. ОБЛОЖКА -->
   <div class="slide slide-cover">
-    <div class="logo">🚀 ${text.title}</div>
-    <div class="tagline">${text.tagline}</div>
-    <div class="subtitle">${text.subtitle}</div>
-  </div>
-  
-  <!-- Слайд 2: Проблемы -->
-  <div class="slide">
-    <h1 class="slide-title">${text.problemsTitle}</h1>
-    <div class="slide-subtitle">${isRu ? 'С этими проблемами сталкивается каждый бизнес доставки' : 'Every delivery business faces these problems'}</div>
-    <div class="grid-2">
-      ${text.problems.map(p => `
-        <div class="problem-card">
-          <span class="problem-icon">${p.icon}</span>
-          <span class="problem-text">${p.text}</span>
+    <div class="cover-badge">${t.badge}</div>
+    <div class="logo">${personalizedTitle}</div>
+    <div class="tagline">${t.tagline}</div>
+    <div class="subtitle">${t.subtitle}</div>
+    <div class="cover-stats">
+      ${t.coverStats.map(s => `
+        <div class="cover-stat">
+          <div class="cover-stat-value">${s.value}</div>
+          <div class="cover-stat-label">${s.label}</div>
         </div>
       `).join('')}
     </div>
   </div>
-  
-  <!-- Слайд 3: Решение -->
+
+  <!-- 2. ПРОБЛЕМЫ -->
+  <div class="slide slide-problems">
+    <div class="slide-header">
+      <div class="slide-icon" style="background: #FEE2E2;">😰</div>
+      <h1 class="slide-title">${t.problemsTitle}</h1>
+    </div>
+    <p class="slide-subtitle">${t.problemsSubtitle}</p>
+    <div class="grid-2">
+      ${t.problems.map(p => `
+        <div class="problem-card">
+          <span class="problem-icon">${p.icon}</span>
+          <div>
+            <div class="problem-text">${p.text}</div>
+            <div style="font-size: 12px; color: #DC2626; margin-top: 4px; font-weight: 600;">${p.stat}</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="slide-footer"><span>delever.io</span><span>2/17</span></div>
+  </div>
+
+  <!-- 3. СВОЯ ДОСТАВКА -->
   <div class="slide">
-    <h1 class="slide-title">${text.solutionTitle}</h1>
-    <div class="slide-subtitle">${text.solutionSubtitle}</div>
-    <div class="grid-4">
-      ${text.solutions.map(s => `
+    <div class="slide-header">
+      <div class="slide-icon" style="background: #DBEAFE;">🚴</div>
+      <h1 class="slide-title">${t.solutions.ownDelivery.title}</h1>
+    </div>
+    <p class="slide-subtitle">${t.solutions.ownDelivery.subtitle}</p>
+    <div class="feature-slide">
+      <div class="feature-content">
+        <p>${t.solutions.ownDelivery.description}</p>
+        <ul class="feature-list">
+          ${t.solutions.ownDelivery.features.map(f => `
+            <li>
+              <div class="feature-check">✓</div>
+              <div class="feature-text"><strong>${f.title}</strong><br>${f.desc}</div>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+      <div class="feature-visual">
+        ${t.solutions.ownDelivery.stats.map(s => `
+          <div class="visual-stat">
+            <span class="visual-stat-label">${s.label}</span>
+            <span class="visual-stat-value ${s.type}">${s.value}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <div class="slide-footer"><span>delever.io</span><span>3/17</span></div>
+  </div>
+
+  <!-- 4. АГРЕГАТОРЫ -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-icon" style="background: #F3E8FF;">🔗</div>
+      <h1 class="slide-title">${t.solutions.aggregators.title}</h1>
+    </div>
+    <p class="slide-subtitle">${t.solutions.aggregators.subtitle}</p>
+    <div class="feature-slide">
+      <div class="feature-content">
+        <p>${t.solutions.aggregators.description}</p>
+        <ul class="feature-list">
+          ${t.solutions.aggregators.features.map(f => `
+            <li>
+              <div class="feature-check">✓</div>
+              <div class="feature-text"><strong>${f.title}</strong><br>${f.desc}</div>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div style="font-weight: 600; margin-bottom: 12px; color: #002A47;">${isRu ? 'Поддерживаемые агрегаторы' : 'Supported aggregators'}</div>
+        <div class="integration-grid" style="grid-template-columns: repeat(2, 1fr);">
+          ${t.solutions.aggregators.integrations.map(name => `
+            <div class="integration-item">
+              <div class="integration-name">${name}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><span>delever.io</span><span>4/17</span></div>
+  </div>
+
+  <!-- 5. КАНАЛЫ ПРОДАЖ -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-icon" style="background: #D1FAE5;">📱</div>
+      <h1 class="slide-title">${t.solutions.salesChannels.title}</h1>
+    </div>
+    <p class="slide-subtitle">${t.solutions.salesChannels.subtitle}</p>
+    <div class="grid-2" style="margin-bottom: 24px;">
+      ${t.solutions.salesChannels.channels.map(ch => `
+        <div class="card">
+          <div class="card-icon">${ch.icon}</div>
+          <div class="card-title">${ch.name}</div>
+          <div class="card-desc">${ch.desc}</div>
+          <div style="font-size: 11px; color: #10B981; margin-top: 8px;">${ch.examples}</div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="grid-3">
+      ${t.solutions.salesChannels.stats.map(s => `
         <div class="metric-card">
-          <div class="metric-value">${s.metric}</div>
+          <div class="metric-value">${s.value}</div>
           <div class="metric-label">${s.label}</div>
         </div>
       `).join('')}
     </div>
+    <div class="slide-footer"><span>delever.io</span><span>5/17</span></div>
   </div>
-  
-  <!-- Слайд 4: Каналы продаж -->
+
+  <!-- 6. ВНЕШНИЕ КУРЬЕРЫ -->
   <div class="slide">
-    <h1 class="slide-title">${text.channelsTitle}</h1>
-    <div class="slide-subtitle">${isRu ? 'Принимайте заказы без комиссий' : 'Accept orders without commissions'}</div>
-    <div class="grid-4">
-      ${text.channels.map(c => `
-        <div class="card">
-          <div class="card-title">${c.name}</div>
-          <div class="card-desc">${c.desc}</div>
-        </div>
-      `).join('')}
+    <div class="slide-header">
+      <div class="slide-icon" style="background: #FEF3C7;">🚕</div>
+      <h1 class="slide-title">${t.solutions.externalCouriers.title}</h1>
     </div>
-  </div>
-  
-  <!-- Слайд 5: Интеграции -->
-  <div class="slide">
-    <h1 class="slide-title">${text.integrationsTitle}</h1>
-    <div class="slide-subtitle">${isRu ? 'Работаем со всеми популярными сервисами' : 'We work with all popular services'}</div>
-    <div class="card" style="flex: 1;">
-      ${text.integrations.map(i => `
-        <div class="integration-row">
-          <div class="integration-category">${i.category}</div>
-          <div class="integration-items">${i.items}</div>
-        </div>
-      `).join('')}
+    <p class="slide-subtitle">${t.solutions.externalCouriers.subtitle}</p>
+    <div class="feature-slide">
+      <div class="feature-content">
+        <p>${t.solutions.externalCouriers.description}</p>
+        <ul class="feature-list">
+          ${t.solutions.externalCouriers.features.map(f => `
+            <li>
+              <div class="feature-check">✓</div>
+              <div class="feature-text"><strong>${f.title}</strong><br>${f.desc}</div>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div style="font-weight: 600; margin-bottom: 12px; color: #002A47;">${isRu ? 'Интегрированные службы' : 'Integrated services'}</div>
+        ${t.solutions.externalCouriers.services.map(name => `
+          <div class="visual-stat">
+            <span class="visual-stat-label">${name}</span>
+            <span style="color: #10B981;">✓</span>
+          </div>
+        `).join('')}
+      </div>
     </div>
+    <div class="slide-footer"><span>delever.io</span><span>6/17</span></div>
   </div>
-  
-  <!-- Слайд 6: Функционал -->
+
+  <!-- 7. КУРЬЕРСКОЕ ПРИЛОЖЕНИЕ -->
   <div class="slide">
-    <h1 class="slide-title">${text.featuresTitle}</h1>
-    <div class="slide-subtitle">${isRu ? 'Всё необходимое для управления бизнесом' : 'Everything you need to manage your business'}</div>
+    <div class="slide-header">
+      <div class="slide-icon" style="background: #CFFAFE;">📍</div>
+      <h1 class="slide-title">${t.solutions.courierApp.title}</h1>
+    </div>
+    <p class="slide-subtitle">${t.solutions.courierApp.subtitle}</p>
+    <div class="feature-slide">
+      <div class="feature-content">
+        <p>${t.solutions.courierApp.description}</p>
+        <ul class="feature-list">
+          ${t.solutions.courierApp.features.slice(0, 4).map(f => `
+            <li>
+              <div class="feature-check">✓</div>
+              <div class="feature-text"><strong>${f.title}</strong><br>${f.desc}</div>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div style="text-align: center; padding: 20px;">
+          <div style="font-size: 64px; margin-bottom: 16px;">📱</div>
+          <div style="font-weight: 600; color: #002A47; margin-bottom: 8px;">${isRu ? 'iOS & Android' : 'iOS & Android'}</div>
+          <div style="font-size: 13px; color: #64748b;">${isRu ? 'Доступно в App Store и Google Play' : 'Available on App Store and Google Play'}</div>
+        </div>
+        ${t.solutions.courierApp.features.slice(4).map(f => `
+          <div class="visual-stat">
+            <span class="visual-stat-label">${f.title}</span>
+            <span style="color: #10B981;">✓</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <div class="slide-footer"><span>delever.io</span><span>7/17</span></div>
+  </div>
+
+  <!-- 8. АНАЛИТИКА -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-icon" style="background: #E0E7FF;">📊</div>
+      <h1 class="slide-title">${t.solutions.analytics.title}</h1>
+    </div>
+    <p class="slide-subtitle">${t.solutions.analytics.subtitle}</p>
+    <p style="color: #64748b; margin-bottom: 24px;">${t.solutions.analytics.description}</p>
     <div class="grid-3">
-      ${text.features.map(f => `
+      ${t.solutions.analytics.features.map(f => `
         <div class="card">
-          <div class="card-icon">${f.icon}</div>
-          <div class="card-title">${f.name}</div>
+          <div class="card-title">${f.title}</div>
           <div class="card-desc">${f.desc}</div>
         </div>
       `).join('')}
     </div>
+    <div class="slide-footer"><span>delever.io</span><span>8/17</span></div>
   </div>
-  
-  <!-- Слайд 7: Результаты -->
+
+  <!-- 9. CRM И ЛОЯЛЬНОСТЬ -->
   <div class="slide">
-    <h1 class="slide-title">${text.resultsTitle}</h1>
-    <div class="slide-subtitle">${isRu ? 'Проверено на 1000+ бизнесов' : 'Proven on 1000+ businesses'}</div>
-    <div class="grid-4">
-      ${text.results.map(r => `
-        <div class="metric-card">
-          <div class="metric-value">${r.metric}</div>
-          <div class="metric-label">${r.label}</div>
+    <div class="slide-header">
+      <div class="slide-icon" style="background: #FCE7F3;">💝</div>
+      <h1 class="slide-title">${t.solutions.crm.title}</h1>
+    </div>
+    <p class="slide-subtitle">${t.solutions.crm.subtitle}</p>
+    <div class="feature-slide">
+      <div class="feature-content">
+        <p>${t.solutions.crm.description}</p>
+        <ul class="feature-list">
+          ${t.solutions.crm.features.map(f => `
+            <li>
+              <div class="feature-check">✓</div>
+              <div class="feature-text"><strong>${f.title}</strong><br>${f.desc}</div>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+      <div class="feature-visual">
+        ${t.solutions.crm.stats.map(s => `
+          <div class="visual-stat">
+            <span class="visual-stat-label">${s.label}</span>
+            <span class="visual-stat-value ${s.type}">${s.value}</span>
+          </div>
+        `).join('')}
+        <div style="margin-top: 20px; padding: 20px; background: white; border-radius: 12px; text-align: center;">
+          <div style="font-size: 48px;">🎁</div>
+          <div style="font-weight: 600; color: #002A47; margin-top: 8px;">${isRu ? 'Кешбэк, бонусы, промокоды' : 'Cashback, bonuses, promo codes'}</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><span>delever.io</span><span>9/17</span></div>
+  </div>
+
+  <!-- 10. ВСЕ ИНТЕГРАЦИИ -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-icon" style="background: #DBEAFE;">🔌</div>
+      <h1 class="slide-title">${isRu ? 'Все интеграции' : 'All Integrations'}</h1>
+    </div>
+    <p class="slide-subtitle">${isRu ? 'Работаем со всеми популярными сервисами' : 'We work with all popular services'}</p>
+    <div class="grid-4" style="gap: 12px;">
+      ${[
+        { cat: isRu ? 'Агрегаторы' : 'Aggregators', items: ['Yandex Eats', 'Wolt', 'Glovo', 'Uzum Tezkor', 'Bolt Food', 'Express 24'] },
+        { cat: isRu ? 'Курьерские службы' : 'Courier services', items: ['Yandex Delivery', 'Wolt Drive', 'Millennium', 'Noor Taxi'] },
+        { cat: isRu ? 'Платёжные системы' : 'Payment systems', items: ['Payme', 'Click', 'Uzum Pay', 'Visa', 'Mastercard'] },
+        { cat: isRu ? 'POS системы' : 'POS systems', items: ['R-Keeper', 'iiko', 'Poster', 'Jowi', '1C'] },
+      ].map(c => `
+        <div class="card">
+          <div style="font-weight: 600; color: #002A47; margin-bottom: 12px; font-size: 14px;">${c.cat}</div>
+          ${c.items.map(i => `<div style="font-size: 12px; color: #64748b; padding: 4px 0;">${i}</div>`).join('')}
         </div>
       `).join('')}
     </div>
+    <div class="slide-footer"><span>delever.io</span><span>10/17</span></div>
   </div>
-  
-  <!-- Слайд 8: Тарифы -->
+
+  <!-- 11. ДОПОЛНИТЕЛЬНЫЕ МОДУЛИ -->
   <div class="slide">
-    <h1 class="slide-title">${text.pricingTitle}</h1>
-    <div class="slide-subtitle">${isRu ? 'Выберите подходящий тариф' : 'Choose the right plan'}</div>
+    <div class="slide-header">
+      <div class="slide-icon" style="background: #FEF3C7;">⚡</div>
+      <h1 class="slide-title">${isRu ? 'Дополнительные модули' : 'Additional Modules'}</h1>
+    </div>
+    <p class="slide-subtitle">${isRu ? 'Расширьте возможности платформы' : 'Extend platform capabilities'}</p>
+    <div class="grid-3">
+      ${[
+        { icon: '🖥️', name: isRu ? 'Киоск самообслуживания' : 'Self-service kiosk', desc: isRu ? 'Приём заказов в зале без официанта' : 'Order taking in hall without waiter' },
+        { icon: '📞', name: isRu ? 'Колл-центр' : 'Call center', desc: isRu ? 'Модуль для операторов телефонных заказов' : 'Module for phone order operators' },
+        { icon: '🍳', name: isRu ? 'Кухонный дисплей (KDS)' : 'Kitchen Display (KDS)', desc: isRu ? 'Экраны заказов для поваров' : 'Order screens for chefs' },
+        { icon: '🏷️', name: isRu ? 'Управление меню' : 'Menu management', desc: isRu ? 'Централизованное управление меню' : 'Centralized menu control' },
+        { icon: '📦', name: isRu ? 'Складской учёт' : 'Inventory', desc: isRu ? 'Контроль остатков и списаний' : 'Stock and write-off control' },
+        { icon: '📈', name: isRu ? 'Маркетинг' : 'Marketing', desc: isRu ? 'Push, SMS, Email рассылки' : 'Push, SMS, Email campaigns' },
+      ].map(m => `
+        <div class="card">
+          <div class="card-icon">${m.icon}</div>
+          <div class="card-title">${m.name}</div>
+          <div class="card-desc">${m.desc}</div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="slide-footer"><span>delever.io</span><span>11/17</span></div>
+  </div>
+
+  <!-- 12. РЕЗУЛЬТАТЫ КЛИЕНТОВ -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-icon" style="background: #D1FAE5;">📈</div>
+      <h1 class="slide-title">${isRu ? 'Результаты клиентов' : 'Client Results'}</h1>
+    </div>
+    <p class="slide-subtitle">${isRu ? 'Проверено на 1000+ бизнесов' : 'Proven on 1000+ businesses'}</p>
+    <div class="grid-4" style="margin-bottom: 30px;">
+      ${[
+        { value: '1000+', label: isRu ? 'Бизнесов' : 'Businesses' },
+        { value: '13M+', label: isRu ? 'Заказов' : 'Orders' },
+        { value: '7', label: isRu ? 'Стран' : 'Countries' },
+        { value: '+30%', label: isRu ? 'Рост выручки' : 'Revenue growth' },
+      ].map(s => `
+        <div class="metric-card">
+          <div class="metric-value">${s.value}</div>
+          <div class="metric-label">${s.label}</div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="grid-2">
+      ${[
+        { name: 'Yaponamama', result: isRu ? '+45% повторных заказов' : '+45% repeat orders' },
+        { name: 'Maxway', result: isRu ? '60% заказов через свои каналы' : '60% orders via own channels' },
+        { name: 'Chicago Pizza', result: isRu ? '+35% средний чек' : '+35% average check' },
+        { name: 'Kamolon Osh', result: isRu ? 'Экономия 8 млн сум/мес' : '$700/mo savings' },
+      ].map(c => `
+        <div class="card" style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-weight: 600;">${c.name}</span>
+          <span style="color: #10B981; font-weight: 600;">${c.result}</span>
+        </div>
+      `).join('')}
+    </div>
+    <div class="slide-footer"><span>delever.io</span><span>12/17</span></div>
+  </div>
+
+  <!-- 13. ПРИМЕРЫ ПРОЕКТОВ -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-icon" style="background: #E0E7FF;">🌟</div>
+      <h1 class="slide-title">${t.clientsTitle}</h1>
+    </div>
+    <p class="slide-subtitle">${t.clientsSubtitle}</p>
+    <div class="grid-2" style="gap: 30px;">
+      <div class="card">
+        <div style="font-weight: 600; margin-bottom: 16px;">🌐 ${t.websitesLabel}</div>
+        <div class="grid-2" style="gap: 10px;">
+          ${clientExamples.websites.map(c => `
+            <div style="padding: 10px; background: #f8fafc; border-radius: 8px;">
+              <div style="font-weight: 600; color: #002A47; font-size: 13px;">${c.name}</div>
+              <div style="font-size: 11px; color: #64748b;">${c.url}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-weight: 600; margin-bottom: 16px;">📱 ${t.appsLabel}</div>
+        <div class="grid-2" style="gap: 10px;">
+          ${clientExamples.apps.map(c => `
+            <div style="padding: 10px; background: #f8fafc; border-radius: 8px;">
+              <div style="font-weight: 600; color: #002A47; font-size: 13px;">${c.name}</div>
+              <div style="font-size: 11px; color: #64748b;">${c.platform}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><span>delever.io</span><span>13/17</span></div>
+  </div>
+
+  <!-- 14. ТАРИФЫ -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-icon" style="background: #FEF3C7;">💰</div>
+      <h1 class="slide-title">${t.pricingTitle}</h1>
+    </div>
+    <p class="slide-subtitle">${t.pricingSubtitle}</p>
     <div class="grid-4">
-      ${text.plans.map(p => `
+      ${t.plans.map(p => `
         <div class="plan-card ${p.popular ? 'popular' : ''}">
-          ${p.popular ? `<div class="plan-badge">${isRu ? 'Популярный' : 'Popular'}</div>` : ''}
+          ${p.popular ? `<div class="plan-badge">${isRu ? 'Популярный' : 'Popular'}</div>` : '<div style="height: 22px;"></div>'}
           <div class="plan-name">${p.name}</div>
           <div class="plan-orders">${p.orders}</div>
           <div class="plan-price">${p.price}</div>
         </div>
       `).join('')}
     </div>
-  </div>
-  
-  <!-- Слайд 9: Примеры клиентов -->
-  <div class="slide">
-    <h1 class="slide-title">${text.examplesTitle}</h1>
-    <div class="slide-subtitle">${text.examplesSubtitle}</div>
-    <div class="grid-2" style="gap: 40px;">
-      <div class="card">
-        <div class="card-title" style="font-size: 20px; margin-bottom: 20px;">🌐 ${text.websitesLabel}</div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-          ${clientExamples.websites.map(c => `
-            <div style="padding: 12px; background: #f8fafc; border-radius: 8px;">
-              <div style="font-weight: 600; color: #002A47;">${c.name}</div>
-              <div style="font-size: 12px; color: #64748b;">${c.url}</div>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title" style="font-size: 20px; margin-bottom: 20px;">📱 ${text.appsLabel}</div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-          ${clientExamples.apps.map(c => `
-            <div style="padding: 12px; background: #f8fafc; border-radius: 8px;">
-              <div style="font-weight: 600; color: #002A47;">${c.name}</div>
-              <div style="font-size: 12px; color: #64748b;">${c.platform}</div>
-            </div>
-          `).join('')}
-        </div>
-      </div>
+    <div style="margin-top: 24px; padding: 20px; background: #f8fafc; border-radius: 12px; text-align: center;">
+      <div style="font-size: 14px; color: #64748b;">${isRu ? 'Все тарифы включают: веб-сайт, Telegram-бот, курьерское приложение, CRM, аналитику' : 'All plans include: website, Telegram bot, courier app, CRM, analytics'}</div>
     </div>
+    <div class="slide-footer"><span>delever.io</span><span>14/17</span></div>
   </div>
-  
-  <!-- Слайд 10: Контакты -->
+
+  <!-- 15. ПРОЦЕСС ЗАПУСКА -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-icon" style="background: #CFFAFE;">🚀</div>
+      <h1 class="slide-title">${isRu ? 'Как мы работаем' : 'How we work'}</h1>
+    </div>
+    <p class="slide-subtitle">${isRu ? 'Запуск за 3-7 дней' : 'Launch in 3-7 days'}</p>
+    <div class="grid-4">
+      ${[
+        { step: '1', title: isRu ? 'Консультация' : 'Consultation', desc: isRu ? 'Анализ бизнеса и потребностей' : 'Business & needs analysis', time: isRu ? '1 день' : '1 day' },
+        { step: '2', title: isRu ? 'Настройка' : 'Setup', desc: isRu ? 'Меню, интеграции, дизайн' : 'Menu, integrations, design', time: isRu ? '2-3 дня' : '2-3 days' },
+        { step: '3', title: isRu ? 'Обучение' : 'Training', desc: isRu ? 'Обучение команды работе' : 'Team training', time: isRu ? '1 день' : '1 day' },
+        { step: '4', title: isRu ? 'Запуск' : 'Launch', desc: isRu ? 'Старт и поддержка' : 'Start & support', time: isRu ? '∞' : '∞' },
+      ].map(s => `
+        <div class="card" style="text-align: center;">
+          <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #002A47, #004d7a); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-weight: 700;">${s.step}</div>
+          <div style="font-weight: 600; color: #002A47; margin-bottom: 6px;">${s.title}</div>
+          <div style="font-size: 12px; color: #64748b; margin-bottom: 8px;">${s.desc}</div>
+          <div style="font-size: 11px; color: #10B981; font-weight: 600;">${s.time}</div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="slide-footer"><span>delever.io</span><span>15/17</span></div>
+  </div>
+
+  <!-- 16. КОНТАКТЫ -->
   <div class="slide slide-contacts">
-    <div class="contacts-title">${text.contactsTitle}</div>
-    <div class="contacts-subtitle">${text.contactsSubtitle}</div>
+    <div class="contacts-title">${t.contactsTitle}</div>
+    <div class="contacts-subtitle">${t.contactsSubtitle}</div>
     <div class="contact-info">
       <div class="contact-item">🌐 delever.io</div>
       <div class="contact-item">📧 info@delever.uz</div>
       <div class="contact-item">📞 +998 78 113 98 13</div>
+      <div class="contact-item">💬 @delever_support</div>
     </div>
   </div>
-  
+
   ${customData ? `
-  <!-- Слайд 11: Персональное предложение -->
+  <!-- 17. ПЕРСОНАЛЬНОЕ ПРЕДЛОЖЕНИЕ -->
   <div class="slide custom-slide">
     <div class="custom-header">
-      <h1 style="font-size: 32px; margin-bottom: 8px;">${text.customTitle}</h1>
-      <p style="opacity: 0.9;">${isRu ? 'Специально для вашего бизнеса' : 'Specially for your business'}</p>
+      <h1 style="font-size: 28px; margin-bottom: 6px;">${t.customTitle}</h1>
+      <p style="opacity: 0.9; font-size: 14px;">${brandName ? `${isRu ? 'Для' : 'For'} ${brandName}` : t.customFor}</p>
     </div>
-    
     <div class="custom-grid">
       <div class="custom-section">
-        <div class="custom-section-title">${text.customPlan}</div>
-        <div style="font-size: 32px; font-weight: 700; color: #002A47; margin-bottom: 16px;">${customData.planName}</div>
+        <div class="custom-section-title">${t.customPlan}</div>
+        <div style="font-size: 28px; font-weight: 700; color: #002A47; margin-bottom: 12px;">${customData.planName}</div>
         <div class="custom-row">
-          <span class="custom-label">${text.monthlyCost}</span>
+          <span class="custom-label">${t.monthly}</span>
           <span class="custom-value">${customData.totalCost}</span>
         </div>
         <div class="custom-row">
-          <span class="custom-label">${text.deposit}</span>
+          <span class="custom-label">${t.deposit}</span>
           <span class="custom-value">${customData.deposit}</span>
         </div>
       </div>
-      
       <div class="custom-section">
-        <div class="custom-section-title">${text.customParams}</div>
+        <div class="custom-section-title">${t.customParams}</div>
         <div class="custom-row">
-          <span class="custom-label">${text.branches}</span>
+          <span class="custom-label">${t.branches}</span>
           <span class="custom-value">${customData.branches}</span>
         </div>
         <div class="custom-row">
-          <span class="custom-label">${text.orders}</span>
+          <span class="custom-label">${t.orders}</span>
           <span class="custom-value">${customData.monthlyOrders.toLocaleString()}</span>
         </div>
         <div class="custom-row">
-          <span class="custom-label">${text.avgCheck}</span>
+          <span class="custom-label">${t.avgCheck}</span>
           <span class="custom-value">${customData.avgCheck}</span>
         </div>
       </div>
     </div>
-    
     ${customData.roiSavings ? `
     <div class="savings-box">
       <div class="savings-value">+${customData.roiSavings}/${isRu ? 'мес' : 'mo'}</div>
-      <div class="savings-label">${text.savings}</div>
-      ${customData.roiYearlySavings ? `<div style="margin-top: 12px; opacity: 0.9;">${text.yearlySavings}: ${customData.roiYearlySavings}</div>` : ''}
+      <div class="savings-label">${t.savings}</div>
+      ${customData.roiYearlySavings ? `<div style="margin-top: 8px; opacity: 0.9; font-size: 13px;">${t.yearly}: ${customData.roiYearlySavings}</div>` : ''}
     </div>
     ` : ''}
   </div>
@@ -656,4 +1149,3 @@ export function downloadPresentation(data: PresentationData, filename = 'Delever
   document.body.removeChild(a)
   URL.revokeObjectURL(url)
 }
-
