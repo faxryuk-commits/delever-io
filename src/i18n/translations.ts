@@ -2712,6 +2712,11 @@ export const translations: Record<Language, Record<string, string>> = {
     'header.marketingDesc': 'RFM-tahlil va jo\'natmalar',
     'header.aggregatorsCategory': 'Agregatorlar',
     'header.aggregatorsDesc': 'Wolt, Glovo, Yandex Eats',
+    'header.integrationsDesc': 'POS-tizimlar va to\'lovlar',
+    'header.allProducts': 'Barcha mahsulotlar',
+    'header.operationsShort': 'Operatsiyalar',
+    'header.analyticsShort': 'Tahlil',
+    'header.marketingShort': 'Marketing',
     
     // Common
     'common.pricing': 'Tariflar',
@@ -2791,6 +2796,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'stats.businesses': 'Bizneslar',
     'stats.countries': 'Mamlakatlar',
     'stats.integrations': 'Integratsiyalar',
+    'stats.uptime': 'Uptime',
     
     // Pains & Solutions
     'pains.title': 'Muammolar va yechimlar',
