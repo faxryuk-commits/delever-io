@@ -17,7 +17,6 @@ interface PresentationDownloadProps {
     deposit: string
     roiSavings?: string
     roiYearlySavings?: string
-    // Дополнительные данные о выбранных опциях
     selectedModules?: string[]
     kioskCount?: number
     couriersCount?: number
@@ -58,24 +57,23 @@ export function PresentationDownload({ open, onOpenChange, customData }: Present
   return (
     <AnimatePresence>
       {open && (
-        <>
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
-            onClick={() => onOpenChange(false)}
-          />
-          
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={() => onOpenChange(false)}
+        >
           {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ type: 'spring', duration: 0.3, bounce: 0.2 }}
+            className="w-full max-w-md max-h-[90vh] overflow-auto"
+            onClick={(e) => e.stopPropagation()}
           >
-            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden mx-4">
+            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
               {/* Header */}
               <div className="bg-gradient-to-r from-brand-darkBlue to-brand-blue p-6 text-white">
                 <div className="flex items-center justify-between">
@@ -161,9 +159,8 @@ export function PresentationDownload({ open, onOpenChange, customData }: Present
               </div>
             </div>
           </motion.div>
-        </>
+        </motion.div>
       )}
     </AnimatePresence>
   )
 }
-
