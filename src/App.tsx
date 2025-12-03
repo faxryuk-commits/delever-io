@@ -7,6 +7,7 @@ import { Footer } from './components/Footer'
 import { ScrollToTop } from './components/ScrollToTop'
 import { ChatWidget } from './components/ChatWidget'
 import { CookieConsent } from './components/CookieConsent'
+import { SEO } from './components/SEO'
 import { Home } from './pages/Home'
 import { Products } from './pages/Products'
 import { Pricing } from './pages/Pricing'
@@ -27,6 +28,7 @@ function App() {
       <Tooltip.Provider>
         <BrowserRouter>
         <ScrollToTop />
+        <SEO />
         <div className="min-h-screen flex flex-col bg-white">
             <Header />
             <main className="flex-1">

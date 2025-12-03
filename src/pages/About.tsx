@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { MapPin, Users, Rocket, Award, Globe, Target } from 'lucide-react'
 import { useLocale } from '@/i18n/LocaleContext'
+import { SEO } from '@/components/SEO'
 
 export function About() {
   const ref = useRef(null)
@@ -80,7 +81,19 @@ export function About() {
   }
 
   return (
-    <div ref={ref} className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8">
+    <>
+      <SEO 
+        title={language === 'en' ? 'About Us' : 'О компании'}
+        description={language === 'en'
+          ? 'Delever is a delivery management platform founded in 2020. 1000+ businesses, 7 countries, 13M+ orders processed.'
+          : 'Delever — платформа управления доставкой, основанная в 2020 году. 1000+ бизнесов, 7 стран, 13M+ обработанных заказов.'
+        }
+        keywords={language === 'en'
+          ? 'about delever, delever company, delivery software company, restaurant technology'
+          : 'о делевер, компания delever, разработчик ПО для доставки, ресторанные технологии'
+        }
+      />
+      <div ref={ref} className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8">
       {/* Hero */}
       <section className="container mx-auto max-w-4xl mb-16">
         <motion.div 
@@ -246,5 +259,6 @@ export function About() {
         </motion.div>
       </section>
     </div>
+    </>
   )
 }

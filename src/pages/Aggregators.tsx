@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
+import { SEO } from '@/components/SEO'
 import { useLocale } from '@/i18n/LocaleContext'
 import { motion, useInView } from 'framer-motion'
 import { 
@@ -31,7 +32,7 @@ export function Aggregators() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const { t } = useLocale()
+  const { t, language } = useLocale()
 
   const problems = [
     { titleKey: 'aggregators.problem1', descKey: 'aggregators.problem1Desc' },
@@ -82,6 +83,17 @@ export function Aggregators() {
 
   return (
     <>
+      <SEO 
+        title={language === 'en' ? 'Aggregator Integration' : 'Интеграция с агрегаторами'}
+        description={language === 'en'
+          ? 'Automate orders from Wolt, Glovo, Uzum, Yandex Eats. One dashboard for all aggregators. Save 20+ hours/week.'
+          : 'Автоматизируйте заказы из Wolt, Glovo, Uzum, Яндекс Еды. Один кабинет для всех агрегаторов. Экономия 20+ часов/неделю.'
+        }
+        keywords={language === 'en'
+          ? 'aggregator integration, Wolt integration, Glovo integration, Yandex Eats integration, food delivery automation'
+          : 'интеграция агрегаторов, интеграция Wolt, интеграция Glovo, интеграция Яндекс Еда, автоматизация доставки'
+        }
+      />
       <div ref={ref} className="min-h-screen">
         {/* Hero Section */}
         <section className="pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-orange-50 to-white">

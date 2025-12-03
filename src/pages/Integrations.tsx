@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
+import { SEO } from '@/components/SEO'
 import { useLocale } from '@/i18n/LocaleContext'
 import { 
   ArrowRight, 
@@ -19,7 +20,7 @@ export function Integrations() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const { t } = useLocale()
+  const { t, language } = useLocale()
 
   const categories = [
     {
@@ -87,6 +88,17 @@ export function Integrations() {
 
   return (
     <>
+      <SEO 
+        title={language === 'en' ? 'Integrations' : 'Интеграции'}
+        description={language === 'en'
+          ? 'Delever integrations with iiko, R-Keeper, Poster, Wolt, Glovo, Uzum, Payme, Click. 40+ ready integrations.'
+          : 'Интеграции Delever с iiko, R-Keeper, Poster, Wolt, Glovo, Uzum, Payme, Click. 40+ готовых интеграций.'
+        }
+        keywords={language === 'en'
+          ? 'iiko integration, R-Keeper integration, POS integration, aggregator integration, payment integration'
+          : 'интеграция iiko, интеграция R-Keeper, интеграция POS, интеграция агрегаторов, платежная интеграция'
+        }
+      />
       <div ref={ref} className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8">
         {/* Hero */}
         <section className="container mx-auto max-w-4xl mb-16">

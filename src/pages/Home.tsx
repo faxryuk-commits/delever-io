@@ -8,6 +8,8 @@ import { MiniCases } from '@/components/home/MiniCases'
 import { FinalCTA } from '@/components/home/FinalCTA'
 import { Clients } from '@/components/home/Clients'
 import { FAQ } from '@/components/home/FAQ'
+import { SEO } from '@/components/SEO'
+import { useLocale } from '@/i18n/LocaleContext'
 
 /**
  * Главная страница Delever
@@ -25,8 +27,21 @@ import { FAQ } from '@/components/home/FAQ'
  * 10. FinalCTA - финальный призыв к действию
  */
 export function Home() {
+  const { language } = useLocale()
+  
   return (
     <div className="min-h-screen">
+      <SEO 
+        title={language === 'en' ? 'Unified Delivery Management Platform' : 'Единая платформа для управления доставкой'}
+        description={language === 'en' 
+          ? 'Manage all sales channels, delivery operations and analytics from one place. 1000+ restaurants in 7 countries. Launch your delivery in 1 day.'
+          : 'Управляйте всеми каналами продаж, операциями доставки и аналитикой из одного места. 1000+ ресторанов в 7 странах. Запуск за 1 день.'
+        }
+        keywords={language === 'en'
+          ? 'delivery platform, restaurant software, POS integration, food delivery, aggregator integration'
+          : 'платформа доставки, ПО для ресторанов, интеграция POS, доставка еды, агрегаторы'
+        }
+      />
       {/* 1.1 Hero section */}
       <Hero />
       

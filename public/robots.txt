@@ -1,0 +1,46 @@
+# Delever Robots.txt
+# https://delever.io
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://delever.io/sitemap.xml
+
+# Disallow admin and API paths
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Allow all crawlers for main content
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# AI Crawlers (for GEO - Generative Engine Optimization)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
