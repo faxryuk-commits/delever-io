@@ -266,10 +266,10 @@ export function SmartCalculator() {
   
   const roi = calculateROI()
   
-  // Переключение модуля
-  // Переключение модуля с логикой автозамены агрегаторов
+  // Переключение модуля с логикой автозамены
   const toggleModule = (id: string) => {
     const singleAggregators = ['uzum', 'wolt', 'yandex', 'glovo', 'bolt', 'talabat']
+    const singleDeliveryServices = ['yandexDelivery', 'woltDrive', 'taxiMillennium', 'noor']
     
     setSelectedModules(prev => {
       let newModules = prev.includes(id) 
@@ -277,12 +277,7 @@ export function SmartCalculator() {
         : [...prev, id]
       
       // Логика агрегаторов
-      if (singleAggregators.includes(id)) {
-        // Если выбрали "Все", убираем отдельные
-        if (id === 'allAggregators' && newModules.includes('allAggregators')) {
-          newModules = newModules.filter(m => !singleAggregators.includes(m))
-        }
-        
+      if (singleAggregators.includes(id) || id === 'allAggregators') {
         // Если выбрали 3 отдельных - автозамена на "Все"
         const selectedSingle = newModules.filter(m => singleAggregators.includes(m))
         if (selectedSingle.length >= 3) {
@@ -292,16 +287,26 @@ export function SmartCalculator() {
           }
         }
         
-        // Если выбрали "Все", убираем отдельные
+        // Если выбрали "Все агрегаторы", убираем отдельные
         if (newModules.includes('allAggregators')) {
-          newModules = newModules.filter(m => !singleAggregators.includes(m) || m === 'allAggregators')
+          newModules = newModules.filter(m => !singleAggregators.includes(m))
         }
       }
       
-      // Если выбрали "Все агрегаторы"
-      if (id === 'allAggregators') {
-        if (newModules.includes('allAggregators')) {
-          newModules = newModules.filter(m => !singleAggregators.includes(m))
+      // Логика служб доставки - автозамена при выборе всех 4
+      if (singleDeliveryServices.includes(id) || id === 'allDeliveryServices') {
+        const selectedServices = newModules.filter(m => singleDeliveryServices.includes(m))
+        // Если выбрали все 4 - автозамена на "Все службы"
+        if (selectedServices.length >= 4) {
+          newModules = newModules.filter(m => !singleDeliveryServices.includes(m))
+          if (!newModules.includes('allDeliveryServices')) {
+            newModules.push('allDeliveryServices')
+          }
+        }
+        
+        // Если выбрали "Все службы доставки", убираем отдельные
+        if (newModules.includes('allDeliveryServices')) {
+          newModules = newModules.filter(m => !singleDeliveryServices.includes(m))
         }
       }
       
@@ -326,12 +331,12 @@ export function SmartCalculator() {
   
   const aggregatorsDiscount = getAggregatorsDiscount()
   
-  // Проверка скидки на службы доставки
+  // Проверка скидки на службы доставки (показываем при 2-3 выбранных)
   const getDeliveryServicesDiscount = () => {
     const singleServices = ['yandexDelivery', 'woltDrive', 'taxiMillennium', 'noor']
     const selectedSingle = selectedModules.filter(m => singleServices.includes(m))
-    if (selectedSingle.length >= 2 && !selectedModules.includes('allDeliveryServices')) {
-      // Показываем что "Все" дешевле
+    // Показываем подсказку при 2-3 выбранных (при 4 автопереключение)
+    if (selectedSingle.length >= 2 && selectedSingle.length < 4 && !selectedModules.includes('allDeliveryServices')) {
       const singleTotal = selectedSingle.length * getPrice(195000, 30) * branches
       const allPrice = getPrice(520000, 80) * branches
       if (allPrice < singleTotal) {
