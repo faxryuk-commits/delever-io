@@ -6,6 +6,9 @@ declare global {
       TELEGRAM_BOT_TOKEN?: string
       TELEGRAM_CHAT_ID?: string
       OPENAI_API_KEY?: string
+      AMOCRM_SUBDOMAIN?: string
+      AMOCRM_ACCESS_TOKEN?: string
+      AMOCRM_REFRESH_TOKEN?: string
     }
   }
   
