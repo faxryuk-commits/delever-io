@@ -45,33 +45,33 @@ const stats = [
   },
 ]
 
-// Примеры реализованных проектов
+// Примеры реализованных проектов с логотипами
 const clientExamples = {
   restaurants: [
-    { name: 'Yaponamama', url: 'https://yaponamama.uz/', logo: '/logos/yaponamama.png' },
-    { name: 'Manana', url: 'https://manana.delever.uz/ru', logo: null },
-    { name: 'Kamolon Osh', url: 'https://kamolonosh.uz/', logo: null },
-    { name: 'Brasserie', url: 'https://brasserie.delever.uz/ru', logo: null },
-    { name: 'Tarnov', url: 'https://tarnov.uz/ru', logo: null },
-    { name: 'Cheeseria (KZ)', url: 'https://cheeseria.delever.kz/ru', logo: null },
+    { name: 'Yaponamama', url: 'https://yaponamama.uz/', logo: 'https://yaponamama.uz/images/logo.jpg' },
+    { name: 'Manana', url: 'https://manana.delever.uz/ru', logo: 'https://manana.delever.uz/favicon.ico' },
+    { name: 'Kamolon Osh', url: 'https://kamolonosh.uz/', logo: 'https://kamolonosh.uz/images/logo.svg' },
+    { name: 'Brasserie', url: 'https://brasserie.delever.uz/ru', logo: 'https://brasserie.delever.uz/favicon.ico' },
+    { name: 'Tarnov', url: 'https://tarnov.uz/ru', logo: 'https://tarnov.uz/favicon.ico' },
+    { name: 'Cheeseria (KZ)', url: 'https://cheeseria.delever.kz/ru', logo: 'https://cheeseria.delever.kz/favicon.ico' },
   ],
   fastfood: [
-    { name: 'Maxway', url: 'https://maxway.uz/ru', logo: '/logos/maxway.png' },
-    { name: "Hardee's", url: 'https://hardees.delever.uz/ru', logo: null },
-    { name: 'Pizza Hut', url: 'https://pizzahutuz.delever.uz/ru', logo: null },
+    { name: 'Maxway', url: 'https://maxway.uz/ru', logo: 'https://maxway.uz/favicon.ico' },
+    { name: "Hardee's", url: 'https://hardees.delever.uz/ru', logo: 'https://hardees.delever.uz/favicon.ico' },
+    { name: 'Pizza Hut', url: 'https://pizzahutuz.delever.uz/ru', logo: 'https://pizzahutuz.delever.uz/favicon.ico' },
   ],
   stores: [
-    { name: 'Fati Flowers', url: 'https://fatiflowers.delever.uz/ru', logo: null },
-    { name: 'Zoo Planeta', url: 'https://zooplaneta.delever.uz/ru', logo: null },
-    { name: 'Movex', url: 'https://movex.uz/ru', logo: null },
-    { name: 'Animal Planet', url: 'https://animalplanet.delever.uz/ru', logo: null },
+    { name: 'Fati Flowers', url: 'https://fatiflowers.delever.uz/ru', logo: 'https://fatiflowers.delever.uz/favicon.ico' },
+    { name: 'Zoo Planeta', url: 'https://zooplaneta.delever.uz/ru', logo: 'https://zooplaneta.delever.uz/favicon.ico' },
+    { name: 'Movex', url: 'https://movex.uz/ru', logo: 'https://movex.uz/favicon.ico' },
+    { name: 'Animal Planet', url: 'https://animalplanet.delever.uz/ru', logo: 'https://animalplanet.delever.uz/favicon.ico' },
   ],
   apps: [
-    { name: 'Yaponamama', url: 'https://apps.apple.com/uz/app/yaponamama-oila/id1457179873', platform: 'iOS' },
-    { name: 'Maxway', url: 'https://apps.apple.com/uz/app/maxway/id1565502018', platform: 'iOS' },
-    { name: 'Kamolon Osh', url: 'https://apps.apple.com/uz/app/kamolon-osh/id6745427808', platform: 'iOS' },
-    { name: 'Chicago Pizza', url: 'https://apps.apple.com/uz/app/chicago-pizza/id6670315321', platform: 'iOS' },
-    { name: 'Takumi Sushi', url: 'https://apps.apple.com/uz/app/takumi-sushi/id6499478612', platform: 'iOS' },
+    { name: 'Yaponamama', url: 'https://apps.apple.com/uz/app/yaponamama-oila/id1457179873', platform: 'iOS', logo: 'https://yaponamama.uz/images/logo.jpg' },
+    { name: 'Maxway', url: 'https://apps.apple.com/uz/app/maxway/id1565502018', platform: 'iOS', logo: 'https://maxway.uz/favicon.ico' },
+    { name: 'Kamolon Osh', url: 'https://apps.apple.com/uz/app/kamolon-osh/id6745427808', platform: 'iOS', logo: 'https://kamolonosh.uz/images/logo.svg' },
+    { name: 'Chicago Pizza', url: 'https://apps.apple.com/uz/app/chicago-pizza/id6670315321', platform: 'iOS', logo: 'https://chicago.delever.uz/favicon.ico' },
+    { name: 'Takumi Sushi', url: 'https://apps.apple.com/uz/app/takumi-sushi/id6499478612', platform: 'iOS', logo: 'https://takumi.delever.uz/favicon.ico' },
   ],
 }
 
@@ -221,8 +221,19 @@ export function ProofStats() {
                 rel="noopener noreferrer"
                 className="group flex flex-col items-center p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-brand-blue/50 transition-all"
               >
-                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-2 group-hover:bg-brand-blue/20 transition-colors">
-                  {'platform' in client ? (
+                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-2 group-hover:bg-brand-blue/20 transition-colors overflow-hidden">
+                  {'logo' in client && client.logo ? (
+                    <img 
+                      src={client.logo} 
+                      alt={client.name}
+                      className="w-10 h-10 object-contain rounded-lg"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement
+                        target.style.display = 'none'
+                        target.parentElement!.innerHTML = `<svg class="h-5 w-5 text-brand-blue" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>`
+                      }}
+                    />
+                  ) : 'platform' in client ? (
                     <Smartphone className="h-5 w-5 text-brand-blue" />
                   ) : (
                     <Globe className="h-5 w-5 text-brand-blue" />
