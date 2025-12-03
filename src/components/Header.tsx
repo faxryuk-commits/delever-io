@@ -259,18 +259,6 @@ export function Header() {
 
               {/* Other Nav Items */}
               <div className="space-y-1">
-                <Link
-                  to="/integrations"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={cn(
-                    'block px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200',
-                    isActive('/integrations')
-                      ? 'bg-brand-lightBlue/60 text-brand-darkBlue font-semibold'
-                      : 'text-brand-darkBlue/70 hover:bg-brand-lightBlue/40 hover:text-brand-darkBlue'
-                  )}
-                >
-                  Интеграции
-                </Link>
                 {navItems.map((item) => (
                   <Link
                     key={item.path}
