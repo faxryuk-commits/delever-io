@@ -1,14 +1,42 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '../ui/Button'
 import { ContactForm } from '../ContactForm'
 import { ArrowRight, Play, Zap } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useLocale } from '@/i18n/LocaleContext'
+
+// Слова для анимации
+const rotatingWords = [
+  'delivery',      // доставкой
+  'company',       // компанией
+  'couriers',      // курьерами
+  'products',      // товарами
+  'prices',        // ценами
+  'growth',        // ростом
+  'profit',        // прибылью
+  'staff',         // сотрудниками
+  'marketing',     // маркетингом
+  'loyalty',       // лояльностью
+  'communications',// коммуникациями
+  'ratings',       // рейтингом
+  'integrations',  // интеграциями
+  'sales',         // продажами
+  'content',       // контентом
+]
 
 export function Hero() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const [contactTag, setContactTag] = useState('')
+  const [wordIndex, setWordIndex] = useState(0)
   const { t } = useLocale()
+  
+  // Смена слова каждые 3 секунды
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % rotatingWords.length)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
 
   const handleCTA = (tag: string) => {
     setContactTag(tag)
@@ -56,8 +84,22 @@ export function Hero() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-darkBlue mb-6 leading-[1.15] tracking-tight">
               {t('hero.title')}
               <br />
-              <span className="bg-gradient-to-r from-brand-lightTeal via-brand-softMint to-brand-lightTeal bg-clip-text text-transparent">
-                {t('hero.titleHighlight')}
+              <span className="text-brand-darkBlue/80">
+                {t('hero.titlePrefix')}
+              </span>{' '}
+              <span className="relative inline-block min-w-[280px] md:min-w-[320px] text-left">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={wordIndex}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.4 }}
+                    className="inline-block bg-gradient-to-r from-brand-blue via-brand-green to-brand-blue bg-clip-text text-transparent"
+                  >
+                    {t(`hero.word.${rotatingWords[wordIndex]}`)}
+                  </motion.span>
+                </AnimatePresence>
               </span>
             </h1>
             <p className="text-lg md:text-xl text-brand-darkBlue/70 mb-8 max-w-2xl mx-auto leading-relaxed">
