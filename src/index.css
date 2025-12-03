@@ -87,3 +87,85 @@
     @apply leading-relaxed text-brand-darkBlue;
   }
 }
+
+/* Phone Input Styles */
+.phone-input-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0;
+  transition: all 0.2s;
+}
+
+.phone-input-container:focus-within {
+  border-color: #002A47;
+  box-shadow: 0 0 0 2px rgba(0, 42, 71, 0.1);
+}
+
+.phone-input-container .PhoneInputCountry {
+  padding: 0.625rem 0.75rem;
+  border-right: 1px solid #e5e7eb;
+  margin: 0;
+  background: #f9fafb;
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.phone-input-container .PhoneInputCountryIcon {
+  width: 1.5rem;
+  height: 1.125rem;
+  box-shadow: none;
+  border-radius: 2px;
+}
+
+.phone-input-container .PhoneInputCountrySelectArrow {
+  margin-left: 0.5rem;
+  opacity: 0.5;
+}
+
+.phone-input-container .PhoneInputInput {
+  flex: 1;
+  border: none;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.875rem;
+  outline: none;
+  background: transparent;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.phone-input-container .PhoneInputInput::placeholder {
+  color: #9ca3af;
+}
+
+/* Valid state */
+.phone-input-valid {
+  border-color: #10b981 !important;
+}
+
+.phone-input-valid:focus-within {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1) !important;
+}
+
+/* Error state */
+.phone-input-error {
+  border-color: #ef4444 !important;
+}
+
+.phone-input-error:focus-within {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1) !important;
+}
+
+/* Country select dropdown */
+.PhoneInputCountrySelect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  border: 0;
+  opacity: 0;
+  cursor: pointer;
+}

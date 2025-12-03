@@ -12,6 +12,9 @@ import { Button } from './ui/Button'
 import { useLocale } from '@/i18n/LocaleContext'
 import { AlertCircle, CheckCircle2 } from 'lucide-react'
 import { trackEvents } from './Analytics'
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
+import type { Country } from 'react-phone-number-input'
+import 'react-phone-number-input/style.css'
 
 interface ContactFormProps {
   open: boolean
@@ -33,236 +36,21 @@ const validateName = (name: string): string | undefined => {
   return undefined
 }
 
-// Коды стран и операторов для валидации
-const phonePatterns = {
-  // Узбекистан +998
-  UZ: {
-    code: '998',
-    operators: ['90', '91', '93', '94', '95', '97', '98', '99', '33', '55', '77', '88'],
-    length: 12, // 998 + 9 цифр
-    name: { ru: 'Узбекистан', en: 'Uzbekistan', uz: "O'zbekiston" }
-  },
-  // Казахстан +7 (начинается с 7xx)
-  KZ: {
-    code: '7',
-    prefixes: ['70', '71', '72', '74', '75', '76', '77', '78'],
-    length: 11, // 7 + 10 цифр
-    name: { ru: 'Казахстан', en: 'Kazakhstan', uz: 'Qozog\'iston' }
-  },
-  // Россия +7 (начинается с 9xx)
-  RU: {
-    code: '7',
-    prefixes: ['9'],
-    length: 11,
-    name: { ru: 'Россия', en: 'Russia', uz: 'Rossiya' }
-  },
-  // Кыргызстан +996
-  KG: {
-    code: '996',
-    operators: ['50', '55', '70', '77', '22'],
-    length: 12,
-    name: { ru: 'Кыргызстан', en: 'Kyrgyzstan', uz: "Qirg'iziston" }
-  },
-  // Азербайджан +994
-  AZ: {
-    code: '994',
-    operators: ['50', '51', '55', '70', '77', '99'],
-    length: 12,
-    name: { ru: 'Азербайджан', en: 'Azerbaijan', uz: 'Ozarbayjon' }
-  },
-  // Грузия +995
-  GE: {
-    code: '995',
-    operators: ['55', '57', '58', '59', '68', '71', '77', '79', '91', '93', '95', '96', '97', '98', '99'],
-    length: 12,
-    name: { ru: 'Грузия', en: 'Georgia', uz: 'Gruziya' }
-  },
-  // ОАЭ +971
-  AE: {
-    code: '971',
-    operators: ['50', '52', '54', '55', '56', '58'],
-    length: 12,
-    name: { ru: 'ОАЭ', en: 'UAE', uz: 'BAA' }
-  },
-  // Таджикистан +992
-  TJ: {
-    code: '992',
-    operators: ['90', '91', '92', '93', '98', '99'],
-    length: 12,
-    name: { ru: 'Таджикистан', en: 'Tajikistan', uz: 'Tojikiston' }
-  },
-  // Туркменистан +993
-  TM: {
-    code: '993',
-    operators: ['61', '62', '63', '64', '65', '66'],
-    length: 11,
-    name: { ru: 'Туркменистан', en: 'Turkmenistan', uz: 'Turkmaniston' }
-  },
-}
-
-// Определение страны по номеру телефона
-interface PhoneValidationResult {
-  isValid: boolean
-  country?: string
-  countryCode?: string
-  error?: string
-}
-
-const detectPhoneCountry = (phone: string): PhoneValidationResult => {
-  const digitsOnly = phone.replace(/\D/g, '')
-  
-  // Убираем лидирующий 8 (для РФ/КЗ)
-  let normalized = digitsOnly
-  if (normalized.startsWith('8') && normalized.length === 11) {
-    normalized = '7' + normalized.slice(1)
-  }
-  
-  // Узбекистан
-  if (normalized.startsWith('998')) {
-    const operatorCode = normalized.slice(3, 5)
-    if (phonePatterns.UZ.operators.includes(operatorCode)) {
-      if (normalized.length === phonePatterns.UZ.length) {
-        return { isValid: true, country: 'UZ', countryCode: '998' }
-      }
-      return { isValid: false, error: 'invalidLength' }
-    }
-    return { isValid: false, error: 'invalidOperator' }
-  }
-  
-  // Казахстан (7 + 7xx...)
-  if (normalized.startsWith('7')) {
-    const prefix = normalized.slice(1, 3)
-    // Казахстан: 70-78
-    if (phonePatterns.KZ.prefixes!.some(p => prefix.startsWith(p.charAt(0)) && parseInt(prefix) >= 70 && parseInt(prefix) <= 78)) {
-      if (normalized.length === phonePatterns.KZ.length) {
-        return { isValid: true, country: 'KZ', countryCode: '7' }
-      }
-      return { isValid: false, error: 'invalidLength' }
-    }
-    // Россия: 79xxxxxxxxx
-    if (prefix.startsWith('9')) {
-      if (normalized.length === phonePatterns.RU.length) {
-        return { isValid: true, country: 'RU', countryCode: '7' }
-      }
-      return { isValid: false, error: 'invalidLength' }
-    }
-  }
-  
-  // Кыргызстан
-  if (normalized.startsWith('996')) {
-    const operatorCode = normalized.slice(3, 5)
-    if (phonePatterns.KG.operators!.includes(operatorCode)) {
-      if (normalized.length === phonePatterns.KG.length) {
-        return { isValid: true, country: 'KG', countryCode: '996' }
-      }
-      return { isValid: false, error: 'invalidLength' }
-    }
-    return { isValid: false, error: 'invalidOperator' }
-  }
-  
-  // Азербайджан
-  if (normalized.startsWith('994')) {
-    const operatorCode = normalized.slice(3, 5)
-    if (phonePatterns.AZ.operators!.includes(operatorCode)) {
-      if (normalized.length === phonePatterns.AZ.length) {
-        return { isValid: true, country: 'AZ', countryCode: '994' }
-      }
-      return { isValid: false, error: 'invalidLength' }
-    }
-    return { isValid: false, error: 'invalidOperator' }
-  }
-  
-  // Грузия
-  if (normalized.startsWith('995')) {
-    const operatorCode = normalized.slice(3, 5)
-    if (phonePatterns.GE.operators!.includes(operatorCode)) {
-      if (normalized.length === phonePatterns.GE.length) {
-        return { isValid: true, country: 'GE', countryCode: '995' }
-      }
-      return { isValid: false, error: 'invalidLength' }
-    }
-    return { isValid: false, error: 'invalidOperator' }
-  }
-  
-  // ОАЭ
-  if (normalized.startsWith('971')) {
-    const operatorCode = normalized.slice(3, 5)
-    if (phonePatterns.AE.operators!.includes(operatorCode)) {
-      if (normalized.length === phonePatterns.AE.length) {
-        return { isValid: true, country: 'AE', countryCode: '971' }
-      }
-      return { isValid: false, error: 'invalidLength' }
-    }
-    return { isValid: false, error: 'invalidOperator' }
-  }
-  
-  // Таджикистан
-  if (normalized.startsWith('992')) {
-    const operatorCode = normalized.slice(3, 5)
-    if (phonePatterns.TJ.operators!.includes(operatorCode)) {
-      if (normalized.length === phonePatterns.TJ.length) {
-        return { isValid: true, country: 'TJ', countryCode: '992' }
-      }
-      return { isValid: false, error: 'invalidLength' }
-    }
-    return { isValid: false, error: 'invalidOperator' }
-  }
-  
-  // Туркменистан
-  if (normalized.startsWith('993')) {
-    const operatorCode = normalized.slice(3, 5)
-    if (phonePatterns.TM.operators!.includes(operatorCode)) {
-      if (normalized.length === phonePatterns.TM.length) {
-        return { isValid: true, country: 'TM', countryCode: '993' }
-      }
-      return { isValid: false, error: 'invalidLength' }
-    }
-    return { isValid: false, error: 'invalidOperator' }
-  }
-  
-  // Неподдерживаемая страна
-  return { isValid: false, error: 'unsupportedCountry' }
-}
-
-// Валидация телефона с определением региона
-const validatePhone = (phone: string): string | undefined => {
-  if (!phone.trim()) return 'required'
-  
-  const digitsOnly = phone.replace(/\D/g, '')
-  
-  // Базовые проверки
-  if (digitsOnly.length < 9) return 'tooShort'
-  if (digitsOnly.length > 15) return 'tooLong'
+// Валидация телефона с использованием libphonenumber
+const validatePhone = (phone: string | undefined): string | undefined => {
+  if (!phone) return 'required'
   
   // Проверка на повторяющиеся цифры (111111111)
+  const digitsOnly = phone.replace(/\D/g, '')
   if (/^(\d)\1{8,}$/.test(digitsOnly)) return 'invalid'
   
-  // Проверка на последовательные цифры (123456789, 987654321)
+  // Проверка на последовательные цифры
   if (/^(0123456789|1234567890|9876543210|0987654321)/.test(digitsOnly)) return 'invalid'
   
-  // Для известных регионов - строгая валидация
-  // Для неизвестных - разрешаем (чтобы не терять заявки из других стран)
-  const result = detectPhoneCountry(phone)
-  
-  // Если страна определена, но есть ошибка (неверный оператор/длина) - показываем ошибку
-  // Если страна НЕ определена (unsupportedCountry) - разрешаем номер
-  if (!result.isValid && result.error !== 'unsupportedCountry') {
-    return result.error || 'invalid'
-  }
+  // Валидация с помощью libphonenumber
+  if (!isValidPhoneNumber(phone)) return 'invalid'
   
   return undefined
-}
-
-// Получение информации о стране по номеру (для отображения)
-const getPhoneCountryInfo = (phone: string, language: 'ru' | 'en' | 'uz'): string | null => {
-  const result = detectPhoneCountry(phone)
-  if (result.isValid && result.country) {
-    const pattern = phonePatterns[result.country as keyof typeof phonePatterns]
-    if (pattern) {
-      return pattern.name[language] || pattern.name.en
-    }
-  }
-  return null
 }
 
 // Валидация email
@@ -277,39 +65,64 @@ const validateEmail = (email: string): string | undefined => {
   return undefined
 }
 
+// Определение страны по IP (через бесплатный API)
+const detectCountryByIP = async (): Promise<Country> => {
+  try {
+    const response = await fetch('https://ipapi.co/json/', { 
+      signal: AbortSignal.timeout(3000) // 3 секунды таймаут
+    })
+    if (response.ok) {
+      const data = await response.json()
+      if (data.country_code) {
+        return data.country_code as Country
+      }
+    }
+  } catch (e) {
+    console.log('Could not detect country by IP, using default')
+  }
+  return 'UZ' // По умолчанию Узбекистан
+}
+
 export function ContactForm({ open, onOpenChange, tag }: ContactFormProps) {
   const { t, language } = useLocale()
   const [formData, setFormData] = useState({
     name: '',
-    phone: '',
+    phone: '' as string | undefined,
     email: '',
     company: '',
     message: '',
   })
+  const [defaultCountry, setDefaultCountry] = useState<Country>('UZ')
   const [honeypot, setHoneypot] = useState('') // Скрытое поле для ботов
   const [errors, setErrors] = useState<ValidationErrors>({})
   const [touched, setTouched] = useState<Record<string, boolean>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
-  const [detectedCountry, setDetectedCountry] = useState<string | null>(null)
+  const [phoneValid, setPhoneValid] = useState(false)
   const formStartTime = useRef<number>(0)
 
-  // Засекаем время открытия формы
+  // Определяем страну по IP при открытии формы
   useEffect(() => {
     if (open) {
       formStartTime.current = Date.now()
       setSubmitSuccess(false)
       setErrors({})
       setTouched({})
+      setPhoneValid(false)
+      
+      // Определяем страну
+      detectCountryByIP().then(country => {
+        setDefaultCountry(country)
+      })
     }
   }, [open])
 
   // Валидация при изменении полей
-  const validateField = (name: string, value: string): string | undefined => {
+  const validateField = (name: string, value: string | undefined): string | undefined => {
     switch (name) {
-      case 'name': return validateName(value)
+      case 'name': return validateName(value || '')
       case 'phone': return validatePhone(value)
-      case 'email': return validateEmail(value)
+      case 'email': return validateEmail(value || '')
       default: return undefined
     }
   }
@@ -367,6 +180,7 @@ export function ContactForm({ open, onOpenChange, tag }: ContactFormProps) {
           formFillTime: Math.round(fillTime / 1000),
           language,
           userAgent: navigator.userAgent.substring(0, 100),
+          detectedCountry: defaultCountry,
         }),
       })
 
@@ -408,26 +222,28 @@ export function ContactForm({ open, onOpenChange, tag }: ContactFormProps) {
     setErrors(prev => ({ ...prev, [name]: error }))
   }
 
-  // Форматирование телефона при вводе
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value
-    // Разрешаем только цифры, +, пробелы, скобки, тире
-    value = value.replace(/[^\d\s\+\-\(\)]/g, '')
+  // Обработчик изменения телефона
+  const handlePhoneChange = (value: string | undefined) => {
     setFormData(prev => ({ ...prev, phone: value }))
     
-    // Определяем страну (только для визуальной подсказки)
-    const digitsOnly = value.replace(/\D/g, '')
-    if (digitsOnly.length >= 10) {
-      const country = getPhoneCountryInfo(value, language as 'ru' | 'en' | 'uz')
-      setDetectedCountry(country) // null если страна не определена - это ОК
+    // Проверяем валидность
+    if (value && isValidPhoneNumber(value)) {
+      setPhoneValid(true)
+      setErrors(prev => ({ ...prev, phone: undefined }))
     } else {
-      setDetectedCountry(null)
+      setPhoneValid(false)
     }
     
     if (touched.phone) {
       const error = validatePhone(value)
       setErrors(prev => ({ ...prev, phone: error }))
     }
+  }
+
+  const handlePhoneBlur = () => {
+    setTouched(prev => ({ ...prev, phone: true }))
+    const error = validatePhone(formData.phone)
+    setErrors(prev => ({ ...prev, phone: error }))
   }
 
   // Получение текста ошибки
@@ -507,28 +323,23 @@ export function ContactForm({ open, onOpenChange, tag }: ContactFormProps) {
           </div>
 
           <div>
-            <Input
-              name="phone"
-              type="tel"
-              placeholder={t('form.phone')}
+            <PhoneInput
+              international
+              countryCallingCodeEditable={false}
+              defaultCountry={defaultCountry}
               value={formData.phone}
               onChange={handlePhoneChange}
-              onBlur={handleBlur}
-              required
-              className={`w-full ${errors.phone && touched.phone ? 'border-red-500 focus:border-red-500' : detectedCountry ? 'border-emerald-500 focus:border-emerald-500' : ''}`}
+              onBlur={handlePhoneBlur}
+              className={`phone-input-container ${errors.phone && touched.phone ? 'phone-input-error' : phoneValid ? 'phone-input-valid' : ''}`}
+              placeholder={t('form.phone')}
             />
             {errors.phone && touched.phone ? (
               <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
                 <AlertCircle className="w-3 h-3" />
                 {getErrorText('phone', errors.phone)}
               </p>
-            ) : detectedCountry ? (
+            ) : phoneValid ? (
               <p className="mt-1 text-xs text-emerald-600 flex items-center gap-1">
-                <CheckCircle2 className="w-3 h-3" />
-                {detectedCountry}
-              </p>
-            ) : formData.phone.replace(/\D/g, '').length >= 10 && !errors.phone ? (
-              <p className="mt-1 text-xs text-blue-600 flex items-center gap-1">
                 <CheckCircle2 className="w-3 h-3" />
                 {t('form.phoneAccepted')}
               </p>
