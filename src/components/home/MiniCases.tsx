@@ -12,6 +12,17 @@ import { useLocale } from '@/i18n/LocaleContext'
 
 const cases = [
   {
+    id: 'gippo',
+    company: 'GIPPO',
+    location: 'cases.location.kazakhstan',
+    metrics: [
+      { icon: ShoppingCart, value: '+60%', label: 'cases.gippo.metric1' },
+      { icon: TrendingUp, value: '+35%', label: 'cases.gippo.metric2' },
+      { icon: AlertCircle, value: '-25%', label: 'cases.gippo.metric3' },
+    ],
+    summary: 'cases.gippo.summary',
+  },
+  {
     id: 'yaponamama',
     company: 'Yaponamama',
     location: 'cases.location.tashkent',
@@ -21,17 +32,6 @@ const cases = [
       { icon: DollarSign, value: '+28%', label: 'cases.yaponamama.metric3' },
     ],
     summary: 'cases.yaponamama.summary',
-  },
-  {
-    id: 'gippo',
-    company: 'GIPPO',
-    location: 'cases.location.tashkent',
-    metrics: [
-      { icon: ShoppingCart, value: '+60%', label: 'cases.gippo.metric1' },
-      { icon: TrendingUp, value: '+35%', label: 'cases.gippo.metric2' },
-      { icon: AlertCircle, value: '-25%', label: 'cases.gippo.metric3' },
-    ],
-    summary: 'cases.gippo.summary',
   },
   {
     id: 'maxway',

@@ -394,16 +394,17 @@ export const translations: Record<Language, Record<string, string>> = {
     'cases.subtitle': 'Реальные цифры роста после внедрения Delever',
     'cases.viewAll': 'Смотреть все кейсы',
     'cases.location.tashkent': 'Ташкент, Узбекистан',
-    // Yaponamama
-    'cases.yaponamama.metric1': 'Рост заказов',
-    'cases.yaponamama.metric2': 'Время доставки',
-    'cases.yaponamama.metric3': 'Средний чек',
-    'cases.yaponamama.summary': 'Запуск собственных каналов продаж за 5 дней',
+    'cases.location.kazakhstan': 'Казахстан',
     // GIPPO
     'cases.gippo.metric1': 'Онлайн-заказы',
     'cases.gippo.metric2': 'Выручка',
     'cases.gippo.metric3': 'Ошибки',
-    'cases.gippo.summary': 'Единая платформа для 15 точек сети',
+    'cases.gippo.summary': 'Единая платформа для 42 точек сети',
+    // Yaponamama
+    'cases.yaponamama.metric1': 'Рост заказов',
+    'cases.yaponamama.metric2': 'Время доставки',
+    'cases.yaponamama.metric3': 'Средний чек',
+    'cases.yaponamama.summary': 'Полная автоматизация всех процессов от колл центра до курьеров и маркетинга',
     // MAXWAY
     'cases.maxway.metric1': 'GMV',
     'cases.maxway.metric2': 'Активные клиенты',
@@ -1460,16 +1461,17 @@ export const translations: Record<Language, Record<string, string>> = {
     'cases.subtitle': 'Real growth numbers after Delever implementation',
     'cases.viewAll': 'View all cases',
     'cases.location.tashkent': 'Tashkent, Uzbekistan',
-    // Yaponamama
-    'cases.yaponamama.metric1': 'Orders growth',
-    'cases.yaponamama.metric2': 'Delivery time',
-    'cases.yaponamama.metric3': 'Average check',
-    'cases.yaponamama.summary': 'Launch of own sales channels in 5 days',
+    'cases.location.kazakhstan': 'Kazakhstan',
     // GIPPO
     'cases.gippo.metric1': 'Online orders',
     'cases.gippo.metric2': 'Revenue',
     'cases.gippo.metric3': 'Errors',
-    'cases.gippo.summary': 'Single platform for 15 locations',
+    'cases.gippo.summary': 'Single platform for 42 locations',
+    // Yaponamama
+    'cases.yaponamama.metric1': 'Orders growth',
+    'cases.yaponamama.metric2': 'Delivery time',
+    'cases.yaponamama.metric3': 'Average check',
+    'cases.yaponamama.summary': 'Full automation of all processes from call center to couriers and marketing',
     // MAXWAY
     'cases.maxway.metric1': 'GMV',
     'cases.maxway.metric2': 'Active customers',
