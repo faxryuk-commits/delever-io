@@ -17,17 +17,18 @@ const painsSolutions = [
     painIcon: PiggyBank,
     painKey: 'pains.commissions.pain',
     solutionKey: 'pains.commissions.solution',
-    statBefore: '20-35%',
-    statAfter: '0%',
-    statLabel: 'pains.commissions.stat'
+    statBeforeKey: 'pains.commissions.before',
+    statAfterKey: 'pains.commissions.after',
+    statLabel: 'pains.commissions.stat',
+    highlightSaving: true
   },
   {
     id: 'speed',
     painIcon: Clock,
     painKey: 'pains.speed.pain',
     solutionKey: 'pains.speed.solution',
-    statBefore: '45 мин',
-    statAfter: '28 мин',
+    statBeforeKey: 'pains.speed.before',
+    statAfterKey: 'pains.speed.after',
     statLabel: 'pains.speed.stat'
   },
   {
@@ -35,8 +36,8 @@ const painsSolutions = [
     painIcon: Users,
     painKey: 'pains.loyalty.pain',
     solutionKey: 'pains.loyalty.solution',
-    statBefore: '15%',
-    statAfter: '42%',
+    statBeforeKey: 'pains.loyalty.before',
+    statAfterKey: 'pains.loyalty.after',
     statLabel: 'pains.loyalty.stat'
   },
   {
@@ -44,8 +45,8 @@ const painsSolutions = [
     painIcon: Zap,
     painKey: 'pains.chaos.pain',
     solutionKey: 'pains.chaos.solution',
-    statBefore: '5+',
-    statAfter: '1',
+    statBeforeKey: 'pains.chaos.before',
+    statAfterKey: 'pains.chaos.after',
     statLabel: 'pains.chaos.stat'
   },
   {
@@ -53,8 +54,8 @@ const painsSolutions = [
     painIcon: TrendingDown,
     painKey: 'pains.analytics.pain',
     solutionKey: 'pains.analytics.solution',
-    statBefore: '0',
-    statAfter: '100%',
+    statBeforeKey: 'pains.analytics.before',
+    statAfterKey: 'pains.analytics.after',
     statLabel: 'pains.analytics.stat'
   },
   {
@@ -62,8 +63,8 @@ const painsSolutions = [
     painIcon: Frown,
     painKey: 'pains.customers.pain',
     solutionKey: 'pains.customers.solution',
-    statBefore: '3.2',
-    statAfter: '4.8',
+    statBeforeKey: 'pains.customers.before',
+    statAfterKey: 'pains.customers.after',
     statLabel: 'pains.customers.stat'
   },
 ]
@@ -134,26 +135,28 @@ export function PainsSolutions() {
                   </div>
 
                   {/* Статистика было/стало */}
-                  <div className="flex items-center justify-between bg-brand-lightBlue/50 rounded-xl p-3">
+                  <div className={`flex items-center justify-between rounded-xl p-3 ${item.highlightSaving ? 'bg-gradient-to-r from-brand-green/10 to-brand-lightBlue/30' : 'bg-brand-lightBlue/50'}`}>
                     <div className="text-center">
                       <div className="text-xs text-brand-darkBlue/50 mb-1">{t('pains.before')}</div>
-                      <div className="text-lg font-bold text-brand-orange/60 line-through decoration-2">
-                        {item.statBefore}
+                      <div className="text-lg font-bold text-red-400 line-through decoration-2">
+                        {t(item.statBeforeKey)}
                       </div>
                     </div>
                     <div className="flex items-center">
-                      <div className="w-8 h-[2px] bg-brand-darkBlue/20" />
-                      <PainIcon className="h-5 w-5 text-brand-blue mx-2" />
-                      <div className="w-8 h-[2px] bg-brand-darkBlue/20" />
+                      <div className="w-6 h-[2px] bg-brand-darkBlue/20" />
+                      <div className="w-8 h-8 rounded-full bg-brand-blue/10 flex items-center justify-center mx-1">
+                        <PainIcon className="h-4 w-4 text-brand-blue" />
+                      </div>
+                      <div className="w-6 h-[2px] bg-brand-darkBlue/20" />
                     </div>
                     <div className="text-center">
                       <div className="text-xs text-brand-darkBlue/50 mb-1">{t('pains.after')}</div>
-                      <div className="text-lg font-bold text-brand-green">
-                        {item.statAfter}
+                      <div className={`text-lg font-bold ${item.highlightSaving ? 'text-brand-green' : 'text-brand-green'}`}>
+                        {t(item.statAfterKey)}
                       </div>
                     </div>
                   </div>
-                  <div className="text-center text-xs text-brand-darkBlue/50 mt-2">
+                  <div className="text-center text-xs text-brand-darkBlue/50 mt-2 font-medium">
                     {t(item.statLabel)}
                   </div>
                 </div>
