@@ -30,7 +30,7 @@ export function Hero() {
   const [presentationOpen, setPresentationOpen] = useState(false)
   const [contactTag, setContactTag] = useState('')
   const [wordIndex, setWordIndex] = useState(0)
-  const { t } = useLocale()
+  const { t, language } = useLocale()
   
   // Смена слова каждые 2 секунды
   useEffect(() => {
@@ -86,42 +86,50 @@ export function Hero() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-darkBlue mb-6 leading-[1.15] tracking-tight">
               {t('hero.title')}
               <br />
-              <span className="text-brand-darkBlue/80 align-baseline">
-                {t('hero.titlePrefix')}
-              </span>{' '}
-              <span className="inline min-w-[280px] md:min-w-[320px]">
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={wordIndex}
-                    initial={{ 
-                      opacity: 0, 
-                      filter: 'blur(8px)',
-                      scale: 0.9
-                    }}
-                    animate={{ 
-                      opacity: 1, 
-                      filter: 'blur(0px)',
-                      scale: 1
-                    }}
-                    exit={{ 
-                      opacity: 0, 
-                      filter: 'blur(8px)',
-                      scale: 0.9
-                    }}
-                    transition={{ 
-                      duration: 0.4,
-                      ease: [0.4, 0, 0.2, 1]
-                    }}
-                    className="inline bg-gradient-to-r from-brand-blue via-brand-green to-brand-blue bg-clip-text text-transparent"
-                    style={{ 
-                      backfaceVisibility: 'hidden',
-                      transform: 'translateZ(0)'
-                    }}
-                  >
-                    {t(`hero.word.${rotatingWords[wordIndex]}`)}
-                  </motion.span>
-                </AnimatePresence>
-              </span>
+              {/* Для узбекского: слово + суффикс, для остальных: префикс + слово */}
+              {language === 'uz' ? (
+                <>
+                  <span className="inline min-w-[280px] md:min-w-[320px]">
+                    <AnimatePresence mode="wait">
+                      <motion.span
+                        key={wordIndex}
+                        initial={{ opacity: 0, filter: 'blur(8px)', scale: 0.9 }}
+                        animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+                        exit={{ opacity: 0, filter: 'blur(8px)', scale: 0.9 }}
+                        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                        className="inline bg-gradient-to-r from-brand-blue via-brand-green to-brand-blue bg-clip-text text-transparent"
+                        style={{ backfaceVisibility: 'hidden', transform: 'translateZ(0)' }}
+                      >
+                        {t(`hero.word.${rotatingWords[wordIndex]}`)}
+                      </motion.span>
+                    </AnimatePresence>
+                  </span>{' '}
+                  <span className="text-brand-darkBlue/80 align-baseline">
+                    {t('hero.titleSuffix')}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="text-brand-darkBlue/80 align-baseline">
+                    {t('hero.titlePrefix')}
+                  </span>{' '}
+                  <span className="inline min-w-[280px] md:min-w-[320px]">
+                    <AnimatePresence mode="wait">
+                      <motion.span
+                        key={wordIndex}
+                        initial={{ opacity: 0, filter: 'blur(8px)', scale: 0.9 }}
+                        animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+                        exit={{ opacity: 0, filter: 'blur(8px)', scale: 0.9 }}
+                        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                        className="inline bg-gradient-to-r from-brand-blue via-brand-green to-brand-blue bg-clip-text text-transparent"
+                        style={{ backfaceVisibility: 'hidden', transform: 'translateZ(0)' }}
+                      >
+                        {t(`hero.word.${rotatingWords[wordIndex]}`)}
+                      </motion.span>
+                    </AnimatePresence>
+                  </span>
+                </>
+              )}
             </h1>
             <p className="text-lg md:text-xl text-brand-darkBlue/70 mb-8 max-w-2xl mx-auto leading-relaxed">
               {t('hero.description')}
