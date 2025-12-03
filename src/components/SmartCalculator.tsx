@@ -922,8 +922,8 @@ export function SmartCalculator() {
               {t('calc2.kioskProduct')}
             </h3>
             <p className="text-sm text-brand-darkBlue/60 mt-1">{t('calc2.kioskProductDesc')}</p>
-            <p className="text-xs text-orange-600 mt-1 flex items-center gap-1">
-              <span className="text-lg">∞</span> {t('calc2.unlimitedOrders')}
+            <p className="text-xs text-orange-600 mt-1">
+              {t('calc2.unlimitedOrders')}
             </p>
           </div>
           <label className="flex items-center gap-2 cursor-pointer">
