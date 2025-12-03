@@ -52,7 +52,6 @@ const clientExamples = {
     { name: 'Evos', url: 'https://evos.delever.uz/ru', logo: '/logos/evos.png' },
     { name: 'Kamolon Osh', url: 'https://kamolonosh.uz/', logo: '/logos/kamolonosh.svg' },
     { name: 'Dodo Pizza', url: 'https://dodopizza.delever.uz/ru', logo: '/logos/dodo.png' },
-    { name: 'ABR', url: 'https://abr.delever.uz/ru', logo: '/logos/abr.png' },
     { name: 'Pinkberry', url: 'https://pinkberry.delever.uz/ru', logo: '/logos/pinkberry.png' },
   ],
   fastfood: [
