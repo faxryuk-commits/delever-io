@@ -233,7 +233,11 @@ export default async function handler(req: Request): Promise<Response> {
   }
 
   const openaiKey = process.env.OPENAI_API_KEY
+  console.log('Chatbot: OPENAI_API_KEY exists:', !!openaiKey)
+  console.log('Chatbot: Key prefix:', openaiKey?.substring(0, 7))
+  
   if (!openaiKey) {
+    console.error('Chatbot: OPENAI_API_KEY is not set!')
     return new Response(JSON.stringify({ error: 'AI not configured' }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -268,7 +272,7 @@ export default async function handler(req: Request): Promise<Response> {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model: 'gpt-3.5-turbo', // Используем стабильную модель
         messages,
         temperature: 0.7,
         max_tokens: 500,
@@ -279,7 +283,9 @@ export default async function handler(req: Request): Promise<Response> {
 
     if (!openaiResponse.ok) {
       const errorText = await openaiResponse.text()
-      console.error('OpenAI error:', errorText)
+      console.error('OpenAI error status:', openaiResponse.status)
+      console.error('OpenAI error body:', errorText)
+      console.error('OpenAI key starts with:', openaiKey?.substring(0, 10) + '...')
       
       // Fallback ответ если OpenAI не работает
       return new Response(JSON.stringify({
