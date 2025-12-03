@@ -1619,6 +1619,11 @@ export function SmartCalculator() {
           deposit: formatPriceConverted(deposit),
           roiSavings: roi.switchSavings > 0 ? formatPriceConverted(roi.switchSavings) : undefined,
           roiYearlySavings: roi.switchSavings > 0 ? formatPriceConverted(roi.switchSavings * 12) : undefined,
+          // Дополнительные данные
+          selectedModules,
+          kioskCount: kiosks,
+          couriersCount,
+          modulesCost: formatPriceConverted(modulesCost),
         }}
       />
     </section>

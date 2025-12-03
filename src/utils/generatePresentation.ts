@@ -12,6 +12,11 @@ interface PresentationData {
     deposit: string
     roiSavings?: string
     roiYearlySavings?: string
+    // Дополнительные данные о выбранных опциях
+    selectedModules?: string[]
+    kioskCount?: number
+    couriersCount?: number
+    modulesCost?: string
   }
 }
 
@@ -786,6 +791,31 @@ export function generatePresentation(data: PresentationData): string {
     deposit: txt('Депозит', 'Deposit', 'Depozit'),
     savings: txt('Ваша выгода', 'Your Savings', 'Sizning foydangiz'),
     yearly: txt('Годовая экономия', 'Yearly savings', 'Yillik tejash'),
+    
+    // Дополнительные опции
+    selectedModulesTitle: txt('Выбранные модули', 'Selected Modules', 'Tanlangan modullar'),
+    kiosks: txt('Киоски', 'Kiosks', 'Kiosklar'),
+    couriers: txt('Курьеры', 'Couriers', 'Kuryerlar'),
+    modulesCostLabel: txt('Стоимость модулей', 'Modules cost', 'Modullar narxi'),
+    
+    // Названия модулей
+    moduleNames: {
+      uzum: 'Uzum Tezkor',
+      wolt: 'Wolt',
+      yandex: 'Yandex Eats',
+      glovo: 'Glovo',
+      express24: 'Express 24',
+      allAggregators: txt('Все агрегаторы', 'All aggregators', 'Barcha agregatorlar'),
+      yandexDelivery: 'Yandex Delivery',
+      woltDrive: 'Wolt Drive',
+      millenniumTaxi: 'Millennium Taxi',
+      noor: 'Noor Taxi',
+      allDeliveryServices: txt('Все курьерские службы', 'All courier services', 'Barcha kuryer xizmatlari'),
+      kiosk: txt('Киоск самообслуживания', 'Self-service kiosk', 'O\'z-o\'ziga xizmat kioski'),
+      callCenter: txt('Колл-центр', 'Call center', 'Call-markaz'),
+      marketing: txt('Маркетинг', 'Marketing', 'Marketing'),
+      courierApp: txt('Курьерское приложение', 'Courier app', 'Kuryer ilovasi'),
+    } as Record<string, string>,
   }
 
   const html = `
@@ -1256,6 +1286,12 @@ export function generatePresentation(data: PresentationData): string {
           <span class="custom-label">${t.deposit}</span>
           <span class="custom-value">${customData.deposit}</span>
         </div>
+        ${customData.modulesCost && customData.modulesCost !== '0' ? `
+        <div class="custom-row">
+          <span class="custom-label">${t.modulesCostLabel}</span>
+          <span class="custom-value">${customData.modulesCost}</span>
+        </div>
+        ` : ''}
       </div>
       <div class="custom-section">
         <div class="custom-section-title">${t.customParams}</div>
@@ -1271,8 +1307,32 @@ export function generatePresentation(data: PresentationData): string {
           <span class="custom-label">${t.avgCheck}</span>
           <span class="custom-value">${customData.avgCheck}</span>
         </div>
+        ${customData.kioskCount && customData.kioskCount > 0 ? `
+        <div class="custom-row">
+          <span class="custom-label">${t.kiosks}</span>
+          <span class="custom-value">${customData.kioskCount}</span>
+        </div>
+        ` : ''}
+        ${customData.couriersCount && customData.couriersCount > 0 ? `
+        <div class="custom-row">
+          <span class="custom-label">${t.couriers}</span>
+          <span class="custom-value">${customData.couriersCount}</span>
+        </div>
+        ` : ''}
       </div>
     </div>
+    ${customData.selectedModules && customData.selectedModules.length > 0 ? `
+    <div class="custom-section" style="margin-top: 16px;">
+      <div class="custom-section-title">${t.selectedModulesTitle}</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;">
+        ${customData.selectedModules.map(m => `
+          <span style="background: linear-gradient(135deg, #002A47, #004d7a); color: white; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 500;">
+            ${t.moduleNames[m] || m}
+          </span>
+        `).join('')}
+      </div>
+    </div>
+    ` : ''}
     ${customData.roiSavings ? `
     <div class="savings-box">
       <div class="savings-value">+${customData.roiSavings}/${txt('мес', 'mo', 'oy')}</div>

@@ -17,6 +17,11 @@ interface PresentationDownloadProps {
     deposit: string
     roiSavings?: string
     roiYearlySavings?: string
+    // Дополнительные данные о выбранных опциях
+    selectedModules?: string[]
+    kioskCount?: number
+    couriersCount?: number
+    modulesCost?: string
   }
 }
 
@@ -29,7 +34,7 @@ export function PresentationDownload({ open, onOpenChange, customData }: Present
     setIsDownloading(true)
     
     downloadPresentation({
-      language: language as 'ru' | 'en',
+      language: language as 'ru' | 'en' | 'uz',
       brandName: brandName.trim() || undefined,
       customData,
     }, brandName.trim() ? `${brandName}_x_Delever` : 'Delever_Presentation')
@@ -43,7 +48,7 @@ export function PresentationDownload({ open, onOpenChange, customData }: Present
 
   const handleSkip = () => {
     downloadPresentation({
-      language: language as 'ru' | 'en',
+      language: language as 'ru' | 'en' | 'uz',
       customData,
     }, 'Delever_Presentation')
     
