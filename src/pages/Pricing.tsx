@@ -1,18 +1,15 @@
-import { useRef } from 'react'
 import { useLocale } from '@/i18n/LocaleContext'
-import { motion, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Sparkles } from 'lucide-react'
-import { PricingCalculator } from '@/components/PricingCalculator'
+import { SmartCalculator } from '@/components/SmartCalculator'
 
 export function Pricing() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
   const { t } = useLocale()
 
   return (
-    <div ref={ref} className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-brand-lightBlue/20 to-white">
+    <div className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 bg-gradient-to-b from-brand-lightBlue/20 to-white">
       {/* Hero */}
-      <section className="container mx-auto max-w-5xl mb-12">
+      <section className="container mx-auto max-w-5xl mb-8 px-4">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -37,16 +34,8 @@ export function Pricing() {
         </motion.div>
       </section>
 
-      {/* Calculator */}
-      <section className="container mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.2 }}
-        >
-          <PricingCalculator />
-        </motion.div>
-      </section>
+      {/* Smart Calculator */}
+      <SmartCalculator />
     </div>
   )
 }
