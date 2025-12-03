@@ -1313,31 +1313,6 @@ export function SmartCalculator() {
             </div>
           </div>
           
-          {/* Скидки при предоплате */}
-          <div className="mt-4 p-4 bg-gradient-to-r from-amber-50 to-yellow-50 rounded-xl border border-amber-200">
-            <h4 className="font-bold text-amber-800 mb-3 flex items-center gap-2">
-              <BadgePercent className="h-4 w-4" />
-              {t('calc2.prepaymentDiscounts')}
-            </h4>
-            <div className="grid grid-cols-3 gap-2 text-center">
-              <div className="bg-white/80 rounded-lg p-2">
-                <div className="text-xs text-amber-600 mb-1">3 {t('calc2.months')}</div>
-                <div className="font-bold text-amber-800">-5%</div>
-                <div className="text-xs text-brand-darkBlue/60">{formatPrice(totalMonthlyCost * 3 * 0.95)}</div>
-              </div>
-              <div className="bg-white/80 rounded-lg p-2 ring-2 ring-amber-400">
-                <div className="text-xs text-amber-600 mb-1">6 {t('calc2.months')}</div>
-                <div className="font-bold text-amber-800">-10%</div>
-                <div className="text-xs text-brand-darkBlue/60">{formatPrice(totalMonthlyCost * 6 * 0.90)}</div>
-              </div>
-              <div className="bg-white/80 rounded-lg p-2">
-                <div className="text-xs text-amber-600 mb-1">12 {t('calc2.months')}</div>
-                <div className="font-bold text-amber-800">-15%</div>
-                <div className="text-xs text-brand-darkBlue/60">{formatPrice(totalMonthlyCost * 12 * 0.85)}</div>
-              </div>
-            </div>
-          </div>
-          
           {roi.switchSavings > 0 && roiScenario === 'switch' && (
             <div className="mt-4 p-4 bg-emerald-50 rounded-xl border border-emerald-200">
               <div className="flex items-center justify-between">
