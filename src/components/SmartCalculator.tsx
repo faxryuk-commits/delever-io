@@ -563,26 +563,23 @@ export function SmartCalculator() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         {situations.map((sit) => {
           const Icon = sit.icon
-          const isSelected = situation === sit.id
           return (
             <button
               key={sit.id}
-              onClick={() => setSituation(sit.id)}
-              className={`p-5 rounded-2xl border-2 text-left transition-all ${
-                isSelected 
-                  ? `border-transparent bg-gradient-to-r ${sit.color} text-white shadow-lg scale-[1.02]` 
-                  : 'border-brand-lightTeal/30 hover:border-brand-darkBlue/30 bg-white hover:shadow-md'
-              }`}
+              onClick={() => {
+                setSituation(sit.id)
+                // Автопереход на шаг 2
+                setTimeout(() => setStep(2), 150)
+              }}
+              className="p-5 rounded-2xl border-2 text-left transition-all border-brand-lightTeal/30 hover:border-brand-darkBlue/30 bg-white hover:shadow-md hover:scale-[1.02] group"
             >
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${
-                isSelected ? 'bg-white/20' : `bg-gradient-to-r ${sit.color}`
-              }`}>
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 bg-gradient-to-r ${sit.color}`}>
                 <Icon className="h-5 w-5 text-white" />
               </div>
-              <h3 className={`font-bold mb-1 ${isSelected ? 'text-white' : 'text-brand-darkBlue'}`}>
+              <h3 className="font-bold mb-1 text-brand-darkBlue group-hover:text-brand-blue transition-colors">
                 {t(`calc2.situation.${sit.id}`)}
               </h3>
-              <p className={`text-sm ${isSelected ? 'text-white/80' : 'text-brand-darkBlue/60'}`}>
+              <p className="text-sm text-brand-darkBlue/60">
                 {t(`calc2.situation.${sit.id}.desc`)}
               </p>
             </button>
@@ -590,7 +587,7 @@ export function SmartCalculator() {
         })}
       </div>
       
-      <div className="flex justify-center gap-4">
+      <div className="flex justify-center">
         <Button 
           variant="outline"
           onClick={() => {
@@ -600,13 +597,8 @@ export function SmartCalculator() {
           className="border-brand-darkBlue/30"
         >
           {t('calc2.skipToCalculator')}
+          <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
-        {situation && (
-          <Button onClick={() => setStep(2)}>
-            {t('calc2.continue')}
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        )}
       </div>
     </motion.div>
   )
