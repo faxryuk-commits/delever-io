@@ -1099,12 +1099,103 @@ export function SmartCalculator() {
         </div>
       </div>
       
-      {/* ROI Калькулятор */}
+      {/* ROI Калькулятор с параметрами бизнеса */}
       <div className="bg-gradient-to-r from-brand-darkBlue to-blue-900 rounded-2xl p-6 text-white">
         <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
           <TrendingUp className="h-5 w-5" />
           {t('calc2.roiCalculator')}
         </h3>
+        
+        {/* Параметры бизнеса - компактная строка */}
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6 pb-6 border-b border-white/20">
+          {/* Филиалы */}
+          <div className="bg-white/10 rounded-xl p-3">
+            <div className="text-xs text-white/70 mb-2">{t('calc2.branches')}</div>
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={() => setBranches(Math.max(1, branches - 1))}
+                className="w-6 h-6 rounded bg-white/20 flex items-center justify-center hover:bg-white/30"
+              >
+                <Minus className="h-3 w-3" />
+              </button>
+              <span className="text-lg font-bold flex-1 text-center">{branches}</span>
+              <button 
+                onClick={() => setBranches(branches + 1)}
+                className="w-6 h-6 rounded bg-white/20 flex items-center justify-center hover:bg-white/30"
+              >
+                <Plus className="h-3 w-3" />
+              </button>
+            </div>
+          </div>
+          
+          {/* Бренды */}
+          <div className="bg-white/10 rounded-xl p-3">
+            <div className="text-xs text-white/70 mb-2">{t('calc2.brands')}</div>
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={() => setBrands(Math.max(1, brands - 1))}
+                className="w-6 h-6 rounded bg-white/20 flex items-center justify-center hover:bg-white/30"
+              >
+                <Minus className="h-3 w-3" />
+              </button>
+              <span className="text-lg font-bold flex-1 text-center">{brands}</span>
+              <button 
+                onClick={() => setBrands(brands + 1)}
+                className="w-6 h-6 rounded bg-white/20 flex items-center justify-center hover:bg-white/30"
+              >
+                <Plus className="h-3 w-3" />
+              </button>
+            </div>
+          </div>
+          
+          {/* Заказы/мес */}
+          <div className="bg-white/10 rounded-xl p-3">
+            <div className="text-xs text-white/70 mb-2">{t('calc2.ordersPerMonth')}</div>
+            <div className="flex items-center gap-1">
+              <button 
+                onClick={() => setMonthlyOrders(Math.max(100, monthlyOrders - 500))}
+                className="w-6 h-6 rounded bg-white/20 flex items-center justify-center hover:bg-white/30"
+              >
+                <Minus className="h-3 w-3" />
+              </button>
+              <span className="text-base font-bold flex-1 text-center">{monthlyOrders.toLocaleString()}</span>
+              <button 
+                onClick={() => setMonthlyOrders(monthlyOrders + 500)}
+                className="w-6 h-6 rounded bg-white/20 flex items-center justify-center hover:bg-white/30"
+              >
+                <Plus className="h-3 w-3" />
+              </button>
+            </div>
+          </div>
+          
+          {/* Средний чек */}
+          <div className="bg-white/10 rounded-xl p-3">
+            <div className="text-xs text-white/70 mb-2">{t('calc2.avgCheck')}</div>
+            <div className="flex items-center gap-1">
+              <button 
+                onClick={() => setAvgCheck(Math.max(10000, avgCheck - 10000))}
+                className="w-6 h-6 rounded bg-white/20 flex items-center justify-center hover:bg-white/30"
+              >
+                <Minus className="h-3 w-3" />
+              </button>
+              <span className="text-sm font-bold flex-1 text-center">{formatPrice(avgCheck)}</span>
+              <button 
+                onClick={() => setAvgCheck(avgCheck + 10000)}
+                className="w-6 h-6 rounded bg-white/20 flex items-center justify-center hover:bg-white/30"
+              >
+                <Plus className="h-3 w-3" />
+              </button>
+            </div>
+          </div>
+          
+          {/* Выручка/мес */}
+          <div className="bg-white/20 rounded-xl p-3">
+            <div className="text-xs text-white/70 mb-2">{t('calc2.monthlyRevenue')}</div>
+            <div className="text-lg font-bold text-center text-brand-yellow">
+              {formatPrice(monthlyOrders * avgCheck)}
+            </div>
+          </div>
+        </div>
         
         {/* Сценарии */}
         <div className="flex flex-wrap gap-2 mb-6">
@@ -1346,95 +1437,6 @@ export function SmartCalculator() {
             </div>
           </>
         )}
-      </div>
-      
-      {/* Параметры бизнеса - над калькулятором итогов */}
-      <div className="bg-gradient-to-r from-brand-lightBlue/30 to-brand-lightTeal/20 rounded-2xl p-4 shadow-sm border border-brand-lightTeal/30">
-        <div className="flex items-center gap-2 mb-3">
-          <Calculator className="h-5 w-5 text-brand-blue" />
-          <span className="font-bold text-brand-darkBlue">{t('calc2.businessParams')}</span>
-        </div>
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-          {/* Филиалы */}
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-brand-darkBlue/70">{t('calc2.branches')}:</span>
-            <div className="flex items-center gap-1 bg-white rounded-lg px-2 py-1 shadow-sm">
-              <button 
-                onClick={() => setBranches(Math.max(1, branches - 1))}
-                className="w-7 h-7 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
-              >
-                <Minus className="h-3 w-3" />
-              </button>
-              <span className="text-base font-bold text-brand-darkBlue w-8 text-center">{branches}</span>
-              <button 
-                onClick={() => setBranches(branches + 1)}
-                className="w-7 h-7 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
-              >
-                <Plus className="h-3 w-3" />
-              </button>
-            </div>
-          </div>
-          
-          {/* Бренды */}
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-brand-darkBlue/70">{t('calc2.brands')}:</span>
-            <div className="flex items-center gap-1 bg-white rounded-lg px-2 py-1 shadow-sm">
-              <button 
-                onClick={() => setBrands(Math.max(1, brands - 1))}
-                className="w-7 h-7 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
-              >
-                <Minus className="h-3 w-3" />
-              </button>
-              <span className="text-base font-bold text-brand-darkBlue w-8 text-center">{brands}</span>
-              <button 
-                onClick={() => setBrands(brands + 1)}
-                className="w-7 h-7 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
-              >
-                <Plus className="h-3 w-3" />
-              </button>
-            </div>
-          </div>
-          
-          {/* Заказы */}
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-brand-darkBlue/70">{t('calc2.ordersPerMonth')}:</span>
-            <div className="flex items-center gap-1 bg-white rounded-lg px-2 py-1 shadow-sm">
-              <button 
-                onClick={() => setMonthlyOrders(Math.max(100, monthlyOrders - 500))}
-                className="w-7 h-7 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
-              >
-                <Minus className="h-3 w-3" />
-              </button>
-              <span className="text-base font-bold text-brand-darkBlue min-w-[60px] text-center">{monthlyOrders.toLocaleString()}</span>
-              <button 
-                onClick={() => setMonthlyOrders(monthlyOrders + 500)}
-                className="w-7 h-7 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
-              >
-                <Plus className="h-3 w-3" />
-              </button>
-            </div>
-          </div>
-          
-          {/* Средний чек */}
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-brand-darkBlue/70">{t('calc2.avgCheck')}:</span>
-            <div className="flex items-center gap-1 bg-white rounded-lg px-2 py-1 shadow-sm">
-              <button 
-                onClick={() => setAvgCheck(Math.max(10000, avgCheck - 10000))}
-                className="w-7 h-7 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
-              >
-                <Minus className="h-3 w-3" />
-              </button>
-              <span className="text-sm font-bold text-brand-darkBlue min-w-[80px] text-center">{formatPrice(avgCheck)}</span>
-              <button 
-                onClick={() => setAvgCheck(avgCheck + 10000)}
-                className="w-7 h-7 rounded flex items-center justify-center hover:bg-brand-lightBlue/50 transition-colors"
-              >
-                <Plus className="h-3 w-3" />
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
       
       {/* Итоговая смета */}
