@@ -4,12 +4,13 @@ import { ContactForm } from '@/components/ContactForm'
 import { useLocale } from '@/i18n/LocaleContext'
 import { motion, useInView } from 'framer-motion'
 import { Truck, Users, Monitor, Clock, ArrowRight, Zap } from 'lucide-react'
+import { SEO } from '@/components/SEO'
 
 export function Operations() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const { t } = useLocale()
+  const { t, language } = useLocale()
 
   const features = [
     {
@@ -65,6 +66,19 @@ export function Operations() {
 
   return (
     <>
+      <SEO 
+        title={language === 'uz' ? "Operatsiyalar va logistika" : language === 'en' ? 'Operations & Logistics' : 'Операции и логистика'}
+        description={language === 'uz' 
+          ? "Dispetcherlash, kuryerlar, oshxona - xatolarni 30% ga kamaytiruvchi avtomatlashtirish"
+          : language === 'en'
+          ? 'Dispatching, couriers, kitchen - automation that reduces errors by 30%'
+          : 'Диспетчеризация, курьеры, кухня — автоматизация, снижающая ошибки на 30%'}
+        keywords={language === 'uz'
+          ? "operatsiyalar boshqaruvi, kuryerlar boshqarish, dispetcherlash, iiko integratsiya, R-Keeper, GPS kuzatuv, O'zbekiston"
+          : language === 'en'
+          ? 'operations management, courier management, dispatching, iiko integration, R-Keeper, GPS tracking, delivery automation, Uzbekistan'
+          : 'управление операциями, управление курьерами, диспетчеризация, интеграция iiko, R-Keeper, GPS трекинг, автоматизация доставки, Узбекистан'}
+      />
       <div ref={ref} className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8">
         {/* Hero */}
         <section className="container mx-auto max-w-4xl mb-16">

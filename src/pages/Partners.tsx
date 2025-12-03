@@ -4,12 +4,13 @@ import { ContactForm } from '@/components/ContactForm'
 import { useLocale } from '@/i18n/LocaleContext'
 import { motion, useInView } from 'framer-motion'
 import { Users2, Percent, Users, Headphones, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react'
+import { SEO } from '@/components/SEO'
 
 export function Partners() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const { t } = useLocale()
+  const { t, language } = useLocale()
 
   const benefits = [
     {
@@ -65,6 +66,19 @@ export function Partners() {
 
   return (
     <>
+      <SEO 
+        title={language === 'uz' ? "Hamkorlik dasturi" : language === 'en' ? 'Partner Program' : 'Партнёрская программа'}
+        description={language === 'uz' 
+          ? "Delever bilan pul ishlang - mijozlarni jalb qiling va 30% gacha komissiya oling"
+          : language === 'en'
+          ? 'Earn with Delever - bring clients and get up to 30% commission'
+          : 'Зарабатывайте с Delever — приводите клиентов и получайте до 30% комиссии'}
+        keywords={language === 'uz'
+          ? "hamkorlik dasturi, Delever hamkor, komissiya, IT integratorlar, restoran konsultantlar, O'zbekiston"
+          : language === 'en'
+          ? 'partner program, Delever partner, commission, IT integrators, restaurant consultants, Uzbekistan, Kazakhstan'
+          : 'партнёрская программа, партнёр Delever, комиссия, IT интеграторы, консультанты ресторанов, Узбекистан, Казахстан'}
+      />
       <div ref={ref} className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8">
         {/* Hero */}
         <section className="container mx-auto max-w-4xl mb-16">

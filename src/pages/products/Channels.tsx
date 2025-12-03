@@ -4,12 +4,13 @@ import { ContactForm } from '@/components/ContactForm'
 import { useLocale } from '@/i18n/LocaleContext'
 import { motion, useInView } from 'framer-motion'
 import { Smartphone, Globe, MessageSquare, QrCode, ArrowRight, Check, Sparkles } from 'lucide-react'
+import { SEO } from '@/components/SEO'
 
 export function Channels() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const { t } = useLocale()
+  const { t, language } = useLocale()
 
   const channels = [
     {
@@ -64,6 +65,19 @@ export function Channels() {
 
   return (
     <>
+      <SEO 
+        title={language === 'uz' ? "Savdo kanallari" : language === 'en' ? 'Sales Channels' : 'Каналы продаж'}
+        description={language === 'uz' 
+          ? "Sayt, ilova, Telegram-bot, QR-menyu - barcha buyurtmalar bitta tizimda komissiyasiz"
+          : language === 'en'
+          ? 'Website, mobile app, Telegram bot, QR-menu - all orders in one system without commissions'
+          : 'Сайт, приложение, Telegram-бот, QR-меню — все заказы в одной системе без комиссий'}
+        keywords={language === 'uz'
+          ? "savdo kanallari, restoran sayti, Telegram bot buyurtma, QR menyu, mobil ilova restoran, O'zbekiston"
+          : language === 'en'
+          ? 'sales channels, restaurant website, Telegram bot order, QR menu, restaurant mobile app, white label app, Uzbekistan'
+          : 'каналы продаж, сайт ресторана, Telegram бот заказы, QR меню, мобильное приложение ресторан, своё приложение, Узбекистан'}
+      />
       <div ref={ref} className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8">
         {/* Hero */}
         <section className="container mx-auto max-w-4xl mb-16">

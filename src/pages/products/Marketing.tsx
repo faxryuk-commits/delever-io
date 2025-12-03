@@ -4,12 +4,13 @@ import { ContactForm } from '@/components/ContactForm'
 import { useLocale } from '@/i18n/LocaleContext'
 import { motion, useInView } from 'framer-motion'
 import { Megaphone, Heart, Gift, ArrowRight, Sparkles, Target, Package, MapPin, Star } from 'lucide-react'
+import { SEO } from '@/components/SEO'
 
 export function Marketing() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const { t } = useLocale()
+  const { t, language } = useLocale()
 
   const features = [
     {
@@ -70,6 +71,19 @@ export function Marketing() {
 
   return (
     <>
+      <SEO 
+        title={language === 'uz' ? "Marketing va CRM" : language === 'en' ? 'Marketing & CRM' : 'Маркетинг и CRM'}
+        description={language === 'uz' 
+          ? "RFM-tahlil, push va SMS, sodiqlik dasturi - takroriy sotuvlar va o'rtacha chekni oshiring"
+          : language === 'en'
+          ? 'RFM-analysis, push & SMS, loyalty program - increase repeat sales and average check'
+          : 'RFM-анализ, push и SMS, программа лояльности — увеличьте повторные продажи и средний чек'}
+        keywords={language === 'uz'
+          ? "restoran CRM, RFM tahlil, sodiqlik dasturi, push bildirishnomalar, SMS jo'natmalar, mijozlar bazasi, promokodlar, O'zbekiston"
+          : language === 'en'
+          ? 'restaurant CRM, RFM analysis, loyalty program, push notifications, SMS marketing, customer database, promo codes, Uzbekistan'
+          : 'ресторанный CRM, RFM анализ, программа лояльности, push уведомления, SMS рассылки, база клиентов, промокоды, Узбекистан'}
+      />
       <div ref={ref} className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8">
         {/* Hero */}
         <section className="container mx-auto max-w-4xl mb-16">

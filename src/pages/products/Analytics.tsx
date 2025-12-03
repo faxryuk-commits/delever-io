@@ -4,12 +4,13 @@ import { ContactForm } from '@/components/ContactForm'
 import { useLocale } from '@/i18n/LocaleContext'
 import { motion, useInView } from 'framer-motion'
 import { BarChart3, LineChart, PieChart, TrendingUp, ArrowRight, Sparkles } from 'lucide-react'
+import { SEO } from '@/components/SEO'
 
 export function Analytics() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const { t } = useLocale()
+  const { t, language } = useLocale()
 
   const features = [
     {
@@ -64,6 +65,19 @@ export function Analytics() {
 
   return (
     <>
+      <SEO 
+        title={language === 'uz' ? "Tahlil va bashoratlar" : language === 'en' ? 'Analytics & Forecasts' : 'Аналитика и прогнозы'}
+        description={language === 'uz' 
+          ? "Dashbordlar, hisobotlar, AI-bashoratlar - ma'lumotlar asosida qarorlar"
+          : language === 'en'
+          ? 'Dashboards, reports, AI-forecasts - data-driven decisions'
+          : 'Дашборды, отчёты, AI-прогнозы — решения на основе данных'}
+        keywords={language === 'uz'
+          ? "restoran tahlili, ABC XYZ tahlil, AI bashoratlar, sotuvlar tahlili, kuryerlar samaradorligi, O'zbekiston"
+          : language === 'en'
+          ? 'restaurant analytics, ABC XYZ analysis, AI forecasts, sales analytics, courier efficiency, real-time dashboards, Uzbekistan'
+          : 'ресторанная аналитика, ABC XYZ анализ, AI прогнозы, аналитика продаж, эффективность курьеров, дашборды в реальном времени, Узбекистан'}
+      />
       <div ref={ref} className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8">
         {/* Hero */}
         <section className="container mx-auto max-w-4xl mb-16">

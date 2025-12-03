@@ -11,12 +11,13 @@ import {
   Megaphone, 
   ArrowRight,
 } from 'lucide-react'
+import { SEO } from '@/components/SEO'
 
 export function Products() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const { t } = useLocale()
+  const { t, language } = useLocale()
 
   const products = [
     {
@@ -75,6 +76,19 @@ export function Products() {
 
   return (
     <>
+      <SEO 
+        title={language === 'uz' ? "Mahsulotlar" : language === 'en' ? 'Products' : 'Продукты'}
+        description={language === 'uz' 
+          ? "Yetkazib berishni boshqarish uchun yagona platforma - savdo kanallari, operatsiyalar, tahlil, marketing"
+          : language === 'en'
+          ? 'Unified platform for delivery management - sales channels, operations, analytics, marketing'
+          : 'Единая платформа для управления доставкой — каналы продаж, операции, аналитика, маркетинг'}
+        keywords={language === 'uz'
+          ? "Delever mahsulotlar, yetkazib berish platformasi, restoran dasturi, savdo kanallari, kuryerlar boshqarish, O'zbekiston"
+          : language === 'en'
+          ? 'Delever products, delivery platform, restaurant software, sales channels, courier management, POS integration, Uzbekistan'
+          : 'продукты Delever, платформа доставки, ресторанное ПО, каналы продаж, управление курьерами, интеграция POS, Узбекистан'}
+      />
       <div ref={ref} className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8">
         {/* Hero */}
         <section className="container mx-auto max-w-5xl mb-16">

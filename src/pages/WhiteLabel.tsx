@@ -12,12 +12,13 @@ import {
   Sparkles,
   CheckCircle2
 } from 'lucide-react'
+import { SEO } from '@/components/SEO'
 
 export function WhiteLabel() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const { t, formatPrice } = useLocale()
+  const { t, formatPrice, language } = useLocale()
 
   const features = [
     {
@@ -78,6 +79,19 @@ export function WhiteLabel() {
 
   return (
     <>
+      <SEO 
+        title={language === 'uz' ? "White Label ilova" : language === 'en' ? 'White Label App' : 'White Label приложение'}
+        description={language === 'uz' 
+          ? "O'z brendingiz bilan iOS va Android uchun mobil ilova - 1 oyda ishga tushirish"
+          : language === 'en'
+          ? 'Mobile app for iOS and Android with your brand - launch in 1 month'
+          : 'Мобильное приложение для iOS и Android под вашим брендом — запуск за 1 месяц'}
+        keywords={language === 'uz'
+          ? "white label ilova, brendlangan ilova, restoran uchun mobil ilova, iOS Android ilova, O'zbekiston"
+          : language === 'en'
+          ? 'white label app, branded app, mobile app for restaurant, iOS Android app, custom food delivery app, Uzbekistan'
+          : 'white label приложение, брендированное приложение, мобильное приложение для ресторана, iOS Android приложение, своё приложение доставки, Узбекистан'}
+      />
       <div ref={ref} className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8">
         {/* Hero */}
         <section className="container mx-auto max-w-4xl mb-16">

@@ -83,14 +83,18 @@ export function About() {
   return (
     <>
       <SEO 
-        title={language === 'en' ? 'About Us' : 'О компании'}
-        description={language === 'en'
+        title={language === 'uz' ? 'Kompaniya haqida' : language === 'en' ? 'About Us' : 'О компании'}
+        description={language === 'uz'
+          ? "Delever - 2020-yilda tashkil etilgan yetkazib berishni boshqarish platformasi. 1000+ bizneslar, 7 ta mamlakat, 13M+ qayta ishlangan buyurtmalar."
+          : language === 'en'
           ? 'Delever is a delivery management platform founded in 2020. 1000+ businesses, 7 countries, 13M+ orders processed.'
           : 'Delever — платформа управления доставкой, основанная в 2020 году. 1000+ бизнесов, 7 стран, 13M+ обработанных заказов.'
         }
-        keywords={language === 'en'
-          ? 'about delever, delever company, delivery software company, restaurant technology'
-          : 'о делевер, компания delever, разработчик ПО для доставки, ресторанные технологии'
+        keywords={language === 'uz'
+          ? "Delever haqida, Delever kompaniya, yetkazib berish dasturi, restoran texnologiyalari, Toshkent, O'zbekiston"
+          : language === 'en'
+          ? 'about delever, delever company, delivery software company, restaurant technology, Tashkent, Uzbekistan, Kazakhstan'
+          : 'о делевер, компания delever, разработчик ПО для доставки, ресторанные технологии, Ташкент, Узбекистан, Казахстан'
         }
       />
       <div ref={ref} className="min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8">
