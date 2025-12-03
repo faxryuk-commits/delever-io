@@ -41,7 +41,8 @@ export function Integrations() {
       nameKey: 'integrations.payments',
       icon: CreditCard,
       color: 'from-purple-500 to-purple-600',
-      items: ['Payme', 'Click', 'Uzum Bank', 'Kaspi', 'Epay', 'TipTop Pay', 'Atmos', 'Anorbank']
+      items: ['Payme', 'Click', 'Uzum Bank', 'Kaspi', 'Epay', 'TipTop Pay', 'Atmos', 'Anorbank'],
+      features: ['integrations.payments.fiscalization', 'integrations.payments.1c', 'integrations.payments.cash', 'integrations.payments.reports']
     },
     {
       id: 'delivery',
@@ -140,7 +141,9 @@ export function Integrations() {
                     </motion.div>
                     <h3 className="font-semibold text-brand-darkBlue">{t(category.nameKey)}</h3>
                   </div>
-                  <div className="flex flex-wrap gap-2">
+                  
+                  {/* Интеграции */}
+                  <div className="flex flex-wrap gap-2 mb-3">
                     {category.items.map((item, itemIdx) => (
                       <motion.span 
                         key={itemIdx}
@@ -154,6 +157,23 @@ export function Integrations() {
                       </motion.span>
                     ))}
                   </div>
+                  
+                  {/* Дополнительные функции (если есть) */}
+                  {'features' in category && category.features && (
+                    <div className="pt-3 border-t border-brand-lightTeal/20">
+                      <p className="text-xs text-brand-darkBlue/50 mb-2">{t('integrations.alsoIncluded')}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {(category.features as string[]).map((feature, fIdx) => (
+                          <span 
+                            key={fIdx}
+                            className="text-xs bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full"
+                          >
+                            {t(feature)}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </motion.div>
               )
             })}
