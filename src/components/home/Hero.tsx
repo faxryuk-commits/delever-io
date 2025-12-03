@@ -30,11 +30,11 @@ export function Hero() {
   const [wordIndex, setWordIndex] = useState(0)
   const { t } = useLocale()
   
-  // Смена слова каждые 3 секунды
+  // Смена слова каждые 2 секунды
   useEffect(() => {
     const interval = setInterval(() => {
       setWordIndex((prev) => (prev + 1) % rotatingWords.length)
-    }, 3000)
+    }, 2000)
     return () => clearInterval(interval)
   }, [])
 
@@ -84,10 +84,10 @@ export function Hero() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-darkBlue mb-6 leading-[1.15] tracking-tight">
               {t('hero.title')}
               <br />
-              <span className="text-brand-darkBlue/80">
+              <span className="text-brand-darkBlue/80 align-baseline">
                 {t('hero.titlePrefix')}
               </span>{' '}
-              <span className="relative inline-block min-w-[280px] md:min-w-[320px] text-left overflow-hidden">
+              <span className="relative inline-block min-w-[280px] md:min-w-[320px] text-left overflow-hidden align-baseline" style={{ verticalAlign: 'baseline' }}>
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={wordIndex}
