@@ -6,7 +6,6 @@ import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { ScrollToTop } from './components/ScrollToTop'
 import { ChatWidget } from './components/ChatWidget'
-import { AnnouncementBar } from './components/AnnouncementBar'
 import { CookieConsent } from './components/CookieConsent'
 import { SEO } from './components/SEO'
 import { Analytics as GoogleAnalytics } from './components/Analytics'
@@ -23,6 +22,7 @@ import { About } from './pages/About'
 import { WhiteLabel } from './pages/WhiteLabel'
 import { Aggregators } from './pages/Aggregators'
 import { NotFound } from './pages/NotFound'
+import { AnnouncementBar } from './components/AnnouncementBar'
 
 function App() {
   return (
