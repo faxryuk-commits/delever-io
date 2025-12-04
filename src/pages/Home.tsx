@@ -6,7 +6,6 @@ import { FunctionClusters } from '@/components/home/FunctionClusters'
 import { ProofStats } from '@/components/home/ProofStats'
 import { MiniCases } from '@/components/home/MiniCases'
 import { FinalCTA } from '@/components/home/FinalCTA'
-import { Clients } from '@/components/home/Clients'
 import { FAQ } from '@/components/home/FAQ'
 import { SEO } from '@/components/SEO'
 import { useLocale } from '@/i18n/LocaleContext'
@@ -14,17 +13,16 @@ import { useLocale } from '@/i18n/LocaleContext'
 /**
  * Главная страница Delever
  * 
- * Структура оптимизирована для конверсии:
- * 1. Hero - главное сообщение + статистика + CTA
- * 2. Clients - доверие (логотипы клиентов)
- * 3. SegmentNavigator - быстрая сегментация ("Кто вы?")
- * 4. PlatformDiagram - что такое Delever (одна диаграмма)
- * 5. PainsSolutions - основные боли → решения (6 карточек)
- * 6. FunctionClusters - кластеры функций (6 категорий)
- * 7. ProofStats - доказательства / цифры
- * 8. MiniCases - мини-кейсы клиентов
- * 9. FAQ - часто задаваемые вопросы
- * 10. FinalCTA - финальный призыв к действию
+ * Структура:
+ * 1. Hero - главное сообщение + CTA
+ * 2. PlatformDiagram - что такое Delever
+ * 3. FunctionClusters - все функции для вашего бизнеса
+ * 4. SegmentNavigator - выберите ваш профиль
+ * 5. PainsSolutions - узнаете свои проблемы
+ * 6. ProofStats - цифры говорят сами за себя
+ * 7. MiniCases - реальные цифры роста
+ * 8. FAQ - часто задаваемые вопросы
+ * 9. FinalCTA - готовы запустить свою систему
  */
 export function Home() {
   const { language } = useLocale()
@@ -42,34 +40,32 @@ export function Home() {
           : 'платформа доставки, ПО для ресторанов, интеграция POS, доставка еды, агрегаторы'
         }
       />
-      {/* 1.1 Hero section */}
+      
+      {/* 1. Hero */}
       <Hero />
       
-      {/* Логотипы клиентов (доверие) */}
-      <Clients />
-      
-      {/* 1.2 Быстрая сегментация */}
-      <SegmentNavigator />
-      
-      {/* 1.3 Что такое Delever */}
+      {/* 2. Что такое Delever */}
       <PlatformDiagram />
       
-      {/* 1.4 Основные боли → решения */}
-      <PainsSolutions />
-      
-      {/* 1.5 Кластеры функций */}
+      {/* 3. Все функции для вашего бизнеса */}
       <FunctionClusters />
       
-      {/* 1.6 Доказательства / цифры */}
+      {/* 4. Выберите ваш профиль */}
+      <SegmentNavigator />
+      
+      {/* 5. Узнаете свои проблемы */}
+      <PainsSolutions />
+      
+      {/* 6. Цифры говорят сами за себя */}
       <ProofStats />
       
-      {/* 1.7 Кейсы (мини) */}
+      {/* 7. Реальные цифры роста */}
       <MiniCases />
       
-      {/* FAQ */}
+      {/* 8. FAQ */}
       <FAQ />
       
-      {/* 1.8 CTA-блок */}
+      {/* 9. Готовы запустить свою систему */}
       <FinalCTA />
     </div>
   )

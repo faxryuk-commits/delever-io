@@ -1261,9 +1261,9 @@ export function generatePresentation(data: PresentationData): string {
     <div class="contacts-subtitle">${t.contactsSubtitle}</div>
     <div class="contact-info">
       <div class="contact-item">🌐 delever.io</div>
-      <div class="contact-item">📧 info@delever.uz</div>
+      <div class="contact-item">📧 support@delever.uz</div>
       <div class="contact-item">📞 +998 78 113 98 13</div>
-      <div class="contact-item">💬 @delever_support</div>
+      <div class="contact-item">💬 @deleverme</div>
     </div>
   </div>
 
