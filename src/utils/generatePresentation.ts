@@ -78,6 +78,47 @@ export function generatePresentation(data: PresentationData): string {
       
       .slide:last-child { page-break-after: auto; }
       
+      /* Responsive для мобильных */
+      @media (max-width: 768px) {
+        .slide { padding: 24px 20px; }
+        .logo { font-size: 36px; }
+        .tagline { font-size: 18px; }
+        .subtitle { font-size: 14px; }
+        .cover-stats { flex-wrap: wrap; gap: 20px; justify-content: center; }
+        .cover-stat-value { font-size: 24px; }
+        .slide-title { font-size: 22px; }
+        .slide-subtitle { font-size: 14px; }
+        .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+        .feature-slide { grid-template-columns: 1fr; gap: 24px; }
+        .feature-content h2 { font-size: 20px; }
+        .metric-value { font-size: 28px; }
+        .plan-card { padding: 16px; }
+        .plan-name { font-size: 16px; }
+        .plan-price { font-size: 20px; }
+        .integration-grid { grid-template-columns: repeat(2, 1fr); }
+        .clients-grid { grid-template-columns: repeat(2, 1fr); }
+        .process-timeline { flex-direction: column; gap: 16px; }
+        .timeline-step { flex-direction: row; text-align: left; }
+        .timeline-line { display: none; }
+        .cta-buttons { flex-direction: column; }
+        .cta-button { width: 100%; text-align: center; }
+        .card { padding: 16px; }
+        .card-icon { font-size: 22px; }
+        .card-title { font-size: 14px; }
+        .card-desc { font-size: 12px; }
+      }
+      
+      @media (max-width: 480px) {
+        .slide { padding: 16px; }
+        .logo { font-size: 28px; }
+        .tagline { font-size: 16px; }
+        .cover-stats { gap: 12px; }
+        .cover-stat-value { font-size: 20px; }
+        .slide-title { font-size: 18px; }
+        .metric-value { font-size: 24px; }
+        .slide-icon { width: 36px; height: 36px; font-size: 18px; }
+      }
+      
       /* Обложка */
       .slide-cover {
         background: linear-gradient(135deg, #002A47 0%, #004d7a 50%, #006494 100%);
