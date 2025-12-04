@@ -116,12 +116,6 @@ const getLocalBusinessSchema = () => ({
     "opens": "09:00",
     "closes": "18:00"
   },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "reviewCount": "1000",
-    "bestRating": "5"
-  },
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "Delever Services",
@@ -166,12 +160,6 @@ const getSoftwareSchema = () => ({
     "lowPrice": "99",
     "highPrice": "1100",
     "offerCount": "4"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "ratingCount": "1000",
-    "bestRating": "5"
   },
   "featureList": [
     "POS Integration (iiko, R-Keeper, Poster)",
