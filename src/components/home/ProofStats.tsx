@@ -9,8 +9,7 @@ import {
   TrendingUp,
   ShoppingBag,
   Package,
-  Smartphone,
-  ExternalLink
+  Smartphone
 } from 'lucide-react'
 import { useLocale } from '@/i18n/LocaleContext'
 
@@ -117,30 +116,30 @@ export function ProofStats() {
   ]
 
   return (
-    <section className="py-16 lg:py-24 bg-gradient-to-b from-brand-lightBlue/30 via-white to-brand-lightTeal/20 relative overflow-hidden">
+    <section className="py-10 lg:py-14 bg-gradient-to-b from-brand-lightBlue/30 via-white to-brand-lightTeal/20 relative overflow-hidden">
       {/* Декоративные элементы */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-brand-blue/10 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-brand-green/10 to-transparent rounded-full blur-3xl" />
+        <div className="absolute top-0 left-0 w-64 h-64 bg-gradient-to-br from-brand-blue/10 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-64 h-64 bg-gradient-to-tl from-brand-green/10 to-transparent rounded-full blur-3xl" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div 
-          className="text-center mb-12"
+          className="text-center mb-6"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-brand-darkBlue mb-4">
+          <h2 className="text-2xl lg:text-3xl font-bold text-brand-darkBlue mb-2">
             {t('stats.title')}
           </h2>
-          <p className="text-lg text-brand-darkBlue/60 max-w-2xl mx-auto">
+          <p className="text-base text-brand-darkBlue/60 max-w-xl mx-auto">
             {t('stats.subtitle')}
           </p>
         </motion.div>
 
         {/* Статистика */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-5xl mx-auto mb-16">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 max-w-4xl mx-auto mb-8">
           {stats.map((stat, idx) => {
             const Icon = stat.icon
             return (
@@ -152,19 +151,19 @@ export function ProofStats() {
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
               >
-                <div className="text-center p-6 rounded-2xl bg-white border border-brand-lightTeal/30 shadow-lg shadow-brand-blue/5 hover:shadow-xl hover:border-brand-blue/30 transition-all">
+                <div className="text-center p-4 rounded-xl bg-white border border-brand-lightTeal/30 shadow-md shadow-brand-blue/5 hover:shadow-lg hover:border-brand-blue/30 transition-all">
                   {/* Иконка */}
-                  <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br from-brand-blue/10 to-brand-green/10 flex items-center justify-center">
-                    <Icon className="h-7 w-7 text-brand-blue" />
+                  <div className="w-10 h-10 mx-auto mb-2 rounded-lg bg-gradient-to-br from-brand-blue/10 to-brand-green/10 flex items-center justify-center">
+                    <Icon className="h-5 w-5 text-brand-blue" />
                   </div>
 
                   {/* Число */}
-                  <div className="text-4xl lg:text-5xl font-bold text-brand-darkBlue mb-2">
+                  <div className="text-2xl lg:text-3xl font-bold text-brand-darkBlue mb-1">
                     <AnimatedNumber value={stat.value} suffix={stat.suffix} />
                   </div>
 
                   {/* Подпись */}
-                  <div className="text-brand-darkBlue/60 text-sm">
+                  <div className="text-brand-darkBlue/60 text-xs">
                     {t(stat.labelKey)}
                   </div>
                 </div>
@@ -179,14 +178,14 @@ export function ProofStats() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="max-w-5xl mx-auto"
+          className="max-w-4xl mx-auto"
         >
-          <h3 className="text-xl font-bold text-brand-darkBlue text-center mb-6">
+          <h3 className="text-lg font-bold text-brand-darkBlue text-center mb-4">
             {t('stats.examples.title')}
           </h3>
           
           {/* Категории */}
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
+          <div className="flex flex-wrap justify-center gap-2 mb-4">
             {categories.map((cat) => {
               const Icon = cat.icon
               return (
@@ -219,31 +218,30 @@ export function ProofStats() {
                 href={client.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col items-center justify-center p-4 rounded-xl bg-white hover:bg-brand-lightBlue/30 border border-brand-lightTeal/30 hover:border-brand-blue/50 shadow-sm hover:shadow-md transition-all w-[140px] sm:w-[150px] min-h-[140px]"
+                className="group flex flex-col items-center justify-center p-3 rounded-lg bg-white hover:bg-brand-lightBlue/30 border border-brand-lightTeal/30 hover:border-brand-blue/50 shadow-sm hover:shadow-md transition-all w-[110px] sm:w-[120px] min-h-[100px]"
               >
-                <div className="w-12 h-12 rounded-xl bg-brand-lightBlue/30 flex items-center justify-center mb-2 group-hover:bg-brand-blue/20 transition-colors overflow-hidden">
+                <div className="w-10 h-10 rounded-lg bg-brand-lightBlue/30 flex items-center justify-center mb-1.5 group-hover:bg-brand-blue/20 transition-colors overflow-hidden">
                   {'logo' in client && client.logo ? (
                     <img 
                       src={client.logo} 
                       alt={client.name}
-                      className="w-10 h-10 object-contain rounded-lg"
+                      className="w-8 h-8 object-contain rounded"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement
                         target.style.display = 'none'
-                        target.parentElement!.innerHTML = `<svg class="h-5 w-5 text-brand-blue" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>`
+                        target.parentElement!.innerHTML = `<svg class="h-4 w-4 text-brand-blue" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>`
                       }}
                     />
                   ) : 'platform' in client ? (
-                    <Smartphone className="h-5 w-5 text-brand-blue" />
+                    <Smartphone className="h-4 w-4 text-brand-blue" />
                   ) : (
-                    <Globe className="h-5 w-5 text-brand-blue" />
+                    <Globe className="h-4 w-4 text-brand-blue" />
                   )}
                 </div>
-                <span className="text-brand-darkBlue text-sm font-medium text-center">{client.name}</span>
+                <span className="text-brand-darkBlue text-xs font-medium text-center leading-tight">{client.name}</span>
                 {'platform' in client && (
-                  <span className="text-brand-darkBlue/40 text-xs">{client.platform}</span>
+                  <span className="text-brand-darkBlue/40 text-[10px]">{client.platform}</span>
                 )}
-                <ExternalLink className="h-3 w-3 text-brand-darkBlue/30 mt-1 group-hover:text-brand-blue transition-colors" />
               </a>
             ))}
           </motion.div>
@@ -251,14 +249,14 @@ export function ProofStats() {
 
         {/* Дополнительные преимущества */}
         <motion.div 
-          className="mt-12 flex flex-wrap justify-center gap-6"
+          className="mt-6 flex flex-wrap justify-center gap-4"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
         >
-          <div className="flex items-center gap-2 text-brand-darkBlue/80">
-            <TrendingUp className="h-5 w-5 text-brand-green" />
+          <div className="flex items-center gap-2 text-brand-darkBlue/70 text-sm">
+            <TrendingUp className="h-4 w-4 text-brand-green" />
             <span>{t('stats.benefit1')}</span>
           </div>
         </motion.div>
