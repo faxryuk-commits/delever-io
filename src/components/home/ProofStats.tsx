@@ -117,11 +117,11 @@ export function ProofStats() {
   ]
 
   return (
-    <section className="py-16 lg:py-24 bg-brand-darkBlue relative overflow-hidden">
+    <section className="py-16 lg:py-24 bg-gradient-to-b from-brand-lightBlue/30 via-white to-brand-lightTeal/20 relative overflow-hidden">
       {/* Декоративные элементы */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-400 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-purple-400 to-transparent rounded-full blur-3xl" />
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-brand-blue/10 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-brand-green/10 to-transparent rounded-full blur-3xl" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -131,10 +131,10 @@ export function ProofStats() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl lg:text-4xl font-bold text-brand-darkBlue mb-4">
             {t('stats.title')}
           </h2>
-          <p className="text-lg text-white/60 max-w-2xl mx-auto">
+          <p className="text-lg text-brand-darkBlue/60 max-w-2xl mx-auto">
             {t('stats.subtitle')}
           </p>
         </motion.div>
@@ -152,19 +152,19 @@ export function ProofStats() {
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
               >
-                <div className="text-center p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                <div className="text-center p-6 rounded-2xl bg-white border border-brand-lightTeal/30 shadow-lg shadow-brand-blue/5 hover:shadow-xl hover:border-brand-blue/30 transition-all">
                   {/* Иконка */}
-                  <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-brand-blue/20 flex items-center justify-center">
+                  <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br from-brand-blue/10 to-brand-green/10 flex items-center justify-center">
                     <Icon className="h-7 w-7 text-brand-blue" />
                   </div>
 
                   {/* Число */}
-                  <div className="text-4xl lg:text-5xl font-bold text-white mb-2">
+                  <div className="text-4xl lg:text-5xl font-bold text-brand-darkBlue mb-2">
                     <AnimatedNumber value={stat.value} suffix={stat.suffix} />
                   </div>
 
                   {/* Подпись */}
-                  <div className="text-white/60 text-sm">
+                  <div className="text-brand-darkBlue/60 text-sm">
                     {t(stat.labelKey)}
                   </div>
                 </div>
@@ -181,7 +181,7 @@ export function ProofStats() {
           transition={{ delay: 0.3 }}
           className="max-w-5xl mx-auto"
         >
-          <h3 className="text-xl font-bold text-white text-center mb-6">
+          <h3 className="text-xl font-bold text-brand-darkBlue text-center mb-6">
             {t('stats.examples.title')}
           </h3>
           
@@ -195,8 +195,8 @@ export function ProofStats() {
                   onClick={() => setActiveCategory(cat.id)}
                   className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${
                     activeCategory === cat.id
-                      ? 'bg-brand-blue text-white'
-                      : 'bg-white/10 text-white/70 hover:bg-white/20'
+                      ? 'bg-brand-blue text-white shadow-lg shadow-brand-blue/30'
+                      : 'bg-white text-brand-darkBlue/70 hover:bg-brand-lightBlue/50 border border-brand-lightTeal/30'
                   }`}
                 >
                   <Icon className="h-4 w-4" />
@@ -219,9 +219,9 @@ export function ProofStats() {
                 href={client.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col items-center justify-center p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-brand-blue/50 transition-all w-[140px] sm:w-[150px] min-h-[140px]"
+                className="group flex flex-col items-center justify-center p-4 rounded-xl bg-white hover:bg-brand-lightBlue/30 border border-brand-lightTeal/30 hover:border-brand-blue/50 shadow-sm hover:shadow-md transition-all w-[140px] sm:w-[150px] min-h-[140px]"
               >
-                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-2 group-hover:bg-brand-blue/20 transition-colors overflow-hidden">
+                <div className="w-12 h-12 rounded-xl bg-brand-lightBlue/30 flex items-center justify-center mb-2 group-hover:bg-brand-blue/20 transition-colors overflow-hidden">
                   {'logo' in client && client.logo ? (
                     <img 
                       src={client.logo} 
@@ -239,11 +239,11 @@ export function ProofStats() {
                     <Globe className="h-5 w-5 text-brand-blue" />
                   )}
                 </div>
-                <span className="text-white text-sm font-medium text-center">{client.name}</span>
+                <span className="text-brand-darkBlue text-sm font-medium text-center">{client.name}</span>
                 {'platform' in client && (
-                  <span className="text-white/40 text-xs">{client.platform}</span>
+                  <span className="text-brand-darkBlue/40 text-xs">{client.platform}</span>
                 )}
-                <ExternalLink className="h-3 w-3 text-white/30 mt-1 group-hover:text-brand-blue transition-colors" />
+                <ExternalLink className="h-3 w-3 text-brand-darkBlue/30 mt-1 group-hover:text-brand-blue transition-colors" />
               </a>
             ))}
           </motion.div>
@@ -257,7 +257,7 @@ export function ProofStats() {
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
         >
-          <div className="flex items-center gap-2 text-white/80">
+          <div className="flex items-center gap-2 text-brand-darkBlue/80">
             <TrendingUp className="h-5 w-5 text-brand-green" />
             <span>{t('stats.benefit1')}</span>
           </div>
