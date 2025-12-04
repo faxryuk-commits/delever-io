@@ -6,6 +6,7 @@ import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { ScrollToTop } from './components/ScrollToTop'
 import { ChatWidget } from './components/ChatWidget'
+import { AnnouncementBar } from './components/AnnouncementBar'
 import { CookieConsent } from './components/CookieConsent'
 import { SEO } from './components/SEO'
 import { Analytics as GoogleAnalytics } from './components/Analytics'
@@ -32,6 +33,7 @@ function App() {
         <SEO />
         <GoogleAnalytics measurementId="G-CWX242TQDH" yandexId={105636261} />
         <div className="min-h-screen flex flex-col bg-white">
+            <AnnouncementBar />
             <Header />
             <main className="flex-1">
               <Routes>

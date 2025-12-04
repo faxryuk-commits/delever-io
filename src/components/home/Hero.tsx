@@ -54,7 +54,7 @@ export function Hero() {
 
   return (
     <>
-      <section className="relative pt-24 pb-8 md:pt-28 md:pb-12 lg:pt-32 lg:pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section className="relative pt-32 pb-8 md:pt-36 md:pb-12 lg:pt-40 lg:pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Background pattern */}
         <div className="absolute inset-0 bg-gradient-to-b from-brand-lightBlue/40 to-white -z-10" />
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-lightTeal/20 to-transparent -z-10" />
