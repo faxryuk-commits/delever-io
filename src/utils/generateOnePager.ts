@@ -53,7 +53,7 @@ const translations = {
     team: 'Team',
     teamLine: '7+ years building restaurant delivery infrastructure',
     founders: 'Fakhriddin Yusupov (CEO), Azizbek Bakhodirov (COO), Abdullo Khidoyatov (CTO)',
-    background: 'From: Express24, MaxWay, OSON, Uzum, iQUP, KWAAKA!, Choco',
+    background: 'From: Express24, Chocofood, MaxWay, Oson, UDEVS',
     
     // Investors
     backedBy: 'Backed by AloqaVentures (Pre-seed)',
@@ -108,7 +108,7 @@ const translations = {
     team: 'Команда',
     teamLine: '7+ лет создания инфраструктуры доставки',
     founders: 'Фахриддин Юсупов (CEO), Азизбек Баходиров (COO), Абдулло Хидоятов (CTO)',
-    background: 'Из: Express24, MaxWay, OSON, Uzum, iQUP, KWAAKA!, Choco',
+    background: 'Из: Express24, Chocofood, MaxWay, Oson, UDEVS',
     
     backedBy: 'При поддержке AloqaVentures (Pre-seed)',
     
@@ -161,7 +161,7 @@ const translations = {
     team: 'Jamoa',
     teamLine: '7+ yil yetkazib berish infratuzilmasini yaratish',
     founders: 'Faxriddin Yusupov (CEO), Azizbek Baxodirov (COO), Abdullo Xidoyatov (CTO)',
-    background: 'Quyerdan: Express24, MaxWay, OSON, Uzum, iQUP, KWAAKA!, Choco',
+    background: 'Quyerdan: Express24, Chocofood, MaxWay, Oson, UDEVS',
     
     backedBy: 'AloqaVentures qo\'llab-quvvatlaydi (Pre-seed)',
     

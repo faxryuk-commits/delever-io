@@ -155,13 +155,11 @@ const teamMembers = [
 
 // Team background companies
 const teamBackground = [
-  { name: 'Express24', logo: '/logos/express24.png' },
-  { name: 'OSON', logo: '/logos/oson.png' },
-  { name: 'MaxWay', logo: '/logos/maxway.png' },
-  { name: 'Uzum', logo: '/logos/uzum.png' },
-  { name: 'iQUP', logo: '/logos/iqup.png' },
-  { name: 'KWAAKA!', logo: '/logos/kwaaka.png' },
-  { name: 'Choco', logo: '/logos/choco.png' },
+  { name: 'Express24', url: 'https://www.linkedin.com/company/express24careers/' },
+  { name: 'Chocofood', url: 'https://www.linkedin.com/company/chocoholding/' },
+  { name: 'MaxWay', url: 'https://www.linkedin.com/company/maxwayuz/' },
+  { name: 'Oson', url: 'https://www.linkedin.com/company/osoncom/' },
+  { name: 'UDEVS', url: 'https://www.linkedin.com/company/udevs-io/' },
 ]
 
 // Investors/Partners
@@ -935,8 +933,8 @@ export function Investors() {
             </div>
 
             {/* Team experience line */}
-            <div className="text-center p-6 rounded-2xl bg-brand-darkBlue text-white">
-              <p className="text-lg font-medium">
+            <div className="text-center p-6 rounded-2xl bg-brand-darkBlue">
+              <p className="text-lg font-medium text-white">
                 {t('investors.team.experience')}
               </p>
             </div>
