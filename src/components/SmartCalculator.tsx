@@ -1022,22 +1022,29 @@ export function SmartCalculator() {
           </div>
         )}
         
-        <div className="flex items-center justify-between bg-white rounded-xl p-4 border border-orange-200">
+        <div 
+          className={`flex items-center justify-between bg-white rounded-xl p-4 border-2 cursor-pointer transition-all ${
+            selectedModules.includes('kiosk')
+              ? 'border-orange-400 bg-orange-50/50'
+              : 'border-orange-100 hover:border-orange-300'
+          }`}
+          onClick={() => {
+            if (selectedModules.includes('kiosk')) {
+              setKiosks(0)
+              toggleModule('kiosk')
+              if (onlyKioskMode) setOnlyKioskMode(false)
+            } else {
+              setKiosks(1)
+              toggleModule('kiosk')
+            }
+          }}
+        >
           <div className="flex items-center gap-3">
             <input
               type="checkbox"
               checked={selectedModules.includes('kiosk')}
-              onChange={() => {
-                if (selectedModules.includes('kiosk')) {
-                  setKiosks(0)
-                  toggleModule('kiosk')
-                  if (onlyKioskMode) setOnlyKioskMode(false)
-                } else {
-                  setKiosks(1)
-                  toggleModule('kiosk')
-                }
-              }}
-              className="w-5 h-5 rounded text-brand-orange"
+              onChange={() => {}}
+              className="w-5 h-5 rounded text-brand-orange pointer-events-none"
             />
             <div>
               <div className="font-medium text-brand-darkBlue">{t('calc.module.kiosk')}</div>
@@ -1046,9 +1053,10 @@ export function SmartCalculator() {
           </div>
           <div className="flex items-center gap-3">
             {selectedModules.includes('kiosk') && (
-              <div className="flex items-center gap-1 bg-orange-100 rounded-lg p-1">
+              <div className="flex items-center gap-1 bg-orange-100 rounded-lg p-1" onClick={(e) => e.stopPropagation()}>
                 <button 
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation()
                     if (kiosks <= 1) {
                       setKiosks(0)
                       toggleModule('kiosk')
@@ -1063,7 +1071,10 @@ export function SmartCalculator() {
                 </button>
                 <span className="text-lg font-bold text-brand-darkBlue w-8 text-center">{kiosks || 1}</span>
                 <button 
-                  onClick={() => setKiosks((kiosks || 1) + 1)}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setKiosks((kiosks || 1) + 1)
+                  }}
                   className="w-7 h-7 rounded bg-white flex items-center justify-center hover:bg-orange-200"
                 >
                   <Plus className="h-3 w-3" />
