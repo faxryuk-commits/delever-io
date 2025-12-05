@@ -50,7 +50,7 @@ interface DeckTranslations {
   competitive: { title: string; quote: string; advantages: string[] }
   roadmap: { title: string; phases: { phase: string; items: string[] }[] }
   team: {
-    title: string; backedBy: string
+    title: string; subtitle: string; backedBy: string; wecome: string
     members: { name: string; role: string; highlights: string[]; linkedin: string }[]
     investor: { name: string; type: string; description: string }
   }
@@ -113,7 +113,7 @@ const translations: Record<Language, DeckTranslations> = {
     },
     market: {
       title: 'Market Opportunity',
-      tam: 'TAM: $150B+ Food-Tech & Delivery Infrastructure',
+      tam: 'TAM: $250B+ Food-Tech & Delivery Infrastructure',
       current: 'Current Markets',
       expansion: 'Expansion Targets',
     },
@@ -162,17 +162,21 @@ const translations: Record<Language, DeckTranslations> = {
     roadmap: {
       title: 'Roadmap',
       phases: [
-        { phase: '2025 Q1-Q2', items: ['KSA pilot launch', 'API ecosystem', 'AI forecasting'] },
-        { phase: '2025 Q3-Q4', items: ['Mini-app builder', 'Marketplace', 'Gulf expansion'] },
-        { phase: '2026+', items: ['Delivery-as-a-Service', 'FinTech layer', 'Superapp integrations'] },
+        { phase: '2026', items: ['AI CRM Marketing & Lead Generator', '500+ UAE restaurants', 'Deep integrations & support expansion'] },
+        { phase: '2027', items: ['1,500 restaurants UAE', 'Talabat, Careem partnerships', 'Full KSA localization, Riyadh team'] },
+        { phase: '2028', items: ['Riyadh → Jeddah launch', '5,000 restaurants UAE + KSA', 'GCC Delivery OS leadership'] },
       ],
     },
     team: {
-      title: 'Founding Team',
+      title: 'The Team',
+      subtitle: '7+ years building restaurant delivery infrastructure. Backed by Aloqa Ventures.',
       members: [
-        { name: 'Fakhriddin Yusupov', role: 'Founder & CEO', highlights: ['Ex-CEO MaxWay', 'MBA/DBA', '10+ years Food-Tech'], linkedin: 'linkedin.com/in/fakhriddin-yusupov-821086b3' },
-        { name: 'Abdullokh Khidoyatov', role: 'COO', highlights: ['Operations Expert', 'Scale-up Specialist'], linkedin: 'linkedin.com/in/abdullokh-khidoyatov-9b456b7b' },
+        { name: 'Fakhriddin Yusupov', role: 'CEO & Co-founder', highlights: ['Ex-CEO MaxWay', 'MBA/DBA', '10+ years Food-Tech'], linkedin: 'linkedin.com/in/fakhriddin-yusupov-821086b3' },
+        { name: 'Azizbek Bakhodirov', role: 'COO & Co-founder', highlights: ['Ex-Express24', 'Operations Expert'], linkedin: '' },
+        { name: 'Abdullo Khidoyatov', role: 'CTO & Co-founder', highlights: ['Tech Architecture', 'Scale-up Specialist'], linkedin: 'linkedin.com/in/abdullokh-khidoyatov-9b456b7b' },
+        { name: 'Madiyar Bakbergenov', role: 'Adviser', highlights: ['Strategic Advisor'], linkedin: '' },
       ],
+      wecome: 'We come from: Express24, OSON, MaxWay, Uzum, iQUP, KWAAKA!, Choco',
       backedBy: 'Backed By',
       investor: { name: 'AloqaVentures', type: 'Pre-seed Investor', description: 'Leading VC in Central Asia with 6x exits' },
     },
@@ -235,7 +239,7 @@ const translations: Record<Language, DeckTranslations> = {
     },
     market: {
       title: 'Рыночная возможность',
-      tam: 'TAM: $150B+ Food-Tech & Delivery Infrastructure',
+      tam: 'TAM: $250B+ Food-Tech & Delivery Infrastructure',
       current: 'Текущие рынки',
       expansion: 'Цели расширения',
     },
@@ -284,17 +288,21 @@ const translations: Record<Language, DeckTranslations> = {
     roadmap: {
       title: 'Дорожная карта',
       phases: [
-        { phase: '2025 Q1-Q2', items: ['Пилот в KSA', 'API экосистема', 'AI прогнозирование'] },
-        { phase: '2025 Q3-Q4', items: ['Конструктор мини-приложений', 'Marketplace', 'Расширение в Залив'] },
-        { phase: '2026+', items: ['Delivery-as-a-Service', 'FinTech слой', 'Интеграции с суперприложениями'] },
+        { phase: '2026', items: ['AI CRM Marketing & Lead Generator', '500+ ресторанов в ОАЭ', 'Глубокие интеграции, расширение поддержки'] },
+        { phase: '2027', items: ['1 500 ресторанов в ОАЭ', 'Партнёрства Talabat, Careem', 'Полная локализация KSA, команда в Эр-Рияде'] },
+        { phase: '2028', items: ['Запуск Эр-Рияд → Джидда', '5 000 ресторанов ОАЭ + KSA', 'Лидерство GCC Delivery OS'] },
       ],
     },
     team: {
-      title: 'Команда основателей',
+      title: 'Команда',
+      subtitle: '7+ лет создания инфраструктуры доставки ресторанов. При поддержке Aloqa Ventures.',
       members: [
-        { name: 'Фахриддин Юсупов', role: 'Основатель и CEO', highlights: ['Ex-CEO MaxWay', 'MBA/DBA', '10+ лет Food-Tech'], linkedin: 'linkedin.com/in/fakhriddin-yusupov-821086b3' },
-        { name: 'Абдуллох Хидоятов', role: 'COO', highlights: ['Эксперт по операциям', 'Масштабирование'], linkedin: 'linkedin.com/in/abdullokh-khidoyatov-9b456b7b' },
+        { name: 'Фахриддин Юсупов', role: 'CEO & Сооснователь', highlights: ['Ex-CEO MaxWay', 'MBA/DBA', '10+ лет Food-Tech'], linkedin: 'linkedin.com/in/fakhriddin-yusupov-821086b3' },
+        { name: 'Азизбек Баходиров', role: 'COO & Сооснователь', highlights: ['Ex-Express24', 'Эксперт по операциям'], linkedin: '' },
+        { name: 'Абдулло Хидоятов', role: 'CTO & Сооснователь', highlights: ['Архитектура', 'Масштабирование'], linkedin: 'linkedin.com/in/abdullokh-khidoyatov-9b456b7b' },
+        { name: 'Мадияр Бакбергенов', role: 'Советник', highlights: ['Стратегический советник'], linkedin: '' },
       ],
+      wecome: 'Мы из: Express24, OSON, MaxWay, Uzum, iQUP, KWAAKA!, Choco',
       backedBy: 'При поддержке',
       investor: { name: 'AloqaVentures', type: 'Pre-seed инвестор', description: 'Ведущий VC в Центральной Азии с 6x выходами' },
     },
@@ -357,7 +365,7 @@ const translations: Record<Language, DeckTranslations> = {
     },
     market: {
       title: 'Bozor imkoniyati',
-      tam: 'TAM: $150B+ Food-Tech & Delivery Infrastructure',
+      tam: 'TAM: $250B+ Food-Tech & Delivery Infrastructure',
       current: 'Joriy bozorlar',
       expansion: 'Kengayish maqsadlari',
     },
@@ -406,17 +414,21 @@ const translations: Record<Language, DeckTranslations> = {
     roadmap: {
       title: 'Yo\'l xaritasi',
       phases: [
-        { phase: '2025 Q1-Q2', items: ['KSA\'da pilot', 'API ekotizimi', 'AI bashorat'] },
-        { phase: '2025 Q3-Q4', items: ['Mini-ilova konstruktori', 'Marketplace', 'Ko\'rfazda kengayish'] },
-        { phase: '2026+', items: ['Delivery-as-a-Service', 'FinTech qatlami', 'Superilova integratsiyalari'] },
+        { phase: '2026', items: ['AI CRM Marketing & Lead Generator', '500+ BAA restoranlari', 'Chuqur integratsiyalar, qo\'llab-quvvatlashni kengaytirish'] },
+        { phase: '2027', items: ['1 500 BAA restoranlari', 'Talabat, Careem hamkorliklari', 'To\'liq KSA lokalizatsiyasi, Riyadda jamoa'] },
+        { phase: '2028', items: ['Riyad → Jidda ishga tushirish', '5 000 restoran BAA + KSA', 'GCC Delivery OS yetakchiligi'] },
       ],
     },
     team: {
-      title: 'Asoschlar jamoasi',
+      title: 'Jamoa',
+      subtitle: '7+ yil restoran yetkazib berish infratuzilmasini yaratish. Aloqa Ventures qo\'llab-quvvatlaydi.',
       members: [
-        { name: 'Faxriddin Yusupov', role: 'Asoschisi va CEO', highlights: ['Ex-CEO MaxWay', 'MBA/DBA', '10+ yil Food-Tech'], linkedin: 'linkedin.com/in/fakhriddin-yusupov-821086b3' },
-        { name: 'Abdullox Xidoyatov', role: 'COO', highlights: ['Operatsiyalar eksperti', 'Masshtablash'], linkedin: 'linkedin.com/in/abdullokh-khidoyatov-9b456b7b' },
+        { name: 'Faxriddin Yusupov', role: 'CEO & Hammuassis', highlights: ['Ex-CEO MaxWay', 'MBA/DBA', '10+ yil Food-Tech'], linkedin: 'linkedin.com/in/fakhriddin-yusupov-821086b3' },
+        { name: 'Azizbek Baxodirov', role: 'COO & Hammuassis', highlights: ['Ex-Express24', 'Operatsiyalar eksperti'], linkedin: '' },
+        { name: 'Abdullo Xidoyatov', role: 'CTO & Hammuassis', highlights: ['Texnik arxitektura', 'Masshtablash'], linkedin: 'linkedin.com/in/abdullokh-khidoyatov-9b456b7b' },
+        { name: 'Madiyar Bakbergenov', role: 'Maslahatchi', highlights: ['Strategik maslahatchi'], linkedin: '' },
       ],
+      wecome: 'Biz quyerdan: Express24, OSON, MaxWay, Uzum, iQUP, KWAAKA!, Choco',
       backedBy: 'Qo\'llab-quvvatlaydi',
       investor: { name: 'AloqaVentures', type: 'Pre-seed investor', description: 'Markaziy Osiyodagi yetakchi VC 6x exitlar bilan' },
     },

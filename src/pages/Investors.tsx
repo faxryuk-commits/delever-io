@@ -25,7 +25,6 @@ import {
   ArrowRight,
   ExternalLink,
   Leaf,
-  Award,
   Briefcase
 } from 'lucide-react'
 import { useLocale } from '@/i18n/LocaleContext'
@@ -95,27 +94,27 @@ const expansionMarkets = [
 // Roadmap items
 const roadmapItems = [
   {
-    phase: '2025 Q1-Q2',
+    phase: '2026',
     items: [
-      'investors.roadmap.ksa',
-      'investors.roadmap.api',
-      'investors.roadmap.analytics',
+      'investors.roadmap.2026.ai',
+      'investors.roadmap.2026.uae500',
+      'investors.roadmap.2026.integrations',
     ]
   },
   {
-    phase: '2025 Q3-Q4',
+    phase: '2027',
     items: [
-      'investors.roadmap.miniapp',
-      'investors.roadmap.marketplace',
-      'investors.roadmap.gulf',
+      'investors.roadmap.2027.uae1500',
+      'investors.roadmap.2027.partnerships',
+      'investors.roadmap.2027.ksa',
     ]
   },
   {
-    phase: '2026+',
+    phase: '2028',
     items: [
-      'investors.roadmap.daas',
-      'investors.roadmap.fintech',
-      'investors.roadmap.superapp',
+      'investors.roadmap.2028.jeddah',
+      'investors.roadmap.2028.5000',
+      'investors.roadmap.2028.leadership',
     ]
   },
 ]
@@ -124,20 +123,43 @@ const roadmapItems = [
 const teamMembers = [
   {
     name: 'Fakhriddin Yusupov',
-    role: 'Founder & CEO',
+    role: 'CEO & Co-founder',
     avatar: '/team/fakhriddin.jpg',
     linkedin: 'https://www.linkedin.com/in/fakhriddin-yusupov-821086b3/',
-    bio: 'investors.team.ceo.bio',
     highlights: ['Ex-CEO MaxWay', 'MBA / DBA', '10+ years Food-Tech']
   },
   {
-    name: 'Abdullokh Khidoyatov',
-    role: 'COO',
-    avatar: '/team/abdullokh.jpg',
-    linkedin: 'https://www.linkedin.com/in/abdullokh-khidoyatov-9b456b7b/',
-    bio: 'investors.team.coo.bio',
-    highlights: ['Operations Expert', 'Scale-up Specialist']
+    name: 'Azizbek Bakhodirov',
+    role: 'COO & Co-founder',
+    avatar: '/team/azizbek.jpg',
+    linkedin: '',
+    highlights: ['Ex-Express24', 'Operations Expert']
   },
+  {
+    name: 'Abdullo Khidoyatov',
+    role: 'CTO & Co-founder',
+    avatar: '/team/abdullo.jpg',
+    linkedin: 'https://www.linkedin.com/in/abdullokh-khidoyatov-9b456b7b/',
+    highlights: ['Tech Architecture', 'Scale-up Specialist']
+  },
+  {
+    name: 'Madiyar Bakbergenov',
+    role: 'Adviser',
+    avatar: '/team/madiyar.jpg',
+    linkedin: '',
+    highlights: ['Strategic Advisor', 'Industry Expert']
+  },
+]
+
+// Team background companies
+const teamBackground = [
+  { name: 'Express24', logo: '/logos/express24.png' },
+  { name: 'OSON', logo: '/logos/oson.png' },
+  { name: 'MaxWay', logo: '/logos/maxway.png' },
+  { name: 'Uzum', logo: '/logos/uzum.png' },
+  { name: 'iQUP', logo: '/logos/iqup.png' },
+  { name: 'KWAAKA!', logo: '/logos/kwaaka.png' },
+  { name: 'Choco', logo: '/logos/choco.png' },
 ]
 
 // Investors/Partners
@@ -298,13 +320,13 @@ export function Investors() {
             </div>
 
             {/* Long-term vision */}
-            <div className="mt-10 p-6 rounded-2xl bg-gradient-to-r from-brand-darkBlue to-blue-900 text-white">
-              <h3 className="font-bold text-lg mb-4">{t('investors.vision.longTerm')}</h3>
+            <div className="mt-10 p-6 rounded-2xl bg-gradient-to-r from-brand-darkBlue to-blue-900">
+              <h3 className="font-bold text-lg mb-4 text-white">{t('investors.vision.longTerm')}</h3>
               <div className="space-y-3">
                 {['mena', 'marketplace', 'api'].map((key) => (
                   <div key={key} className="flex items-center gap-3">
                     <ArrowRight className="h-4 w-4 text-emerald-400" />
-                    <span className="text-white/90">{t(`investors.vision.lt.${key}`)}</span>
+                    <span className="text-white">{t(`investors.vision.lt.${key}`)}</span>
                   </div>
                 ))}
               </div>
@@ -472,7 +494,7 @@ export function Investors() {
             </h2>
             
             <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full font-bold text-lg mb-10">
-              TAM: $150B+ Food-Tech Infrastructure
+              TAM: $250B+ Food-Tech Infrastructure
             </div>
 
             <div className="grid lg:grid-cols-2 gap-8">
@@ -671,8 +693,12 @@ export function Investors() {
               <span className="text-violet-600 font-semibold text-lg">07 — Competitive Moat</span>
             </div>
             
-            <div className="p-6 rounded-2xl bg-brand-darkBlue text-white mb-8">
-              <p className="text-lg font-medium">
+            <h2 className="text-3xl lg:text-4xl font-bold text-brand-darkBlue mb-6">
+              {t('investors.competitive.title')}
+            </h2>
+            
+            <div className="p-6 rounded-2xl bg-brand-darkBlue mb-8">
+              <p className="text-lg font-medium text-white">
                 "{t('investors.competitive.quote')}"
               </p>
             </div>
@@ -788,7 +814,7 @@ export function Investors() {
       <section className="py-20 lg:py-28 bg-gradient-to-b from-white to-brand-lightBlue/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            className="max-w-5xl mx-auto"
+            className="max-w-6xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -800,77 +826,103 @@ export function Investors() {
               <span className="text-rose-600 font-semibold text-lg">09 — Team</span>
             </div>
             
-            <h2 className="text-3xl lg:text-4xl font-bold text-brand-darkBlue mb-10">
+            <h2 className="text-3xl lg:text-4xl font-bold text-brand-darkBlue mb-4">
               {t('investors.team.title')}
             </h2>
+            
+            <p className="text-lg text-brand-darkBlue/60 mb-10">
+              {t('investors.team.subtitle')}
+            </p>
 
-            {/* Founders */}
-            <div className="grid md:grid-cols-2 gap-6 mb-10">
-              {teamMembers.map((member, idx) => (
-                <motion.div
-                  key={idx}
-                  className="p-6 rounded-2xl bg-white border border-gray-100 shadow-lg"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-brand-blue to-brand-green flex items-center justify-center text-white text-2xl font-bold">
-                      {member.name.split(' ').map(n => n[0]).join('')}
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-bold text-brand-darkBlue text-lg">{member.name}</h3>
-                      <p className="text-brand-blue font-medium mb-2">{member.role}</p>
-                      <div className="flex flex-wrap gap-2 mb-3">
+            <div className="grid lg:grid-cols-3 gap-8 mb-10">
+              {/* Team Members */}
+              <div className="lg:col-span-2">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {teamMembers.map((member, idx) => (
+                    <motion.div
+                      key={idx}
+                      className="p-5 rounded-2xl bg-white border border-gray-100 shadow-lg"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: idx * 0.1 }}
+                    >
+                      <div className="flex items-center gap-4 mb-3">
+                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-blue to-brand-green flex items-center justify-center text-white text-xl font-bold flex-shrink-0">
+                          {member.name.split(' ').map(n => n[0]).join('')}
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-brand-darkBlue">{member.name}</h3>
+                          <p className="text-brand-blue font-medium text-sm">{member.role}</p>
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5 mb-3">
                         {member.highlights.map((h, i) => (
                           <span key={i} className="text-xs bg-brand-lightBlue/50 text-brand-darkBlue px-2 py-1 rounded-full">
                             {h}
                           </span>
                         ))}
                       </div>
-                      <a 
-                        href={member.linkedin} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-sm text-brand-blue hover:text-brand-darkBlue transition-colors"
+                      {member.linkedin && (
+                        <a 
+                          href={member.linkedin} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-sm text-brand-blue hover:text-brand-darkBlue transition-colors"
+                        >
+                          <Linkedin className="h-4 w-4" />
+                          LinkedIn
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* We come from */}
+              <div className="lg:col-span-1">
+                <div className="p-6 rounded-2xl bg-white border border-gray-100 shadow-lg h-full">
+                  <h3 className="font-bold text-brand-darkBlue mb-4">{t('investors.team.wecome')}</h3>
+                  <div className="flex flex-wrap gap-3 mb-6">
+                    {teamBackground.map((company, idx) => (
+                      <div 
+                        key={idx}
+                        className="px-3 py-2 bg-gray-50 rounded-lg text-sm font-medium text-brand-darkBlue border border-gray-100"
                       >
-                        <Linkedin className="h-4 w-4" />
-                        LinkedIn
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
-                    </div>
+                        {company.name}
+                      </div>
+                    ))}
                   </div>
-                </motion.div>
-              ))}
+                  
+                  <h4 className="font-bold text-brand-darkBlue mb-3">{t('investors.team.backedBy')}</h4>
+                  {investors.map((investor, idx) => (
+                    <a 
+                      key={idx}
+                      href={investor.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 bg-brand-blue/5 px-4 py-3 rounded-xl border border-brand-blue/20 hover:bg-brand-blue/10 transition-all"
+                    >
+                      <div className="w-10 h-10 bg-brand-blue/10 rounded-lg flex items-center justify-center">
+                        <Briefcase className="h-5 w-5 text-brand-blue" />
+                      </div>
+                      <div>
+                        <div className="font-semibold text-brand-darkBlue">{investor.name}</div>
+                        <div className="text-xs text-brand-darkBlue/60">{investor.type}</div>
+                      </div>
+                      <ExternalLink className="h-4 w-4 text-brand-darkBlue/30 ml-auto" />
+                    </a>
+                  ))}
+                </div>
+              </div>
             </div>
 
-            {/* Investors */}
-            <div className="p-6 rounded-2xl bg-brand-darkBlue/5 border border-brand-darkBlue/10">
-              <h3 className="font-bold text-brand-darkBlue mb-4 flex items-center gap-2">
-                <Award className="h-5 w-5 text-amber-500" />
-                {t('investors.team.backedBy')}
-              </h3>
-              <div className="flex flex-wrap gap-4">
-                {investors.map((investor, idx) => (
-                  <a 
-                    key={idx}
-                    href={investor.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 bg-white px-4 py-3 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all"
-                  >
-                    <div className="w-10 h-10 bg-brand-blue/10 rounded-lg flex items-center justify-center">
-                      <Briefcase className="h-5 w-5 text-brand-blue" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-brand-darkBlue">{investor.name}</div>
-                      <div className="text-xs text-brand-darkBlue/60">{investor.type}</div>
-                    </div>
-                    <ExternalLink className="h-4 w-4 text-brand-darkBlue/30" />
-                  </a>
-                ))}
-              </div>
+            {/* Team experience line */}
+            <div className="text-center p-6 rounded-2xl bg-brand-darkBlue text-white">
+              <p className="text-lg font-medium">
+                {t('investors.team.experience')}
+              </p>
             </div>
           </motion.div>
         </div>
