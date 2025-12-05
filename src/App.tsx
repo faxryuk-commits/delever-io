@@ -21,6 +21,7 @@ import { Partners } from './pages/Partners'
 import { About } from './pages/About'
 import { WhiteLabel } from './pages/WhiteLabel'
 import { Aggregators } from './pages/Aggregators'
+import { ESG } from './pages/ESG'
 import { NotFound } from './pages/NotFound'
 import { AnnouncementBar } from './components/AnnouncementBar'
 
@@ -49,6 +50,7 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/white-label" element={<WhiteLabel />} />
                 <Route path="/aggregators" element={<Aggregators />} />
+                <Route path="/esg" element={<ESG />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>

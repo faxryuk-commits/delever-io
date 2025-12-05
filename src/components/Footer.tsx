@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { MapPin, Linkedin, Send, Instagram, Phone, Mail, BookOpen, Code, Bell, Activity, Users } from 'lucide-react'
+import { MapPin, Linkedin, Send, Instagram, Phone, Mail, BookOpen, Code, Bell, Activity, Users, Leaf } from 'lucide-react'
 import { Logo } from './Logo'
 import { LocaleSwitcher } from './LocaleSwitcher'
 import { useLocale } from '@/i18n/LocaleContext'
@@ -199,6 +199,12 @@ export function Footer() {
                 <Link to="/partners" className="text-white/60 hover:text-white transition-colors flex items-center gap-2">
                   <Users className="h-3.5 w-3.5" />
                   {t('nav.partners')}
+                </Link>
+              </li>
+              <li>
+                <Link to="/esg" className="text-white/60 hover:text-white transition-colors flex items-center gap-2">
+                  <Leaf className="h-3.5 w-3.5" />
+                  ESG
                 </Link>
               </li>
             </ul>
