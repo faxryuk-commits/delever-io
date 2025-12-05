@@ -430,131 +430,35 @@ export function ESG() {
               </p>
             </div>
 
-            {/* Official UN SDG Style Badges */}
+            {/* Official UN SDG Badges - Using official images */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4">
               {[
-                { 
-                  number: 8, 
-                  title: 'DECENT WORK AND', 
-                  subtitle: 'ECONOMIC GROWTH', 
-                  color: '#A21942',
-                  icon: (
-                    <svg viewBox="0 0 60 60" className="w-10 h-10 lg:w-14 lg:h-14">
-                      <path fill="white" d="M10 45 L20 25 L30 35 L40 15 L50 25 M45 15 L50 15 L50 20"/>
-                    </svg>
-                  )
-                },
-                { 
-                  number: 9, 
-                  title: 'INDUSTRY, INNOVATION', 
-                  subtitle: 'AND INFRASTRUCTURE', 
-                  color: '#FD6925',
-                  icon: (
-                    <svg viewBox="0 0 60 60" className="w-10 h-10 lg:w-14 lg:h-14">
-                      <path fill="white" d="M15 45 L15 30 L25 30 L25 35 L35 35 L35 25 L45 25 L45 45 M20 20 L30 10 L40 20 L30 15 Z"/>
-                    </svg>
-                  )
-                },
-                { 
-                  number: 11, 
-                  title: 'SUSTAINABLE CITIES', 
-                  subtitle: 'AND COMMUNITIES', 
-                  color: '#FD9D24',
-                  icon: (
-                    <svg viewBox="0 0 60 60" className="w-10 h-10 lg:w-14 lg:h-14">
-                      <path fill="white" d="M10 50 L10 30 L20 30 L20 50 M22 50 L22 20 L32 20 L32 50 M34 50 L34 35 L44 35 L44 50 M46 50 L46 25 L50 22 L50 50"/>
-                    </svg>
-                  )
-                },
-                { 
-                  number: 12, 
-                  title: 'RESPONSIBLE', 
-                  subtitle: 'CONSUMPTION AND PRODUCTION', 
-                  color: '#BF8B2E',
-                  icon: (
-                    <svg viewBox="0 0 60 60" className="w-10 h-10 lg:w-14 lg:h-14">
-                      <path fill="none" stroke="white" strokeWidth="3" d="M30 10 A20 20 0 1 1 10 30 M10 30 L5 25 M10 30 L15 25"/>
-                    </svg>
-                  )
-                },
-                { 
-                  number: 13, 
-                  title: 'CLIMATE', 
-                  subtitle: 'ACTION', 
-                  color: '#3F7E44',
-                  icon: (
-                    <svg viewBox="0 0 60 60" className="w-10 h-10 lg:w-14 lg:h-14">
-                      <circle cx="30" cy="30" r="18" fill="none" stroke="white" strokeWidth="3"/>
-                      <circle cx="30" cy="30" r="6" fill="white"/>
-                      <path fill="white" d="M30 8 L32 16 L28 16 Z M30 52 L28 44 L32 44 Z"/>
-                    </svg>
-                  )
-                },
-                { 
-                  number: 16, 
-                  title: 'PEACE, JUSTICE', 
-                  subtitle: 'AND STRONG INSTITUTIONS', 
-                  color: '#00689D',
-                  icon: (
-                    <svg viewBox="0 0 60 60" className="w-10 h-10 lg:w-14 lg:h-14">
-                      <circle cx="30" cy="22" r="8" fill="white"/>
-                      <path fill="white" d="M20 35 L30 30 L40 35 L40 50 L20 50 Z"/>
-                      <path fill="white" d="M26 40 L34 40 L30 48 Z"/>
-                    </svg>
-                  )
-                },
-                { 
-                  number: 17, 
-                  title: 'PARTNERSHIPS', 
-                  subtitle: 'FOR THE GOALS', 
-                  color: '#19486A',
-                  icon: (
-                    <svg viewBox="0 0 60 60" className="w-10 h-10 lg:w-14 lg:h-14">
-                      <circle cx="30" cy="30" r="12" fill="none" stroke="white" strokeWidth="2"/>
-                      <circle cx="30" cy="18" r="4" fill="white"/>
-                      <circle cx="42" cy="30" r="4" fill="white"/>
-                      <circle cx="30" cy="42" r="4" fill="white"/>
-                      <circle cx="18" cy="30" r="4" fill="white"/>
-                      <circle cx="38" cy="22" r="3" fill="white"/>
-                      <circle cx="38" cy="38" r="3" fill="white"/>
-                      <circle cx="22" cy="38" r="3" fill="white"/>
-                      <circle cx="22" cy="22" r="3" fill="white"/>
-                    </svg>
-                  )
-                },
+                { number: 8, url: 'https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-08.jpg' },
+                { number: 9, url: 'https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-09.jpg' },
+                { number: 11, url: 'https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-11.jpg' },
+                { number: 12, url: 'https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-12.jpg' },
+                { number: 13, url: 'https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-13.jpg' },
+                { number: 16, url: 'https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-16.jpg' },
+                { number: 17, url: 'https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-17.jpg' },
               ].map((sdg, idx) => (
                 <motion.a
                   key={sdg.number}
                   href={`https://sdgs.un.org/goals/goal${sdg.number}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative aspect-square overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
-                  style={{ backgroundColor: sdg.color }}
+                  className="group aspect-square overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 rounded-sm"
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.08 }}
                   whileHover={{ scale: 1.05, y: -4 }}
                 >
-                  {/* Number and Title */}
-                  <div className="absolute top-2 left-2 right-2 lg:top-3 lg:left-3 lg:right-3">
-                    <div className="flex items-start gap-1.5 lg:gap-2">
-                      <span className="text-2xl lg:text-4xl font-bold text-white leading-none">{sdg.number}</span>
-                      <div className="flex-1">
-                        <div className="text-[8px] lg:text-[10px] font-bold text-white leading-tight uppercase tracking-wide">
-                          {sdg.title}
-                        </div>
-                        <div className="text-[7px] lg:text-[9px] font-bold text-white leading-tight uppercase tracking-wide">
-                          {sdg.subtitle}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Icon */}
-                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 lg:bottom-3 opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all">
-                    {sdg.icon}
-                  </div>
+                  <img 
+                    src={sdg.url} 
+                    alt={`SDG ${sdg.number}`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
                 </motion.a>
               ))}
 
@@ -563,33 +467,24 @@ export function ESG() {
                 href="https://sdgs.un.org/goals"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group aspect-square bg-white border-2 border-gray-200 flex flex-col items-center justify-center p-4 hover:border-blue-400 hover:shadow-lg transition-all"
+                className="group aspect-square bg-white border border-gray-200 flex flex-col items-center justify-center p-3 hover:shadow-lg transition-all rounded-sm overflow-hidden"
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.6 }}
                 whileHover={{ scale: 1.05 }}
               >
-                <div className="text-center">
-                  <div className="mb-2">
-                    <svg viewBox="0 0 100 100" className="w-12 h-12 lg:w-16 lg:h-16 mx-auto">
-                      <circle cx="50" cy="50" r="45" fill="none" stroke="#00689D" strokeWidth="2"/>
-                      <circle cx="50" cy="30" r="5" fill="#E5243B"/>
-                      <circle cx="65" cy="38" r="5" fill="#DDA63A"/>
-                      <circle cx="70" cy="55" r="5" fill="#4C9F38"/>
-                      <circle cx="60" cy="70" r="5" fill="#C5192D"/>
-                      <circle cx="40" cy="70" r="5" fill="#FF3A21"/>
-                      <circle cx="30" cy="55" r="5" fill="#26BDE2"/>
-                      <circle cx="35" cy="38" r="5" fill="#FCC30B"/>
-                      <circle cx="50" cy="50" r="8" fill="#19486A"/>
-                    </svg>
-                  </div>
-                  <div className="text-[10px] lg:text-xs font-bold text-gray-800 uppercase tracking-wide leading-tight">
-                    Sustainable<br/>Development<br/>Goals
-                  </div>
-                  <div className="text-[9px] lg:text-[10px] text-blue-600 mt-2 group-hover:underline">
-                    {language === 'ru' ? 'Все цели →' : language === 'uz' ? "Barcha maqsadlar →" : 'See all →'}
-                  </div>
+                <img 
+                  src="https://sdgs.un.org/sites/default/files/2020-09/SDG%20Wheel_Transparent_WEB.png"
+                  alt="UN SDG Logo"
+                  className="w-16 h-16 lg:w-20 lg:h-20 mb-2"
+                  loading="lazy"
+                />
+                <div className="text-[9px] lg:text-[11px] font-bold text-[#00689D] uppercase tracking-wider leading-tight text-center">
+                  Sustainable<br/>Development<br/>Goals
+                </div>
+                <div className="text-[9px] lg:text-[10px] text-blue-600 mt-2 group-hover:underline">
+                  {language === 'ru' ? 'Все цели →' : language === 'uz' ? "Barcha maqsadlar →" : 'See all →'}
                 </div>
               </motion.a>
             </div>
