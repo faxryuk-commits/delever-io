@@ -1,6 +1,6 @@
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
-import { MapPin, Users, Rocket, Award, Globe, Target, Leaf, TrendingUp, ArrowRight } from 'lucide-react'
+import { useRef, useState } from 'react'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { MapPin, Users, Rocket, Award, Globe, Target, Leaf, TrendingUp, ArrowRight, X } from 'lucide-react'
 import { useLocale } from '@/i18n/LocaleContext'
 import { SEO } from '@/components/SEO'
 import { Link } from 'react-router-dom'
@@ -9,6 +9,7 @@ export function About() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const { t, language } = useLocale()
+  const [activeTooltip, setActiveTooltip] = useState<string | null>(null)
 
   const stats = [
     { value: '1000+', labelKey: 'stats.businesses' },
@@ -160,13 +161,13 @@ export function About() {
   }
 
   const countries = [
-    { nameKey: 'uz', flag: '🇺🇿', status: 'main' },
-    { nameKey: 'kz', flag: '🇰🇿', status: 'active' },
-    { nameKey: 'kg', flag: '🇰🇬', status: 'active' },
-    { nameKey: 'az', flag: '🇦🇿', status: 'active' },
-    { nameKey: 'ge', flag: '🇬🇪', status: 'active' },
-    { nameKey: 'cy', flag: '🇨🇾', status: 'active' },
-    { nameKey: 'ae', flag: '🇦🇪', status: 'active' },
+    { nameKey: 'uz', flag: '🇺🇿' },
+    { nameKey: 'kz', flag: '🇰🇿' },
+    { nameKey: 'kg', flag: '🇰🇬' },
+    { nameKey: 'az', flag: '🇦🇿' },
+    { nameKey: 'ge', flag: '🇬🇪' },
+    { nameKey: 'cy', flag: '🇨🇾' },
+    { nameKey: 'ae', flag: '🇦🇪' },
   ]
 
   const countryNames: Record<string, Record<string, string>> = {
@@ -334,26 +335,29 @@ export function About() {
             {countries.map((country, idx) => {
               const data = countryData[country.nameKey]
               const lang = language as 'ru' | 'en' | 'uz'
+              const isActive = activeTooltip === country.nameKey
               return (
                 <motion.div 
                   key={idx}
-                  className={`relative group/country flex items-center gap-2 px-5 py-2.5 rounded-full shadow-sm cursor-pointer ${
-                    country.status === 'main' 
-                      ? 'bg-gradient-to-r from-brand-darkBlue to-brand-blue text-white shadow-brand-blue/20' 
-                      : 'bg-white border border-brand-lightTeal/40 text-brand-darkBlue hover:border-brand-blue/40'
-                  } transition-all duration-300`}
+                  className={`relative group/country flex items-center gap-2 px-5 py-2.5 rounded-full shadow-sm cursor-pointer
+                    bg-white border text-brand-darkBlue transition-all duration-300 ${
+                    isActive 
+                      ? 'border-brand-blue bg-brand-lightBlue/30' 
+                      : 'border-brand-lightTeal/40 hover:border-brand-blue/40 hover:bg-brand-lightBlue/10'
+                  }`}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ delay: 0.7 + idx * 0.1 }}
                   whileHover={{ scale: 1.05, y: -2 }}
+                  onClick={() => setActiveTooltip(isActive ? null : country.nameKey)}
                 >
                   <span className="text-xl">{country.flag}</span>
                   <span className="text-sm font-medium">
                     {countryNames[country.nameKey]?.[language] || countryNames[country.nameKey]?.['en']}
                   </span>
                   
-                  {/* Tooltip */}
-                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-72 opacity-0 invisible group-hover/country:opacity-100 group-hover/country:visible transition-all duration-300 z-50 pointer-events-none">
+                  {/* Desktop Tooltip (hover) */}
+                  <div className="hidden lg:block absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-72 opacity-0 invisible group-hover/country:opacity-100 group-hover/country:visible transition-all duration-300 z-50 pointer-events-none">
                     <div className="bg-brand-darkBlue text-white rounded-xl p-4 shadow-2xl">
                       {/* Header */}
                       <div className="flex items-center justify-between mb-3 pb-2 border-b border-white/20">
@@ -363,7 +367,7 @@ export function About() {
                             {countryNames[country.nameKey]?.[language] || countryNames[country.nameKey]?.['en']}
                           </span>
                         </div>
-                        <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full">
+                        <span className="text-[10px] bg-white/20 px-2 py-0.5 rounded-full whitespace-nowrap">
                           {data?.highlight?.[lang]}
                         </span>
                       </div>
@@ -403,6 +407,84 @@ export function About() {
               )
             })}
           </div>
+          
+          {/* Mobile Tooltip Modal */}
+          <AnimatePresence>
+            {activeTooltip && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="lg:hidden fixed inset-0 bg-black/50 z-50 flex items-end justify-center p-4"
+                onClick={() => setActiveTooltip(null)}
+              >
+                <motion.div
+                  initial={{ y: 100, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: 100, opacity: 0 }}
+                  className="bg-brand-darkBlue text-white rounded-2xl p-5 w-full max-w-md shadow-2xl"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {(() => {
+                    const data = countryData[activeTooltip]
+                    const lang = language as 'ru' | 'en' | 'uz'
+                    const country = countries.find(c => c.nameKey === activeTooltip)
+                    return (
+                      <>
+                        {/* Header */}
+                        <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/20">
+                          <div className="flex items-center gap-3">
+                            <span className="text-3xl">{country?.flag}</span>
+                            <div>
+                              <span className="font-bold text-lg block">
+                                {countryNames[activeTooltip]?.[language] || countryNames[activeTooltip]?.['en']}
+                              </span>
+                              <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full">
+                                {data?.highlight?.[lang]}
+                              </span>
+                            </div>
+                          </div>
+                          <button 
+                            onClick={() => setActiveTooltip(null)}
+                            className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20"
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                        </div>
+                        
+                        {/* Stats */}
+                        <div className="grid grid-cols-3 gap-3 mb-4">
+                          <div className="text-center bg-white/10 rounded-xl p-3">
+                            <div className="text-xl font-bold text-brand-green">{data?.population}</div>
+                            <div className="text-xs text-white/60">
+                              {language === 'ru' ? 'население' : language === 'uz' ? 'aholi' : 'population'}
+                            </div>
+                          </div>
+                          <div className="text-center bg-white/10 rounded-xl p-3">
+                            <div className="text-xl font-bold text-brand-lightTeal">{data?.foodDeliveryMarket}</div>
+                            <div className="text-xs text-white/60">
+                              {language === 'ru' ? 'рынок' : language === 'uz' ? 'bozor' : 'market'}
+                            </div>
+                          </div>
+                          <div className="text-center bg-white/10 rounded-xl p-3">
+                            <div className="text-xl font-bold text-emerald-400">{data?.growth}</div>
+                            <div className="text-xs text-white/60">
+                              {language === 'ru' ? 'рост/год' : language === 'uz' ? "o'sish/yil" : 'YoY growth'}
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Description */}
+                        <p className="text-sm text-white/80 leading-relaxed">
+                          {data?.potential?.[lang]}
+                        </p>
+                      </>
+                    )
+                  })()}
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       </section>
 
