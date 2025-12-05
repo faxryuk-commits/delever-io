@@ -140,7 +140,7 @@ const translations: Record<Language, DeckTranslations> = {
       metrics: [
         { value: '1,000+', label: 'Restaurants on platform' },
         { value: '25,000+', label: 'Daily orders processed' },
-        { value: '$50M+', label: 'Annual GMV' },
+        { value: '$100M+', label: 'Annual GMV' },
         { value: '7', label: 'Countries' },
       ],
       additional: [
@@ -266,7 +266,7 @@ const translations: Record<Language, DeckTranslations> = {
       metrics: [
         { value: '1,000+', label: 'Ресторанов на платформе' },
         { value: '25,000+', label: 'Заказов в день' },
-        { value: '$50M+', label: 'GMV в год' },
+        { value: '$100M+', label: 'GMV в год' },
         { value: '7', label: 'Стран' },
       ],
       additional: [
@@ -392,7 +392,7 @@ const translations: Record<Language, DeckTranslations> = {
       metrics: [
         { value: '1,000+', label: 'Platformadagi restoranlar' },
         { value: '25,000+', label: 'Kunlik buyurtmalar' },
-        { value: '$50M+', label: 'Yillik GMV' },
+        { value: '$100M+', label: 'Yillik GMV' },
         { value: '7', label: 'Mamlakatlar' },
       ],
       additional: [

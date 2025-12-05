@@ -69,7 +69,7 @@ function AnimatedNumber({ value, suffix = '' }: { value: number; suffix?: string
 const tractionMetrics = [
   { value: 1000, suffix: '+', labelKey: 'investors.traction.restaurants', icon: Store },
   { value: 25000, suffix: '+', labelKey: 'investors.traction.dailyOrders', icon: BarChart3 },
-  { value: 50, suffix: 'M+', labelKey: 'investors.traction.gmv', icon: DollarSign },
+  { value: 100, suffix: 'M+', labelKey: 'investors.traction.gmv', icon: DollarSign },
   { value: 7, suffix: '', labelKey: 'investors.traction.countries', icon: Globe },
 ]
 

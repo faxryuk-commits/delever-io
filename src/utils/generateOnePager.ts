@@ -41,7 +41,7 @@ const translations = {
     metrics: [
       { value: '1,000+', label: 'Restaurants' },
       { value: '25K+', label: 'Daily Orders' },
-      { value: '$50M+', label: 'Annual GMV' },
+      { value: '$100M+', label: 'Annual GMV' },
       { value: '7', label: 'Countries' },
     ],
     
@@ -100,7 +100,7 @@ const translations = {
     metrics: [
       { value: '1 000+', label: 'Ресторанов' },
       { value: '25K+', label: 'Заказов/день' },
-      { value: '$50M+', label: 'GMV/год' },
+      { value: '$100M+', label: 'GMV/год' },
       { value: '7', label: 'Стран' },
     ],
     
@@ -153,7 +153,7 @@ const translations = {
     metrics: [
       { value: '1 000+', label: 'Restoranlar' },
       { value: '25K+', label: 'Kunlik buyurtmalar' },
-      { value: '$50M+', label: 'Yillik GMV' },
+      { value: '$100M+', label: 'Yillik GMV' },
       { value: '7', label: 'Mamlakatlar' },
     ],
     
