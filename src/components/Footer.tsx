@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { MapPin, Linkedin, Send, Instagram, Phone, Mail, BookOpen, Code, Bell, Activity, Users, Leaf } from 'lucide-react'
+import { MapPin, Linkedin, Send, Instagram, Phone, Mail, BookOpen, Code, Bell, Activity, Users, Leaf, TrendingUp } from 'lucide-react'
 import { Logo } from './Logo'
 import { LocaleSwitcher } from './LocaleSwitcher'
 import { useLocale } from '@/i18n/LocaleContext'
@@ -205,6 +205,12 @@ export function Footer() {
                 <Link to="/esg" className="text-white/60 hover:text-white transition-colors flex items-center gap-2">
                   <Leaf className="h-3.5 w-3.5" />
                   ESG
+                </Link>
+              </li>
+              <li>
+                <Link to="/investors" className="text-white/60 hover:text-white transition-colors flex items-center gap-2">
+                  <TrendingUp className="h-3.5 w-3.5" />
+                  {t('nav.investors')}
                 </Link>
               </li>
             </ul>

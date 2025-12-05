@@ -26,6 +26,8 @@ const pages = [
   { path: '/partners', priority: '0.7', changefreq: 'monthly' },
   { path: '/about', priority: '0.7', changefreq: 'monthly' },
   { path: '/white-label', priority: '0.8', changefreq: 'monthly' },
+  { path: '/esg', priority: '0.7', changefreq: 'monthly' },
+  { path: '/investors', priority: '0.8', changefreq: 'monthly' },
 ];
 
 // Генерация URL записи
