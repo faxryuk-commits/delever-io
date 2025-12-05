@@ -316,6 +316,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'segment.type.water': 'Вода',
     
     // Platform Diagram
+    'diagram.badge': 'Единая платформа',
     'diagram.title': 'Единая экосистема для роста',
     'diagram.subtitle': 'Все части работают вместе — каждая усиливает другую',
     'diagram.channels': 'Привлекаете',
@@ -1649,6 +1650,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'segment.type.water': 'Water',
     
     // Platform Diagram
+    'diagram.badge': 'Unified Platform',
     'diagram.title': 'Unified ecosystem for growth',
     'diagram.subtitle': 'All parts work together — each strengthens the other',
     'diagram.channels': 'Attract',
@@ -3515,6 +3517,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'segment.custom.solution3.cta': 'Bog\'lanish',
     
     // What is Delever (diagram)
+    'diagram.badge': 'Yagona platforma',
     'diagram.title': 'O\'sish uchun yagona ekotizim',
     'diagram.subtitle': 'Barcha qismlar birga ishlaydi — har biri boshqasini kuchaytiradi',
     'diagram.channels': 'Jalb qilasiz',
