@@ -16,8 +16,10 @@ import {
   CheckCircle2,
   Zap,
   TrendingUp,
-  XCircle
+  XCircle,
+  Download
 } from 'lucide-react'
+import { downloadAggregatorsPresentation } from '@/utils/generateAggregatorsPresentation'
 
 const aggregatorLogos = [
   { name: 'Wolt', color: 'from-cyan-400 to-cyan-500' },
@@ -128,6 +130,15 @@ export function Aggregators() {
                 <Button size="lg" onClick={() => setContactFormOpen(true)}>
                   {t('aggregators.cta')}
                   <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  onClick={() => downloadAggregatorsPresentation(language)}
+                  className="border-white/30 text-white hover:bg-white/10"
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  {language === 'ru' ? 'Скачать презентацию' : language === 'uz' ? 'Taqdimotni yuklab olish' : 'Download Presentation'}
                 </Button>
               </motion.div>
 
