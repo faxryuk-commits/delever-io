@@ -400,6 +400,95 @@ export function ESG() {
         </div>
       </section>
 
+      {/* UN SDG Goals Section */}
+      <section className="py-16 lg:py-24 bg-gradient-to-b from-white to-slate-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            className="max-w-5xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="text-center mb-12">
+              <motion.div
+                className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-4"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+              >
+                🌍 United Nations
+              </motion.div>
+              <h2 className="text-2xl lg:text-3xl font-bold text-brand-darkBlue mb-4">
+                {language === 'ru' ? 'Цели устойчивого развития ООН' : 
+                 language === 'uz' ? "BMT Barqaror rivojlanish maqsadlari" : 
+                 'UN Sustainable Development Goals'}
+              </h2>
+              <p className="text-brand-darkBlue/60 max-w-2xl mx-auto">
+                {language === 'ru' ? 'Delever вносит вклад в достижение следующих глобальных целей' : 
+                 language === 'uz' ? "Delever quyidagi global maqsadlarga erishishga hissa qo'shadi" : 
+                 'Delever contributes to achieving the following global goals'}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
+              {[
+                { number: 8, title: language === 'ru' ? 'Достойная работа' : language === 'uz' ? 'Munosib ish' : 'Decent Work', subtitle: language === 'ru' ? 'и экономический рост' : language === 'uz' ? 'va iqtisodiy o\'sish' : '& Economic Growth', color: '#A21942' },
+                { number: 9, title: language === 'ru' ? 'Индустрия' : language === 'uz' ? 'Sanoat' : 'Industry', subtitle: language === 'ru' ? 'инновации, инфраструктура' : language === 'uz' ? 'innovatsiya, infratuzilma' : 'Innovation & Infrastructure', color: '#FD6925' },
+                { number: 11, title: language === 'ru' ? 'Устойчивые города' : language === 'uz' ? 'Barqaror shaharlar' : 'Sustainable Cities', subtitle: language === 'ru' ? 'и населённые пункты' : language === 'uz' ? 'va aholi punktlari' : '& Communities', color: '#FD9D24' },
+                { number: 12, title: language === 'ru' ? 'Ответственное' : language === 'uz' ? "Mas'uliyatli" : 'Responsible', subtitle: language === 'ru' ? 'потребление и производство' : language === 'uz' ? "iste'mol va ishlab chiqarish" : 'Consumption & Production', color: '#BF8B2E' },
+                { number: 13, title: language === 'ru' ? 'Борьба с изменением' : language === 'uz' ? 'Iqlim o\'zgarishiga' : 'Climate', subtitle: language === 'ru' ? 'климата' : language === 'uz' ? 'qarshi kurash' : 'Action', color: '#3F7E44' },
+                { number: 16, title: language === 'ru' ? 'Мир, правосудие' : language === 'uz' ? 'Tinchlik, adolat' : 'Peace, Justice', subtitle: language === 'ru' ? 'и эффективные институты' : language === 'uz' ? 'va samarali institutlar' : '& Strong Institutions', color: '#00689D' },
+                { number: 17, title: language === 'ru' ? 'Партнёрство' : language === 'uz' ? 'Hamkorlik' : 'Partnerships', subtitle: language === 'ru' ? 'в интересах развития' : language === 'uz' ? 'rivojlanish uchun' : 'for the Goals', color: '#19486A' },
+              ].map((sdg, idx) => (
+                <motion.div
+                  key={sdg.number}
+                  className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                  style={{ backgroundColor: sdg.color }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  whileHover={{ scale: 1.03, y: -4 }}
+                >
+                  <div className="p-4 lg:p-5 text-white">
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-lg bg-white/20 flex items-center justify-center font-bold text-lg lg:text-xl flex-shrink-0">
+                        {sdg.number}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="font-bold text-sm lg:text-base leading-tight">{sdg.title}</div>
+                        <div className="text-white/80 text-xs lg:text-sm leading-tight mt-0.5">{sdg.subtitle}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/30" />
+                </motion.div>
+              ))}
+            </div>
+
+            <motion.p 
+              className="text-center text-sm text-brand-darkBlue/50 mt-8"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+            >
+              {language === 'ru' ? 'Официальные цели ООН • ' : 
+               language === 'uz' ? "BMT rasmiy maqsadlari • " : 
+               'Official UN Goals • '}
+              <a 
+                href="https://sdgs.un.org/goals" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                sdgs.un.org
+              </a>
+            </motion.p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Commitment Section */}
       <section className="py-20 lg:py-28 bg-brand-darkBlue relative overflow-hidden">
         {/* Background effects */}
