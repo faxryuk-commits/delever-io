@@ -431,7 +431,7 @@ export function ESG() {
             </div>
 
             {/* Official UN SDG Badges - Using official images */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4">
+            <div className="grid grid-cols-4 sm:grid-cols-4 lg:grid-cols-8 gap-2 lg:gap-3 max-w-4xl mx-auto">
               {[
                 { number: 8, url: 'https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-08.jpg' },
                 { number: 9, url: 'https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-09.jpg' },
@@ -467,7 +467,7 @@ export function ESG() {
                 href="https://sdgs.un.org/goals"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group aspect-square bg-white flex flex-col items-center justify-center p-3 hover:shadow-lg transition-all rounded-sm overflow-hidden"
+                className="group aspect-square bg-white flex flex-col items-center justify-center p-1.5 hover:shadow-lg transition-all rounded-sm overflow-hidden"
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -475,23 +475,21 @@ export function ESG() {
                 whileHover={{ scale: 1.05 }}
               >
                 {/* UN Emblem */}
-                <svg viewBox="0 0 100 100" className="w-12 h-12 lg:w-14 lg:h-14 mb-2">
-                  <circle cx="50" cy="50" r="48" fill="none" stroke="#009EDB" strokeWidth="1.5"/>
-                  <path fill="#009EDB" d="M50 8 C25 8 8 25 8 50 C8 75 25 92 50 92 C75 92 92 75 92 50 C92 25 75 8 50 8 M50 12 C73 12 88 27 88 50 C88 73 73 88 50 88 C27 88 12 73 12 50 C12 27 27 12 50 12" opacity="0.3"/>
-                  <ellipse cx="50" cy="55" rx="30" ry="12" fill="none" stroke="#009EDB" strokeWidth="1"/>
-                  <ellipse cx="50" cy="55" rx="20" ry="8" fill="none" stroke="#009EDB" strokeWidth="1"/>
+                <svg viewBox="0 0 100 100" className="w-6 h-6 lg:w-8 lg:h-8 mb-1">
+                  <circle cx="50" cy="50" r="48" fill="none" stroke="#009EDB" strokeWidth="2"/>
+                  <ellipse cx="50" cy="55" rx="30" ry="12" fill="none" stroke="#009EDB" strokeWidth="1.5"/>
+                  <ellipse cx="50" cy="55" rx="20" ry="8" fill="none" stroke="#009EDB" strokeWidth="1.5"/>
                   <path fill="#009EDB" d="M35 40 Q50 25 65 40 L60 42 Q50 30 40 42 Z"/>
-                  <circle cx="50" cy="50" r="3" fill="#009EDB"/>
+                  <circle cx="50" cy="50" r="4" fill="#009EDB"/>
                 </svg>
                 
                 {/* Text */}
-                <div className="text-center leading-tight">
-                  <div className="text-[10px] lg:text-xs font-bold text-[#009EDB] tracking-wide">SUSTAINABLE</div>
-                  <div className="text-[10px] lg:text-xs font-bold text-[#009EDB] tracking-wide">DEVELOPMENT</div>
-                  <div className="text-[13px] lg:text-base font-bold text-[#009EDB] tracking-wider flex items-center justify-center gap-0.5">
+                <div className="text-center leading-none">
+                  <div className="text-[5px] lg:text-[7px] font-bold text-[#009EDB] tracking-wide">SUSTAINABLE</div>
+                  <div className="text-[5px] lg:text-[7px] font-bold text-[#009EDB] tracking-wide">DEVELOPMENT</div>
+                  <div className="text-[7px] lg:text-[9px] font-bold text-[#009EDB] tracking-wider flex items-center justify-center">
                     G
-                    {/* SDG Wheel mini */}
-                    <svg viewBox="0 0 20 20" className="w-3.5 h-3.5 lg:w-4 lg:h-4 inline-block">
+                    <svg viewBox="0 0 20 20" className="w-2 h-2 lg:w-2.5 lg:h-2.5 inline-block mx-px">
                       <circle cx="10" cy="10" r="9" fill="none" stroke="#009EDB" strokeWidth="0.5"/>
                       <circle cx="10" cy="4" r="1.5" fill="#E5243B"/>
                       <circle cx="14" cy="6" r="1.5" fill="#DDA63A"/>
@@ -505,10 +503,6 @@ export function ESG() {
                     </svg>
                     ALS
                   </div>
-                </div>
-                
-                <div className="text-[8px] lg:text-[9px] text-[#009EDB] mt-2 group-hover:underline">
-                  {language === 'ru' ? 'Все 17 целей →' : language === 'uz' ? "Barcha 17 maqsad →" : 'All 17 goals →'}
                 </div>
               </motion.a>
             </div>
