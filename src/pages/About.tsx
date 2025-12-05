@@ -299,7 +299,7 @@ export function About() {
                 <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                   <Leaf className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold mb-2">ESG & Sustainability</h3>
+                <h3 className="text-xl font-bold mb-2 text-white">ESG & Sustainability</h3>
                 <p className="text-white/80 text-sm mb-4">
                   {language === 'ru' 
                     ? 'Устойчивое развитие и социальная ответственность' 
@@ -327,7 +327,7 @@ export function About() {
                 <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                   <TrendingUp className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold mb-2">
+                <h3 className="text-xl font-bold mb-2 text-white">
                   {language === 'ru' ? 'Инвесторам' : language === 'uz' ? 'Investorlar uchun' : 'For Investors'}
                 </h3>
                 <p className="text-white/80 text-sm mb-4">
