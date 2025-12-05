@@ -1,8 +1,9 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { MapPin, Users, Rocket, Award, Globe, Target } from 'lucide-react'
+import { MapPin, Users, Rocket, Award, Globe, Target, Leaf, TrendingUp, ArrowRight } from 'lucide-react'
 import { useLocale } from '@/i18n/LocaleContext'
 import { SEO } from '@/components/SEO'
+import { Link } from 'react-router-dom'
 
 export function About() {
   const ref = useRef(null)
@@ -239,66 +240,110 @@ export function About() {
       </section>
 
       {/* Coverage Map */}
-      <section className="container mx-auto max-w-6xl mb-16">
+      <section className="container mx-auto max-w-5xl mb-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.8 }}
-          className="relative"
+          className="relative group"
         >
-          {/* Decorative background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-brand-lightBlue/50 via-brand-lightTeal/30 to-brand-lightGreen/40 rounded-3xl -m-4 blur-xl opacity-60" />
+          {/* Animated gradient border effect */}
+          <div className="absolute -inset-1 bg-gradient-to-r from-brand-blue via-brand-green to-brand-blue rounded-2xl opacity-30 group-hover:opacity-50 blur-sm transition-opacity duration-500" />
           
-          <div className="relative bg-white/80 backdrop-blur-sm rounded-3xl p-6 md:p-8 shadow-2xl shadow-brand-blue/10 border border-white/50">
-            {/* Header */}
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="h-px flex-1 max-w-[60px] bg-gradient-to-r from-transparent to-brand-blue/30" />
-              <h4 className="text-lg font-semibold text-brand-darkBlue px-4">
-                {t('about.coverageMap')}
-              </h4>
-              <div className="h-px flex-1 max-w-[60px] bg-gradient-to-l from-transparent to-brand-blue/30" />
+          {/* Main container */}
+          <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl">
+            {/* Elegant header bar */}
+            <div className="bg-gradient-to-r from-brand-darkBlue via-brand-blue to-brand-darkBlue px-6 py-4 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-white/20 backdrop-blur flex items-center justify-center">
+                  <Globe className="w-4 h-4 text-white" />
+                </div>
+                <span className="text-white font-semibold">{t('about.coverageMap')}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                <span className="text-white/70 text-sm">Live</span>
+              </div>
             </div>
             
             {/* Map Container */}
-            <div className="relative rounded-2xl overflow-hidden shadow-inner bg-gradient-to-br from-gray-50 to-gray-100">
-              {/* Decorative corners */}
-              <div className="absolute top-0 left-0 w-20 h-20 border-l-4 border-t-4 border-brand-blue/20 rounded-tl-2xl pointer-events-none z-10" />
-              <div className="absolute top-0 right-0 w-20 h-20 border-r-4 border-t-4 border-brand-green/20 rounded-tr-2xl pointer-events-none z-10" />
-              <div className="absolute bottom-0 left-0 w-20 h-20 border-l-4 border-b-4 border-brand-green/20 rounded-bl-2xl pointer-events-none z-10" />
-              <div className="absolute bottom-0 right-0 w-20 h-20 border-r-4 border-b-4 border-brand-blue/20 rounded-br-2xl pointer-events-none z-10" />
-              
-              <div className="relative w-full" style={{ paddingBottom: '50%', minHeight: '400px' }}>
-                <iframe 
-                  src="https://datalens.yandex/eurdibfb0zyqz"
-                  className="absolute inset-0 w-full h-full border-0"
-                  title="Delever Coverage Map"
-                  allowFullScreen
-                />
-              </div>
-            </div>
-            
-            {/* Stats mini-bar */}
-            <div className="mt-6 flex flex-wrap justify-center gap-6 md:gap-10">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-brand-blue to-brand-green animate-pulse" />
-                <span className="text-sm text-brand-darkBlue/70">
-                  <span className="font-semibold text-brand-darkBlue">1000+</span> {t('stats.businesses')}
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-brand-green to-emerald-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
-                <span className="text-sm text-brand-darkBlue/70">
-                  <span className="font-semibold text-brand-darkBlue">7</span> {t('stats.countries')}
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-purple-500 to-brand-blue animate-pulse" style={{ animationDelay: '1s' }} />
-                <span className="text-sm text-brand-darkBlue/70">
-                  <span className="font-semibold text-brand-darkBlue">13M+</span> {t('stats.orders')}
-                </span>
-              </div>
+            <div className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100" style={{ paddingBottom: '50%', minHeight: '380px' }}>
+              <iframe 
+                src="https://datalens.yandex/eurdibfb0zyqz"
+                className="absolute inset-0 w-full h-full border-0"
+                title="Delever Coverage Map"
+                allowFullScreen
+              />
             </div>
           </div>
+        </motion.div>
+      </section>
+
+      {/* ESG & Investors Section */}
+      <section className="container mx-auto max-w-4xl mb-16">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.9 }}
+        >
+          {/* ESG Card */}
+          <Link to="/esg">
+            <motion.div 
+              className="group relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-emerald-500 to-teal-600 text-white cursor-pointer"
+              whileHover={{ scale: 1.02, y: -4 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
+              <div className="relative z-10">
+                <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <Leaf className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">ESG & Sustainability</h3>
+                <p className="text-white/80 text-sm mb-4">
+                  {language === 'ru' 
+                    ? 'Устойчивое развитие и социальная ответственность' 
+                    : language === 'uz'
+                    ? 'Barqaror rivojlanish va ijtimoiy mas\'uliyat'
+                    : 'Sustainable development and social responsibility'}
+                </p>
+                <div className="flex items-center gap-2 text-sm font-medium group-hover:gap-3 transition-all">
+                  <span>{language === 'ru' ? 'Подробнее' : language === 'uz' ? 'Batafsil' : 'Learn more'}</span>
+                  <ArrowRight className="w-4 h-4" />
+                </div>
+              </div>
+            </motion.div>
+          </Link>
+
+          {/* Investors Card */}
+          <Link to="/investors">
+            <motion.div 
+              className="group relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-brand-darkBlue to-blue-700 text-white cursor-pointer"
+              whileHover={{ scale: 1.02, y: -4 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
+              <div className="relative z-10">
+                <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <TrendingUp className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">
+                  {language === 'ru' ? 'Инвесторам' : language === 'uz' ? 'Investorlar uchun' : 'For Investors'}
+                </h3>
+                <p className="text-white/80 text-sm mb-4">
+                  {language === 'ru' 
+                    ? 'Возможности роста и инвестиционные материалы' 
+                    : language === 'uz'
+                    ? "O'sish imkoniyatlari va investitsiya materiallari"
+                    : 'Growth opportunities and investment materials'}
+                </p>
+                <div className="flex items-center gap-2 text-sm font-medium group-hover:gap-3 transition-all">
+                  <span>{language === 'ru' ? 'Подробнее' : language === 'uz' ? 'Batafsil' : 'Learn more'}</span>
+                  <ArrowRight className="w-4 h-4" />
+                </div>
+              </div>
+            </motion.div>
+          </Link>
         </motion.div>
       </section>
 
