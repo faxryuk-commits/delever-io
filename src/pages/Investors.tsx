@@ -25,12 +25,14 @@ import {
   ArrowRight,
   ExternalLink,
   Leaf,
-  Briefcase
+  Briefcase,
+  FileText
 } from 'lucide-react'
 import { useLocale } from '@/i18n/LocaleContext'
 import { SEO } from '@/components/SEO'
 import { ContactForm } from '@/components/ContactForm'
 import { downloadInvestorDeck } from '@/utils/generateInvestorDeck'
+import { downloadOnePager } from '@/utils/generateOnePager'
 
 // Animated counter component
 function AnimatedNumber({ value, suffix = '' }: { value: number; suffix?: string }) {
@@ -182,6 +184,10 @@ export function Investors() {
     downloadInvestorDeck(language)
   }
 
+  const handleDownloadOnePager = () => {
+    downloadOnePager(language)
+  }
+
   const handleDataRoomRequest = () => {
     setContactType('dataroom')
     setShowContactForm(true)
@@ -243,7 +249,17 @@ export function Investors() {
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-3">
+              <motion.button 
+                onClick={handleDownloadOnePager}
+                className="flex items-center gap-2 bg-emerald-500 text-white px-6 py-3.5 rounded-xl font-semibold shadow-lg shadow-emerald-500/30 hover:bg-emerald-600 transition-all"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <FileText className="h-5 w-5" />
+                {t('investors.cta.onePager')}
+              </motion.button>
+              
               <motion.button 
                 onClick={handleDownloadDeck}
                 className="flex items-center gap-2 bg-white text-brand-darkBlue px-6 py-3.5 rounded-xl font-semibold shadow-xl hover:shadow-2xl transition-all"
@@ -950,6 +966,16 @@ export function Investors() {
             </p>
 
             <div className="flex flex-wrap justify-center gap-4">
+              <motion.button 
+                onClick={handleDownloadOnePager}
+                className="flex items-center gap-2 bg-emerald-500 text-white px-8 py-4 rounded-xl font-semibold shadow-lg shadow-emerald-500/30 hover:bg-emerald-600 transition-all"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <FileText className="h-5 w-5" />
+                {t('investors.cta.onePager')}
+              </motion.button>
+              
               <motion.button 
                 onClick={handleDownloadDeck}
                 className="flex items-center gap-2 bg-white text-brand-darkBlue px-8 py-4 rounded-xl font-semibold shadow-xl hover:shadow-2xl transition-all"
