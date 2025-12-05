@@ -86,14 +86,18 @@ export function Aggregators() {
   return (
     <>
       <SEO 
-        title={language === 'en' ? 'Aggregator Integration' : 'Интеграция с агрегаторами'}
+        title={language === 'en' ? 'Aggregator Integration' : language === 'uz' ? 'Agregatorlar bilan integratsiya' : 'Интеграция с агрегаторами'}
         description={language === 'en'
           ? 'Automate orders from Wolt, Glovo, Uzum, Yandex Eats. One dashboard for all aggregators. Save 20+ hours/week.'
+          : language === 'uz'
+          ? "Wolt, Glovo, Uzum, Yandex Eats'dan buyurtmalarni avtomatlashtiring. Barcha agregatorlar uchun bitta dashboard. Haftasiga 20+ soat tejang."
           : 'Автоматизируйте заказы из Wolt, Glovo, Uzum, Яндекс Еды. Один кабинет для всех агрегаторов. Экономия 20+ часов/неделю.'
         }
         keywords={language === 'en'
-          ? 'aggregator integration, Wolt integration, Glovo integration, Yandex Eats integration, food delivery automation'
-          : 'интеграция агрегаторов, интеграция Wolt, интеграция Glovo, интеграция Яндекс Еда, автоматизация доставки'
+          ? 'aggregator integration, Wolt integration, Glovo integration, Yandex Eats integration, food delivery automation, Uzum Tezkor'
+          : language === 'uz'
+          ? "agregator integratsiyasi, Wolt integratsiyasi, Glovo integratsiyasi, Yandex Eats integratsiyasi, yetkazib berish avtomatlashtirish"
+          : 'интеграция агрегаторов, интеграция Wolt, интеграция Glovo, интеграция Яндекс Еда, автоматизация доставки, Uzum Tezkor'
         }
       />
       <div ref={ref} className="min-h-screen">

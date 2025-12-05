@@ -201,8 +201,16 @@ export function Investors() {
       <SEO 
         title={language === 'en' ? 'For Investors' : language === 'uz' ? 'Investorlar uchun' : 'Инвесторам'}
         description={language === 'en' 
-          ? 'Delever is building the operating system for restaurants and urban commerce in emerging markets. Join us.'
-          : 'Delever создаёт операционную систему для ресторанов и городской коммерции на развивающихся рынках.'
+          ? 'Delever is building the operating system for restaurants and urban commerce in emerging markets. $100M+ GMV, 1000+ restaurants, 7 countries. TAM $250B+'
+          : language === 'uz'
+          ? "Delever rivojlanayotgan bozorlarda restoranlar va shahar tijorati uchun operatsion tizimni yaratmoqda. $100M+ GMV, 1000+ restoranlar, 7 mamlakat."
+          : 'Delever создаёт операционную систему для ресторанов и городской коммерции на развивающихся рынках. $100M+ GMV, 1000+ ресторанов, 7 стран.'
+        }
+        keywords={language === 'en'
+          ? 'investment, food tech, startup, emerging markets, restaurant technology, SaaS, Central Asia, MENA, UAE, seed funding'
+          : language === 'uz'
+          ? "investitsiya, food tech, startup, rivojlanayotgan bozorlar, restoran texnologiyasi, SaaS, Markaziy Osiyo, MENA, BAA"
+          : 'инвестиции, food tech, стартап, развивающиеся рынки, ресторанные технологии, SaaS, Центральная Азия, MENA, ОАЭ'
         }
       />
 

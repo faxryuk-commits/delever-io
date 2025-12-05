@@ -130,10 +130,18 @@ export function ESG() {
   return (
     <div className="min-h-screen">
       <SEO 
-        title={language === 'en' ? 'ESG & Sustainability' : 'ESG и Устойчивое развитие'}
+        title={language === 'en' ? 'ESG & Sustainability' : language === 'uz' ? 'ESG va Barqaror rivojlanish' : 'ESG и Устойчивое развитие'}
         description={language === 'en' 
           ? 'Delever reduces environmental impact of last-mile logistics, improves working conditions, and creates transparent ecosystems'
+          : language === 'uz'
+          ? "Delever yetkazib berishning ekologik ta'sirini kamaytiradi, mehnat sharoitlarini yaxshilaydi va shaffof ekotizimlarni yaratadi"
           : 'Delever снижает экологическое воздействие доставки, улучшает условия труда и создаёт прозрачные экосистемы'
+        }
+        keywords={language === 'en'
+          ? 'ESG, sustainability, food delivery, carbon footprint, social responsibility, corporate governance'
+          : language === 'uz'
+          ? "ESG, barqaror rivojlanish, ovqat yetkazish, uglerod izi, ijtimoiy mas'uliyat, korporativ boshqaruv"
+          : 'ESG, устойчивое развитие, доставка еды, углеродный след, социальная ответственность, корпоративное управление'
         }
       />
 
