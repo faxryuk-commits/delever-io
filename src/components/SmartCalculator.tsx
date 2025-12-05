@@ -1127,8 +1127,10 @@ export function SmartCalculator() {
       
       {/* ROI Калькулятор с параметрами бизнеса */}
       <div className="bg-gradient-to-r from-brand-darkBlue to-blue-900 rounded-2xl p-6 text-white">
-        <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-          <TrendingUp className="h-5 w-5" />
+        <h3 className="text-xl font-bold mb-6 flex items-center gap-3 text-white">
+          <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+            <TrendingUp className="h-5 w-5" />
+          </div>
           {t('calc2.roiCalculator')}
         </h3>
         

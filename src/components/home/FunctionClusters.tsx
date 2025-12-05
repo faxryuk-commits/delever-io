@@ -143,15 +143,24 @@ export function FunctionClusters() {
                 onMouseEnter={() => setActiveCluster(cluster.id)}
                 onMouseLeave={() => setActiveCluster(null)}
               >
-                <div className={`h-full rounded-2xl border-2 transition-all overflow-hidden ${
-                  isActive 
-                    ? 'border-brand-darkBlue shadow-xl' 
-                    : 'border-brand-lightTeal/20 hover:border-brand-darkBlue/30'
-                }`}>
+                <motion.div 
+                  className={`h-full rounded-2xl border-2 overflow-hidden ${
+                    isActive 
+                      ? 'border-brand-darkBlue shadow-xl' 
+                      : 'border-brand-lightTeal/20 hover:border-brand-darkBlue/30'
+                  }`}
+                  animate={{
+                    borderRadius: isActive ? '24px' : '16px',
+                  }}
+                  transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                >
                   {/* Градиент фон при активации */}
-                  <div className={`absolute inset-0 bg-brand-darkBlue transition-opacity ${
-                    isActive ? 'opacity-100' : 'opacity-0'
-                  }`} />
+                  <motion.div 
+                    className="absolute inset-0 bg-brand-darkBlue rounded-2xl"
+                    initial={false}
+                    animate={{ opacity: isActive ? 1 : 0 }}
+                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  />
                   
                   <div className={`relative z-10 p-6 h-full flex flex-col ${isActive ? 'text-white' : ''}`}>
                     {/* Иконка и заголовок */}
@@ -174,12 +183,13 @@ export function FunctionClusters() {
                     </div>
 
                     {/* Список функций */}
-                    <AnimatePresence>
+                    <AnimatePresence mode="wait">
                       {isActive && (
                         <motion.div
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: 'auto' }}
                           exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
                           className="flex-1"
                         >
                           <ul className="space-y-2 mb-4">
@@ -189,7 +199,7 @@ export function FunctionClusters() {
                                 className="flex items-center gap-2 text-sm text-white/90"
                                 initial={{ opacity: 0, x: -10 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: fIdx * 0.05 }}
+                                transition={{ delay: 0.1 + fIdx * 0.06, duration: 0.3, ease: 'easeOut' }}
                               >
                                 <Check className="h-4 w-4 text-white/70 flex-shrink-0" />
                                 {t(feature)}
@@ -203,7 +213,7 @@ export function FunctionClusters() {
                     {/* Ссылка на детали */}
                     <Link 
                       to={cluster.link}
-                      className={`inline-flex items-center gap-2 text-sm font-medium mt-auto transition-colors ${
+                      className={`inline-flex items-center gap-2 text-sm font-medium mt-auto transition-colors duration-300 ${
                         isActive 
                           ? 'text-white hover:text-white/80' 
                           : 'text-brand-darkBlue hover:text-brand-darkBlue/70'
@@ -213,7 +223,7 @@ export function FunctionClusters() {
                       <ChevronRight className="h-4 w-4" />
                     </Link>
                   </div>
-                </div>
+                </motion.div>
               </motion.div>
             )
           })}
