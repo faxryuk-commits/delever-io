@@ -462,29 +462,53 @@ export function ESG() {
                 </motion.a>
               ))}
 
-              {/* UN SDG Logo Card */}
+              {/* UN SDG Logo Card - Official vertical logo with UN emblem */}
               <motion.a
                 href="https://sdgs.un.org/goals"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group aspect-square bg-white border border-gray-200 flex flex-col items-center justify-center p-3 hover:shadow-lg transition-all rounded-sm overflow-hidden"
+                className="group aspect-square bg-white flex flex-col items-center justify-center p-3 hover:shadow-lg transition-all rounded-sm overflow-hidden"
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.6 }}
                 whileHover={{ scale: 1.05 }}
               >
-                <img 
-                  src="https://sdgs.un.org/sites/default/files/2020-09/SDG%20Wheel_Transparent_WEB.png"
-                  alt="UN SDG Logo"
-                  className="w-16 h-16 lg:w-20 lg:h-20 mb-2"
-                  loading="lazy"
-                />
-                <div className="text-[9px] lg:text-[11px] font-bold text-[#00689D] uppercase tracking-wider leading-tight text-center">
-                  Sustainable<br/>Development<br/>Goals
+                {/* UN Emblem */}
+                <svg viewBox="0 0 100 100" className="w-12 h-12 lg:w-14 lg:h-14 mb-2">
+                  <circle cx="50" cy="50" r="48" fill="none" stroke="#009EDB" strokeWidth="1.5"/>
+                  <path fill="#009EDB" d="M50 8 C25 8 8 25 8 50 C8 75 25 92 50 92 C75 92 92 75 92 50 C92 25 75 8 50 8 M50 12 C73 12 88 27 88 50 C88 73 73 88 50 88 C27 88 12 73 12 50 C12 27 27 12 50 12" opacity="0.3"/>
+                  <ellipse cx="50" cy="55" rx="30" ry="12" fill="none" stroke="#009EDB" strokeWidth="1"/>
+                  <ellipse cx="50" cy="55" rx="20" ry="8" fill="none" stroke="#009EDB" strokeWidth="1"/>
+                  <path fill="#009EDB" d="M35 40 Q50 25 65 40 L60 42 Q50 30 40 42 Z"/>
+                  <circle cx="50" cy="50" r="3" fill="#009EDB"/>
+                </svg>
+                
+                {/* Text */}
+                <div className="text-center leading-tight">
+                  <div className="text-[10px] lg:text-xs font-bold text-[#009EDB] tracking-wide">SUSTAINABLE</div>
+                  <div className="text-[10px] lg:text-xs font-bold text-[#009EDB] tracking-wide">DEVELOPMENT</div>
+                  <div className="text-[13px] lg:text-base font-bold text-[#009EDB] tracking-wider flex items-center justify-center gap-0.5">
+                    G
+                    {/* SDG Wheel mini */}
+                    <svg viewBox="0 0 20 20" className="w-3.5 h-3.5 lg:w-4 lg:h-4 inline-block">
+                      <circle cx="10" cy="10" r="9" fill="none" stroke="#009EDB" strokeWidth="0.5"/>
+                      <circle cx="10" cy="4" r="1.5" fill="#E5243B"/>
+                      <circle cx="14" cy="6" r="1.5" fill="#DDA63A"/>
+                      <circle cx="16" cy="10" r="1.5" fill="#4C9F38"/>
+                      <circle cx="14" cy="14" r="1.5" fill="#C5192D"/>
+                      <circle cx="10" cy="16" r="1.5" fill="#FF3A21"/>
+                      <circle cx="6" cy="14" r="1.5" fill="#26BDE2"/>
+                      <circle cx="4" cy="10" r="1.5" fill="#FCC30B"/>
+                      <circle cx="6" cy="6" r="1.5" fill="#A21942"/>
+                      <circle cx="10" cy="10" r="2" fill="#19486A"/>
+                    </svg>
+                    ALS
+                  </div>
                 </div>
-                <div className="text-[9px] lg:text-[10px] text-blue-600 mt-2 group-hover:underline">
-                  {language === 'ru' ? 'Все цели →' : language === 'uz' ? "Barcha maqsadlar →" : 'See all →'}
+                
+                <div className="text-[8px] lg:text-[9px] text-[#009EDB] mt-2 group-hover:underline">
+                  {language === 'ru' ? 'Все 17 целей →' : language === 'uz' ? "Barcha 17 maqsad →" : 'All 17 goals →'}
                 </div>
               </motion.a>
             </div>
