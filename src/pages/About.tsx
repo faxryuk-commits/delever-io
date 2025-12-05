@@ -44,6 +44,121 @@ export function About() {
     },
   ]
 
+  // Market data for each country
+  const countryData: Record<string, {
+    population: string
+    foodDeliveryMarket: string
+    growth: string
+    potential: { ru: string; en: string; uz: string }
+    highlight: { ru: string; en: string; uz: string }
+  }> = {
+    uz: {
+      population: '36M',
+      foodDeliveryMarket: '$800M',
+      growth: '+45%',
+      potential: {
+        ru: 'Главный рынок Delever. Быстрорастущий средний класс, 65% населения моложе 30 лет. Низкая конкуренция среди tech-платформ.',
+        en: 'Delever\'s main market. Fast-growing middle class, 65% population under 30. Low competition among tech platforms.',
+        uz: 'Delever\'ning asosiy bozori. Tez o\'sib borayotgan o\'rta sinf, aholining 65% 30 yoshdan yosh. Tech platformalar orasida past raqobat.'
+      },
+      highlight: {
+        ru: '🏆 #1 рынок по клиентам',
+        en: '🏆 #1 market by clients',
+        uz: '🏆 Mijozlar bo\'yicha #1 bozor'
+      }
+    },
+    kz: {
+      population: '20M',
+      foodDeliveryMarket: '$1.2B',
+      growth: '+35%',
+      potential: {
+        ru: 'Крупнейшая экономика ЦА. Высокий уровень цифровизации, развитая инфраструктура онлайн-платежей.',
+        en: 'Largest economy in Central Asia. High digitalization level, developed online payment infrastructure.',
+        uz: 'Markaziy Osiyodagi eng katta iqtisodiyot. Yuqori raqamlashtirish darajasi, rivojlangan onlayn to\'lov infratuzilmasi.'
+      },
+      highlight: {
+        ru: '💰 Наибольший средний чек',
+        en: '💰 Highest average check',
+        uz: '💰 Eng yuqori o\'rtacha chek'
+      }
+    },
+    kg: {
+      population: '7M',
+      foodDeliveryMarket: '$150M',
+      growth: '+40%',
+      potential: {
+        ru: 'Быстро растущий рынок доставки в Бишкеке. Молодое население, высокий уровень проникновения смартфонов.',
+        en: 'Fast-growing delivery market in Bishkek. Young population, high smartphone penetration.',
+        uz: 'Bishkekda tez o\'sib borayotgan yetkazib berish bozori. Yosh aholi, smartfonlarning yuqori tarqalishi.'
+      },
+      highlight: {
+        ru: '📱 80% онлайн-заказов',
+        en: '📱 80% online orders',
+        uz: '📱 80% onlayn buyurtmalar'
+      }
+    },
+    az: {
+      population: '10M',
+      foodDeliveryMarket: '$400M',
+      growth: '+30%',
+      potential: {
+        ru: 'Нефтяная экономика с высоким уровнем дохода. Баку — премиум-рынок для HoReCa. Растущий туризм.',
+        en: 'Oil economy with high income levels. Baku is a premium HoReCa market. Growing tourism.',
+        uz: 'Yuqori daromadli neft iqtisodiyoti. Boku — HoReCa uchun premium bozor. O\'sib borayotgan turizm.'
+      },
+      highlight: {
+        ru: '🛢️ Премиум сегмент',
+        en: '🛢️ Premium segment',
+        uz: '🛢️ Premium segment'
+      }
+    },
+    ge: {
+      population: '3.7M',
+      foodDeliveryMarket: '$200M',
+      growth: '+25%',
+      potential: {
+        ru: 'Туристический хаб региона. Тбилиси — гастрономическая столица Кавказа. Развитая IT-экосистема.',
+        en: 'Regional tourism hub. Tbilisi is the gastronomic capital of Caucasus. Developed IT ecosystem.',
+        uz: 'Mintaqaviy turizm markazi. Tbilisi — Kavkazning gastronomik poytaxti. Rivojlangan IT ekotizimi.'
+      },
+      highlight: {
+        ru: '🍷 Гастрономия + туризм',
+        en: '🍷 Gastronomy + tourism',
+        uz: '🍷 Gastronomiya + turizm'
+      }
+    },
+    cy: {
+      population: '1.2M',
+      foodDeliveryMarket: '$100M',
+      growth: '+20%',
+      potential: {
+        ru: 'Европейский плацдарм. Высокий уровень дохода, развитый туризм. Вход на рынок ЕС.',
+        en: 'European foothold. High income level, developed tourism. Gateway to EU market.',
+        uz: 'Yevropa o\'rni. Yuqori daromad darajasi, rivojlangan turizm. Yevropa Ittifoqi bozoriga kirish.'
+      },
+      highlight: {
+        ru: '🇪🇺 Выход в Европу',
+        en: '🇪🇺 EU gateway',
+        uz: '🇪🇺 Yevropa Ittifoqiga kirish'
+      }
+    },
+    ae: {
+      population: '10M',
+      foodDeliveryMarket: '$5B',
+      growth: '+15%',
+      potential: {
+        ru: 'Крупнейший рынок доставки в MENA. Дубай — мировой хаб ресторанного бизнеса. Высокая маржинальность.',
+        en: 'Largest delivery market in MENA. Dubai is a global restaurant hub. High margins.',
+        uz: 'MENA\'dagi eng katta yetkazib berish bozori. Dubay — restoran biznesining jahon markazi. Yuqori marja.'
+      },
+      highlight: {
+        ru: '🚀 Стратегический приоритет',
+        en: '🚀 Strategic priority',
+        uz: '🚀 Strategik ustuvorlik'
+      }
+    }
+  }
+
   const countries = [
     { nameKey: 'uz', flag: '🇺🇿', status: 'main' },
     { nameKey: 'kz', flag: '🇰🇿', status: 'active' },
@@ -55,13 +170,13 @@ export function About() {
   ]
 
   const countryNames: Record<string, Record<string, string>> = {
-    uz: { ru: 'Узбекистан', en: 'Uzbekistan' },
-    kz: { ru: 'Казахстан', en: 'Kazakhstan' },
-    kg: { ru: 'Кыргызстан', en: 'Kyrgyzstan' },
-    az: { ru: 'Азербайджан', en: 'Azerbaijan' },
-    ge: { ru: 'Грузия', en: 'Georgia' },
-    cy: { ru: 'Кипр', en: 'Cyprus' },
-    ae: { ru: 'ОАЭ', en: 'UAE' },
+    uz: { ru: 'Узбекистан', en: 'Uzbekistan', uz: 'O\'zbekiston' },
+    kz: { ru: 'Казахстан', en: 'Kazakhstan', uz: 'Qozog\'iston' },
+    kg: { ru: 'Кыргызстан', en: 'Kyrgyzstan', uz: 'Qirg\'iziston' },
+    az: { ru: 'Азербайджан', en: 'Azerbaijan', uz: 'Ozarbayjon' },
+    ge: { ru: 'Грузия', en: 'Georgia', uz: 'Gruziya' },
+    cy: { ru: 'Кипр', en: 'Cyprus', uz: 'Kipr' },
+    ae: { ru: 'ОАЭ', en: 'UAE', uz: 'BAA' },
   }
 
   const containerVariants = {
@@ -216,25 +331,77 @@ export function About() {
             <h3 className="text-2xl font-bold text-brand-darkBlue">{t('about.geography')}</h3>
           </div>
           <div className="flex flex-wrap justify-center gap-3">
-            {countries.map((country, idx) => (
-              <motion.div 
-                key={idx}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full shadow-sm ${
-                  country.status === 'main' 
-                    ? 'bg-gradient-to-r from-brand-darkBlue to-brand-blue text-white shadow-brand-blue/20' 
-                    : 'bg-white border border-brand-lightTeal/40 text-brand-darkBlue hover:border-brand-blue/40'
-                } transition-all duration-300`}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ delay: 0.7 + idx * 0.1 }}
-                whileHover={{ scale: 1.05, y: -2 }}
-              >
-                <span className="text-xl">{country.flag}</span>
-                <span className="text-sm font-medium">
-                  {countryNames[country.nameKey]?.[language] || countryNames[country.nameKey]?.['en']}
-                </span>
-              </motion.div>
-            ))}
+            {countries.map((country, idx) => {
+              const data = countryData[country.nameKey]
+              const lang = language as 'ru' | 'en' | 'uz'
+              return (
+                <motion.div 
+                  key={idx}
+                  className={`relative group/country flex items-center gap-2 px-5 py-2.5 rounded-full shadow-sm cursor-pointer ${
+                    country.status === 'main' 
+                      ? 'bg-gradient-to-r from-brand-darkBlue to-brand-blue text-white shadow-brand-blue/20' 
+                      : 'bg-white border border-brand-lightTeal/40 text-brand-darkBlue hover:border-brand-blue/40'
+                  } transition-all duration-300`}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ delay: 0.7 + idx * 0.1 }}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                >
+                  <span className="text-xl">{country.flag}</span>
+                  <span className="text-sm font-medium">
+                    {countryNames[country.nameKey]?.[language] || countryNames[country.nameKey]?.['en']}
+                  </span>
+                  
+                  {/* Tooltip */}
+                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-72 opacity-0 invisible group-hover/country:opacity-100 group-hover/country:visible transition-all duration-300 z-50 pointer-events-none">
+                    <div className="bg-brand-darkBlue text-white rounded-xl p-4 shadow-2xl">
+                      {/* Header */}
+                      <div className="flex items-center justify-between mb-3 pb-2 border-b border-white/20">
+                        <div className="flex items-center gap-2">
+                          <span className="text-2xl">{country.flag}</span>
+                          <span className="font-bold">
+                            {countryNames[country.nameKey]?.[language] || countryNames[country.nameKey]?.['en']}
+                          </span>
+                        </div>
+                        <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full">
+                          {data?.highlight?.[lang]}
+                        </span>
+                      </div>
+                      
+                      {/* Stats */}
+                      <div className="grid grid-cols-3 gap-2 mb-3">
+                        <div className="text-center">
+                          <div className="text-lg font-bold text-brand-green">{data?.population}</div>
+                          <div className="text-[10px] text-white/60">
+                            {language === 'ru' ? 'население' : language === 'uz' ? 'aholi' : 'population'}
+                          </div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-lg font-bold text-brand-lightTeal">{data?.foodDeliveryMarket}</div>
+                          <div className="text-[10px] text-white/60">
+                            {language === 'ru' ? 'рынок' : language === 'uz' ? 'bozor' : 'market'}
+                          </div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-lg font-bold text-emerald-400">{data?.growth}</div>
+                          <div className="text-[10px] text-white/60">
+                            {language === 'ru' ? 'рост/год' : language === 'uz' ? "o'sish/yil" : 'YoY growth'}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Description */}
+                      <p className="text-xs text-white/80 leading-relaxed">
+                        {data?.potential?.[lang]}
+                      </p>
+                      
+                      {/* Arrow */}
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-brand-darkBlue" />
+                    </div>
+                  </div>
+                </motion.div>
+              )
+            })}
           </div>
         </motion.div>
       </section>
