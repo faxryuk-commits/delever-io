@@ -28,7 +28,8 @@ import {
   CreditCard,
   X,
   BadgePercent,
-  FileText
+  FileText,
+  Smartphone
 } from 'lucide-react'
 import { Button } from './ui/Button'
 import { ContactForm } from './ContactForm'
@@ -1076,38 +1077,68 @@ export function SmartCalculator() {
             </div>
           </div>
         </div>
+      </div>
+      
+      {/* Мобильное приложение как отдельный продукт */}
+      <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl p-6 shadow-sm border border-purple-200">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h3 className="text-lg font-bold text-brand-darkBlue flex items-center gap-2">
+              <Smartphone className="h-5 w-5 text-purple-600" />
+              {language === 'ru' ? 'Мобильное приложение' : language === 'uz' ? 'Mobil ilova' : 'Mobile App'}
+              <span className="text-xs bg-purple-200 text-purple-700 px-2 py-0.5 rounded-full">
+                {language === 'ru' ? 'White Label' : 'White Label'}
+              </span>
+            </h3>
+            <p className="text-sm text-brand-darkBlue/60 mt-1">
+              {language === 'ru' 
+                ? 'iOS + Android приложение под вашим брендом в App Store и Google Play' 
+                : language === 'uz' 
+                ? "App Store va Google Play'da o'z brendingiz ostida iOS + Android ilova"
+                : 'iOS + Android app under your brand in App Store and Google Play'}
+            </p>
+            <p className="text-xs text-purple-600 mt-1">
+              {language === 'ru' ? 'Единоразовая оплата • Запуск за 2 недели' : language === 'uz' ? "Bir martalik to'lov • 2 haftada ishga tushirish" : 'One-time payment • Launch in 2 weeks'}
+            </p>
+          </div>
+          <a href="/white-label" className="text-sm text-purple-600 hover:text-purple-700 underline">
+            {language === 'ru' ? 'Подробнее' : language === 'uz' ? 'Batafsil' : 'Learn more'} →
+          </a>
+        </div>
         
-        {/* Mobile App Card */}
         <div 
-          className={`p-4 rounded-xl border-2 transition-all cursor-pointer mt-4 ${
+          className={`flex items-center justify-between bg-white rounded-xl p-4 border-2 cursor-pointer transition-all ${
             selectedModules.includes('mobileApp')
-              ? 'bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-400'
-              : 'bg-gradient-to-r from-purple-50/50 to-indigo-50/50 border-transparent hover:border-purple-300'
+              ? 'border-purple-400 bg-purple-50/50'
+              : 'border-purple-100 hover:border-purple-300'
           }`}
           onClick={() => toggleModule('mobileApp')}
         >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                checked={selectedModules.includes('mobileApp')}
-                onChange={() => toggleModule('mobileApp')}
-                className="w-5 h-5 rounded text-purple-600"
-              />
-              <div>
-                <div className="font-medium text-brand-darkBlue flex items-center gap-2">
-                  📱 {t('calc.module.mobileApp')}
-                  <span className="text-xs bg-purple-200 text-purple-700 px-2 py-0.5 rounded-full">
-                    {language === 'ru' ? 'Единоразово' : language === 'uz' ? 'Bir martalik' : 'One-time'}
-                  </span>
-                </div>
-                <div className="text-xs text-brand-darkBlue/50">iOS + Android • App Store & Google Play</div>
+          <div className="flex items-center gap-3">
+            <input
+              type="checkbox"
+              checked={selectedModules.includes('mobileApp')}
+              onChange={() => toggleModule('mobileApp')}
+              className="w-5 h-5 rounded text-purple-600"
+            />
+            <div>
+              <div className="font-medium text-brand-darkBlue flex items-center gap-2">
+                📱 {t('calc.module.mobileApp')}
+                <span className="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded-full">
+                  {language === 'ru' ? 'Единоразово' : language === 'uz' ? 'Bir martalik' : 'One-time'}
+                </span>
+              </div>
+              <div className="text-xs text-brand-darkBlue/50">
+                {language === 'ru' ? 'Push-уведомления • Программа лояльности • Онлайн оплата' : language === 'uz' ? "Push-bildirishnomalar • Sadoqat dasturi • Onlayn to'lov" : 'Push notifications • Loyalty program • Online payment'}
               </div>
             </div>
-            <div className="text-right">
-              <div className="text-lg font-bold text-purple-600">
-                {formatPriceConverted(getPrice(13000000, 1100))}
-              </div>
+          </div>
+          <div className="text-right">
+            <div className="text-xl font-bold text-purple-600">
+              {formatPriceConverted(getPrice(13000000, 1100))}
+            </div>
+            <div className="text-xs text-brand-darkBlue/50">
+              {language === 'ru' ? 'единоразово' : language === 'uz' ? 'bir martalik' : 'one-time'}
             </div>
           </div>
         </div>
