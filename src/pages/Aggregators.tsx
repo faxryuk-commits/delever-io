@@ -133,9 +133,9 @@ export function Aggregators() {
                 </Button>
                 <Button 
                   size="lg" 
-                  variant="outline"
+                  variant="secondary"
                   onClick={() => downloadAggregatorsPresentation(language)}
-                  className="border-white/30 text-white hover:bg-white/10"
+                  className="bg-white text-brand-darkBlue hover:bg-white/90 shadow-lg"
                 >
                   <Download className="mr-2 h-4 w-4" />
                   {language === 'ru' ? 'Скачать презентацию' : language === 'uz' ? 'Taqdimotni yuklab olish' : 'Download Presentation'}
