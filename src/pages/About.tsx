@@ -267,10 +267,11 @@ export function About() {
             </div>
             
             {/* Map Container */}
-            <div className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100" style={{ paddingBottom: '50%', minHeight: '380px' }}>
+            <div className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center" style={{ minHeight: '450px' }}>
               <iframe 
                 src="https://datalens.yandex/eurdibfb0zyqz"
-                className="absolute inset-0 w-full h-full border-0"
+                className="w-full h-full absolute inset-0 border-0"
+                style={{ minHeight: '450px' }}
                 title="Delever Coverage Map"
                 allowFullScreen
               />
