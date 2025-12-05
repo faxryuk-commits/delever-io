@@ -5,6 +5,17 @@
       "destination": "/api/$1"
     },
     {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*(Telegrambot|facebookexternalhit|Twitterbot|LinkedInBot|WhatsApp|Slackbot|Discordbot).*"
+        }
+      ],
+      "destination": "/api/og-tags?path=/$1"
+    },
+    {
       "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
@@ -13,6 +24,10 @@
     "api/chatbot.ts": {
       "memory": 1024,
       "maxDuration": 30
+    },
+    "api/og-tags.ts": {
+      "memory": 128,
+      "maxDuration": 10
     }
   },
   "headers": [
