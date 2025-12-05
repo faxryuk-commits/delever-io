@@ -40,6 +40,17 @@ import { trackEvents } from './Analytics'
 type Situation = 'commissions' | 'manual' | 'fragmented' | 'migrate' | 'scratch'
 type ROIScenario = 'own' | 'integrate' | 'switch'
 
+// Тип модуля
+interface Module {
+  id: string
+  nameKey: string
+  priceUZS: number
+  priceUSD: number
+  perType: 'branch' | 'brand' | 'kiosk' | 'fixed' | 'oneTime'
+  logo?: string
+  isOneTime?: boolean
+}
+
 // Базовые тарифы
 const basePlans = [
   { id: 'start', name: 'Start', orders: 1000, priceUZS: 1300000, priceUSD: 150, perOrderUZS: 1950, perOrderUSD: 0.20, popular: false },
@@ -49,48 +60,49 @@ const basePlans = [
 ]
 
 // Дополнительные модули по категориям
-const moduleCategories = [
+const moduleCategories: { id: string; icon: typeof Layers; modules: Module[] }[] = [
   {
     id: 'aggregators',
     icon: Layers,
     modules: [
-      { id: 'uzum', nameKey: 'calc.module.uzum', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: '/logos/Uzum tezkor.png' },
-      { id: 'wolt', nameKey: 'calc.module.wolt', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: '/logos/wolt.png' },
-      { id: 'yandex', nameKey: 'calc.module.yandex', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: '/logos/Yandex Eats.jpeg' },
-      { id: 'glovo', nameKey: 'calc.module.glovo', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: '/logos/Glovo.png' },
-      { id: 'bolt', nameKey: 'calc.module.bolt', priceUZS: 260000, priceUSD: 35, perType: 'branch' as const, logo: '/logos/Bolt food.png' },
-      { id: 'allAggregators', nameKey: 'calc.module.allAggregators', priceUZS: 650000, priceUSD: 100, perType: 'branch' as const, logo: '' },
+      { id: 'uzum', nameKey: 'calc.module.uzum', priceUZS: 260000, priceUSD: 35, perType: 'branch', logo: '/logos/Uzum tezkor.png' },
+      { id: 'wolt', nameKey: 'calc.module.wolt', priceUZS: 260000, priceUSD: 35, perType: 'branch', logo: '/logos/wolt.png' },
+      { id: 'yandex', nameKey: 'calc.module.yandex', priceUZS: 260000, priceUSD: 35, perType: 'branch', logo: '/logos/Yandex Eats.jpeg' },
+      { id: 'glovo', nameKey: 'calc.module.glovo', priceUZS: 260000, priceUSD: 35, perType: 'branch', logo: '/logos/Glovo.png' },
+      { id: 'bolt', nameKey: 'calc.module.bolt', priceUZS: 260000, priceUSD: 35, perType: 'branch', logo: '/logos/Bolt food.png' },
+      { id: 'allAggregators', nameKey: 'calc.module.allAggregators', priceUZS: 650000, priceUSD: 100, perType: 'branch', logo: '' },
     ]
   },
   {
     id: 'deliveryServices',
     icon: Truck,
     modules: [
-      { id: 'yandexDelivery', nameKey: 'calc.module.yandexDelivery', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const, logo: '/logos/Yandex go (dostavka).svg.png' },
-      { id: 'woltDrive', nameKey: 'calc.module.woltDrive', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const, logo: '/logos/wolt.png' },
-      { id: 'millenniumTaxi', nameKey: 'calc.module.millenniumTaxi', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const, logo: '/logos/Millenium taxi.png' },
-      { id: 'noor', nameKey: 'calc.module.noor', priceUZS: 195000, priceUSD: 30, perType: 'branch' as const, logo: '/logos/Noor.jpg' },
-      { id: 'allDeliveryServices', nameKey: 'calc.module.allDeliveryServices', priceUZS: 520000, priceUSD: 80, perType: 'branch' as const, logo: '' },
+      { id: 'yandexDelivery', nameKey: 'calc.module.yandexDelivery', priceUZS: 195000, priceUSD: 30, perType: 'branch', logo: '/logos/Yandex go (dostavka).svg.png' },
+      { id: 'woltDrive', nameKey: 'calc.module.woltDrive', priceUZS: 195000, priceUSD: 30, perType: 'branch', logo: '/logos/wolt.png' },
+      { id: 'millenniumTaxi', nameKey: 'calc.module.millenniumTaxi', priceUZS: 195000, priceUSD: 30, perType: 'branch', logo: '/logos/Millenium taxi.png' },
+      { id: 'noor', nameKey: 'calc.module.noor', priceUZS: 195000, priceUSD: 30, perType: 'branch', logo: '/logos/Noor.jpg' },
+      { id: 'allDeliveryServices', nameKey: 'calc.module.allDeliveryServices', priceUZS: 520000, priceUSD: 80, perType: 'branch', logo: '' },
     ]
   },
   {
     id: 'operations',
     icon: Store,
     modules: [
-      { id: 'courierApp', nameKey: 'calc.module.courierApp', priceUZS: 260000, priceUSD: 35, perType: 'brand' as const },
-      { id: 'kiosk', nameKey: 'calc.module.kiosk', priceUZS: 910000, priceUSD: 90, perType: 'kiosk' as const },
-      { id: 'kds', nameKey: 'calc.module.kds', priceUZS: 65000, priceUSD: 10, perType: 'branch' as const },
-      { id: 'booking', nameKey: 'calc.module.booking', priceUZS: 130000, priceUSD: 20, perType: 'brand' as const },
-      { id: 'callCenter', nameKey: 'calc.module.callCenter', priceUZS: 0, priceUSD: 20, perType: 'fixed' as const },
+      { id: 'courierApp', nameKey: 'calc.module.courierApp', priceUZS: 260000, priceUSD: 35, perType: 'brand' },
+      { id: 'kiosk', nameKey: 'calc.module.kiosk', priceUZS: 910000, priceUSD: 90, perType: 'kiosk' },
+      { id: 'mobileApp', nameKey: 'calc.module.mobileApp', priceUZS: 13000000, priceUSD: 1100, perType: 'oneTime', isOneTime: true },
+      { id: 'kds', nameKey: 'calc.module.kds', priceUZS: 65000, priceUSD: 10, perType: 'branch' },
+      { id: 'booking', nameKey: 'calc.module.booking', priceUZS: 130000, priceUSD: 20, perType: 'brand' },
+      { id: 'callCenter', nameKey: 'calc.module.callCenter', priceUZS: 0, priceUSD: 20, perType: 'fixed' },
     ]
   },
   {
     id: 'marketing',
     icon: Megaphone,
     modules: [
-      { id: 'marketing', nameKey: 'calc.module.marketing', priceUZS: 390000, priceUSD: 35, perType: 'brand' as const },
-      { id: 'dashboard', nameKey: 'calc.module.dashboard', priceUZS: 130000, priceUSD: 20, perType: 'brand' as const },
-      { id: 'manager', nameKey: 'calc.module.manager', priceUZS: 1300000, priceUSD: 150, perType: 'brand' as const },
+      { id: 'marketing', nameKey: 'calc.module.marketing', priceUZS: 390000, priceUSD: 35, perType: 'brand' },
+      { id: 'dashboard', nameKey: 'calc.module.dashboard', priceUZS: 130000, priceUSD: 20, perType: 'brand' },
+      { id: 'manager', nameKey: 'calc.module.manager', priceUZS: 1300000, priceUSD: 150, perType: 'brand' },
     ]
   },
 ]
@@ -207,9 +219,26 @@ export function SmartCalculator() {
           case 'kiosk':
             cost += basePrice * Math.max(1, kiosks)
             break
+          case 'oneTime':
+            // Единоразовые платежи не включаются в месячную стоимость
+            break
           default:
             cost += basePrice
         }
+      }
+    })
+    return cost
+  }
+  
+  // Вычисление единоразовых платежей
+  const calculateOneTimeCost = () => {
+    let cost = 0
+    const allModules = moduleCategories.flatMap(c => c.modules)
+    
+    selectedModules.forEach(moduleId => {
+      const module = allModules.find(m => m.id === moduleId)
+      if (module && module.perType === 'oneTime') {
+        cost += getPrice(module.priceUZS, module.priceUSD)
       }
     })
     return cost
@@ -219,6 +248,7 @@ export function SmartCalculator() {
   const skipBasePlan = onlyAggregatorsMode || onlyKioskMode
   const planCost = skipBasePlan ? 0 : getPrice(selectedPlan.priceUZS, selectedPlan.priceUSD)
   const modulesCost = calculateModulesCost()
+  const oneTimeCost = calculateOneTimeCost()
   const totalMonthlyCost = planCost + (skipBasePlan ? 0 : extraOrdersCost) + modulesCost
   
   // Депозит: базовый или специальный для режимов
@@ -393,6 +423,10 @@ export function SmartCalculator() {
           case 'kiosk':
             qty = `${Math.max(1, kiosks)} ${t('calc2.pcs')}`
             price = basePrice * Math.max(1, kiosks)
+            break
+          case 'oneTime':
+            qty = language === 'ru' ? 'единоразово' : language === 'uz' ? 'bir martalik' : 'one-time'
+            price = basePrice
             break
         }
         
@@ -1042,6 +1076,41 @@ export function SmartCalculator() {
             </div>
           </div>
         </div>
+        
+        {/* Mobile App Card */}
+        <div 
+          className={`p-4 rounded-xl border-2 transition-all cursor-pointer mt-4 ${
+            selectedModules.includes('mobileApp')
+              ? 'bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-400'
+              : 'bg-gradient-to-r from-purple-50/50 to-indigo-50/50 border-transparent hover:border-purple-300'
+          }`}
+          onClick={() => toggleModule('mobileApp')}
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                checked={selectedModules.includes('mobileApp')}
+                onChange={() => toggleModule('mobileApp')}
+                className="w-5 h-5 rounded text-purple-600"
+              />
+              <div>
+                <div className="font-medium text-brand-darkBlue flex items-center gap-2">
+                  📱 {t('calc.module.mobileApp')}
+                  <span className="text-xs bg-purple-200 text-purple-700 px-2 py-0.5 rounded-full">
+                    {language === 'ru' ? 'Единоразово' : language === 'uz' ? 'Bir martalik' : 'One-time'}
+                  </span>
+                </div>
+                <div className="text-xs text-brand-darkBlue/50">iOS + Android • App Store & Google Play</div>
+              </div>
+            </div>
+            <div className="text-right">
+              <div className="text-lg font-bold text-purple-600">
+                {formatPriceConverted(getPrice(13000000, 1100))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       
       {/* Дополнительные модули - компактный вид */}
@@ -1051,16 +1120,16 @@ export function SmartCalculator() {
             <Package className="h-5 w-5 text-brand-blue" />
             {t('calc2.additionalModules')}
           </h3>
-          {selectedModules.filter(m => !['uzum', 'wolt', 'yandex', 'allAggregators', 'kiosk'].includes(m)).length > 0 && (
+          {selectedModules.filter(m => !['uzum', 'wolt', 'yandex', 'allAggregators', 'kiosk', 'mobileApp'].includes(m)).length > 0 && (
             <span className="bg-brand-blue text-white text-xs font-bold px-3 py-1 rounded-full">
-              {selectedModules.filter(m => !['uzum', 'wolt', 'yandex', 'allAggregators', 'kiosk'].includes(m)).length} {t('calc2.selected')}
+              {selectedModules.filter(m => !['uzum', 'wolt', 'yandex', 'allAggregators', 'kiosk', 'mobileApp'].includes(m)).length} {t('calc2.selected')}
             </span>
           )}
         </div>
         
         {/* Операции и Маркетинг - сетка с красивыми карточками */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          {[...moduleCategories[2].modules, ...moduleCategories[3].modules].filter(m => m.id !== 'kiosk').map((module) => {
+          {[...moduleCategories[2].modules, ...moduleCategories[3].modules].filter(m => m.id !== 'kiosk' && m.id !== 'mobileApp').map((module) => {
             const isSelected = selectedModules.includes(module.id)
             const basePrice = getPrice(module.priceUZS, module.priceUSD)
             const descKey = `${module.nameKey}.desc`
@@ -1075,6 +1144,10 @@ export function SmartCalculator() {
               case 'brand':
                 multiplier = brands
                 label = `× ${brands}`
+                break
+              case 'oneTime':
+                multiplier = 1
+                label = language === 'ru' ? '(единоразово)' : language === 'uz' ? '(bir martalik)' : '(one-time)'
                 break
             }
             
@@ -1476,6 +1549,15 @@ export function SmartCalculator() {
               <span>{t('calc2.deposit')}</span>
               <span className="font-medium">{formatPriceConverted(deposit)}</span>
             </div>
+            {oneTimeCost > 0 && (
+              <div className="flex justify-between items-center text-purple-700 mb-2 p-2 bg-purple-50 rounded-lg">
+                <span className="flex items-center gap-2">
+                  <span>📱</span>
+                  {language === 'ru' ? 'Мобильное приложение (единоразово)' : language === 'uz' ? "Mobil ilova (bir martalik)" : 'Mobile App (one-time)'}
+                </span>
+                <span className="font-bold">{formatPriceConverted(oneTimeCost)}</span>
+              </div>
+            )}
           </div>
           
           {/* Общая экономия */}
