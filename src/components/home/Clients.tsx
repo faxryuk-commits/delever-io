@@ -7,7 +7,6 @@ const clients = [
   { name: 'Hardees', logo: '/logos/hardees.jpg' },
   { name: 'Pinkberry', logo: '/logos/pinkberry.png' },
   { name: 'Dodo Pizza', logo: '/logos/dodo.png' },
-  { name: 'ABR', logo: '/logos/abr.png' },
   { name: 'EVOS', logo: '/logos/evos.png' },
   { name: 'MAXWAY', logo: '/logos/maxway.png' },
 ]

@@ -1,4 +1,5 @@
 import { Hero } from '@/components/home/Hero'
+import { Clients } from '@/components/home/Clients'
 import { SegmentNavigator } from '@/components/home/SegmentNavigator'
 import { PlatformDiagram } from '@/components/home/PlatformDiagram'
 import { PainsSolutions } from '@/components/home/PainsSolutions'
@@ -43,6 +44,9 @@ export function Home() {
       
       {/* 1. Hero */}
       <Hero />
+      
+      {/* 1.5. Им доверяют миллионы */}
+      <Clients />
       
       {/* 2. Что такое Delever */}
       <PlatformDiagram />
