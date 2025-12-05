@@ -3,10 +3,12 @@ import { useLocale } from '@/i18n/LocaleContext'
 
 // Клиенты с логотипами (порядок по запросу)
 const clients = [
+  { name: 'Yaponamama', logo: '/logos/Yaponamama.webp' },
   { name: 'Pizza Hut', logo: '/logos/pizza-hut-logo-png_seeklogo-257097.png' },
   { name: 'Hardees', logo: '/logos/hardees.jpg' },
   { name: 'Pinkberry', logo: '/logos/pinkberry.png' },
   { name: 'Dodo Pizza', logo: '/logos/dodo.png' },
+  { name: 'ABR', logo: '/logos/abr.png' },
   { name: 'EVOS', logo: '/logos/evos.png' },
   { name: 'MAXWAY', logo: '/logos/maxway.png' },
 ]
