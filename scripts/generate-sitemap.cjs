@@ -28,6 +28,7 @@ const pages = [
   { path: '/white-label', priority: '0.8', changefreq: 'monthly' },
   { path: '/esg', priority: '0.7', changefreq: 'monthly' },
   { path: '/investors', priority: '0.8', changefreq: 'monthly' },
+  { path: '/ai-marketing', priority: '0.8', changefreq: 'weekly' },
 ];
 
 // Генерация URL записи

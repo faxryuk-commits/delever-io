@@ -209,6 +209,20 @@ const pageMeta: Record<string, Record<string, PageMeta>> = {
       description: "POS-tizimlar, to'lov xizmatlari, agregatorlar va kuryer xizmatlari bilan tayyor integratsiyalar.",
     },
   },
+  '/ai-marketing': {
+    ru: {
+      title: 'AI-генератор маркетинговых постов — Delever',
+      description: 'Бесплатный AI-инструмент для создания маркетинговых постов для ресторанов. Генерируйте контент для Instagram, Telegram и Stories за секунды.',
+    },
+    en: {
+      title: 'AI Marketing Post Generator — Delever',
+      description: 'Free AI tool to generate marketing posts for restaurants. Create Instagram, Telegram and Stories content in seconds.',
+    },
+    uz: {
+      title: "AI Marketing Postlar Generatori — Delever",
+      description: "Restoranlar uchun marketing postlarini yaratuvchi bepul AI vosita. Instagram, Telegram va Stories kontentini soniyalar ichida yarating.",
+    },
+  },
 }
 
 // Detect language from Accept-Language header or URL
