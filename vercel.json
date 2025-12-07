@@ -23,13 +23,11 @@
   "functions": {
     "api/chatbot.ts": {
       "memory": 1024,
-      "maxDuration": 30,
-      "regions": ["iad1"]
+      "maxDuration": 30
     },
     "api/ai-marketing.ts": {
       "memory": 1024,
-      "maxDuration": 30,
-      "regions": ["iad1"]
+      "maxDuration": 30
     },
     "api/og-tags.ts": {
       "memory": 128,

@@ -3,6 +3,7 @@
 
 export const config = {
   runtime: 'edge',
+  preferredRegion: 'iad1', // Washington DC, USA - bypass OpenAI regional blocks
 }
 
 interface MarketingRequest {
