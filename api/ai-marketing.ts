@@ -454,11 +454,12 @@ export default async function handler(request: Request) {
         if (geminiKey) {
           console.log('AI Marketing: Trying Google Gemini API...', { hasKey: !!geminiKey, keyPrefix: geminiKey.substring(0, 10) })
           try {
-            // Пробуем OpenAI-совместимый endpoint
-            let geminiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${geminiKey}`, {
+            // Пробуем нативный Gemini API endpoint
+            let geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
+                'x-goog-api-key': geminiKey,
               },
               body: JSON.stringify({
                 contents: [{
