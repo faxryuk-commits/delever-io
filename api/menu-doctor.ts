@@ -243,15 +243,80 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
   return getFallbackReport()
 }
 
+// Проверка наличия контента меню в HTML
+function detectMenuContent(html: string): { hasMenu: boolean; reason?: string } {
+  const lowerHtml = html.toLowerCase()
+  
+  // Признаки SPA/динамической загрузки
+  const spaIndicators = [
+    'window.__NUXT__',
+    'window.__NEXT_DATA__',
+    '__PRELOADED_STATE__',
+    'root"></div><script',
+    'id="app"></div>',
+    'id="root"></div>',
+  ]
+  
+  const isSPA = spaIndicators.some(ind => html.includes(ind))
+  
+  // Признаки меню
+  const menuIndicators = [
+    'price', 'цена', 'narx', 'сум', 'sum', 'uzs',
+    'menu', 'меню', 'menyu',
+    'блюдо', 'taom', 'dish',
+    'добавить в корзину', 'add to cart', 'savatga'
+  ]
+  
+  const hasMenuIndicators = menuIndicators.some(ind => lowerHtml.includes(ind))
+  
+  // Считаем числа (потенциальные цены)
+  const pricePattern = /\d{1,3}[\s,.]?\d{3}/g
+  const potentialPrices = html.match(pricePattern) || []
+  
+  if (isSPA && potentialPrices.length < 5) {
+    return { 
+      hasMenu: false, 
+      reason: 'Этот сайт загружает меню динамически (JavaScript). Попробуйте страницу с текстовым меню или PDF.'
+    }
+  }
+  
+  if (!hasMenuIndicators && potentialPrices.length < 3) {
+    return { 
+      hasMenu: false, 
+      reason: 'На странице не найдено меню с ценами. Убедитесь, что ссылка ведёт на страницу с меню.'
+    }
+  }
+  
+  return { hasMenu: true }
+}
+
 // Fallback ответ когда AI недоступен
-function getFallbackReport(): MenuDoctorReport {
+function getFallbackReport(reason?: string): MenuDoctorReport {
+  if (reason) {
+    return {
+      score: 0,
+      summary: reason,
+      issues: [
+        'Не удалось извлечь меню со страницы',
+        'Сайт использует динамическую загрузку контента',
+        'Для анализа нужна страница с текстовым меню'
+      ],
+      recommendations: [
+        'Попробуйте ссылку на страницу с HTML-меню (не SPA)',
+        'Используйте прямую ссылку на меню ресторана',
+        'Свяжитесь с нами для ручного анализа меню'
+      ],
+      upsellIdeas: [],
+      menuStructure: []
+    }
+  }
+  
   return {
     score: 65,
-    summary: 'Анализ меню выполнен на основе шаблона. Для полного AI-анализа попробуйте позже или обратитесь к нам для консультации.',
+    summary: 'AI-анализ временно недоступен. Базовые рекомендации сформированы на основе лучших практик.',
     issues: [
       'Не удалось выполнить глубокий AI-анализ',
-      'Рекомендуем проверить структуру меню вручную',
-      'Возможно, на странице мало текстового контента'
+      'Сервис временно перегружен'
     ],
     recommendations: [
       'Добавьте описания к блюдам для лучшего понимания',
@@ -262,17 +327,9 @@ function getFallbackReport(): MenuDoctorReport {
     upsellIdeas: [
       'Создайте комбо-меню с напитком и десертом',
       'Предлагайте апсейл на большие порции',
-      'Добавьте блок "С этим блюдом заказывают"',
-      'Введите сезонные спецпредложения'
+      'Добавьте блок "С этим блюдом заказывают"'
     ],
-    menuStructure: [
-      {
-        category: 'Пример категории',
-        items: [
-          { name: 'Загрузите реальное меню', description: 'Для полного анализа', price: '—' }
-        ]
-      }
-    ]
+    menuStructure: []
   }
 }
 
@@ -379,6 +436,16 @@ export default async function handler(request: Request) {
     }
 
     console.log('Menu Doctor: HTML length:', html.length, 'truncated:', truncated)
+
+    // Проверка наличия контента меню
+    const menuCheck = detectMenuContent(html)
+    if (!menuCheck.hasMenu) {
+      console.log('Menu Doctor: No menu content detected:', menuCheck.reason)
+      return new Response(JSON.stringify(getFallbackReport(menuCheck.reason)), {
+        status: 200,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      })
+    }
 
     // Формирование промпта
     const prompt = buildPrompt(html, { menuUrl, averageBill, location, venueType, language }, truncated)
