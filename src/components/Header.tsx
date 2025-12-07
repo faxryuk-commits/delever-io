@@ -190,20 +190,6 @@ export function Header() {
                   {t(item.labelKey)}
                 </Link>
               ))}
-
-              {/* AI Marketing - Special highlighted link */}
-              <Link
-                to="/ai-marketing"
-                className={cn(
-                  'px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1.5',
-                  isActive('/ai-marketing')
-                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md'
-                    : 'bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 hover:from-purple-200 hover:to-pink-200'
-                )}
-              >
-                <Sparkles className="h-4 w-4" />
-                {t('nav.aiMarketing')}
-              </Link>
             </nav>
 
             {/* Right side controls */}
@@ -291,23 +277,6 @@ export function Header() {
                 ))}
               </div>
 
-              {/* AI Marketing - Special link */}
-              <div className="pt-4 mt-4 border-t border-brand-lightTeal/20">
-                <Link
-                  to="/ai-marketing"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 font-medium"
-                >
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
-                    <Sparkles className="h-5 w-5 text-white" />
-                  </div>
-                  <div>
-                    <div className="font-semibold">{t('nav.aiMarketing')}</div>
-                    <div className="text-xs text-purple-600">{t('nav.aiMarketingDesc')}</div>
-                  </div>
-                </Link>
-              </div>
-              
               <div className="pt-4 mt-4 border-t border-brand-lightTeal/20 space-y-2">
                 <Button
                   variant="outline"
