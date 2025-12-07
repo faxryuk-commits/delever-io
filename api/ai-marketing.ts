@@ -160,7 +160,6 @@ async function parseProductUrl(url: string): Promise<ParsedProductData> {
 function getFallbackMarketingResponse(data: MarketingRequest, productData?: ParsedProductData): MarketingResponse {
   const lang = data.language
   const brand = data.brandName || 'Ваш ресторан'
-  const _cuisine = data.cuisine || 'вкусная кухня' // для возможного использования в будущем
   
   // Используем данные из URL, если они есть
   let promo = data.promoDescription || 'Специальное предложение'
@@ -375,8 +374,7 @@ export default async function handler(request: Request) {
       }
     }
 
-    // Попытка использовать альтернативный AI сервис, если OpenAI недоступен
-    const _anthropicKey = process.env.ANTHROPIC_API_KEY // для возможного использования в будущем
+    // Попытка использовать альтернативный AI сервис (Gemini), если OpenAI недоступен
     const geminiKey = process.env.GOOGLE_GEMINI_API_KEY
     
     // Call OpenAI (или альтернативный сервис)
