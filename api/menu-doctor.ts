@@ -130,12 +130,61 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
   const openaiKey = process.env.OPENAI_API_KEY
   const geminiKey = process.env.GOOGLE_GEMINI_API_KEY
   const anthropicKey = process.env.ANTHROPIC_API_KEY
+  const openrouterKey = process.env.OPENROUTER_API_KEY
   
   console.log('Menu Doctor: Available AI providers:', {
     openai: !!openaiKey,
     gemini: !!geminiKey,
-    anthropic: !!anthropicKey
+    anthropic: !!anthropicKey,
+    openrouter: !!openrouterKey
   })
+  
+  // Сначала пробуем OpenRouter (работает везде, без региональных блокировок)
+  if (openrouterKey) {
+    console.log('Menu Doctor: Trying OpenRouter (global proxy)...')
+    try {
+      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${openrouterKey}`,
+          'HTTP-Referer': 'https://delever.io',
+          'X-Title': 'Delever Menu Doctor',
+        },
+        body: JSON.stringify({
+          model: 'anthropic/claude-3-haiku',
+          messages: [
+            { role: 'user', content: prompt }
+          ],
+          temperature: 0.7,
+          max_tokens: 4000,
+        }),
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        const content = data.choices?.[0]?.message?.content
+        if (content) {
+          // Извлекаем JSON из ответа
+          let jsonStr = content
+          const jsonMatch = content.match(/```json\s*([\s\S]*?)\s*```/) || 
+                            content.match(/```\s*([\s\S]*?)\s*```/) ||
+                            content.match(/\{[\s\S]*\}/)
+          if (jsonMatch) {
+            jsonStr = jsonMatch[1] || jsonMatch[0]
+          }
+          const result = JSON.parse(jsonStr)
+          console.log('Menu Doctor: ✅ Generated using OpenRouter (Claude)')
+          return result
+        }
+      } else {
+        const errText = await response.text()
+        console.log('Menu Doctor: OpenRouter failed:', response.status, errText)
+      }
+    } catch (error) {
+      console.error('Menu Doctor: OpenRouter error:', error)
+    }
+  }
   
   // Попытка OpenAI
   if (openaiKey) {

@@ -537,12 +537,14 @@ export default async function handler(request: Request) {
     // Попытка использовать альтернативные AI сервисы
     const geminiKey = process.env.GOOGLE_GEMINI_API_KEY
     const anthropicKey = process.env.ANTHROPIC_API_KEY
+    const openrouterKey = process.env.OPENROUTER_API_KEY
     
     // Call OpenAI (или альтернативный сервис)
     console.log('AI Marketing: Calling AI API...', {
       brandName: requestBody.brandName,
       hasGemini: !!geminiKey,
-      hasAnthropic: !!anthropicKey
+      hasAnthropic: !!anthropicKey,
+      hasOpenRouter: !!openrouterKey
     })
     
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -685,6 +687,66 @@ export default async function handler(request: Request) {
           }
         } catch (claudeError) {
           console.error('AI Marketing: Claude request failed:', claudeError)
+        }
+      }
+      
+      // Пробуем OpenRouter (глобальный прокси, работает везде)
+      if (isRegionBlocked && openrouterKey) {
+        console.log('AI Marketing: Trying OpenRouter (global proxy)...')
+        
+        try {
+          const openrouterResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${openrouterKey}`,
+              'HTTP-Referer': 'https://delever.io',
+              'X-Title': 'Delever AI Marketing',
+            },
+            body: JSON.stringify({
+              model: 'anthropic/claude-3-haiku',
+              messages: [
+                { role: 'system', content: SYSTEM_PROMPT },
+                { role: 'user', content: getUserPrompt(requestBody, productData) },
+              ],
+              temperature: 0.8,
+              max_tokens: 2000,
+            }),
+          })
+
+          console.log('AI Marketing: OpenRouter response status:', openrouterResponse.status)
+
+          if (openrouterResponse.ok) {
+            const openrouterData = await openrouterResponse.json()
+            const openrouterContent = openrouterData.choices?.[0]?.message?.content
+            
+            if (openrouterContent) {
+              try {
+                // Извлекаем JSON из ответа
+                let jsonStr = openrouterContent
+                const jsonMatch = openrouterContent.match(/```json\s*([\s\S]*?)\s*```/) || 
+                                  openrouterContent.match(/```\s*([\s\S]*?)\s*```/) ||
+                                  openrouterContent.match(/\{[\s\S]*\}/)
+                if (jsonMatch) {
+                  jsonStr = jsonMatch[1] || jsonMatch[0]
+                }
+                
+                const result = JSON.parse(jsonStr)
+                console.log('AI Marketing: ✅ Generated content using OpenRouter')
+                return new Response(JSON.stringify(result), {
+                  status: 200,
+                  headers: { 'Content-Type': 'application/json' },
+                })
+              } catch (parseError) {
+                console.error('AI Marketing: Failed to parse OpenRouter response:', parseError)
+              }
+            }
+          } else {
+            const errText = await openrouterResponse.text()
+            console.error('AI Marketing: OpenRouter API error:', errText)
+          }
+        } catch (openrouterError) {
+          console.error('AI Marketing: OpenRouter request failed:', openrouterError)
         }
       }
       
