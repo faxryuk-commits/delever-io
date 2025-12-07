@@ -32,12 +32,12 @@ interface MarketingResponse {
   hashtags: string[]
 }
 
-const SYSTEM_PROMPT = `Ты — гениальный SMM-маркетолог с 10-летним опытом. Твои тексты вызывают эмоции и желание купить прямо сейчас.
+const SYSTEM_PROMPT = `Ты — гениальный SMM-маркетолог с 10-летним опытом. Твои тексты вызывают эмоции и желание действовать прямо сейчас.
 
 ТВОЯ ЗАДАЧА:
 Создать контент-план для бизнеса на основе вводных данных. Тексты должны быть "живыми", без клише, с юмором (где уместно) и четкой структурой.
 
-ВАЖНО: Адаптируй контент под ТИП БИЗНЕСА (cuisine):
+АДАПТИРУЙ ПОД ТИП БИЗНЕСА (cuisine):
 - Ресторан/кафе → вкусные описания (хрустящий, сочный, ароматный)
 - Магазин электроники → выгода, характеристики, сравнение
 - Салон красоты → результат, трансформация, уверенность
@@ -45,28 +45,41 @@ const SYSTEM_PROMPT = `Ты — гениальный SMM-маркетолог с
 - Одежда/обувь → стиль, тренды, образ
 - Любой другой → подбери подходящий стиль
 
+АДАПТИРУЙ ПОД ЦЕЛЬ (goal):
+- delivery_promo → акцент на быструю доставку, удобство, "не выходя из дома"
+- pickup_promo → акцент на самовывоз, скидку за самовывоз, "забери сам — сэкономь"
+- new_product → интрига, "наконец-то", эксклюзивность, первые покупатели
+- news_announcement → информационный стиль, "важная новость", четкие факты
+- grand_opening → праздник, приглашение, подарки первым гостям
+- event → дата, время, место, что будет интересного
+- promo_discount → срочность, ограниченное время, экономия
+- holiday_promo → праздничное настроение, подарки, поздравления
+- return_customers → "мы скучали", персональное предложение, эксклюзив
+- loyalty_program → накопление бонусов, привилегии, VIP-статус
+- weekday_boost → "не жди выходных", специальные цены в будни
+- review_request → благодарность, просьба поделиться мнением, бонус за отзыв
+
 ПРАВИЛА ДЛЯ INSTAGRAM:
-- Используй формулу AIDA (Attention, Interest, Desire, Action).
-- Заголовок должен цеплять с первых 3 слов.
-- Разбивай текст на абзацы для легкого чтения.
-- В конце ВСЕГДА призыв к действию (CTA).
+- Формула AIDA (Attention, Interest, Desire, Action)
+- Заголовок цепляет с первых 3 слов
+- Разбивай на абзацы
+- В конце ВСЕГДА призыв к действию (CTA)
 
 ПРАВИЛА ДЛЯ TELEGRAM:
-- Более личный, дружеский тон.
-- Можно использовать буллиты и списки.
-- Четкий оффер.
+- Личный, дружеский тон
+- Буллиты и списки
+- Четкий оффер
 
 ПРАВИЛА ДЛЯ STORIES:
-- Сценарии должны быть вовлекающими.
-- Предлагай интерактив (опросы, реакции).
-- Визуальные описания.
+- Вовлекающие сценарии
+- Интерактив (опросы, реакции)
+- Визуальные описания
 
 ЯЗЫК:
-- Пиши строго на языке, указанном в параметре language.
-- Для узбекского языка используй живой, разговорный стиль, а не официальный.
+- Пиши строго на языке из параметра language
+- Узбекский — живой, разговорный стиль
 
-ФОРМАТ ОТВЕТА:
-Верни ТОЛЬКО валидный JSON без markdown.`
+ФОРМАТ: Верни ТОЛЬКО валидный JSON без markdown.`
 
 // Функция для парсинга URL товара и извлечения данных
 async function parseProductUrl(url: string): Promise<ParsedProductData> {
@@ -225,59 +238,166 @@ function getFallbackMarketingResponse(data: MarketingRequest, productData?: Pars
       : ['#business', '#promo', '#sale', '#discount', '#tashkent', '#uzbekistan', '#deals']
   }
   
-  // Адаптивные тексты по типу бизнеса
-  const instagramPosts = lang === 'ru'
-    ? [
-        `🔥 ${promo.toUpperCase()}!\n\n${brand} представляет то, что вы искали! ${productDetails}\n\nПочему выбирают нас:\n✅ Лучшее качество\n✅ Выгодные цены\n✅ Быстрый сервис\n\n👇 Успейте воспользоваться предложением — ссылка в шапке профиля!`,
-        `Ищете что-то особенное? 🤔\n\n${promo} от ${brand} — ваш лучший выбор! ${productDetails}\n\nПорадуйте себя уже сегодня! 🚀\n\n📞 +998 78 113 98 13`,
-        `✨ ${brand} — качество, которому доверяют!\n\n${promo}\n${productDetails}\n\nУбедитесь сами! Ждем ваших отзывов в комментариях 👇`
-      ]
-    : lang === 'uz'
-    ? [
-        `🔥 ${promo.toUpperCase()}!\n\n${brand} dan zo'r taklif! ${productDetails}\n\nNega bizni tanlashadi:\n✅ Eng yaxshi sifat\n✅ Qulay narx\n✅ Tez xizmat\n\n👇 Hoziroq foydalaning — bio'dagi link!`,
-        `Maxsus narsa qidiryapsizmi? 🤔\n\n${brand} dan ${promo} — eng yaxshi tanlov! ${productDetails}\n\nBugun o'zingizni siylab qo'ying! 🚀\n\n📞 +998 78 113 98 13`,
-        `✨ ${brand} — ishonchli sifat!\n\n${promo}\n${productDetails}\n\nO'zingiz ko'ring! Fikringizni yozing 👇`
-      ]
-    : [
-        `🔥 ${promo.toUpperCase()}!\n\n${brand} presents exactly what you've been looking for! ${productDetails}\n\nWhy choose us:\n✅ Best quality\n✅ Great prices\n✅ Fast service\n\n👇 Don't miss out — link in bio!`,
-        `Looking for something special? 🤔\n\n${promo} from ${brand} is your best choice! ${productDetails}\n\nTreat yourself today! 🚀\n\n📞 +998 78 113 98 13`,
-        `✨ ${brand} — quality you can trust!\n\n${promo}\n${productDetails}\n\nSee for yourself! Leave your feedback below 👇`
-      ]
+  // Получаем цель для адаптации контента
+  const goal = data.goal || ''
   
+  // Генерация контента в зависимости от цели
+  const getInstagramPosts = () => {
+    // Самовывоз
+    if (goal === 'pickup_promo') {
+      return lang === 'ru' ? [
+        `🏃 САМОВЫВОЗ = ВЫГОДА!\n\n${brand} дарит скидку тем, кто забирает заказ сам!\n\n${promo}\n${productDetails}\n\n💰 Экономьте на доставке\n⏱️ Без ожидания курьера\n🎁 +бонусы за самовывоз\n\n📍 Ждем вас по адресу!`,
+        `Забери сам — сэкономь! 💪\n\n${brand} ценит ваше время. ${promo}\n${productDetails}\n\nСамовывоз — это:\n✅ Быстрее\n✅ Дешевле\n✅ Всегда свежее\n\n📍 Адрес в шапке профиля`,
+        `🎯 Лайфхак от ${brand}!\n\nСамовывоз = скидка + бонусы. ${promo}\n${productDetails}\n\nЗачем переплачивать за доставку? 😉\n\n👇 Оформляй заказ и забирай!`
+      ] : lang === 'uz' ? [
+        `🏃 O'ZI OLIB KETISH = TEJASH!\n\n${brand} o'zi olib ketuvchilarga chegirma beradi!\n\n${promo}\n${productDetails}\n\n💰 Yetkazib berishga pul to'lamaysiz\n⏱️ Kuryerni kutmaysiz\n🎁 +bonuslar\n\n📍 Manzilda kutamiz!`,
+        `O'zing ol — teja! 💪\n\n${brand} vaqtingizni qadrlaydi. ${promo}\n${productDetails}\n\nO'zi olib ketish:\n✅ Tezroq\n✅ Arzonroq\n✅ Yangi\n\n📍 Manzil bio'da`,
+        `🎯 ${brand} dan maslahat!\n\nO'zi olib ketish = chegirma + bonus. ${promo}\n${productDetails}\n\nNega ortiqcha pul to'laysiz? 😉\n\n👇 Buyurtma bering!`
+      ] : [
+        `🏃 PICKUP = SAVINGS!\n\n${brand} rewards those who pick up their orders!\n\n${promo}\n${productDetails}\n\n💰 Save on delivery\n⏱️ No waiting for courier\n🎁 +bonuses for pickup\n\n📍 Visit us!`,
+        `Pick up & save! 💪\n\n${brand} values your time. ${promo}\n${productDetails}\n\nPickup means:\n✅ Faster\n✅ Cheaper\n✅ Always fresh\n\n📍 Address in bio`,
+        `🎯 Life hack from ${brand}!\n\nPickup = discount + bonuses. ${promo}\n${productDetails}\n\nWhy pay extra for delivery? 😉\n\n👇 Order and pick up!`
+      ]
+    }
+    
+    // Доставка
+    if (goal === 'delivery_promo') {
+      return lang === 'ru' ? [
+        `🚚 ДОСТАВКА на дом!\n\n${brand} привезет прямо к двери. ${promo}\n${productDetails}\n\n✅ Бесплатно от 50 000 сум\n✅ 30-45 минут\n✅ Горячее и свежее\n\n👇 Заказывай — не выходи из дома!`,
+        `Лень выходить? Не надо! 😎\n\n${brand} доставит ${promo} прямо к вам!\n${productDetails}\n\n🚀 Быстрая доставка\n📦 Надежная упаковка\n\n📞 +998 78 113 98 13`,
+        `🏠 Оставайся дома — мы везем!\n\n${brand} заботится о вашем комфорте. ${promo}\n${productDetails}\n\nДоставка работает ежедневно!\n\n👇 Ссылка в шапке профиля`
+      ] : lang === 'uz' ? [
+        `🚚 UYGA YETKAZIB BERAMIZ!\n\n${brand} eshigingizgacha olib keladi. ${promo}\n${productDetails}\n\n✅ 50 000 so'mdan bepul\n✅ 30-45 daqiqa\n✅ Issiq va yangi\n\n👇 Buyurtma bering — uydan chiqmang!`,
+        `Chiqishga dangasa? Kerak emas! 😎\n\n${brand} ${promo} ni sizga yetkazadi!\n${productDetails}\n\n🚀 Tez yetkazib berish\n📦 Ishonchli qadoqlash\n\n📞 +998 78 113 98 13`,
+        `🏠 Uyda qoling — biz olib kelamiz!\n\n${brand} qulayligingiz haqida o'ylaydi. ${promo}\n${productDetails}\n\nYetkazib berish har kuni ishlaydi!\n\n👇 Bio'dagi link`
+      ] : [
+        `🚚 HOME DELIVERY!\n\n${brand} delivers right to your door. ${promo}\n${productDetails}\n\n✅ Free from 50,000 sum\n✅ 30-45 minutes\n✅ Hot and fresh\n\n👇 Order now — stay home!`,
+        `Too lazy to go out? Don't! 😎\n\n${brand} will deliver ${promo} to you!\n${productDetails}\n\n🚀 Fast delivery\n📦 Reliable packaging\n\n📞 +998 78 113 98 13`,
+        `🏠 Stay home — we deliver!\n\n${brand} cares about your comfort. ${promo}\n${productDetails}\n\nDelivery works daily!\n\n👇 Link in bio`
+      ]
+    }
+    
+    // Новость / объявление
+    if (goal === 'news_announcement') {
+      return lang === 'ru' ? [
+        `📢 ВАЖНАЯ НОВОСТЬ!\n\n${brand} сообщает: ${promo}\n${productDetails}\n\nЭто важно знать каждому нашему клиенту!\n\n💬 Вопросы? Пишите в директ!`,
+        `🔔 Внимание, новость!\n\n${brand} рад сообщить: ${promo}\n${productDetails}\n\nСледите за обновлениями!\n\n👇 Сохраняйте пост, чтобы не потерять`,
+        `📣 ${brand} объявляет!\n\n${promo}\n${productDetails}\n\nБудьте в курсе — подписывайтесь! 🔔`
+      ] : lang === 'uz' ? [
+        `📢 MUHIM YANGILIK!\n\n${brand} xabar beradi: ${promo}\n${productDetails}\n\nHar bir mijozimiz bilishi kerak!\n\n💬 Savollar? DMga yozing!`,
+        `🔔 Diqqat, yangilik!\n\n${brand} xabar beradi: ${promo}\n${productDetails}\n\nYangilanishlarni kuzating!\n\n👇 Postni saqlang`,
+        `📣 ${brand} e'lon qiladi!\n\n${promo}\n${productDetails}\n\nXabardor bo'ling — obuna bo'ling! 🔔`
+      ] : [
+        `📢 IMPORTANT NEWS!\n\n${brand} announces: ${promo}\n${productDetails}\n\nEvery customer should know this!\n\n💬 Questions? DM us!`,
+        `🔔 Attention, news!\n\n${brand} is happy to announce: ${promo}\n${productDetails}\n\nStay tuned for updates!\n\n👇 Save this post`,
+        `📣 ${brand} announces!\n\n${promo}\n${productDetails}\n\nStay informed — follow us! 🔔`
+      ]
+    }
+    
+    // Открытие
+    if (goal === 'grand_opening') {
+      return lang === 'ru' ? [
+        `🎊 МЫ ОТКРЫЛИСЬ!\n\n${brand} приглашает на открытие! ${promo}\n${productDetails}\n\n🎁 Подарки первым гостям\n🎉 Праздничная атмосфера\n📍 Новый адрес в шапке!\n\n👇 Ждем вас!`,
+        `🚀 GRAND OPENING!\n\n${brand} открывает двери! ${promo}\n${productDetails}\n\nПервые 100 гостей получат подарок! 🎁\n\n📅 Приходите сегодня!`,
+        `✨ Новая точка ${brand}!\n\n${promo}\n${productDetails}\n\nМы стали ближе к вам!\n\n🎉 Праздничные скидки в честь открытия!\n\n👇 Адрес в шапке`
+      ] : lang === 'uz' ? [
+        `🎊 BIZ OCHILDIK!\n\n${brand} ochilishga taklif qiladi! ${promo}\n${productDetails}\n\n🎁 Birinchi mehmonlarga sovg'a\n🎉 Bayram muhiti\n📍 Yangi manzil bio'da!\n\n👇 Kutamiz!`,
+        `🚀 GRAND OPENING!\n\n${brand} eshiklarini ochadi! ${promo}\n${productDetails}\n\nBirinchi 100 mehmon sovg'a oladi! 🎁\n\n📅 Bugun keling!`,
+        `✨ ${brand} ning yangi filiali!\n\n${promo}\n${productDetails}\n\nSizga yaqinroq bo'ldik!\n\n🎉 Ochilish sharafiga chegirmalar!\n\n👇 Manzil bio'da`
+      ] : [
+        `🎊 WE'RE OPEN!\n\n${brand} invites you to the opening! ${promo}\n${productDetails}\n\n🎁 Gifts for first guests\n🎉 Festive atmosphere\n📍 New address in bio!\n\n👇 See you there!`,
+        `🚀 GRAND OPENING!\n\n${brand} opens its doors! ${promo}\n${productDetails}\n\nFirst 100 guests get a gift! 🎁\n\n📅 Come today!`,
+        `✨ New ${brand} location!\n\n${promo}\n${productDetails}\n\nWe're closer to you now!\n\n🎉 Opening discounts!\n\n👇 Address in bio`
+      ]
+    }
+    
+    // Мероприятие
+    if (goal === 'event') {
+      return lang === 'ru' ? [
+        `🎤 ПРИГЛАШАЕМ НА МЕРОПРИЯТИЕ!\n\n${brand} проводит: ${promo}\n${productDetails}\n\n📅 Дата: [уточните]\n⏰ Время: [уточните]\n📍 Место: [уточните]\n\n👇 Регистрация по ссылке!`,
+        `🎉 Не пропустите!\n\n${brand} приглашает на ${promo}!\n${productDetails}\n\nБудет интересно:\n✨ [Что будет]\n🎁 Призы и подарки\n\n👇 Записывайтесь!`,
+        `📣 Событие от ${brand}!\n\n${promo}\n${productDetails}\n\nВход свободный / по регистрации\n\n👇 Отмечайте друзей, кто хочет пойти!`
+      ] : lang === 'uz' ? [
+        `🎤 TADBIRGA TAKLIF!\n\n${brand} o'tkazadi: ${promo}\n${productDetails}\n\n📅 Sana: [aniqlanadi]\n⏰ Vaqt: [aniqlanadi]\n📍 Joy: [aniqlanadi]\n\n👇 Ro'yxatdan o'ting!`,
+        `🎉 O'tkazib yubormang!\n\n${brand} ${promo} ga taklif qiladi!\n${productDetails}\n\nQiziqarli bo'ladi:\n✨ [Nima bo'ladi]\n🎁 Sovrinlar va sovg'alar\n\n👇 Yoziling!`,
+        `📣 ${brand} dan tadbir!\n\n${promo}\n${productDetails}\n\nKirish bepul / ro'yxatdan o'tish bilan\n\n👇 Bormoqchi do'stlarni belgilang!`
+      ] : [
+        `🎤 JOIN OUR EVENT!\n\n${brand} presents: ${promo}\n${productDetails}\n\n📅 Date: [TBD]\n⏰ Time: [TBD]\n📍 Location: [TBD]\n\n👇 Register via link!`,
+        `🎉 Don't miss it!\n\n${brand} invites you to ${promo}!\n${productDetails}\n\nIt will be exciting:\n✨ [What's happening]\n🎁 Prizes and gifts\n\n👇 Sign up!`,
+        `📣 Event by ${brand}!\n\n${promo}\n${productDetails}\n\nFree entry / registration required\n\n👇 Tag friends who want to come!`
+      ]
+    }
+    
+    // Запрос отзыва
+    if (goal === 'review_request') {
+      return lang === 'ru' ? [
+        `⭐ Ваше мнение важно!\n\n${brand} хочет стать лучше для вас.\n\n${promo}\n${productDetails}\n\nОставьте отзыв и получите бонус! 🎁\n\n👇 Ссылка в шапке профиля`,
+        `💬 Поделитесь впечатлениями!\n\n${brand} благодарит вас за выбор!\n\n${promo}\n${productDetails}\n\nНапишите честный отзыв — это помогает нам расти! ❤️`,
+        `🙏 Спасибо, что выбираете ${brand}!\n\n${promo}\n${productDetails}\n\nБудем рады вашему отзыву!\n\n⭐⭐⭐⭐⭐\n\n👇 Оставить отзыв`
+      ] : lang === 'uz' ? [
+        `⭐ Fikringiz muhim!\n\n${brand} siz uchun yaxshiroq bo'lishni xohlaydi.\n\n${promo}\n${productDetails}\n\nFikr qoldiring va bonus oling! 🎁\n\n👇 Bio'dagi link`,
+        `💬 Taassurotlaringizni ulashing!\n\n${brand} tanlaganingiz uchun rahmat!\n\n${promo}\n${productDetails}\n\nHalol fikr yozing — bu bizga o'sishga yordam beradi! ❤️`,
+        `🙏 ${brand} ni tanlaganingiz uchun rahmat!\n\n${promo}\n${productDetails}\n\nFikringizni kutamiz!\n\n⭐⭐⭐⭐⭐\n\n👇 Fikr qoldirish`
+      ] : [
+        `⭐ Your opinion matters!\n\n${brand} wants to be better for you.\n\n${promo}\n${productDetails}\n\nLeave a review and get a bonus! 🎁\n\n👇 Link in bio`,
+        `💬 Share your experience!\n\n${brand} thanks you for choosing us!\n\n${promo}\n${productDetails}\n\nWrite an honest review — it helps us grow! ❤️`,
+        `🙏 Thank you for choosing ${brand}!\n\n${promo}\n${productDetails}\n\nWe'd love your feedback!\n\n⭐⭐⭐⭐⭐\n\n👇 Leave a review`
+      ]
+    }
+    
+    // По умолчанию — универсальный контент
+    return lang === 'ru' ? [
+      `🔥 ${promo.toUpperCase()}!\n\n${brand} представляет то, что вы искали! ${productDetails}\n\nПочему выбирают нас:\n✅ Лучшее качество\n✅ Выгодные цены\n✅ Быстрый сервис\n\n👇 Успейте — ссылка в шапке!`,
+      `Ищете что-то особенное? 🤔\n\n${promo} от ${brand} — ваш лучший выбор! ${productDetails}\n\nПорадуйте себя уже сегодня! 🚀\n\n📞 +998 78 113 98 13`,
+      `✨ ${brand} — качество, которому доверяют!\n\n${promo}\n${productDetails}\n\nУбедитесь сами! 👇`
+    ] : lang === 'uz' ? [
+      `🔥 ${promo.toUpperCase()}!\n\n${brand} dan zo'r taklif! ${productDetails}\n\nNega bizni tanlashadi:\n✅ Eng yaxshi sifat\n✅ Qulay narx\n✅ Tez xizmat\n\n👇 Bio'dagi link!`,
+      `Maxsus narsa qidiryapsizmi? 🤔\n\n${brand} dan ${promo} — eng yaxshi tanlov! ${productDetails}\n\nBugun o'zingizni siylab qo'ying! 🚀\n\n📞 +998 78 113 98 13`,
+      `✨ ${brand} — ishonchli sifat!\n\n${promo}\n${productDetails}\n\nO'zingiz ko'ring! 👇`
+    ] : [
+      `🔥 ${promo.toUpperCase()}!\n\n${brand} presents what you've been looking for! ${productDetails}\n\nWhy choose us:\n✅ Best quality\n✅ Great prices\n✅ Fast service\n\n👇 Don't miss out — link in bio!`,
+      `Looking for something special? 🤔\n\n${promo} from ${brand} is your best choice! ${productDetails}\n\nTreat yourself today! 🚀\n\n📞 +998 78 113 98 13`,
+      `✨ ${brand} — quality you can trust!\n\n${promo}\n${productDetails}\n\nSee for yourself! 👇`
+    ]
+  }
+  
+  const instagramPosts = getInstagramPosts()
+  
+  // Telegram посты адаптируем под цель
   const telegramPosts = lang === 'ru'
     ? [
-        `⚡️ **${promo}** уже доступно!\n\nДрузья, ${brand} радует вас новинкой! ${productDetails}\n\nНе упустите возможность!\n\n👉 [Подробнее](https://delever.io)\n📞 +998 78 113 98 13`,
-        `🎯 **${promo} — то, что вам нужно!**\n\n${brand} знает, что вы ищете. ${productDetails}\n\n🚀 Быстро, качественно, выгодно!\n\nЖмите кнопку ниже 👇`,
-        `👋 Всем привет! У нас отличная новость!\n\n**${promo}** — именно то, что нужно. ${productDetails}\n\nПриходите к нам или заказывайте онлайн! 📦`
+        `⚡️ **${promo}**\n\n${brand} ${goal === 'pickup_promo' ? 'ждет вас на самовывоз!' : goal === 'delivery_promo' ? 'доставит к вам!' : 'радует вас!'}\n${productDetails}\n\n${goal === 'pickup_promo' ? '🏃 Забери сам — получи скидку!' : goal === 'delivery_promo' ? '🚚 Доставка 30-45 мин!' : '👉 Подробнее по ссылке'}\n\n📞 +998 78 113 98 13`,
+        `🎯 **${promo}**\n\n${brand} ${goal === 'news_announcement' ? 'сообщает важную новость!' : goal === 'grand_opening' ? 'открывает новую точку!' : 'знает, что вам нужно!'}\n${productDetails}\n\n${goal === 'event' ? '📅 Дата и время в посте' : '🚀 Не упустите возможность!'}\n\n👇 Жмите кнопку`,
+        `👋 Привет от ${brand}!\n\n**${promo}**\n${productDetails}\n\n${goal === 'review_request' ? '⭐ Оставьте отзыв — получите бонус!' : 'Приходите к нам или заказывайте!'} 📦`
       ]
     : lang === 'uz'
     ? [
-        `⚡️ **${promo}** tayyor!\n\nDo'stlar, ${brand} dan yangilik! ${productDetails}\n\nImkoniyatni qo'ldan bermang!\n\n👉 [Batafsil](https://delever.io)\n📞 +998 78 113 98 13`,
-        `🎯 **${promo} — sizga kerak narsa!**\n\n${brand} nimani qidirayotganingizni biladi. ${productDetails}\n\n🚀 Tez, sifatli, qulay!\n\nPastdagi tugmani bosing 👇`,
-        `👋 Salom hammaga! Ajoyib yangilik!\n\n**${promo}** — aynan kerakli narsa. ${productDetails}\n\nBizga keling yoki onlayn buyurtma qiling! 📦`
+        `⚡️ **${promo}**\n\n${brand} ${goal === 'pickup_promo' ? 'sizni kutadi!' : goal === 'delivery_promo' ? 'yetkazib beradi!' : 'xursand qiladi!'}\n${productDetails}\n\n${goal === 'pickup_promo' ? '🏃 O\'zing ol — chegirma ol!' : goal === 'delivery_promo' ? '🚚 Yetkazish 30-45 daq!' : '👉 Batafsil link orqali'}\n\n📞 +998 78 113 98 13`,
+        `🎯 **${promo}**\n\n${brand} ${goal === 'news_announcement' ? 'muhim yangilik xabar beradi!' : goal === 'grand_opening' ? 'yangi filial ochadi!' : 'sizga kerak narsani biladi!'}\n${productDetails}\n\n${goal === 'event' ? '📅 Sana va vaqt postda' : '🚀 Imkoniyatni qo\'ldan bermang!'}\n\n👇 Tugmani bosing`,
+        `👋 ${brand} dan salom!\n\n**${promo}**\n${productDetails}\n\n${goal === 'review_request' ? '⭐ Fikr qoldiring — bonus oling!' : 'Bizga keling yoki buyurtma qiling!'} 📦`
       ]
     : [
-        `⚡️ **${promo}** is now available!\n\nFriends, ${brand} has great news! ${productDetails}\n\nDon't miss this opportunity!\n\n👉 [Learn more](https://delever.io)\n📞 +998 78 113 98 13`,
-        `🎯 **${promo} — exactly what you need!**\n\n${brand} knows what you're looking for. ${productDetails}\n\n🚀 Fast, quality, affordable!\n\nClick the button below 👇`,
-        `👋 Hello everyone! Great news!\n\n**${promo}** — just what you need. ${productDetails}\n\nVisit us or order online! 📦`
+        `⚡️ **${promo}**\n\n${brand} ${goal === 'pickup_promo' ? 'awaits you for pickup!' : goal === 'delivery_promo' ? 'will deliver to you!' : 'has great news!'}\n${productDetails}\n\n${goal === 'pickup_promo' ? '🏃 Pick up & save!' : goal === 'delivery_promo' ? '🚚 Delivery 30-45 min!' : '👉 Learn more via link'}\n\n📞 +998 78 113 98 13`,
+        `🎯 **${promo}**\n\n${brand} ${goal === 'news_announcement' ? 'has important news!' : goal === 'grand_opening' ? 'opens a new location!' : 'knows what you need!'}\n${productDetails}\n\n${goal === 'event' ? '📅 Date and time in post' : '🚀 Don\'t miss out!'}\n\n👇 Click the button`,
+        `👋 Hello from ${brand}!\n\n**${promo}**\n${productDetails}\n\n${goal === 'review_request' ? '⭐ Leave a review — get a bonus!' : 'Visit us or order!'} 📦`
       ]
   
   const storiesIdeas = lang === 'ru'
     ? [
-        `🎥 **Сценарий 1:** Покажите ${promo} крупным планом, затем довольного клиента. Текст: "Тот самый момент..."`,
-        `🎥 **Сценарий 2:** Опрос: "Уже знакомы с ${promo}?" (Да/Хочу попробовать). Красивое фото на фоне.`,
-        `🎥 **Сценарий 3:** Закулисье: покажите процесс работы. Живая атмосфера.`
+        `🎥 **Сценарий 1:** ${goal === 'pickup_promo' ? 'Покажите очередь на самовывоз и довольных клиентов' : goal === 'grand_opening' ? 'Торжественное открытие: лента, шарики, первые гости' : `Покажите ${promo} крупным планом`}. Текст: "${goal === 'pickup_promo' ? 'Забрал сам — сэкономил!' : 'Тот самый момент...'}"`,
+        `🎥 **Сценарий 2:** Опрос: "${goal === 'pickup_promo' ? 'Как вам удобнее: доставка или самовывоз?' : goal === 'delivery_promo' ? 'Любите заказывать домой?' : `Уже пробовали ${promo}?`}" Варианты ответов.`,
+        `🎥 **Сценарий 3:** ${goal === 'event' ? 'Обратный отсчет до мероприятия' : goal === 'news_announcement' ? 'Серия сторис с раскрытием новости' : 'Закулисье: покажите процесс работы'}.`
       ]
     : lang === 'uz'
     ? [
-        `🎥 **G'oya 1:** ${promo} ni yaqindan ko'rsating, keyin mamnun mijozni. Matn: "Mana shu lahza..."`,
-        `🎥 **G'oya 2:** So'rovnoma: "${promo} bilan tanishmisiz?" (Ha/Sinab ko'rmoqchiman). Chiroyli fon rasmi.`,
-        `🎥 **G'oya 3:** Parda ortidan: ish jarayonini ko'rsating. Jonli muhit.`
+        `🎥 **G'oya 1:** ${goal === 'pickup_promo' ? 'O\'zi olib ketuvchilar navbatini va mamnun mijozlarni ko\'rsating' : goal === 'grand_opening' ? 'Tantanali ochilish: lenta, sharlar, birinchi mehmonlar' : `${promo} ni yaqindan ko'rsating`}. Matn: "${goal === 'pickup_promo' ? 'O\'zim oldim — tejadim!' : 'Mana shu lahza...'}"`,
+        `🎥 **G'oya 2:** So'rovnoma: "${goal === 'pickup_promo' ? 'Qanday qulay: yetkazish yoki o\'zi olib ketish?' : goal === 'delivery_promo' ? 'Uyga buyurtma qilishni yoqtirasizmi?' : `${promo} sinab ko'rdingizmi?`}" Javob variantlari.`,
+        `🎥 **G'oya 3:** ${goal === 'event' ? 'Tadbirgacha teskari hisob' : goal === 'news_announcement' ? 'Yangilikni ochish bilan seriya stories' : 'Parda ortidan: ish jarayonini ko\'rsating'}.`
       ]
     : [
-        `🎥 **Scenario 1:** Show ${promo} up close, then a happy customer. Text: "That moment..."`,
-        `🎥 **Scenario 2:** Poll: "Do you know ${promo}?" (Yes/Want to try). Beautiful background photo.`,
-        `🎥 **Scenario 3:** Behind the scenes: show the work process. Live atmosphere.`
+        `🎥 **Scenario 1:** ${goal === 'pickup_promo' ? 'Show pickup queue and happy customers' : goal === 'grand_opening' ? 'Grand opening: ribbon cutting, balloons, first guests' : `Show ${promo} up close`}. Text: "${goal === 'pickup_promo' ? 'Picked up — saved!' : 'That moment...'}"`,
+        `🎥 **Scenario 2:** Poll: "${goal === 'pickup_promo' ? 'What\'s better: delivery or pickup?' : goal === 'delivery_promo' ? 'Love ordering home?' : `Tried ${promo} yet?`}" Answer options.`,
+        `🎥 **Scenario 3:** ${goal === 'event' ? 'Countdown to event' : goal === 'news_announcement' ? 'Series of stories revealing the news' : 'Behind the scenes: show the work process'}.`
       ]
   
   return {

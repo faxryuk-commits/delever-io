@@ -563,13 +563,18 @@ export function AIMarketing() {
                     >
                       <option value="">{language === 'ru' ? 'Выберите цель...' : language === 'uz' ? 'Maqsadni tanlang...' : 'Select goal...'}</option>
                       <option value="increase_sales">{language === 'ru' ? '📈 Увеличить продажи' : language === 'uz' ? '📈 Sotuvni oshirish' : '📈 Increase sales'}</option>
-                      <option value="increase_average_check">{language === 'ru' ? '💰 Рост среднего чека' : language === 'uz' ? '💰 Chekni kattalashtirish' : '💰 Increase average check'}</option>
-                      <option value="return_customers">{language === 'ru' ? '🔄 Вернуть ушедших клиентов' : language === 'uz' ? '🔄 Eski mijozlarni qaytarish' : '🔄 Return lost customers'}</option>
-                      <option value="promo_discount">{language === 'ru' ? '🎁 Предложить скидку/промокод' : language === 'uz' ? '🎁 Skidka/promokod berish' : '🎁 Offer discount/promo code'}</option>
+                      <option value="delivery_promo">{language === 'ru' ? '🚚 Промо доставки' : language === 'uz' ? '🚚 Yetkazib berish aksiyasi' : '🚚 Delivery promotion'}</option>
+                      <option value="pickup_promo">{language === 'ru' ? '🏃 Самовывоз — скидка' : language === 'uz' ? '🏃 O\'zi olib ketish — chegirma' : '🏃 Pickup discount'}</option>
+                      <option value="new_product">{language === 'ru' ? '🆕 Новинка / новый товар' : language === 'uz' ? '🆕 Yangilik / yangi mahsulot' : '🆕 New product launch'}</option>
+                      <option value="news_announcement">{language === 'ru' ? '📢 Новость / объявление' : language === 'uz' ? '📢 Yangilik / e\'lon' : '📢 News / announcement'}</option>
+                      <option value="grand_opening">{language === 'ru' ? '🎊 Открытие / новая точка' : language === 'uz' ? '🎊 Ochilish / yangi filial' : '🎊 Grand opening'}</option>
+                      <option value="event">{language === 'ru' ? '🎤 Мероприятие / событие' : language === 'uz' ? '🎤 Tadbir / voqea' : '🎤 Event'}</option>
+                      <option value="promo_discount">{language === 'ru' ? '🎁 Скидка / промокод' : language === 'uz' ? '🎁 Chegirma / promokod' : '🎁 Discount / promo code'}</option>
                       <option value="holiday_promo">{language === 'ru' ? '🎉 Праздничная акция' : language === 'uz' ? '🎉 Bayram aksiyasi' : '🎉 Holiday promotion'}</option>
-                      <option value="new_product">{language === 'ru' ? '🆕 Продвижение нового товара' : language === 'uz' ? '🆕 Yangi mahsulotni reklama qilish' : '🆕 Promote new product'}</option>
-                      <option value="weekday_boost">{language === 'ru' ? '📅 Увеличить заказы в будние дни' : language === 'uz' ? '📅 Oddiy kunlarda buyurtmani oshirish' : '📅 Increase weekday orders'}</option>
-                      <option value="loyalty_program">{language === 'ru' ? '💎 Программа лояльности' : language === 'uz' ? '💎 Doimiy mijozlar uchun bonus' : '💎 Loyalty program'}</option>
+                      <option value="return_customers">{language === 'ru' ? '🔄 Вернуть клиентов' : language === 'uz' ? '🔄 Mijozlarni qaytarish' : '🔄 Win back customers'}</option>
+                      <option value="loyalty_program">{language === 'ru' ? '💎 Программа лояльности' : language === 'uz' ? '💎 Sodiqlik dasturi' : '💎 Loyalty program'}</option>
+                      <option value="weekday_boost">{language === 'ru' ? '📅 Буст в будние дни' : language === 'uz' ? '📅 Ish kunlarida oshirish' : '📅 Weekday boost'}</option>
+                      <option value="review_request">{language === 'ru' ? '⭐ Запросить отзыв' : language === 'uz' ? '⭐ Fikr so\'rash' : '⭐ Request review'}</option>
                     </select>
                   </div>
 
