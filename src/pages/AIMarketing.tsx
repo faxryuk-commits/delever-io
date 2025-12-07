@@ -627,15 +627,27 @@ export function AIMarketing() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
                           transition={{ duration: 0.2 }}
+                          className="space-y-6"
                         >
-                          <ResultBlock
-                            title={txt.instagram}
-                            icon={Instagram}
-                            items={result.instagram_posts}
-                            gradient="from-pink-500 to-purple-500"
-                            onCopy={copyToClipboard}
-                            copiedIndex={copiedIndex}
-                          />
+                          <div className="flex items-center gap-2 mb-4">
+                            <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center">
+                              <Instagram className="w-4 h-4 text-white" />
+                            </div>
+                            <h3 className="font-semibold text-brand-darkBlue">{txt.instagram}</h3>
+                            <span className="text-xs text-gray-400 ml-auto">{result.instagram_posts.length} постов</span>
+                          </div>
+                          <div className="grid gap-6">
+                            {result.instagram_posts.map((post, idx) => (
+                              <InstagramPostMockup
+                                key={idx}
+                                content={post}
+                                brandName={formData.brandName || 'Brand'}
+                                onCopy={copyToClipboard}
+                                copiedIndex={copiedIndex}
+                                id={`instagram-${idx}`}
+                              />
+                            ))}
+                          </div>
                         </motion.div>
                       )}
 
@@ -646,15 +658,27 @@ export function AIMarketing() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
                           transition={{ duration: 0.2 }}
+                          className="space-y-6"
                         >
-                          <ResultBlock
-                            title={txt.telegram}
-                            icon={Send}
-                            items={result.telegram_posts}
-                            gradient="from-blue-400 to-blue-600"
-                            onCopy={copyToClipboard}
-                            copiedIndex={copiedIndex}
-                          />
+                          <div className="flex items-center gap-2 mb-4">
+                            <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center">
+                              <Send className="w-4 h-4 text-white" />
+                            </div>
+                            <h3 className="font-semibold text-brand-darkBlue">{txt.telegram}</h3>
+                            <span className="text-xs text-gray-400 ml-auto">{result.telegram_posts.length} постов</span>
+                          </div>
+                          <div className="grid gap-6">
+                            {result.telegram_posts.map((post, idx) => (
+                              <TelegramMessageMockup
+                                key={idx}
+                                content={post}
+                                brandName={formData.brandName || 'Brand'}
+                                onCopy={copyToClipboard}
+                                copiedIndex={copiedIndex}
+                                id={`telegram-${idx}`}
+                              />
+                            ))}
+                          </div>
                         </motion.div>
                       )}
 
@@ -665,15 +689,27 @@ export function AIMarketing() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
                           transition={{ duration: 0.2 }}
+                          className="space-y-6"
                         >
-                          <ResultBlock
-                            title={txt.stories}
-                            icon={Film}
-                            items={result.stories_ideas}
-                            gradient="from-orange-400 to-pink-500"
-                            onCopy={copyToClipboard}
-                            copiedIndex={copiedIndex}
-                          />
+                          <div className="flex items-center gap-2 mb-4">
+                            <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-orange-400 to-pink-500 flex items-center justify-center">
+                              <Film className="w-4 h-4 text-white" />
+                            </div>
+                            <h3 className="font-semibold text-brand-darkBlue">{txt.stories}</h3>
+                            <span className="text-xs text-gray-400 ml-auto">{result.stories_ideas.length} идей</span>
+                          </div>
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                            {result.stories_ideas.map((idea, idx) => (
+                              <StoriesMockup
+                                key={idx}
+                                content={idea}
+                                brandName={formData.brandName || 'Brand'}
+                                onCopy={copyToClipboard}
+                                copiedIndex={copiedIndex}
+                                id={`stories-${idx}`}
+                              />
+                            ))}
+                          </div>
                         </motion.div>
                       )}
 
@@ -759,7 +795,293 @@ export function AIMarketing() {
   )
 }
 
-// Result Block Component
+// Instagram Post Mockup Component
+function InstagramPostMockup({ 
+  content, 
+  brandName,
+  onCopy, 
+  copiedIndex,
+  id
+}: {
+  content: string
+  brandName: string
+  onCopy: (text: string, id: string) => void
+  copiedIndex: string | null
+  id: string
+}) {
+  return (
+    <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden max-w-sm mx-auto">
+      {/* Header */}
+      <div className="flex items-center justify-between p-3 border-b border-gray-100">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 p-0.5">
+            <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
+              <span className="text-xs font-bold text-gray-700">{brandName.slice(0, 2).toUpperCase()}</span>
+            </div>
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-gray-900">{brandName.toLowerCase().replace(/\s+/g, '_')}</p>
+            <p className="text-xs text-gray-500">Реклама</p>
+          </div>
+        </div>
+        <button className="text-gray-500 hover:text-gray-700">
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <circle cx="10" cy="4" r="1.5" />
+            <circle cx="10" cy="10" r="1.5" />
+            <circle cx="10" cy="16" r="1.5" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Image Placeholder */}
+      <div className="aspect-square bg-gradient-to-br from-purple-100 via-pink-50 to-orange-50 flex items-center justify-center relative">
+        <div className="text-center p-6">
+          <div className="w-16 h-16 mx-auto mb-3 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+            <Instagram className="w-8 h-8 text-white" />
+          </div>
+          <p className="text-sm text-gray-500">Место для фото</p>
+        </div>
+      </div>
+
+      {/* Actions */}
+      <div className="p-3 border-b border-gray-100">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <svg className="w-6 h-6 text-gray-800 hover:text-red-500 cursor-pointer transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+            <svg className="w-6 h-6 text-gray-800 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            <svg className="w-6 h-6 text-gray-800 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+          </div>
+          <svg className="w-6 h-6 text-gray-800 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+          </svg>
+        </div>
+        <p className="text-sm font-semibold text-gray-900 mt-2">1,234 отметок «Нравится»</p>
+      </div>
+
+      {/* Caption */}
+      <div className="p-3">
+        <p className="text-sm text-gray-900">
+          <span className="font-semibold">{brandName.toLowerCase().replace(/\s+/g, '_')}</span>{' '}
+          <span className="whitespace-pre-wrap">{content}</span>
+        </p>
+        <p className="text-xs text-gray-400 mt-2">2 МИНУТЫ НАЗАД</p>
+      </div>
+
+      {/* Copy Button */}
+      <div className="p-3 border-t border-gray-100 bg-gray-50">
+        <button
+          onClick={() => onCopy(content, id)}
+          className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity"
+        >
+          {copiedIndex === id ? (
+            <>
+              <Check className="w-4 h-4" />
+              Скопировано!
+            </>
+          ) : (
+            <>
+              <Copy className="w-4 h-4" />
+              Скопировать текст
+            </>
+          )}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// Telegram Message Mockup Component
+function TelegramMessageMockup({ 
+  content, 
+  brandName,
+  onCopy, 
+  copiedIndex,
+  id
+}: {
+  content: string
+  brandName: string
+  onCopy: (text: string, id: string) => void
+  copiedIndex: string | null
+  id: string
+}) {
+  return (
+    <div className="bg-[#0e1621] rounded-2xl shadow-lg overflow-hidden max-w-sm mx-auto">
+      {/* Header */}
+      <div className="bg-[#17212b] p-3 flex items-center gap-3">
+        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+          <span className="text-sm font-bold text-white">{brandName.slice(0, 2).toUpperCase()}</span>
+        </div>
+        <div className="flex-1">
+          <p className="text-white font-medium">{brandName}</p>
+          <p className="text-xs text-gray-400">канал • 12.5K подписчиков</p>
+        </div>
+        <Send className="w-5 h-5 text-gray-400" />
+      </div>
+
+      {/* Chat Background */}
+      <div className="p-4 min-h-[200px]" style={{ backgroundColor: '#0e1621' }}>
+        {/* Message Bubble */}
+        <div className="bg-[#182533] rounded-2xl rounded-tl-md p-4 max-w-[90%] shadow-sm">
+          <p className="text-white text-sm whitespace-pre-wrap leading-relaxed">{content}</p>
+          <div className="flex items-center justify-end gap-1 mt-2">
+            <span className="text-xs text-gray-400">12:34</span>
+            <svg className="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Reactions */}
+        <div className="flex gap-2 mt-3 ml-2">
+          <span className="bg-[#182533] px-2 py-1 rounded-full text-xs flex items-center gap-1">
+            <span>🔥</span>
+            <span className="text-gray-400">24</span>
+          </span>
+          <span className="bg-[#182533] px-2 py-1 rounded-full text-xs flex items-center gap-1">
+            <span>👍</span>
+            <span className="text-gray-400">18</span>
+          </span>
+          <span className="bg-[#182533] px-2 py-1 rounded-full text-xs flex items-center gap-1">
+            <span>❤️</span>
+            <span className="text-gray-400">12</span>
+          </span>
+        </div>
+      </div>
+
+      {/* Copy Button */}
+      <div className="p-3 bg-[#17212b]">
+        <button
+          onClick={() => onCopy(content, id)}
+          className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity"
+        >
+          {copiedIndex === id ? (
+            <>
+              <Check className="w-4 h-4" />
+              Скопировано!
+            </>
+          ) : (
+            <>
+              <Copy className="w-4 h-4" />
+              Скопировать текст
+            </>
+          )}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// Stories Mockup Component
+function StoriesMockup({ 
+  content, 
+  brandName,
+  onCopy, 
+  copiedIndex,
+  id
+}: {
+  content: string
+  brandName: string
+  onCopy: (text: string, id: string) => void
+  copiedIndex: string | null
+  id: string
+}) {
+  return (
+    <div className="bg-black rounded-3xl shadow-2xl overflow-hidden max-w-[280px] mx-auto">
+      {/* Phone Frame */}
+      <div className="relative aspect-[9/16] bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400">
+        {/* Progress Bar */}
+        <div className="absolute top-3 left-3 right-3 flex gap-1">
+          <div className="flex-1 h-0.5 bg-white rounded-full" />
+          <div className="flex-1 h-0.5 bg-white/40 rounded-full" />
+          <div className="flex-1 h-0.5 bg-white/40 rounded-full" />
+        </div>
+
+        {/* Header */}
+        <div className="absolute top-6 left-3 right-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
+              <span className="text-xs font-bold text-white">{brandName.slice(0, 2).toUpperCase()}</span>
+            </div>
+            <div>
+              <p className="text-white text-xs font-medium">{brandName}</p>
+              <p className="text-white/60 text-[10px]">2 ч. назад</p>
+            </div>
+          </div>
+          <div className="flex gap-3">
+            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+            </svg>
+            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="absolute inset-0 flex items-center justify-center p-6">
+          <div className="text-center">
+            <div className="bg-black/30 backdrop-blur-sm rounded-2xl p-4 max-w-[220px]">
+              <p className="text-white text-sm font-medium leading-relaxed whitespace-pre-wrap">{content}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Actions */}
+        <div className="absolute bottom-4 left-3 right-3">
+          <div className="flex items-center gap-2">
+            <div className="flex-1 bg-white/20 backdrop-blur rounded-full px-4 py-2">
+              <p className="text-white/80 text-sm">Отправить сообщение</p>
+            </div>
+            <div className="w-10 h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center">
+              <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+              </svg>
+            </div>
+            <div className="w-10 h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center">
+              <Send className="w-5 h-5 text-white" />
+            </div>
+          </div>
+        </div>
+
+        {/* Swipe Up Indicator */}
+        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center">
+          <svg className="w-6 h-6 text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+          </svg>
+          <span className="text-white/80 text-xs mt-1">Подробнее</span>
+        </div>
+      </div>
+
+      {/* Copy Button */}
+      <div className="p-3 bg-gray-900">
+        <button
+          onClick={() => onCopy(content, id)}
+          className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity"
+        >
+          {copiedIndex === id ? (
+            <>
+              <Check className="w-4 h-4" />
+              Скопировано!
+            </>
+          ) : (
+            <>
+              <Copy className="w-4 h-4" />
+              Скопировать идею
+            </>
+          )}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// Result Block Component (Legacy, kept for hashtags)
 function ResultBlock({ 
   title, 
   icon: Icon, 
