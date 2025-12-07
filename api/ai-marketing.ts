@@ -534,13 +534,15 @@ export default async function handler(request: Request) {
       }
     }
 
-    // Попытка использовать альтернативный AI сервис (Gemini), если OpenAI недоступен
+    // Попытка использовать альтернативные AI сервисы
     const geminiKey = process.env.GOOGLE_GEMINI_API_KEY
+    const anthropicKey = process.env.ANTHROPIC_API_KEY
     
     // Call OpenAI (или альтернативный сервис)
     console.log('AI Marketing: Calling AI API...', {
       brandName: requestBody.brandName,
-      hasGemini: !!geminiKey
+      hasGemini: !!geminiKey,
+      hasAnthropic: !!anthropicKey
     })
     
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -624,6 +626,65 @@ export default async function handler(request: Request) {
           }
         } catch (geminiError) {
           console.error('AI Marketing: Gemini request failed:', geminiError)
+        }
+      }
+      
+      // Пробуем Anthropic Claude если Gemini не сработал
+      if (isRegionBlocked && anthropicKey) {
+        console.log('AI Marketing: Trying Anthropic Claude...')
+        
+        try {
+          const claudeResponse = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-api-key': anthropicKey,
+              'anthropic-version': '2023-06-01',
+            },
+            body: JSON.stringify({
+              model: 'claude-3-haiku-20240307',
+              max_tokens: 2000,
+              messages: [
+                {
+                  role: 'user',
+                  content: `${SYSTEM_PROMPT}\n\n${getUserPrompt(requestBody, productData)}\n\nОтвет дай ТОЛЬКО в формате JSON, без markdown.`
+                }
+              ],
+            }),
+          })
+
+          console.log('AI Marketing: Claude response status:', claudeResponse.status)
+
+          if (claudeResponse.ok) {
+            const claudeData = await claudeResponse.json()
+            const claudeContent = claudeData.content?.[0]?.text
+            
+            if (claudeContent) {
+              try {
+                // Извлекаем JSON из ответа (может быть обёрнут в markdown)
+                let jsonStr = claudeContent
+                const jsonMatch = claudeContent.match(/```json\s*([\s\S]*?)\s*```/) || 
+                                  claudeContent.match(/```\s*([\s\S]*?)\s*```/)
+                if (jsonMatch) {
+                  jsonStr = jsonMatch[1]
+                }
+                
+                const result = JSON.parse(jsonStr)
+                console.log('AI Marketing: ✅ Generated content using Claude')
+                return new Response(JSON.stringify(result), {
+                  status: 200,
+                  headers: { 'Content-Type': 'application/json' },
+                })
+              } catch (parseError) {
+                console.error('AI Marketing: Failed to parse Claude response:', parseError)
+              }
+            }
+          } else {
+            const errText = await claudeResponse.text()
+            console.error('AI Marketing: Claude API error:', errText)
+          }
+        } catch (claudeError) {
+          console.error('AI Marketing: Claude request failed:', claudeError)
         }
       }
       
