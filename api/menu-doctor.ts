@@ -154,7 +154,7 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
           'X-Title': 'Delever Menu Doctor',
         },
         body: JSON.stringify({
-          model: 'meta-llama/llama-3.1-8b-instruct:free',
+          model: 'mistralai/mistral-7b-instruct:free',
           messages: [
             { role: 'user', content: prompt + '\n\nВерни ответ СТРОГО в формате JSON без markdown.' }
           ],
@@ -176,7 +176,7 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
             jsonStr = jsonMatch[1] || jsonMatch[0]
           }
           const result = JSON.parse(jsonStr)
-          console.log('Menu Doctor: ✅ Generated using OpenRouter (Llama 3.1)')
+          console.log('Menu Doctor: ✅ Generated using OpenRouter (Mistral 7B)')
           return result
         }
       } else {
