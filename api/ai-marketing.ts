@@ -452,7 +452,7 @@ export default async function handler(request: Request) {
         
         // Пробуем Google Gemini, если доступен
         if (geminiKey) {
-          console.log('AI Marketing: Trying Google Gemini API...')
+          console.log('AI Marketing: Trying Google Gemini API...', { hasKey: !!geminiKey, keyPrefix: geminiKey.substring(0, 10) })
           try {
             const geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
               method: 'POST',
@@ -472,30 +472,58 @@ export default async function handler(request: Request) {
               }),
             })
 
+            console.log('AI Marketing: Gemini response status:', geminiResponse.status)
+
             if (geminiResponse.ok) {
               const geminiData = await geminiResponse.json()
+              console.log('AI Marketing: Gemini response structure:', {
+                hasChoices: !!geminiData.choices,
+                choicesLength: geminiData.choices?.length,
+                hasContent: !!geminiData.choices?.[0]?.message?.content
+              })
+              
               const geminiContent = geminiData.choices?.[0]?.message?.content
               
               if (geminiContent) {
+                console.log('AI Marketing: Gemini content length:', geminiContent.length)
                 try {
                   const result = JSON.parse(geminiContent)
+                  console.log('AI Marketing: Parsed Gemini result:', {
+                    hasInstagram: !!result.instagram_posts,
+                    hasTelegram: !!result.telegram_posts,
+                    hasStories: !!result.stories_ideas,
+                    hasHashtags: !!result.hashtags
+                  })
+                  
                   if (result.instagram_posts && result.telegram_posts && result.stories_ideas && result.hashtags) {
-                    console.log('AI Marketing: Successfully generated content using Google Gemini')
+                    console.log('AI Marketing: ✅ Successfully generated content using Google Gemini')
                     return new Response(JSON.stringify(result), {
                       status: 200,
                       headers: { 'Content-Type': 'application/json' },
                     })
+                  } else {
+                    console.error('AI Marketing: Gemini result missing required fields:', result)
                   }
                 } catch (parseError) {
                   console.error('AI Marketing: Failed to parse Gemini response:', parseError)
+                  console.error('AI Marketing: Raw Gemini content:', geminiContent.substring(0, 500))
                 }
+              } else {
+                console.error('AI Marketing: Gemini response has no content')
+                console.error('AI Marketing: Full Gemini response:', JSON.stringify(geminiData).substring(0, 500))
               }
             } else {
-              console.error('AI Marketing: Gemini API error:', geminiResponse.status)
+              const geminiErrorText = await geminiResponse.text()
+              console.error('AI Marketing: Gemini API error:', geminiResponse.status, geminiErrorText.substring(0, 500))
             }
           } catch (geminiError) {
             console.error('AI Marketing: Gemini API request failed:', geminiError)
+            if (geminiError instanceof Error) {
+              console.error('AI Marketing: Gemini error message:', geminiError.message)
+            }
           }
+        } else {
+          console.log('AI Marketing: Gemini key not found in environment variables')
         }
         
         // Если Gemini не сработал, используем fallback
@@ -558,7 +586,7 @@ export default async function handler(request: Request) {
         
         // Пробуем Google Gemini, если доступен
         if (geminiKey) {
-          console.log('AI Marketing: Trying Google Gemini API as fallback...')
+          console.log('AI Marketing: Trying Google Gemini API as fallback...', { hasKey: !!geminiKey })
           try {
             const geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
               method: 'POST',
@@ -578,6 +606,8 @@ export default async function handler(request: Request) {
               }),
             })
 
+            console.log('AI Marketing: Gemini response status:', geminiResponse.status)
+
             if (geminiResponse.ok) {
               const geminiData = await geminiResponse.json()
               const geminiContent = geminiData.choices?.[0]?.message?.content
@@ -586,7 +616,7 @@ export default async function handler(request: Request) {
                 try {
                   const result = JSON.parse(geminiContent)
                   if (result.instagram_posts && result.telegram_posts && result.stories_ideas && result.hashtags) {
-                    console.log('AI Marketing: Successfully generated content using Google Gemini')
+                    console.log('AI Marketing: ✅ Successfully generated content using Google Gemini')
                     return new Response(JSON.stringify(result), {
                       status: 200,
                       headers: { 'Content-Type': 'application/json' },
@@ -595,11 +625,18 @@ export default async function handler(request: Request) {
                 } catch (parseError) {
                   console.error('AI Marketing: Failed to parse Gemini response:', parseError)
                 }
+              } else {
+                console.error('AI Marketing: Gemini response has no content')
               }
+            } else {
+              const geminiErrorText = await geminiResponse.text()
+              console.error('AI Marketing: Gemini API error:', geminiResponse.status, geminiErrorText.substring(0, 500))
             }
           } catch (geminiError) {
             console.error('AI Marketing: Gemini API request failed:', geminiError)
           }
+        } else {
+          console.log('AI Marketing: Gemini key not found')
         }
         
         const fallbackResponse = getFallbackMarketingResponse(requestBody, productData)
