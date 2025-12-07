@@ -32,16 +32,23 @@ interface MarketingResponse {
   hashtags: string[]
 }
 
-const SYSTEM_PROMPT = `Ты — гениальный SMM-маркетолог с 10-летним опытом продвижения ресторанов. Твои тексты вызывают аппетит, эмоции и желание купить прямо сейчас.
+const SYSTEM_PROMPT = `Ты — гениальный SMM-маркетолог с 10-летним опытом. Твои тексты вызывают эмоции и желание купить прямо сейчас.
 
 ТВОЯ ЗАДАЧА:
-Создать контент-план для ресторана на основе вводных данных. Тексты должны быть "живыми", без клише, с юмором (где уместно) и четкой структурой.
+Создать контент-план для бизнеса на основе вводных данных. Тексты должны быть "живыми", без клише, с юмором (где уместно) и четкой структурой.
+
+ВАЖНО: Адаптируй контент под ТИП БИЗНЕСА (cuisine):
+- Ресторан/кафе → вкусные описания (хрустящий, сочный, ароматный)
+- Магазин электроники → выгода, характеристики, сравнение
+- Салон красоты → результат, трансформация, уверенность
+- Фитнес → мотивация, результат, энергия
+- Одежда/обувь → стиль, тренды, образ
+- Любой другой → подбери подходящий стиль
 
 ПРАВИЛА ДЛЯ INSTAGRAM:
 - Используй формулу AIDA (Attention, Interest, Desire, Action).
 - Заголовок должен цеплять с первых 3 слов.
 - Разбивай текст на абзацы для легкого чтения.
-- Добавляй "вкусные" описания (хрустящий, сочный, ароматный).
 - В конце ВСЕГДА призыв к действию (CTA).
 
 ПРАВИЛА ДЛЯ TELEGRAM:
@@ -159,7 +166,18 @@ async function parseProductUrl(url: string): Promise<ParsedProductData> {
 // Fallback ответы когда OpenAI недоступен
 function getFallbackMarketingResponse(data: MarketingRequest, productData?: ParsedProductData): MarketingResponse {
   const lang = data.language
-  const brand = data.brandName || 'Ваш ресторан'
+  const brand = data.brandName || 'Ваш бизнес'
+  const businessType = data.cuisine?.toLowerCase() || ''
+  
+  // Определяем тип бизнеса для адаптации контента
+  const isFood = businessType.includes('ресторан') || businessType.includes('кафе') || businessType.includes('еда') || 
+                 businessType.includes('restoran') || businessType.includes('food') || businessType.includes('fastfud')
+  const isBeauty = businessType.includes('салон') || businessType.includes('красот') || businessType.includes('маникюр') ||
+                   businessType.includes('salon') || businessType.includes('beauty')
+  const isFitness = businessType.includes('фитнес') || businessType.includes('спорт') || businessType.includes('gym') ||
+                    businessType.includes('fitness') || businessType.includes('sport')
+  const isShop = businessType.includes('магазин') || businessType.includes('shop') || businessType.includes('store') ||
+                 businessType.includes("do'kon") || businessType.includes('электроник') || businessType.includes('одежд')
   
   // Используем данные из URL, если они есть
   let promo = data.promoDescription || 'Специальное предложение'
@@ -180,71 +198,93 @@ function getFallbackMarketingResponse(data: MarketingRequest, productData?: Pars
     }
   }
   
-  const hashtags = lang === 'ru' 
-    ? ['#ресторан', '#доставка', '#еда', '#акция', '#вкусно', '#ташкент', '#узбекистан', '#food', '#instafood']
-    : lang === 'uz'
-    ? ['#restoran', '#yetkazib_berish', '#ovqat', '#aksiya', '#mazali', '#toshkent', '#uzbekiston', '#food', '#instafood']
-    : ['#restaurant', '#delivery', '#food', '#promo', '#delicious', '#tashkent', '#uzbekistan', '#food', '#instafood']
+  // Адаптивные хештеги по типу бизнеса
+  const getHashtags = () => {
+    if (isFood) {
+      return lang === 'ru' ? ['#ресторан', '#доставка', '#еда', '#акция', '#вкусно', '#ташкент', '#food', '#instafood']
+        : lang === 'uz' ? ['#restoran', '#yetkazib_berish', '#ovqat', '#aksiya', '#mazali', '#toshkent', '#food']
+        : ['#restaurant', '#delivery', '#food', '#promo', '#delicious', '#tashkent', '#instafood']
+    }
+    if (isBeauty) {
+      return lang === 'ru' ? ['#салонкрасоты', '#маникюр', '#красота', '#уход', '#ташкент', '#beauty', '#nails', '#spa']
+        : lang === 'uz' ? ['#salon', '#manikur', '#goʻzallik', '#toshkent', '#beauty', '#nails', '#spa']
+        : ['#beautysalon', '#manicure', '#beauty', '#skincare', '#tashkent', '#nails', '#spa']
+    }
+    if (isFitness) {
+      return lang === 'ru' ? ['#фитнес', '#спорт', '#тренировка', '#зож', '#ташкент', '#fitness', '#gym', '#workout']
+        : lang === 'uz' ? ['#fitnes', '#sport', '#mashq', '#toshkent', '#fitness', '#gym', '#workout']
+        : ['#fitness', '#gym', '#workout', '#healthy', '#tashkent', '#sport', '#training']
+    }
+    if (isShop) {
+      return lang === 'ru' ? ['#магазин', '#скидки', '#акция', '#шоппинг', '#ташкент', '#sale', '#shopping', '#store']
+        : lang === 'uz' ? ['#dokon', '#chegirma', '#aksiya', '#toshkent', '#sale', '#shopping', '#store']
+        : ['#shop', '#sale', '#discount', '#shopping', '#tashkent', '#store', '#deals']
+    }
+    return lang === 'ru' ? ['#бизнес', '#акция', '#скидки', '#ташкент', '#узбекистан', '#promo', '#sale']
+      : lang === 'uz' ? ['#biznes', '#aksiya', '#chegirma', '#toshkent', '#uzbekiston', '#promo', '#sale']
+      : ['#business', '#promo', '#sale', '#discount', '#tashkent', '#uzbekistan', '#deals']
+  }
   
+  // Адаптивные тексты по типу бизнеса
   const instagramPosts = lang === 'ru'
     ? [
-        `🔥 ${promo.toUpperCase()}!\n\n${brand} представляет новинку, которая покорит ваше сердце (и желудок 😉). ${productDetails}\n\nПочему стоит попробовать:\n✅ Невероятный вкус\n✅ Свежие ингредиенты\n✅ Быстрая доставка\n\n👇 Заказывайте прямо сейчас по ссылке в шапке профиля или звоните!`,
-        `Когда хочется чего-то особенного... 🤔\n\n${promo} от ${brand} — идеальный выбор! ${productDetails}\n\nУстройте себе праздник вкуса уже сегодня. 🚀\n\n📞 +998 78 113 98 13`,
-        `🍽️ ${brand} — это не просто еда, это эмоции!\n\n${promo}\n${productDetails}\n\nПопробуйте и убедитесь сами! Ждем ваших отзывов в комментариях 👇`
+        `🔥 ${promo.toUpperCase()}!\n\n${brand} представляет то, что вы искали! ${productDetails}\n\nПочему выбирают нас:\n✅ Лучшее качество\n✅ Выгодные цены\n✅ Быстрый сервис\n\n👇 Успейте воспользоваться предложением — ссылка в шапке профиля!`,
+        `Ищете что-то особенное? 🤔\n\n${promo} от ${brand} — ваш лучший выбор! ${productDetails}\n\nПорадуйте себя уже сегодня! 🚀\n\n📞 +998 78 113 98 13`,
+        `✨ ${brand} — качество, которому доверяют!\n\n${promo}\n${productDetails}\n\nУбедитесь сами! Ждем ваших отзывов в комментариях 👇`
       ]
     : lang === 'uz'
     ? [
-        `🔥 ${promo.toUpperCase()}!\n\n${brand} dan zo'r yangilik! ${productDetails}\n\nNega aynan bu:\n✅ Zo'r ta'm\n✅ Yangi mahsulotlar\n✅ Tez yetkazib beramiz\n\n👇 Hoziroq buyurtma bering — bio'dagi link yoki qo'ng'iroq qiling!`,
-        `Mazali narsa yemoqchimisiz? 🤔\n\n${brand} dan ${promo} — zo'r tanlov! ${productDetails}\n\nO'zingizni siylab qo'ying bugun! 🚀\n\n📞 +998 78 113 98 13`,
-        `🍽️ ${brand} — bu shunchaki ovqat emas, bu zavq!\n\n${promo}\n${productDetails}\n\nTatib ko'ring, o'zingiz baholang! Fikringizni yozing 👇`
+        `🔥 ${promo.toUpperCase()}!\n\n${brand} dan zo'r taklif! ${productDetails}\n\nNega bizni tanlashadi:\n✅ Eng yaxshi sifat\n✅ Qulay narx\n✅ Tez xizmat\n\n👇 Hoziroq foydalaning — bio'dagi link!`,
+        `Maxsus narsa qidiryapsizmi? 🤔\n\n${brand} dan ${promo} — eng yaxshi tanlov! ${productDetails}\n\nBugun o'zingizni siylab qo'ying! 🚀\n\n📞 +998 78 113 98 13`,
+        `✨ ${brand} — ishonchli sifat!\n\n${promo}\n${productDetails}\n\nO'zingiz ko'ring! Fikringizni yozing 👇`
       ]
     : [
-        `🔥 ${promo.toUpperCase()}!\n\n${brand} presents a novelty that will win your heart (and stomach 😉). ${productDetails}\n\nWhy you should try it:\n✅ Incredible taste\n✅ Fresh ingredients\n✅ Fast delivery\n\n👇 Order right now via the link in bio or call us!`,
-        `When you want something special... 🤔\n\n${promo} from ${brand} is the perfect choice! ${productDetails}\n\nTreat yourself to a feast of taste today. 🚀\n\n📞 +998 78 113 98 13`,
-        `🍽️ ${brand} — it's not just food, it's emotions!\n\n${promo}\n${productDetails}\n\nTry it and see for yourself! We are waiting for your feedback in the comments 👇`
+        `🔥 ${promo.toUpperCase()}!\n\n${brand} presents exactly what you've been looking for! ${productDetails}\n\nWhy choose us:\n✅ Best quality\n✅ Great prices\n✅ Fast service\n\n👇 Don't miss out — link in bio!`,
+        `Looking for something special? 🤔\n\n${promo} from ${brand} is your best choice! ${productDetails}\n\nTreat yourself today! 🚀\n\n📞 +998 78 113 98 13`,
+        `✨ ${brand} — quality you can trust!\n\n${promo}\n${productDetails}\n\nSee for yourself! Leave your feedback below 👇`
       ]
   
   const telegramPosts = lang === 'ru'
     ? [
-        `⚡️ **${promo}** уже здесь!\n\nДрузья, ${brand} радует вас новинкой! ${productDetails}\n\nЗаказывайте доставку и наслаждайтесь вкусом, не выходя из дома. \n\n👉 [Заказать онлайн](https://delever.io)\n📞 +998 78 113 98 13`,
-        `🍔 **Голод не тетка, а повод заказать ${promo}!**\n\n${brand} знает толк во вкусной еде. ${productDetails}\n\n🚀 Доставим горячим за 45 минут!\n\nЖмите кнопку ниже 👇`,
-        `👋 Всем привет! У нас для вас кое-что вкусненькое.\n\n**${promo}** — то, что нужно для отличного дня. ${productDetails}\n\nЗаходите в гости или заказывайте доставку! 📦`
+        `⚡️ **${promo}** уже доступно!\n\nДрузья, ${brand} радует вас новинкой! ${productDetails}\n\nНе упустите возможность!\n\n👉 [Подробнее](https://delever.io)\n📞 +998 78 113 98 13`,
+        `🎯 **${promo} — то, что вам нужно!**\n\n${brand} знает, что вы ищете. ${productDetails}\n\n🚀 Быстро, качественно, выгодно!\n\nЖмите кнопку ниже 👇`,
+        `👋 Всем привет! У нас отличная новость!\n\n**${promo}** — именно то, что нужно. ${productDetails}\n\nПриходите к нам или заказывайте онлайн! 📦`
       ]
     : lang === 'uz'
     ? [
-        `⚡️ **${promo}** tayyor!\n\nDo'stlar, ${brand} dan yangilik! ${productDetails}\n\nBuyurtma bering — uydan chiqmay mazali ovqat yeng.\n\n👉 [Onlayn buyurtma](https://delever.io)\n📞 +998 78 113 98 13`,
-        `🍔 **Och qoldingizmi? ${promo} buyurtma qiling!**\n\n${brand} mazali taom qiladi. ${productDetails}\n\n🚀 45 daqiqada issiq yetkazamiz!\n\nPastdagi tugmani bosing 👇`,
-        `👋 Salom hammaga! Sizga mazali taklif.\n\n**${promo}** — ajoyib kun uchun zo'r tanlov. ${productDetails}\n\nO'zimizga keling yoki uyga buyurtma qiling! 📦`
+        `⚡️ **${promo}** tayyor!\n\nDo'stlar, ${brand} dan yangilik! ${productDetails}\n\nImkoniyatni qo'ldan bermang!\n\n👉 [Batafsil](https://delever.io)\n📞 +998 78 113 98 13`,
+        `🎯 **${promo} — sizga kerak narsa!**\n\n${brand} nimani qidirayotganingizni biladi. ${productDetails}\n\n🚀 Tez, sifatli, qulay!\n\nPastdagi tugmani bosing 👇`,
+        `👋 Salom hammaga! Ajoyib yangilik!\n\n**${promo}** — aynan kerakli narsa. ${productDetails}\n\nBizga keling yoki onlayn buyurtma qiling! 📦`
       ]
     : [
-        `⚡️ **${promo}** is here!\n\nFriends, ${brand} pleases you with a novelty! ${productDetails}\n\nOrder delivery and enjoy the taste without leaving home.\n\n👉 [Order online](https://delever.io)\n📞 +998 78 113 98 13`,
-        `🍔 **Hunger is a reason to order ${promo}!**\n\n${brand} knows good food. ${productDetails}\n\n🚀 Delivered hot in 45 minutes!\n\nClick the button below 👇`,
-        `👋 Hello everyone! We have something tasty for you.\n\n**${promo}** — just what you need for a great day. ${productDetails}\n\nCome visit us or order delivery! 📦`
+        `⚡️ **${promo}** is now available!\n\nFriends, ${brand} has great news! ${productDetails}\n\nDon't miss this opportunity!\n\n👉 [Learn more](https://delever.io)\n📞 +998 78 113 98 13`,
+        `🎯 **${promo} — exactly what you need!**\n\n${brand} knows what you're looking for. ${productDetails}\n\n🚀 Fast, quality, affordable!\n\nClick the button below 👇`,
+        `👋 Hello everyone! Great news!\n\n**${promo}** — just what you need. ${productDetails}\n\nVisit us or order online! 📦`
       ]
   
   const storiesIdeas = lang === 'ru'
     ? [
-        `🎥 **Сценарий 1:** Покажите крупным планом ${promo}, затем реакцию довольного клиента. Текст: "Тот самый момент..."`,
-        `🎥 **Сценарий 2:** Опрос: "А вы уже пробовали ${promo}?" (Да/Хочу). На фоне аппетитное фото.`,
-        `🎥 **Сценарий 3:** "Закулисье": как готовится ${promo}. Звуки жарки/нарезки (ASMR).`
+        `🎥 **Сценарий 1:** Покажите ${promo} крупным планом, затем довольного клиента. Текст: "Тот самый момент..."`,
+        `🎥 **Сценарий 2:** Опрос: "Уже знакомы с ${promo}?" (Да/Хочу попробовать). Красивое фото на фоне.`,
+        `🎥 **Сценарий 3:** Закулисье: покажите процесс работы. Живая атмосфера.`
       ]
     : lang === 'uz'
     ? [
-        `🎥 **G'oya 1:** ${promo} ni yaqindan oling, keyin mamnun mijozni ko'rsating. Matn: "Mana shu lahza..."`,
-        `🎥 **G'oya 2:** So'rovnoma: "${promo} tatib ko'rdingizmi?" (Ha/Xohlayman). Orqada chiroyli rasm.`,
-        `🎥 **G'oya 3:** Oshxonadan video: ${promo} qanday tayyorlanadi. Qovurish tovushi (ASMR).`
+        `🎥 **G'oya 1:** ${promo} ni yaqindan ko'rsating, keyin mamnun mijozni. Matn: "Mana shu lahza..."`,
+        `🎥 **G'oya 2:** So'rovnoma: "${promo} bilan tanishmisiz?" (Ha/Sinab ko'rmoqchiman). Chiroyli fon rasmi.`,
+        `🎥 **G'oya 3:** Parda ortidan: ish jarayonini ko'rsating. Jonli muhit.`
       ]
     : [
-        `🎥 **Scenario 1:** Show a close-up of ${promo}, then a happy customer's reaction. Text: "That moment..."`,
-        `🎥 **Scenario 2:** Poll: "Have you tried ${promo} yet?" (Yes/Want to). Appetizing photo in background.`,
-        `🎥 **Scenario 3:** "Behind the scenes": how ${promo} is prepared. Frying/cutting sounds (ASMR).`
+        `🎥 **Scenario 1:** Show ${promo} up close, then a happy customer. Text: "That moment..."`,
+        `🎥 **Scenario 2:** Poll: "Do you know ${promo}?" (Yes/Want to try). Beautiful background photo.`,
+        `🎥 **Scenario 3:** Behind the scenes: show the work process. Live atmosphere.`
       ]
   
   return {
     instagram_posts: instagramPosts,
     telegram_posts: telegramPosts,
     stories_ideas: storiesIdeas,
-    hashtags: hashtags
+    hashtags: getHashtags()
   }
 }
 

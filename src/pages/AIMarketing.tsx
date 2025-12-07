@@ -65,12 +65,12 @@ export function AIMarketing() {
     ru: {
       title: 'AI-генератор маркетинговых постов',
       subtitle: 'Создайте продающие тексты для Instagram, Telegram и Stories за секунды',
-      brandName: 'Название заведения',
-      brandNamePlaceholder: 'Например: Yaponamama',
-      cuisine: 'Тип кухни',
-      cuisinePlaceholder: 'фастфуд, паназиатская, узбекская...',
-      promo: 'Описание блюда или акции',
-      promoPlaceholder: 'Новая пицца Маргарита с двойным сыром. Скидка 20% до конца недели.',
+      brandName: 'Название бизнеса',
+      brandNamePlaceholder: 'Например: Oqtepa Lavash, Korzinka, Technomart',
+      cuisine: 'Тип бизнеса',
+      cuisinePlaceholder: 'ресторан, магазин, салон красоты, фитнес...',
+      promo: 'Описание товара или акции',
+      promoPlaceholder: 'Новая пицца Маргарита. Скидка 20% на всю электронику. Маникюр + педикюр = -30%',
       goal: 'Цель продвижения',
       goalPlaceholder: 'увеличить заказы в будние дни',
       productUrl: 'Ссылка на товар (опционально)',
@@ -88,7 +88,7 @@ export function AIMarketing() {
       copied: 'Скопировано!',
       hint: 'Заполните форму и нажмите "Сгенерировать" чтобы получить готовые тексты',
       promoTitle: 'Это бесплатный инструмент от Delever',
-      promoText: 'Внутри Delever — полноценная система для онлайн-продаж и доставки. Подключим ваш ресторан за 1 день.',
+      promoText: 'Delever — полноценная система для онлайн-продаж и доставки. Подключим ваш бизнес за 1 день.',
       promoButton: 'Оставить заявку',
       russian: 'Русский',
       uzbek: 'Узбекский',
@@ -97,12 +97,12 @@ export function AIMarketing() {
     uz: {
       title: 'AI post yaratuvchi',
       subtitle: "Instagram, Telegram va Stories uchun tayyor postlarni bir zumda oling",
-      brandName: 'Restoran nomi',
-      brandNamePlaceholder: "Masalan: Oqtepa Lavash",
-      cuisine: 'Taom turi',
-      cuisinePlaceholder: "fastfud, milliy, koreya...",
-      promo: "Taom yoki aksiya haqida",
-      promoPlaceholder: "Yangi Margarita pizza ikki barobar pishloq bilan. Hafta oxirigacha 20% skidka.",
+      brandName: 'Biznes nomi',
+      brandNamePlaceholder: "Masalan: Oqtepa Lavash, Korzinka, Technomart",
+      cuisine: 'Biznes turi',
+      cuisinePlaceholder: "restoran, do'kon, salon, fitnes...",
+      promo: "Mahsulot yoki aksiya haqida",
+      promoPlaceholder: "Yangi pizza. Elektronikaga 20% skidka. Manikur + pedikur = -30%",
       goal: "Maqsad",
       goalPlaceholder: "oddiy kunlarda buyurtmani ko'paytirish",
       productUrl: 'Mahsulot linki (majburiy emas)',
@@ -129,12 +129,12 @@ export function AIMarketing() {
     en: {
       title: 'AI Marketing Post Generator',
       subtitle: 'Create engaging content for Instagram, Telegram and Stories in seconds',
-      brandName: 'Restaurant Name',
-      brandNamePlaceholder: 'e.g. Yaponamama',
-      cuisine: 'Cuisine Type',
-      cuisinePlaceholder: 'fast food, pan-asian, uzbek...',
-      promo: 'Dish or Promotion Description',
-      promoPlaceholder: 'New Margherita pizza with double cheese. 20% off until weekend.',
+      brandName: 'Business Name',
+      brandNamePlaceholder: 'e.g. Oqtepa Lavash, Korzinka, Technomart',
+      cuisine: 'Business Type',
+      cuisinePlaceholder: 'restaurant, shop, beauty salon, fitness...',
+      promo: 'Product or Promotion Description',
+      promoPlaceholder: 'New pizza. 20% off electronics. Manicure + pedicure = -30%',
       goal: 'Promotion Goal',
       goalPlaceholder: 'increase weekday orders',
       productUrl: 'Product URL (optional)',
@@ -152,7 +152,7 @@ export function AIMarketing() {
       copied: 'Copied!',
       hint: 'Fill the form and click "Generate" to get ready-to-use content',
       promoTitle: 'This is a free tool by Delever',
-      promoText: 'Delever offers a complete system for online sales and delivery. We can connect your restaurant in 1 day.',
+      promoText: 'Delever offers a complete system for online sales and delivery. We can connect your business in 1 day.',
       promoButton: 'Get Started',
       russian: 'Russian',
       uzbek: 'Uzbek',
@@ -1081,51 +1081,4 @@ function StoriesMockup({
   )
 }
 
-// Result Block Component (Legacy, kept for hashtags)
-function ResultBlock({ 
-  title, 
-  icon: Icon, 
-  items, 
-  gradient, 
-  onCopy, 
-  copiedIndex
-}: {
-  title: string
-  icon: React.ElementType
-  items: string[]
-  gradient: string
-  onCopy: (text: string, id: string) => void
-  copiedIndex: string | null
-}) {
-  return (
-    <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-      <div className="flex items-center gap-2 mb-3">
-        <div className={`w-8 h-8 rounded-lg bg-gradient-to-r ${gradient} flex items-center justify-center`}>
-          <Icon className="w-4 h-4 text-white" />
-        </div>
-        <h3 className="font-semibold text-brand-darkBlue">{title}</h3>
-      </div>
-      <div className="space-y-3">
-        {items.map((item, idx) => {
-          const id = `${title}-${idx}`
-          return (
-            <div key={idx} className="group relative bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition-colors">
-              <p className="text-sm text-brand-darkBlue pr-8">{item}</p>
-              <button
-                onClick={() => onCopy(item, id)}
-                className="absolute top-2 right-2 p-1.5 rounded-lg bg-white shadow-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-purple-50"
-              >
-                {copiedIndex === id ? (
-                  <Check className="w-4 h-4 text-green-500" />
-                ) : (
-                  <Copy className="w-4 h-4 text-gray-400" />
-                )}
-              </button>
-            </div>
-          )
-        })}
-      </div>
-    </div>
-  )
-}
 
