@@ -11,10 +11,14 @@ import {
   Loader2,
   AlertCircle,
   ArrowRight,
-  Utensils,
   Target,
   Languages,
-  Wand2
+  Wand2,
+  Link2,
+  Search,
+  CheckCircle2,
+  Store,
+  ShoppingBag
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
@@ -40,15 +44,28 @@ interface FormData {
   language: 'ru' | 'uz' | 'en'
 }
 
+interface ParsedData {
+  title?: string
+  description?: string
+  image?: string
+  price?: string
+  businessType?: string
+  components?: string[]
+}
+
 export function AIMarketing() {
   const { language } = useLocale()
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [isParsingUrl, setIsParsingUrl] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [result, setResult] = useState<MarketingResult | null>(null)
   const [copiedIndex, setCopiedIndex] = useState<string | null>(null)
   const [isFallback, setIsFallback] = useState(false)
   const [activeTab, setActiveTab] = useState<'instagram' | 'telegram' | 'stories' | 'hashtags'>('instagram')
+  const [urlInput, setUrlInput] = useState('')
+  const [parsedData, setParsedData] = useState<ParsedData | null>(null)
+  const [showManualForm, setShowManualForm] = useState(false)
   
   const [formData, setFormData] = useState<FormData>({
     brandName: '',
@@ -59,12 +76,60 @@ export function AIMarketing() {
     channels: ['instagram', 'telegram', 'stories'],
     language: 'ru'
   })
+
+  // Функция парсинга URL
+  const handleParseUrl = async () => {
+    if (!urlInput.trim()) return
+    
+    setIsParsingUrl(true)
+    setError(null)
+    setParsedData(null)
+    
+    try {
+      const response = await fetch('/api/parse-url', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: urlInput })
+      })
+      
+      const data = await response.json()
+      
+      if (data.error) {
+        throw new Error(data.error)
+      }
+      
+      setParsedData(data)
+      
+      // Автозаполнение формы
+      setFormData(prev => ({
+        ...prev,
+        brandName: data.brandName || data.title?.split(' ')[0] || prev.brandName,
+        cuisine: data.businessType || prev.cuisine,
+        promoDescription: data.description || prev.promoDescription,
+        productUrl: urlInput
+      }))
+      
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : 'Не удалось проанализировать ссылку'
+      setError(errorMsg)
+    } finally {
+      setIsParsingUrl(false)
+    }
+  }
   
 
   const t = {
     ru: {
       title: 'AI-генератор маркетинговых постов',
-      subtitle: 'Создайте продающие тексты для Instagram, Telegram и Stories за секунды',
+      subtitle: 'Вставьте ссылку на товар — AI сам всё поймёт и создаст контент',
+      smartUrl: 'Вставьте ссылку на товар или страницу',
+      smartUrlPlaceholder: 'https://example.com/product',
+      smartUrlHelp: 'AI проанализирует страницу и автоматически определит тип бизнеса, товар и создаст контент',
+      analyze: 'Анализировать',
+      analyzing: 'Анализируем...',
+      analyzed: 'Проанализировано!',
+      orManual: 'или заполните вручную',
+      detectedInfo: 'Найденная информация',
       brandName: 'Название бизнеса',
       brandNamePlaceholder: 'Например: Oqtepa Lavash, Korzinka, Technomart',
       cuisine: 'Тип бизнеса',
@@ -96,7 +161,15 @@ export function AIMarketing() {
     },
     uz: {
       title: 'AI post yaratuvchi',
-      subtitle: "Instagram, Telegram va Stories uchun tayyor postlarni bir zumda oling",
+      subtitle: "Mahsulot linkini tashlang — AI o'zi hamma narsani tushunadi",
+      smartUrl: 'Mahsulot yoki sahifa linkini kiriting',
+      smartUrlPlaceholder: 'https://example.com/product',
+      smartUrlHelp: "AI sahifani tahlil qiladi va biznes turi, mahsulotni avtomatik aniqlaydi",
+      analyze: 'Tahlil qilish',
+      analyzing: 'Tahlil qilinmoqda...',
+      analyzed: 'Tahlil qilindi!',
+      orManual: "yoki qo'lda to'ldiring",
+      detectedInfo: "Topilgan ma'lumot",
       brandName: 'Biznes nomi',
       brandNamePlaceholder: "Masalan: Oqtepa Lavash, Korzinka, Technomart",
       cuisine: 'Biznes turi',
@@ -128,7 +201,15 @@ export function AIMarketing() {
     },
     en: {
       title: 'AI Marketing Post Generator',
-      subtitle: 'Create engaging content for Instagram, Telegram and Stories in seconds',
+      subtitle: 'Paste a product link — AI will understand everything and create content',
+      smartUrl: 'Paste product or page URL',
+      smartUrlPlaceholder: 'https://example.com/product',
+      smartUrlHelp: 'AI will analyze the page and automatically detect business type, product and create content',
+      analyze: 'Analyze',
+      analyzing: 'Analyzing...',
+      analyzed: 'Analyzed!',
+      orManual: 'or fill manually',
+      detectedInfo: 'Detected information',
       brandName: 'Business Name',
       brandNamePlaceholder: 'e.g. Oqtepa Lavash, Korzinka, Technomart',
       cuisine: 'Business Type',
@@ -307,53 +388,167 @@ export function AIMarketing() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 }}
             >
+              {/* Smart URL Input - главный блок */}
+              <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 shadow-lg border border-purple-200 mb-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                    <Link2 className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-brand-darkBlue">{txt.smartUrl}</h3>
+                    <p className="text-xs text-gray-500">{txt.smartUrlHelp}</p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-2">
+                  <input
+                    type="url"
+                    value={urlInput}
+                    onChange={e => setUrlInput(e.target.value)}
+                    placeholder={txt.smartUrlPlaceholder}
+                    className="flex-1 px-4 py-3 rounded-xl border-2 border-purple-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all bg-white"
+                  />
+                  <motion.button
+                    type="button"
+                    onClick={handleParseUrl}
+                    disabled={isParsingUrl || !urlInput.trim()}
+                    className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl disabled:opacity-50 transition-all flex items-center gap-2"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {isParsingUrl ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        {txt.analyzing}
+                      </>
+                    ) : parsedData ? (
+                      <>
+                        <CheckCircle2 className="w-5 h-5" />
+                        {txt.analyzed}
+                      </>
+                    ) : (
+                      <>
+                        <Search className="w-5 h-5" />
+                        {txt.analyze}
+                      </>
+                    )}
+                  </motion.button>
+                </div>
+
+                {/* Parsed Data Preview */}
+                <AnimatePresence>
+                  {parsedData && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="mt-4 p-4 bg-white rounded-xl border border-purple-100"
+                    >
+                      <p className="text-sm font-medium text-purple-600 mb-3 flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4" />
+                        {txt.detectedInfo}
+                      </p>
+                      <div className="grid gap-2 text-sm">
+                        {parsedData.title && (
+                          <div className="flex items-start gap-2">
+                            <Store className="w-4 h-4 text-gray-400 mt-0.5" />
+                            <span className="text-gray-700">{parsedData.title}</span>
+                          </div>
+                        )}
+                        {parsedData.businessType && (
+                          <div className="flex items-start gap-2">
+                            <ShoppingBag className="w-4 h-4 text-gray-400 mt-0.5" />
+                            <span className="text-gray-500">Тип: {parsedData.businessType}</span>
+                          </div>
+                        )}
+                        {parsedData.price && (
+                          <div className="flex items-start gap-2">
+                            <span className="text-gray-400">💰</span>
+                            <span className="text-green-600 font-medium">{parsedData.price}</span>
+                          </div>
+                        )}
+                        {parsedData.description && (
+                          <p className="text-gray-600 text-xs mt-2 line-clamp-2">{parsedData.description}</p>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Divider */}
+              <div className="flex items-center gap-4 mb-6">
+                <div className="flex-1 h-px bg-gray-200"></div>
+                <button
+                  type="button"
+                  onClick={() => setShowManualForm(!showManualForm)}
+                  className="text-sm text-gray-500 hover:text-purple-600 transition-colors"
+                >
+                  {txt.orManual} {showManualForm ? '▲' : '▼'}
+                </button>
+                <div className="flex-1 h-px bg-gray-200"></div>
+              </div>
+
               <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-6 shadow-lg border border-purple-100">
                 <div className="space-y-5">
-                  {/* Brand Name */}
-                  <div>
-                    <label className="block text-sm font-medium text-brand-darkBlue mb-1.5">
-                      <Utensils className="w-4 h-4 inline mr-1.5" />
-                      {txt.brandName}
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.brandName}
-                      onChange={e => setFormData(prev => ({ ...prev, brandName: e.target.value }))}
-                      placeholder={txt.brandNamePlaceholder}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all"
-                      required
-                    />
-                  </div>
+                  {/* Manual Form Fields - collapsible */}
+                  <AnimatePresence>
+                    {(showManualForm || !parsedData) && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="space-y-5"
+                      >
+                        {/* Brand Name */}
+                        <div>
+                          <label className="block text-sm font-medium text-brand-darkBlue mb-1.5">
+                            <Store className="w-4 h-4 inline mr-1.5" />
+                            {txt.brandName}
+                          </label>
+                          <input
+                            type="text"
+                            value={formData.brandName}
+                            onChange={e => setFormData(prev => ({ ...prev, brandName: e.target.value }))}
+                            placeholder={txt.brandNamePlaceholder}
+                            className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all"
+                            required
+                          />
+                        </div>
 
-                  {/* Cuisine */}
-                  <div>
-                    <label className="block text-sm font-medium text-brand-darkBlue mb-1.5">
-                      {txt.cuisine}
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.cuisine}
-                      onChange={e => setFormData(prev => ({ ...prev, cuisine: e.target.value }))}
-                      placeholder={txt.cuisinePlaceholder}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all"
-                    />
-                  </div>
+                        {/* Cuisine / Business Type */}
+                        <div>
+                          <label className="block text-sm font-medium text-brand-darkBlue mb-1.5">
+                            <ShoppingBag className="w-4 h-4 inline mr-1.5" />
+                            {txt.cuisine}
+                          </label>
+                          <input
+                            type="text"
+                            value={formData.cuisine}
+                            onChange={e => setFormData(prev => ({ ...prev, cuisine: e.target.value }))}
+                            placeholder={txt.cuisinePlaceholder}
+                            className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all"
+                          />
+                        </div>
 
-                  {/* Promo Description */}
-                  <div>
-                    <label className="block text-sm font-medium text-brand-darkBlue mb-1.5">
-                      <Sparkles className="w-4 h-4 inline mr-1.5" />
-                      {txt.promo}
-                    </label>
-                    <textarea
-                      value={formData.promoDescription}
-                      onChange={e => setFormData(prev => ({ ...prev, promoDescription: e.target.value }))}
-                      placeholder={txt.promoPlaceholder}
-                      rows={3}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all resize-none"
-                      required
-                    />
-                  </div>
+                        {/* Promo Description */}
+                        <div>
+                          <label className="block text-sm font-medium text-brand-darkBlue mb-1.5">
+                            <Sparkles className="w-4 h-4 inline mr-1.5" />
+                            {txt.promo}
+                          </label>
+                          <textarea
+                            value={formData.promoDescription}
+                            onChange={e => setFormData(prev => ({ ...prev, promoDescription: e.target.value }))}
+                            placeholder={txt.promoPlaceholder}
+                            rows={3}
+                            className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all resize-none"
+                            required={!parsedData}
+                          />
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
                   {/* Goal */}
                   <div>
@@ -376,22 +571,6 @@ export function AIMarketing() {
                       <option value="weekday_boost">{language === 'ru' ? '📅 Увеличить заказы в будние дни' : language === 'uz' ? '📅 Oddiy kunlarda buyurtmani oshirish' : '📅 Increase weekday orders'}</option>
                       <option value="loyalty_program">{language === 'ru' ? '💎 Программа лояльности' : language === 'uz' ? '💎 Doimiy mijozlar uchun bonus' : '💎 Loyalty program'}</option>
                     </select>
-                  </div>
-
-                  {/* Product URL */}
-                  <div>
-                    <label className="block text-sm font-medium text-brand-darkBlue mb-1.5">
-                      <Sparkles className="w-4 h-4 inline mr-1.5" />
-                      {txt.productUrl}
-                    </label>
-                    <input
-                      type="url"
-                      value={formData.productUrl || ''}
-                      onChange={e => setFormData(prev => ({ ...prev, productUrl: e.target.value }))}
-                      placeholder={txt.productUrlPlaceholder}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all"
-                    />
-                    <p className="text-xs text-gray-500 mt-1.5">{txt.productUrlHelp}</p>
                   </div>
 
                   {/* Channels */}
