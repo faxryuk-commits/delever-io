@@ -454,35 +454,72 @@ export default async function handler(request: Request) {
         if (geminiKey) {
           console.log('AI Marketing: Trying Google Gemini API...', { hasKey: !!geminiKey, keyPrefix: geminiKey.substring(0, 10) })
           try {
-            const geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
+            // Пробуем OpenAI-совместимый endpoint
+            let geminiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${geminiKey}`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${geminiKey}`,
               },
               body: JSON.stringify({
-                model: 'gemini-1.5-pro',
-                messages: [
-                  { role: 'system', content: SYSTEM_PROMPT },
-                  { role: 'user', content: getUserPrompt(requestBody, productData) },
-                ],
-                temperature: 0.8,
-                max_tokens: 2000,
-                response_format: { type: 'json_object' },
+                contents: [{
+                  parts: [{
+                    text: `${SYSTEM_PROMPT}\n\n${getUserPrompt(requestBody, productData)}`
+                  }]
+                }],
+                generationConfig: {
+                  temperature: 0.8,
+                  maxOutputTokens: 2000,
+                  responseMimeType: 'application/json',
+                },
               }),
             })
+
+            // Если не сработало, пробуем OpenAI-совместимый endpoint
+            if (!geminiResponse.ok) {
+              console.log('AI Marketing: Trying OpenAI-compatible Gemini endpoint...')
+              geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${geminiKey}`,
+                },
+                body: JSON.stringify({
+                  model: 'gemini-1.5-pro',
+                  messages: [
+                    { role: 'system', content: SYSTEM_PROMPT },
+                    { role: 'user', content: getUserPrompt(requestBody, productData) },
+                  ],
+                  temperature: 0.8,
+                  max_tokens: 2000,
+                  response_format: { type: 'json_object' },
+                }),
+              })
+            }
 
             console.log('AI Marketing: Gemini response status:', geminiResponse.status)
 
             if (geminiResponse.ok) {
               const geminiData = await geminiResponse.json()
-              console.log('AI Marketing: Gemini response structure:', {
-                hasChoices: !!geminiData.choices,
-                choicesLength: geminiData.choices?.length,
-                hasContent: !!geminiData.choices?.[0]?.message?.content
-              })
               
-              const geminiContent = geminiData.choices?.[0]?.message?.content
+              // Проверяем формат ответа (нативный или OpenAI-совместимый)
+              let geminiContent: string | null = null
+              
+              // Нативный формат Gemini API
+              if (geminiData.candidates?.[0]?.content?.parts?.[0]?.text) {
+                geminiContent = geminiData.candidates[0].content.parts[0].text
+                console.log('AI Marketing: Using native Gemini API format')
+              }
+              // OpenAI-совместимый формат
+              else if (geminiData.choices?.[0]?.message?.content) {
+                geminiContent = geminiData.choices[0].message.content
+                console.log('AI Marketing: Using OpenAI-compatible Gemini format')
+              }
+              
+              console.log('AI Marketing: Gemini response structure:', {
+                hasCandidates: !!geminiData.candidates,
+                hasChoices: !!geminiData.choices,
+                hasContent: !!geminiContent
+              })
               
               if (geminiContent) {
                 console.log('AI Marketing: Gemini content length:', geminiContent.length)
