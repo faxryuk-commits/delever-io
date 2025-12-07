@@ -131,6 +131,12 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
   const geminiKey = process.env.GOOGLE_GEMINI_API_KEY
   const anthropicKey = process.env.ANTHROPIC_API_KEY
   
+  console.log('Menu Doctor: Available AI providers:', {
+    openai: !!openaiKey,
+    gemini: !!geminiKey,
+    anthropic: !!anthropicKey
+  })
+  
   // Попытка OpenAI
   if (openaiKey) {
     try {
@@ -206,6 +212,7 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
 
   // Попытка Anthropic Claude
   if (anthropicKey) {
+    console.log('Menu Doctor: Trying Anthropic Claude...')
     try {
       const response = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
@@ -244,6 +251,8 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
     } catch (error) {
       console.error('Menu Doctor: Claude error:', error)
     }
+  } else {
+    console.log('Menu Doctor: Anthropic API key not configured')
   }
 
   // Fallback мок-ответ
