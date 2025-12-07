@@ -143,9 +143,12 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
   if (openrouterKey) {
     console.log('Menu Doctor: Trying OpenRouter (global proxy)...')
     try {
-      // Используем модели которые НЕ блокируют по региону
-      // meta-llama/llama-3.1-8b-instruct:free - бесплатная и без блокировок
+      // Таймаут 20 секунд для OpenRouter
+      const openrouterController = new AbortController()
+      const openrouterTimeout = setTimeout(() => openrouterController.abort(), 20000)
+      
       const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        signal: openrouterController.signal,
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -163,6 +166,8 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
         }),
       })
 
+      clearTimeout(openrouterTimeout)
+      
       if (response.ok) {
         const data = await response.json()
         const content = data.choices?.[0]?.message?.content
@@ -184,7 +189,7 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
         console.log('Menu Doctor: OpenRouter failed:', response.status, errText)
       }
     } catch (error) {
-      console.error('Menu Doctor: OpenRouter error:', error)
+      console.log('Menu Doctor: OpenRouter error (possibly timeout):', error instanceof Error ? error.message : 'Unknown')
     }
   }
   
@@ -527,13 +532,13 @@ export default async function handler(request: Request) {
       }
     }
 
-    // Ограничение длины HTML
-    const MAX_HTML_LENGTH = 100000 // 100KB для промпта
+    // Ограничение длины контента (меньше = быстрее ответ от AI)
+    const MAX_CONTENT_LENGTH = 15000 // 15KB - оптимально для скорости
     let truncated = false
-    if (html.length > MAX_HTML_LENGTH) {
-      html = html.slice(0, MAX_HTML_LENGTH)
+    if (html.length > MAX_CONTENT_LENGTH) {
+      html = html.slice(0, MAX_CONTENT_LENGTH)
       truncated = true
-      console.log('Menu Doctor: HTML truncated to', MAX_HTML_LENGTH, 'chars')
+      console.log('Menu Doctor: Content truncated to', MAX_CONTENT_LENGTH, 'chars')
     }
 
     console.log('Menu Doctor: Content length:', html.length, 'truncated:', truncated, 'usedJina:', usedJina)
