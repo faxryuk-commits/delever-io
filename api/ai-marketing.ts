@@ -32,17 +32,34 @@ interface MarketingResponse {
   hashtags: string[]
 }
 
-const SYSTEM_PROMPT = `Ты — опытный маркетолог для ресторанов и кафе. Ты создаёшь вовлекающие, продающие тексты для социальных сетей.
+const SYSTEM_PROMPT = `Ты — гениальный SMM-маркетолог с 10-летним опытом продвижения ресторанов. Твои тексты вызывают аппетит, эмоции и желание купить прямо сейчас.
 
-Правила:
-- Пиши живо, с эмоциями, используй эмодзи уместно
-- Для Instagram: короткие, цепляющие тексты с призывом к действию
-- Для Telegram: можно чуть подробнее, информативнее
-- Для Stories: краткие тезисы, идеи для визуала
-- Хэштеги должны быть релевантными и популярными
-- Пиши строго на языке, указанном в параметре language
+ТВОЯ ЗАДАЧА:
+Создать контент-план для ресторана на основе вводных данных. Тексты должны быть "живыми", без клише, с юмором (где уместно) и четкой структурой.
 
-Верни ТОЛЬКО валидный JSON без markdown, без комментариев, без пояснений.`
+ПРАВИЛА ДЛЯ INSTAGRAM:
+- Используй формулу AIDA (Attention, Interest, Desire, Action).
+- Заголовок должен цеплять с первых 3 слов.
+- Разбивай текст на абзацы для легкого чтения.
+- Добавляй "вкусные" описания (хрустящий, сочный, ароматный).
+- В конце ВСЕГДА призыв к действию (CTA).
+
+ПРАВИЛА ДЛЯ TELEGRAM:
+- Более личный, дружеский тон.
+- Можно использовать буллиты и списки.
+- Четкий оффер.
+
+ПРАВИЛА ДЛЯ STORIES:
+- Сценарии должны быть вовлекающими.
+- Предлагай интерактив (опросы, реакции).
+- Визуальные описания.
+
+ЯЗЫК:
+- Пиши строго на языке, указанном в параметре language.
+- Для узбекского языка используй живой, разговорный стиль, а не официальный.
+
+ФОРМАТ ОТВЕТА:
+Верни ТОЛЬКО валидный JSON без markdown.`
 
 // Функция для парсинга URL товара и извлечения данных
 async function parseProductUrl(url: string): Promise<ParsedProductData> {
@@ -147,79 +164,81 @@ function getFallbackMarketingResponse(data: MarketingRequest, productData?: Pars
   
   // Используем данные из URL, если они есть
   let promo = data.promoDescription || 'Специальное предложение'
+  let productDetails = ''
+  
   if (productData?.extracted) {
     if (productData.title && !data.promoDescription) {
       promo = productData.title
     }
     if (productData.description) {
-      promo += `\n\n${productData.description}`
+      productDetails += `\n\n${productData.description}`
     }
     if (productData.price) {
-      promo += `\n💰 Цена: ${productData.price}`
+      productDetails += `\n💰 Цена: ${productData.price}`
     }
     if (productData.components && productData.components.length > 0) {
-      promo += `\n\nСостав: ${productData.components.slice(0, 5).join(', ')}`
+      productDetails += `\n\nСостав: ${productData.components.slice(0, 5).join(', ')}`
     }
   }
   
   const hashtags = lang === 'ru' 
-    ? ['#ресторан', '#доставка', '#еда', '#акция', '#спешите', '#вкусно', '#свежее', '#горячее', '#заказ', '#деливери', '#ташкент', '#узбекистан', '#кухня', '#меню', '#скидка']
+    ? ['#ресторан', '#доставка', '#еда', '#акция', '#вкусно', '#ташкент', '#узбекистан', '#food', '#instafood']
     : lang === 'uz'
-    ? ['#restoran', '#yetkazib_berish', '#ovqat', '#aksiya', '#shoshiling', '#mazali', '#yangi', '#issiq', '#buyurtma', '#delivery', '#toshkent', '#o\'zbekiston', '#oshxona', '#menyu', '#chegirma']
-    : ['#restaurant', '#delivery', '#food', '#promo', '#hurry', '#delicious', '#fresh', '#hot', '#order', '#delivery', '#tashkent', '#uzbekistan', '#cuisine', '#menu', '#discount']
+    ? ['#restoran', '#yetkazib_berish', '#ovqat', '#aksiya', '#mazali', '#toshkent', '#uzbekiston', '#food', '#instafood']
+    : ['#restaurant', '#delivery', '#food', '#promo', '#delicious', '#tashkent', '#uzbekistan', '#food', '#instafood']
   
   const instagramPosts = lang === 'ru'
     ? [
-        `🍽️ ${brand} — ${cuisine} на любой вкус!\n\n${promo}\n\n✨ Заказывайте прямо сейчас!\n📞 +998 78 113 98 13`,
-        `🔥 Горячее предложение от ${brand}!\n\n${promo}\n\nНе упустите возможность! Закажите доставку 🚀`,
-        `👨‍🍳 ${brand} — качество и вкус в каждом блюде!\n\n${promo}\n\nДоставка по всему городу! 📦`
+        `🔥 ${promo.toUpperCase()}!\n\n${brand} представляет новинку, которая покорит ваше сердце (и желудок 😉). ${productDetails}\n\nПочему стоит попробовать:\n✅ Невероятный вкус\n✅ Свежие ингредиенты\n✅ Быстрая доставка\n\n👇 Заказывайте прямо сейчас по ссылке в шапке профиля или звоните!`,
+        `Когда хочется чего-то особенного... 🤔\n\n${promo} от ${brand} — идеальный выбор! ${productDetails}\n\nУстройте себе праздник вкуса уже сегодня. 🚀\n\n📞 +998 78 113 98 13`,
+        `🍽️ ${brand} — это не просто еда, это эмоции!\n\n${promo}\n${productDetails}\n\nПопробуйте и убедитесь сами! Ждем ваших отзывов в комментариях 👇`
       ]
     : lang === 'uz'
     ? [
-        `🍽️ ${brand} — ${cuisine} har xil ta'mga!\n\n${promo}\n\n✨ Hozir buyurtma bering!\n📞 +998 78 113 98 13`,
-        `🔥 ${brand} dan issiq taklif!\n\n${promo}\n\nImkoniyatni qo'ldan bermang! Yetkazib berishni buyurtma qiling 🚀`,
-        `👨‍🍳 ${brand} — har bir taomda sifat va ta'm!\n\n${promo}\n\nButun shahar bo'ylab yetkazib berish! 📦`
+        `🔥 ${promo.toUpperCase()}!\n\n${brand} sizning yuragingizni (va qorningizni 😉) zabt etadigan yangilikni taqdim etadi. ${productDetails}\n\nNima uchun tatib ko'rish kerak:\n✅ Betakror ta'm\n✅ Yangi masalliqlar\n✅ Tez yetkazib berish\n\n👇 Hoziroq profil sarlavhasidagi havola orqali buyurtma bering yoki qo'ng'iroq qiling!`,
+        `O'zgacha bir narsa xohlaganda... 🤔\n\n${brand} dan ${promo} — ajoyib tanlov! ${productDetails}\n\nBugunoq o'zingizga ta'm bayramini uyushtiring. 🚀\n\n📞 +998 78 113 98 13`,
+        `🍽️ ${brand} — bu shunchaki ovqat emas, bu hissiyotlar!\n\n${promo}\n${productDetails}\n\nTatib ko'ring va o'zingiz ishonch hosil qiling! Izohlarda fikrlaringizni kutamiz 👇`
       ]
     : [
-        `🍽️ ${brand} — ${cuisine} for every taste!\n\n${promo}\n\n✨ Order now!\n📞 +998 78 113 98 13`,
-        `🔥 Hot offer from ${brand}!\n\n${promo}\n\nDon't miss out! Order delivery 🚀`,
-        `👨‍🍳 ${brand} — quality and taste in every dish!\n\n${promo}\n\nDelivery throughout the city! 📦`
+        `🔥 ${promo.toUpperCase()}!\n\n${brand} presents a novelty that will win your heart (and stomach 😉). ${productDetails}\n\nWhy you should try it:\n✅ Incredible taste\n✅ Fresh ingredients\n✅ Fast delivery\n\n👇 Order right now via the link in bio or call us!`,
+        `When you want something special... 🤔\n\n${promo} from ${brand} is the perfect choice! ${productDetails}\n\nTreat yourself to a feast of taste today. 🚀\n\n📞 +998 78 113 98 13`,
+        `🍽️ ${brand} — it's not just food, it's emotions!\n\n${promo}\n${productDetails}\n\nTry it and see for yourself! We are waiting for your feedback in the comments 👇`
       ]
   
   const telegramPosts = lang === 'ru'
     ? [
-        `🍽️ ${brand}\n\n${promo}\n\nМы готовим ${cuisine} с любовью и вниманием к деталям. Каждое блюдо — это произведение кулинарного искусства.\n\n📞 Заказ: +998 78 113 98 13\n🚚 Быстрая доставка\n💳 Удобная оплата`,
-        `🔥 Специальное предложение!\n\n${promo}\n\n${brand} радует своих клиентов качественной ${cuisine} и быстрой доставкой. Попробуйте уже сегодня!`,
-        `👨‍🍳 ${brand} — ваш выбор для ${cuisine}!\n\n${promo}\n\nМы используем только свежие ингредиенты и готовим с душой. Заказывайте прямо сейчас!`
+        `⚡️ **${promo}** уже здесь!\n\nДрузья, ${brand} радует вас новинкой! ${productDetails}\n\nЗаказывайте доставку и наслаждайтесь вкусом, не выходя из дома. \n\n👉 [Заказать онлайн](https://delever.io)\n📞 +998 78 113 98 13`,
+        `🍔 **Голод не тетка, а повод заказать ${promo}!**\n\n${brand} знает толк во вкусной еде. ${productDetails}\n\n🚀 Доставим горячим за 45 минут!\n\nЖмите кнопку ниже 👇`,
+        `👋 Всем привет! У нас для вас кое-что вкусненькое.\n\n**${promo}** — то, что нужно для отличного дня. ${productDetails}\n\nЗаходите в гости или заказывайте доставку! 📦`
       ]
     : lang === 'uz'
     ? [
-        `🍽️ ${brand}\n\n${promo}\n\nBiz ${cuisine} ni sevgi va e'tibor bilan tayyorlaymiz. Har bir taom — oshpazlik san'ati asari.\n\n📞 Buyurtma: +998 78 113 98 13\n🚚 Tez yetkazib berish\n💳 Qulay to'lov`,
-        `🔥 Maxsus taklif!\n\n${promo}\n\n${brand} mijozlarini sifatli ${cuisine} va tez yetkazib berish bilan xursand qiladi. Bugun sinab ko'ring!`,
-        `👨‍🍳 ${brand} — ${cuisine} uchun sizning tanlovingiz!\n\n${promo}\n\nBiz faqat yangi ingredientlardan foydalanamiz va qalbdan tayyorlaymiz. Hozir buyurtma bering!`
+        `⚡️ **${promo}** endi shu yerda!\n\nDo'stlar, ${brand} sizni yangilik bilan xursand qiladi! ${productDetails}\n\nYetkazib berishni buyurtma qiling va uydan chiqmasdan ta'mdan bahramand bo'ling.\n\n👉 [Onlayn buyurtma](https://delever.io)\n📞 +998 78 113 98 13`,
+        `🍔 **Qorin ochligi — ${promo} buyurtma qilish uchun sabab!**\n\n${brand} mazali ovqatni yaxshi biladi. ${productDetails}\n\n🚀 45 daqiqada issiq holda yetkazamiz!\n\nQuyidagi tugmani bosing 👇`,
+        `👋 Hammaga salom! Bizda siz uchun mazali narsa bor.\n\n**${promo}** — ajoyib kun uchun aynan kerakli narsa. ${productDetails}\n\nMehmonga keling yoki yetkazib berishni buyurtma qiling! 📦`
       ]
     : [
-        `🍽️ ${brand}\n\n${promo}\n\nWe prepare ${cuisine} with love and attention to detail. Every dish is a culinary masterpiece.\n\n📞 Order: +998 78 113 98 13\n🚚 Fast delivery\n💳 Convenient payment`,
-        `🔥 Special offer!\n\n${promo}\n\n${brand} delights customers with quality ${cuisine} and fast delivery. Try it today!`,
-        `👨‍🍳 ${brand} — your choice for ${cuisine}!\n\n${promo}\n\nWe use only fresh ingredients and cook with soul. Order now!`
+        `⚡️ **${promo}** is here!\n\nFriends, ${brand} pleases you with a novelty! ${productDetails}\n\nOrder delivery and enjoy the taste without leaving home.\n\n👉 [Order online](https://delever.io)\n📞 +998 78 113 98 13`,
+        `🍔 **Hunger is a reason to order ${promo}!**\n\n${brand} knows good food. ${productDetails}\n\n🚀 Delivered hot in 45 minutes!\n\nClick the button below 👇`,
+        `👋 Hello everyone! We have something tasty for you.\n\n**${promo}** — just what you need for a great day. ${productDetails}\n\nCome visit us or order delivery! 📦`
       ]
   
   const storiesIdeas = lang === 'ru'
     ? [
-        `🔥 ${promo} — только сегодня!`,
-        `🍽️ ${brand} — ${cuisine} с доставкой`,
-        `📞 Заказ: +998 78 113 98 13`
+        `🎥 **Сценарий 1:** Покажите крупным планом ${promo}, затем реакцию довольного клиента. Текст: "Тот самый момент..."`,
+        `🎥 **Сценарий 2:** Опрос: "А вы уже пробовали ${promo}?" (Да/Хочу). На фоне аппетитное фото.`,
+        `🎥 **Сценарий 3:** "Закулисье": как готовится ${promo}. Звуки жарки/нарезки (ASMR).`
       ]
     : lang === 'uz'
     ? [
-        `🔥 ${promo} — faqat bugun!`,
-        `🍽️ ${brand} — ${cuisine} yetkazib berish bilan`,
-        `📞 Buyurtma: +998 78 113 98 13`
+        `🎥 **Ssenariy 1:** ${promo} ni yaqindan ko'rsating, so'ngra mamnun mijoz reaksiyasini. Matn: "O'sha lahza..."`,
+        `🎥 **Ssenariy 2:** So'rovnoma: "Siz ${promo} ni tatib ko'rdingizmi?" (Ha/Xohlayman). Orqa fonda ishtaha ochuvchi rasm.`,
+        `🎥 **Ssenariy 3:** "Parda ortida": ${promo} qanday tayyorlanishi. Qovurish/kesish tovushlari (ASMR).`
       ]
     : [
-        `🔥 ${promo} — today only!`,
-        `🍽️ ${brand} — ${cuisine} with delivery`,
-        `📞 Order: +998 78 113 98 13`
+        `🎥 **Scenario 1:** Show a close-up of ${promo}, then a happy customer's reaction. Text: "That moment..."`,
+        `🎥 **Scenario 2:** Poll: "Have you tried ${promo} yet?" (Yes/Want to). Appetizing photo in background.`,
+        `🎥 **Scenario 3:** "Behind the scenes": how ${promo} is prepared. Frying/cutting sounds (ASMR).`
       ]
   
   return {
@@ -281,38 +300,33 @@ function getUserPrompt(data: MarketingRequest, productData?: ParsedProductData):
   
   let productInfo = ''
   if (productData?.extracted) {
-    productInfo = `\n\nДАННЫЕ ИЗ ССЫЛКИ НА ТОВАР:\n`
+    productInfo = `\n\nДАННЫЕ ИЗ ССЫЛКИ НА ТОВАР (ИСПОЛЬЗУЙ ОБЯЗАТЕЛЬНО):\n`
     if (productData.title) productInfo += `- Название товара: ${productData.title}\n`
     if (productData.description) productInfo += `- Описание: ${productData.description}\n`
     if (productData.price) productInfo += `- Цена: ${productData.price}\n`
     if (productData.components && productData.components.length > 0) {
-      productInfo += `- Компоненты/ингредиенты: ${productData.components.join(', ')}\n`
+      productInfo += `- Состав/Ингредиенты: ${productData.components.join(', ')}\n`
     }
-    if (productData.image) productInfo += `- Изображение доступно: ${productData.image}\n`
-    productInfo += `\nИСПОЛЬЗУЙ ЭТИ ДАННЫЕ для создания более точных и детальных постов. Упоминай конкретные компоненты, цену, особенности товара.`
+    productInfo += `\nВАЖНО: Опиши этот товар максимально "вкусно" и подробно, используя данные выше.`
   }
   
-  return `Сгенерируй маркетинговые тексты для ресторана.
+  return `Сгенерируй контент-план для ресторана.
 
-Данные:
-- Название: ${data.brandName}
+ВВОДНЫЕ ДАННЫЕ:
+- Название бренда: ${data.brandName}
 - Тип кухни: ${data.cuisine}
-- Описание акции/блюда: ${data.promoDescription}
-- Цель продвижения: ${goalDesc}
+- Основной оффер/блюдо: ${data.promoDescription}
+- Цель: ${goalDesc}
 - Каналы: ${data.channels.join(', ')}
-- Язык текстов: ${langName}${productInfo}
+- Язык: ${langName}${productInfo}
 
-Верни JSON в формате:
+ФОРМАТ JSON:
 {
-  "instagram_posts": ["пост 1", "пост 2", "пост 3"],
-  "telegram_posts": ["пост 1", "пост 2", "пост 3"],
-  "stories_ideas": ["идея 1", "идея 2", "идея 3"],
+  "instagram_posts": ["Пост 1 (яркий, продающий)", "Пост 2 (сторителлинг)", "Пост 3 (короткий, с юмором)"],
+  "telegram_posts": ["Пост 1 (дружеский)", "Пост 2 (новостной)", "Пост 3 (продающий)"],
+  "stories_ideas": ["Идея 1", "Идея 2", "Идея 3"],
   "hashtags": ["#хэштег1", "#хэштег2", "...до 15 хэштегов"]
-}
-
-Если канал не выбран, всё равно сгенерируй для него контент.
-Пиши на ${langName} языке. Только JSON, ничего больше.
-${productData?.extracted ? 'ВАЖНО: Используй конкретные данные из ссылки (название, компоненты, цену) для создания более убедительных постов.' : ''}`
+}`
 }
 
 export default async function handler(request: Request) {
@@ -355,30 +369,19 @@ export default async function handler(request: Request) {
       console.log('AI Marketing: Parsing product URL...')
       productData = await parseProductUrl(requestBody.productUrl.trim())
       if (productData.extracted) {
-        console.log('AI Marketing: Successfully extracted product data:', {
-          hasTitle: !!productData.title,
-          hasDescription: !!productData.description,
-          hasPrice: !!productData.price,
-          hasComponents: !!productData.components?.length,
-          hasImage: !!productData.image
-        })
+        console.log('AI Marketing: Successfully extracted product data')
       } else {
         console.log('AI Marketing: Could not extract product data from URL')
       }
     }
 
     // Попытка использовать альтернативный AI сервис, если OpenAI недоступен
-    // Проверяем наличие ключей альтернативных сервисов
     const anthropicKey = process.env.ANTHROPIC_API_KEY
     const geminiKey = process.env.GOOGLE_GEMINI_API_KEY
     
     // Call OpenAI (или альтернативный сервис)
     console.log('AI Marketing: Calling AI API...', {
       brandName: requestBody.brandName,
-      language: requestBody.language,
-      channels: requestBody.channels,
-      hasProductData: !!productData?.extracted,
-      hasAnthropic: !!anthropicKey,
       hasGemini: !!geminiKey
     })
     
@@ -405,342 +408,69 @@ export default async function handler(request: Request) {
     if (!response.ok) {
       const errorData = await response.text()
       console.error('AI Marketing: OpenAI API error:', response.status)
-      console.error('AI Marketing: Error data:', errorData.substring(0, 500))
       
-      // Проверяем, является ли это ошибкой блокировки региона
-      // Сначала проверяем строку напрямую (на случай вложенного JSON)
+      // Проверяем блокировку региона
       const lowerError = errorData.toLowerCase()
-      let isRegionBlocked = false
-      let errorMessage = ''
+      const isRegionBlocked = lowerError.includes('unsupported_country') || 
+                              lowerError.includes('region') || 
+                              lowerError.includes('forbidden') ||
+                              response.status === 403
       
-      // Проверяем строку напрямую на наличие ключевых слов
-      if (lowerError.includes('unsupported_country_region_territory') || 
-          lowerError.includes('unsupported_country') ||
-          lowerError.includes('country, region, or territory not supported') ||
-          lowerError.includes('request_forbidden') ||
-          (lowerError.includes('region') && lowerError.includes('not supported')) ||
-          (lowerError.includes('territory') && lowerError.includes('not supported'))) {
-        isRegionBlocked = true
-        console.log('Detected region block from error string')
-      }
-      
-      // Также пытаемся распарсить JSON для более точной проверки
-      if (!isRegionBlocked) {
+      // Если регион заблокирован, пробуем Gemini
+      if (isRegionBlocked && geminiKey) {
+        console.log('AI Marketing: Region blocked, trying Google Gemini 1.5 Flash...')
+        
         try {
-          const errorJson = JSON.parse(errorData)
-          errorMessage = errorJson.error?.message || JSON.stringify(errorJson)
-          
-          // Проверяем код ошибки и сообщение
-          if (errorJson.error?.code === 'unsupported_country_region_territory' || 
-              errorJson.error?.code === 'request_forbidden' ||
-              errorMessage.toLowerCase().includes('unsupported_country') ||
-              errorMessage.toLowerCase().includes('country, region, or territory not supported')) {
-            isRegionBlocked = true
-            console.log('Detected region block from parsed JSON')
-          }
-        } catch {
-          // Если не удалось распарсить, используем строку как есть
-          errorMessage = errorData
-        }
-      } else {
-        errorMessage = errorData
-      }
-      
-      // Если регион заблокирован, пробуем использовать альтернативный AI сервис
-      if (isRegionBlocked) {
-        console.log('AI Marketing: Region blocked detected, trying alternative AI service...')
-        
-        // Пробуем Google Gemini, если доступен
-        if (geminiKey) {
-          console.log('AI Marketing: Trying Google Gemini API...', { hasKey: !!geminiKey, keyPrefix: geminiKey.substring(0, 10) })
-          try {
-            // Пробуем нативный Gemini API endpoint
-            let geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'x-goog-api-key': geminiKey,
-              },
-              body: JSON.stringify({
-                contents: [{
-                  parts: [{
-                    text: `${SYSTEM_PROMPT}\n\n${getUserPrompt(requestBody, productData)}`
-                  }]
-                }],
-                generationConfig: {
-                  temperature: 0.8,
-                  maxOutputTokens: 2000,
-                  responseMimeType: 'application/json',
-                },
-              }),
-            })
-
-            // Если не сработало, пробуем OpenAI-совместимый endpoint
-            if (!geminiResponse.ok) {
-              console.log('AI Marketing: Trying OpenAI-compatible Gemini endpoint...')
-              geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${geminiKey}`,
-                },
-                body: JSON.stringify({
-                  model: 'gemini-1.5-pro',
-                  messages: [
-                    { role: 'system', content: SYSTEM_PROMPT },
-                    { role: 'user', content: getUserPrompt(requestBody, productData) },
-                  ],
-                  temperature: 0.8,
-                  max_tokens: 2000,
-                  response_format: { type: 'json_object' },
-                }),
-              })
-            }
-
-            console.log('AI Marketing: Gemini response status:', geminiResponse.status)
-
-            if (geminiResponse.ok) {
-              const geminiData = await geminiResponse.json()
-              
-              // Проверяем формат ответа (нативный или OpenAI-совместимый)
-              let geminiContent: string | null = null
-              
-              // Нативный формат Gemini API
-              if (geminiData.candidates?.[0]?.content?.parts?.[0]?.text) {
-                geminiContent = geminiData.candidates[0].content.parts[0].text
-                console.log('AI Marketing: Using native Gemini API format')
-              }
-              // OpenAI-совместимый формат
-              else if (geminiData.choices?.[0]?.message?.content) {
-                geminiContent = geminiData.choices[0].message.content
-                console.log('AI Marketing: Using OpenAI-compatible Gemini format')
-              }
-              
-              console.log('AI Marketing: Gemini response structure:', {
-                hasCandidates: !!geminiData.candidates,
-                hasChoices: !!geminiData.choices,
-                hasContent: !!geminiContent
-              })
-              
-              if (geminiContent) {
-                console.log('AI Marketing: Gemini content length:', geminiContent.length)
-                try {
-                  const result = JSON.parse(geminiContent)
-                  console.log('AI Marketing: Parsed Gemini result:', {
-                    hasInstagram: !!result.instagram_posts,
-                    hasTelegram: !!result.telegram_posts,
-                    hasStories: !!result.stories_ideas,
-                    hasHashtags: !!result.hashtags
-                  })
-                  
-                  if (result.instagram_posts && result.telegram_posts && result.stories_ideas && result.hashtags) {
-                    console.log('AI Marketing: ✅ Successfully generated content using Google Gemini')
-                    return new Response(JSON.stringify(result), {
-                      status: 200,
-                      headers: { 'Content-Type': 'application/json' },
-                    })
-                  } else {
-                    console.error('AI Marketing: Gemini result missing required fields:', result)
-                  }
-                } catch (parseError) {
-                  console.error('AI Marketing: Failed to parse Gemini response:', parseError)
-                  console.error('AI Marketing: Raw Gemini content:', geminiContent.substring(0, 500))
-                }
-              } else {
-                console.error('AI Marketing: Gemini response has no content')
-                console.error('AI Marketing: Full Gemini response:', JSON.stringify(geminiData).substring(0, 500))
-              }
-            } else {
-              const geminiErrorText = await geminiResponse.text()
-              console.error('AI Marketing: Gemini API error:', geminiResponse.status, geminiErrorText.substring(0, 500))
-            }
-          } catch (geminiError) {
-            console.error('AI Marketing: Gemini API request failed:', geminiError)
-            if (geminiError instanceof Error) {
-              console.error('AI Marketing: Gemini error message:', geminiError.message)
-            }
-          }
-        } else {
-          console.log('AI Marketing: Gemini key not found in environment variables')
-        }
-        
-        // Если Gemini не сработал, используем fallback
-        console.log('AI Marketing: Using fallback response')
-        const fallbackResponse = getFallbackMarketingResponse(requestBody, productData)
-        return new Response(JSON.stringify({
-          ...fallbackResponse,
-          fallback: true,
-          note: 'AI временно недоступен в вашем регионе, используется базовый шаблон'
-        }), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json' },
-        })
-      }
-      
-      // Для других ошибок возвращаем ошибку
-      return new Response(JSON.stringify({ 
-        error: 'OpenAI API error', 
-        details: errorMessage || errorData 
-      }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      })
-    }
-
-    // Парсим ответ от OpenAI
-    let data: any
-    try {
-      data = await response.json()
-    } catch (parseError) {
-      console.error('Failed to parse OpenAI response as JSON:', parseError)
-      // Если не удалось распарсить, возможно это ошибка региона
-      const fallbackResponse = getFallbackMarketingResponse(body, productData)
-      return new Response(JSON.stringify({
-        ...fallbackResponse,
-        fallback: true,
-        note: 'AI временно недоступен, используется базовый шаблон'
-      }), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      })
-    }
-
-    // Проверяем, есть ли ошибка в успешном ответе
-    if (data.error) {
-      console.error('OpenAI returned error in response:', data.error)
-      const errorCode = data.error.code || ''
-      const errorMessage = data.error.message || JSON.stringify(data.error)
-      const errorString = JSON.stringify(data.error).toLowerCase()
-      
-      // Проверяем, является ли это ошибкой блокировки региона
-      // Проверяем код, сообщение и всю строку ошибки
-      if (errorCode === 'unsupported_country_region_territory' || 
-          errorCode === 'request_forbidden' ||
-          errorMessage.toLowerCase().includes('unsupported_country') ||
-          errorMessage.toLowerCase().includes('country, region, or territory not supported') ||
-          errorString.includes('unsupported_country_region_territory') ||
-          errorString.includes('country, region, or territory not supported')) {
-        console.log('Using fallback marketing response due to region block in response')
-        
-        // Пробуем Google Gemini, если доступен
-        if (geminiKey) {
-          console.log('AI Marketing: Trying Google Gemini API as fallback...', { hasKey: !!geminiKey })
-          try {
-            const geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${geminiKey}`,
-              },
-              body: JSON.stringify({
-                model: 'gemini-1.5-pro',
-                messages: [
-                  { role: 'system', content: SYSTEM_PROMPT },
-                  { role: 'user', content: getUserPrompt(requestBody, productData) },
-                ],
-                temperature: 0.8,
-                max_tokens: 2000,
-                response_format: { type: 'json_object' },
-              }),
-            })
-
-            console.log('AI Marketing: Gemini response status:', geminiResponse.status)
-
-            if (geminiResponse.ok) {
-              const geminiData = await geminiResponse.json()
-              const geminiContent = geminiData.choices?.[0]?.message?.content
-              
-              if (geminiContent) {
-                try {
-                  const result = JSON.parse(geminiContent)
-                  if (result.instagram_posts && result.telegram_posts && result.stories_ideas && result.hashtags) {
-                    console.log('AI Marketing: ✅ Successfully generated content using Google Gemini')
-                    return new Response(JSON.stringify(result), {
-                      status: 200,
-                      headers: { 'Content-Type': 'application/json' },
-                    })
-                  }
-                } catch (parseError) {
-                  console.error('AI Marketing: Failed to parse Gemini response:', parseError)
-                }
-              } else {
-                console.error('AI Marketing: Gemini response has no content')
-              }
-            } else {
-              const geminiErrorText = await geminiResponse.text()
-              console.error('AI Marketing: Gemini API error:', geminiResponse.status, geminiErrorText.substring(0, 500))
-            }
-          } catch (geminiError) {
-            console.error('AI Marketing: Gemini API request failed:', geminiError)
-          }
-        } else {
-          console.log('AI Marketing: Gemini key not found')
-        }
-        
-        const fallbackResponse = getFallbackMarketingResponse(requestBody, productData)
-        return new Response(JSON.stringify({
-          ...fallbackResponse,
-          fallback: true,
-          note: 'AI временно недоступен в вашем регионе, используется базовый шаблон'
-        }), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json' },
-        })
-      }
-    }
-    
-    // Также проверяем content на наличие ошибок (на случай, если ошибка в тексте ответа)
-    const contentString = JSON.stringify(data).toLowerCase()
-    if (contentString.includes('unsupported_country_region_territory') ||
-        contentString.includes('country, region, or territory not supported')) {
-      console.log('Detected region block in response content, trying Gemini...')
-      
-      // Пробуем Google Gemini, если доступен
-      if (geminiKey) {
-        console.log('AI Marketing: Trying Google Gemini API as fallback...')
-        try {
-          const geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
+          // 1. Пробуем нативный Gemini API endpoint (generateContent)
+          // Используем gemini-1.5-flash - он самый быстрый и стабильный
+          const geminiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-                'Authorization': `Bearer ${geminiKey}`,
             },
             body: JSON.stringify({
-                model: 'gemini-1.5-pro',
-              messages: [
-                { role: 'system', content: SYSTEM_PROMPT },
-                { role: 'user', content: getUserPrompt(requestBody, productData) },
-              ],
-              temperature: 0.8,
-              max_tokens: 2000,
-              response_format: { type: 'json_object' },
+              contents: [{
+                parts: [{
+                  text: `${SYSTEM_PROMPT}\n\n${getUserPrompt(requestBody, productData)}`
+                }]
+              }],
+              generationConfig: {
+                temperature: 0.8,
+                maxOutputTokens: 2000,
+                responseMimeType: 'application/json',
+              },
             }),
           })
 
+          console.log('AI Marketing: Gemini response status:', geminiResponse.status)
+
           if (geminiResponse.ok) {
             const geminiData = await geminiResponse.json()
-            const geminiContent = geminiData.choices?.[0]?.message?.content
+            const geminiContent = geminiData.candidates?.[0]?.content?.parts?.[0]?.text
             
             if (geminiContent) {
               try {
                 const result = JSON.parse(geminiContent)
-                if (result.instagram_posts && result.telegram_posts && result.stories_ideas && result.hashtags) {
-                  console.log('AI Marketing: Successfully generated content using Google Gemini')
-                  return new Response(JSON.stringify(result), {
-                    status: 200,
-                    headers: { 'Content-Type': 'application/json' },
-                  })
-                }
+                console.log('AI Marketing: ✅ Generated content using Gemini 1.5 Flash')
+                return new Response(JSON.stringify(result), {
+                  status: 200,
+                  headers: { 'Content-Type': 'application/json' },
+                })
               } catch (parseError) {
-                console.error('AI Marketing: Failed to parse Gemini response:', parseError)
+                console.error('AI Marketing: Failed to parse Gemini response')
               }
             }
+          } else {
+            const errText = await geminiResponse.text()
+            console.error('AI Marketing: Gemini API error:', errText)
           }
         } catch (geminiError) {
-          console.error('AI Marketing: Gemini API request failed:', geminiError)
+          console.error('AI Marketing: Gemini request failed:', geminiError)
         }
       }
       
+      // Fallback если ничего не сработало
+      console.log('AI Marketing: Using fallback response')
       const fallbackResponse = getFallbackMarketingResponse(requestBody, productData)
       return new Response(JSON.stringify({
         ...fallbackResponse,
@@ -752,56 +482,14 @@ export default async function handler(request: Request) {
       })
     }
 
+    const data = await response.json()
     const content = data.choices?.[0]?.message?.content
 
     if (!content) {
-      console.error('No content in OpenAI response:', data)
-      // Используем fallback вместо ошибки
-      const fallbackResponse = getFallbackMarketingResponse(body, productData)
-      return new Response(JSON.stringify({
-        ...fallbackResponse,
-        fallback: true,
-        note: 'AI вернул пустой ответ, используется базовый шаблон'
-      }), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      })
+      throw new Error('Empty response from OpenAI')
     }
 
-    // Parse JSON response
-    let result: MarketingResponse
-    try {
-      result = JSON.parse(content)
-    } catch (parseError) {
-      console.error('Failed to parse OpenAI response content as JSON:', content)
-      // Используем fallback вместо ошибки
-      const fallbackResponse = getFallbackMarketingResponse(body, productData)
-      return new Response(JSON.stringify({
-        ...fallbackResponse,
-        fallback: true,
-        note: 'Не удалось распарсить ответ AI, используется базовый шаблон'
-      }), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      })
-    }
-
-    // Validate response structure
-    if (!result.instagram_posts || !result.telegram_posts || !result.stories_ideas || !result.hashtags) {
-      console.error('AI Marketing: Invalid response structure:', result)
-      // Используем fallback вместо ошибки
-      const fallbackResponse = getFallbackMarketingResponse(body, productData)
-      return new Response(JSON.stringify({
-        ...fallbackResponse,
-        fallback: true,
-        note: 'AI вернул неполный ответ, используется базовый шаблон'
-      }), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      })
-    }
-
-    console.log('AI Marketing: Successfully generated content')
+    const result = JSON.parse(content)
     return new Response(JSON.stringify(result), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
@@ -809,8 +497,7 @@ export default async function handler(request: Request) {
 
   } catch (error) {
     console.error('AI Marketing API error:', error)
-    // В случае любой ошибки используем fallback вместо возврата ошибки
-    // Используем body, если он был прочитан, иначе используем значения по умолчанию
+    
     const fallbackBody: MarketingRequest = (body as MarketingRequest) || {
       brandName: '',
       cuisine: '',
@@ -831,4 +518,3 @@ export default async function handler(request: Request) {
     })
   }
 }
-
