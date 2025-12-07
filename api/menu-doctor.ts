@@ -63,9 +63,10 @@ function isInternalUrl(url: string): boolean {
 
 // Формирование промпта для AI
 function buildPrompt(
-  html: string, 
+  content: string, 
   data: MenuDoctorRequest, 
-  truncated: boolean
+  truncated: boolean,
+  isRenderedText: boolean = false
 ): string {
   const langMap = {
     ru: 'русский',
@@ -74,10 +75,12 @@ function buildPrompt(
   }
   const reportLang = langMap[data.language || 'ru']
   
+  const contentType = isRenderedText ? 'текстовое содержимое' : 'HTML-код'
+  
   return `Ты — эксперт по ресторанному меню и консультант по увеличению среднего чека.
 
-У тебя есть HTML-код страницы меню ресторана по ссылке: ${data.menuUrl}
-${truncated ? '\n⚠️ HTML был сокращён из-за большого размера.\n' : ''}
+У тебя есть ${contentType} страницы меню ресторана по ссылке: ${data.menuUrl}
+${truncated ? '\n⚠️ Контент был сокращён из-за большого размера.\n' : ''}
 
 Дополнительная информация:
 - Тип заведения: ${data.venueType || 'не указан'}
@@ -88,33 +91,38 @@ ${truncated ? '\n⚠️ HTML был сокращён из-за большого 
 Язык, на котором нужно вернуть ответ: ${reportLang}
 
 Задача:
-1. Выдели реальные позиции меню (названия, цены, описания) из HTML
-2. Сгруппируй блюда по категориям и подкатегориям, если возможно
-3. Оцени структуру по шкале 0–100: понятность, логичность, возможности для апсейла
-4. Выдели проблемы, рекомендации, идеи для увеличения среднего чека
+1. Найди и выдели реальные позиции меню (названия блюд, цены, описания)
+2. Сгруппируй блюда по категориям и подкатегориям
+3. Оцени структуру меню по шкале 0–100:
+   - Понятность и логичность структуры
+   - Качество описаний
+   - Возможности для увеличения среднего чека (комбо, апсейлы)
+4. Выдели конкретные проблемы в структуре меню
+5. Дай практические рекомендации по улучшению
+6. Предложи идеи для увеличения среднего чека
 
 Верни строго JSON в формате:
 {
   "score": number (0-100),
-  "summary": "краткий вывод о меню",
-  "issues": ["проблема 1", "проблема 2", ...],
-  "recommendations": ["рекомендация 1", "рекомендация 2", ...],
-  "upsellIdeas": ["идея 1", "идея 2", ...],
+  "summary": "краткий вывод о качестве меню (2-3 предложения)",
+  "issues": ["конкретная проблема 1", "проблема 2", ...],
+  "recommendations": ["практическая рекомендация 1", "рекомендация 2", ...],
+  "upsellIdeas": ["идея для увеличения чека 1", "идея 2", ...],
   "menuStructure": [
     {
       "category": "название категории",
       "subcategory": "подкатегория (опционально)",
       "items": [
-        { "name": "название блюда", "description": "описание (опционально)", "price": "цена (опционально)" }
+        { "name": "название блюда", "description": "описание", "price": "цена" }
       ]
     }
   ]
 }
 
-Никаких комментариев, только валидный JSON.
+ВАЖНО: Извлеки реальные блюда и цены с сайта. Никаких выдуманных данных. Только валидный JSON без комментариев.
 
-HTML страницы:
-${html}`
+Содержимое страницы:
+${content}`
 }
 
 // Вызов AI модели (с fallback на несколько провайдеров)
@@ -391,39 +399,72 @@ export default async function handler(request: Request) {
 
     console.log('Menu Doctor: Fetching URL:', menuUrl)
 
-    // Получение HTML с таймаутом
-    const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 10000)
+    let html: string = ''
+    let usedJina = false
 
-    let html: string
+    // Сначала пробуем Jina AI Reader (рендерит JavaScript)
     try {
-      const response = await fetch(menuUrl, {
+      console.log('Menu Doctor: Trying Jina AI Reader for JS rendering...')
+      const jinaUrl = `https://r.jina.ai/${menuUrl}`
+      
+      const jinaController = new AbortController()
+      const jinaTimeout = setTimeout(() => jinaController.abort(), 15000)
+      
+      const jinaResponse = await fetch(jinaUrl, {
         method: 'GET',
-        signal: controller.signal,
+        signal: jinaController.signal,
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-          'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7,uz;q=0.6',
+          'Accept': 'text/plain',
         },
       })
-      clearTimeout(timeoutId)
+      clearTimeout(jinaTimeout)
 
-      if (!response.ok) {
-        return new Response(JSON.stringify({ error: `Failed to fetch menu page: ${response.status}` }), {
+      if (jinaResponse.ok) {
+        html = await jinaResponse.text()
+        usedJina = true
+        console.log('Menu Doctor: ✅ Got rendered content via Jina AI Reader, length:', html.length)
+      } else {
+        console.log('Menu Doctor: Jina Reader failed:', jinaResponse.status)
+      }
+    } catch (jinaError) {
+      console.log('Menu Doctor: Jina Reader error, falling back to direct fetch')
+    }
+
+    // Fallback на прямой fetch
+    if (!html) {
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 10000)
+
+      try {
+        const response = await fetch(menuUrl, {
+          method: 'GET',
+          signal: controller.signal,
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7,uz;q=0.6',
+          },
+        })
+        clearTimeout(timeoutId)
+
+        if (!response.ok) {
+          return new Response(JSON.stringify({ error: `Failed to fetch menu page: ${response.status}` }), {
+            status: 500,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          })
+        }
+
+        html = await response.text()
+        console.log('Menu Doctor: Got HTML via direct fetch, length:', html.length)
+      } catch (error) {
+        clearTimeout(timeoutId)
+        const errorMsg = error instanceof Error ? error.message : 'Unknown error'
+        console.error('Menu Doctor: Fetch error:', errorMsg)
+        return new Response(JSON.stringify({ error: 'Failed to fetch menu page: timeout or network error' }), {
           status: 500,
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         })
       }
-
-      html = await response.text()
-    } catch (error) {
-      clearTimeout(timeoutId)
-      const errorMsg = error instanceof Error ? error.message : 'Unknown error'
-      console.error('Menu Doctor: Fetch error:', errorMsg)
-      return new Response(JSON.stringify({ error: 'Failed to fetch menu page: timeout or network error' }), {
-        status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
     }
 
     // Ограничение длины HTML
@@ -435,20 +476,22 @@ export default async function handler(request: Request) {
       console.log('Menu Doctor: HTML truncated to', MAX_HTML_LENGTH, 'chars')
     }
 
-    console.log('Menu Doctor: HTML length:', html.length, 'truncated:', truncated)
+    console.log('Menu Doctor: Content length:', html.length, 'truncated:', truncated, 'usedJina:', usedJina)
 
-    // Проверка наличия контента меню
-    const menuCheck = detectMenuContent(html)
-    if (!menuCheck.hasMenu) {
-      console.log('Menu Doctor: No menu content detected:', menuCheck.reason)
-      return new Response(JSON.stringify(getFallbackReport(menuCheck.reason)), {
-        status: 200,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
+    // Проверка наличия контента меню (пропускаем SPA-проверку если использовали Jina)
+    if (!usedJina) {
+      const menuCheck = detectMenuContent(html)
+      if (!menuCheck.hasMenu) {
+        console.log('Menu Doctor: No menu content detected:', menuCheck.reason)
+        return new Response(JSON.stringify(getFallbackReport(menuCheck.reason)), {
+          status: 200,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        })
+      }
     }
 
     // Формирование промпта
-    const prompt = buildPrompt(html, { menuUrl, averageBill, location, venueType, language }, truncated)
+    const prompt = buildPrompt(html, { menuUrl, averageBill, location, venueType, language }, truncated, usedJina)
 
     // Вызов AI
     const report = await callAiModel(prompt)
