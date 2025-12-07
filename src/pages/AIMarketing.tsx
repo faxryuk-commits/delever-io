@@ -48,6 +48,7 @@ export function AIMarketing() {
   const [result, setResult] = useState<MarketingResult | null>(null)
   const [copiedIndex, setCopiedIndex] = useState<string | null>(null)
   const [isFallback, setIsFallback] = useState(false)
+  const [activeTab, setActiveTab] = useState<'instagram' | 'telegram' | 'stories' | 'hashtags'>('instagram')
   
   const [formData, setFormData] = useState<FormData>({
     brandName: '',
@@ -499,9 +500,74 @@ export function AIMarketing() {
                       <p className="text-amber-700 text-sm font-medium mb-1">
                         Используется базовый шаблон
                       </p>
-                      <p className="text-amber-600 text-xs">
-                        {result.note || 'AI временно недоступен, но вы получили готовые тексты на основе ваших данных'}
+                      <p className="text-amber-600 text-xs mb-2">
+                        <strong>Причина:</strong> OpenAI API временно недоступен в вашем регионе из-за географических ограничений. 
+                        Мы автоматически создали готовые тексты на основе ваших данных.
                       </p>
+                      <p className="text-amber-600 text-xs">
+                        💡 <strong>Решение:</strong> Тексты готовы к использованию! Вы можете скопировать их или попробовать снова позже.
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
+
+                {isLoading && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-12 text-center border border-purple-100 relative overflow-hidden"
+                  >
+                    {/* Анимация волшебства */}
+                    <div className="absolute inset-0 overflow-hidden">
+                      {[...Array(20)].map((_, i) => (
+                        <motion.div
+                          key={i}
+                          className="absolute w-2 h-2 bg-purple-400 rounded-full"
+                          initial={{
+                            x: Math.random() * 100 + '%',
+                            y: Math.random() * 100 + '%',
+                            opacity: 0,
+                            scale: 0
+                          }}
+                          animate={{
+                            y: [null, '-100%'],
+                            opacity: [0, 1, 0],
+                            scale: [0, 1, 0],
+                            x: [null, Math.random() * 100 + '%']
+                          }}
+                          transition={{
+                            duration: 2 + Math.random() * 2,
+                            repeat: Infinity,
+                            delay: Math.random() * 2,
+                            ease: "easeOut"
+                          }}
+                        />
+                      ))}
+                    </div>
+                    <div className="relative z-10">
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                        className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg"
+                      >
+                        <Wand2 className="w-10 h-10 text-white" />
+                      </motion.div>
+                      <motion.h3
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="text-xl font-bold text-brand-darkBlue mb-2"
+                      >
+                        ✨ Генерируем магию...
+                      </motion.h3>
+                      <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-brand-darkBlue/70"
+                      >
+                        AI создает уникальные тексты для вашего бизнеса
+                      </motion.p>
                     </div>
                   </motion.div>
                 )}
@@ -525,70 +591,136 @@ export function AIMarketing() {
                     animate={{ opacity: 1 }}
                     className="space-y-4"
                   >
-                    {/* Instagram Posts */}
-                    <ResultBlock
-                      title={txt.instagram}
-                      icon={Instagram}
-                      items={result.instagram_posts}
-                      gradient="from-pink-500 to-purple-500"
-                      onCopy={copyToClipboard}
-                      copiedIndex={copiedIndex}
-                    />
-
-                    {/* Telegram Posts */}
-                    <ResultBlock
-                      title={txt.telegram}
-                      icon={Send}
-                      items={result.telegram_posts}
-                      gradient="from-blue-400 to-blue-600"
-                      onCopy={copyToClipboard}
-                      copiedIndex={copiedIndex}
-                    />
-
-                    {/* Stories Ideas */}
-                    <ResultBlock
-                      title={txt.stories}
-                      icon={Film}
-                      items={result.stories_ideas}
-                      gradient="from-orange-400 to-pink-500"
-                      onCopy={copyToClipboard}
-                      copiedIndex={copiedIndex}
-                    />
-
-                    {/* Hashtags */}
-                    <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-gray-600 to-gray-800 flex items-center justify-center">
-                            <Hash className="w-4 h-4 text-white" />
-                          </div>
-                          <h3 className="font-semibold text-brand-darkBlue">{txt.hashtags}</h3>
-                        </div>
-                        <button
-                          onClick={() => copyToClipboard(result.hashtags.join(' '), 'hashtags')}
-                          className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-purple-600 transition-colors"
-                        >
-                          {copiedIndex === 'hashtags' ? (
-                            <>
-                              <Check className="w-4 h-4 text-green-500" />
-                              {txt.copied}
-                            </>
-                          ) : (
-                            <>
-                              <Copy className="w-4 h-4" />
-                              {txt.copy}
-                            </>
-                          )}
-                        </button>
-                      </div>
-                      <div className="flex flex-wrap gap-1.5">
-                        {result.hashtags.map((tag, idx) => (
-                          <span key={idx} className="bg-gray-100 text-gray-700 text-sm px-2.5 py-1 rounded-full">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
+                    {/* Табы для переключения категорий */}
+                    <div className="flex gap-2 bg-gray-100 p-1.5 rounded-xl">
+                      {[
+                        { id: 'instagram' as const, icon: Instagram, label: txt.instagram, color: 'from-pink-500 to-purple-500' },
+                        { id: 'telegram' as const, icon: Send, label: txt.telegram, color: 'from-blue-400 to-blue-600' },
+                        { id: 'stories' as const, icon: Film, label: txt.stories, color: 'from-orange-400 to-pink-500' },
+                        { id: 'hashtags' as const, icon: Hash, label: txt.hashtags, color: 'from-gray-600 to-gray-800' },
+                      ].map(tab => {
+                        const Icon = tab.icon
+                        const isActive = activeTab === tab.id
+                        return (
+                          <button
+                            key={tab.id}
+                            onClick={() => setActiveTab(tab.id)}
+                            className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                              isActive
+                                ? `bg-gradient-to-r ${tab.color} text-white shadow-md`
+                                : 'text-gray-600 hover:bg-white'
+                            }`}
+                          >
+                            <Icon className="w-4 h-4" />
+                            <span className="hidden sm:inline">{tab.label}</span>
+                          </button>
+                        )
+                      })}
                     </div>
+
+                    {/* Контент активной категории */}
+                    <AnimatePresence mode="wait">
+                      {activeTab === 'instagram' && (
+                        <motion.div
+                          key="instagram"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <ResultBlock
+                            title={txt.instagram}
+                            icon={Instagram}
+                            items={result.instagram_posts}
+                            gradient="from-pink-500 to-purple-500"
+                            onCopy={copyToClipboard}
+                            copiedIndex={copiedIndex}
+                          />
+                        </motion.div>
+                      )}
+
+                      {activeTab === 'telegram' && (
+                        <motion.div
+                          key="telegram"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <ResultBlock
+                            title={txt.telegram}
+                            icon={Send}
+                            items={result.telegram_posts}
+                            gradient="from-blue-400 to-blue-600"
+                            onCopy={copyToClipboard}
+                            copiedIndex={copiedIndex}
+                          />
+                        </motion.div>
+                      )}
+
+                      {activeTab === 'stories' && (
+                        <motion.div
+                          key="stories"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <ResultBlock
+                            title={txt.stories}
+                            icon={Film}
+                            items={result.stories_ideas}
+                            gradient="from-orange-400 to-pink-500"
+                            onCopy={copyToClipboard}
+                            copiedIndex={copiedIndex}
+                          />
+                        </motion.div>
+                      )}
+
+                      {activeTab === 'hashtags' && (
+                        <motion.div
+                          key="hashtags"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                            <div className="flex items-center justify-between mb-3">
+                              <div className="flex items-center gap-2">
+                                <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-gray-600 to-gray-800 flex items-center justify-center">
+                                  <Hash className="w-4 h-4 text-white" />
+                                </div>
+                                <h3 className="font-semibold text-brand-darkBlue">{txt.hashtags}</h3>
+                              </div>
+                              <button
+                                onClick={() => copyToClipboard(result.hashtags.join(' '), 'hashtags')}
+                                className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-purple-600 transition-colors"
+                              >
+                                {copiedIndex === 'hashtags' ? (
+                                  <>
+                                    <Check className="w-4 h-4 text-green-500" />
+                                    {txt.copied}
+                                  </>
+                                ) : (
+                                  <>
+                                    <Copy className="w-4 h-4" />
+                                    {txt.copy}
+                                  </>
+                                )}
+                              </button>
+                            </div>
+                            <div className="flex flex-wrap gap-1.5">
+                              {result.hashtags.map((tag, idx) => (
+                                <span key={idx} className="bg-gray-100 text-gray-700 text-sm px-2.5 py-1 rounded-full">
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </motion.div>
                 )}
               </AnimatePresence>
