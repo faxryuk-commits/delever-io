@@ -269,16 +269,44 @@ export default async function handler(req: Request): Promise<Response> {
       const errorText = await openaiResponse.text()
       console.error('OpenAI ERROR:', openaiResponse.status, errorText)
       
-      // Возвращаем ошибку для отладки
+      // Проверяем, является ли это ошибкой блокировки региона
+      let isRegionBlocked = false
+      try {
+        const errorJson = JSON.parse(errorText)
+        if (errorJson.error?.code === 'unsupported_country_region_territory' || 
+            errorJson.error?.message?.includes('unsupported_country') ||
+            errorJson.error?.message?.includes('region') ||
+            errorJson.error?.message?.includes('territory')) {
+          isRegionBlocked = true
+        }
+      } catch {
+        // Если не удалось распарсить, проверяем текст напрямую
+        if (errorText.includes('unsupported_country') || 
+            errorText.includes('region') || 
+            errorText.includes('territory')) {
+          isRegionBlocked = true
+        }
+      }
+      
+      // Используем fallback ответ
+      const fallbackMessage = getOfflineResponse(message)
+      
       return new Response(JSON.stringify({
-        success: false,
-        error: 'OpenAI failed',
-        debug: {
-          status: openaiResponse.status,
-          error: errorText.substring(0, 200)
-        },
-        message: getOfflineResponse(message),
-        source
+        success: true, // Возвращаем success: true, чтобы фронтенд показал сообщение
+        message: fallbackMessage,
+        fallback: true,
+        intent: 'info',
+        leadScore: 20,
+        requestContact: false,
+        source,
+        ...(isRegionBlocked ? { 
+          note: 'AI временно недоступен в вашем регионе, используется базовый ответ' 
+        } : {
+          debug: {
+            status: openaiResponse.status,
+            error: errorText.substring(0, 200)
+          }
+        })
       }), {
         status: 200,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },

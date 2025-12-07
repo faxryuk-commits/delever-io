@@ -81,6 +81,83 @@ interface Message {
   content: string
 }
 
+// Fallback ответы когда OpenAI недоступен
+function getFallbackResponse(userMessage: string): string {
+  const lowerMessage = userMessage.toLowerCase()
+  
+  if (lowerMessage.includes('тариф') || lowerMessage.includes('цен') || lowerMessage.includes('стои')) {
+    return `💰 Тарифы Delever:
+
+• Start — от 1,300,000 сум/мес (до 1000 заказов)
+• Medium — от 3,250,000 сум/мес (до 3000 заказов) — популярный
+• Big — от 6,500,000 сум/мес (до 6000 заказов)
+• Enterprise — от 13,000,000 сум/мес (до 10000 заказов)
+
+Депозит: 6,500,000 сум
+Скидки: 10% за 6 месяцев, 15% за 12 месяцев
+
+Хотите узнать точную стоимость? Свяжитесь с нами: +998 78 113 98 13`
+  }
+  
+  if (lowerMessage.includes('интеграц') || lowerMessage.includes('pos') || lowerMessage.includes('iiko') || lowerMessage.includes('агрегатор')) {
+    return `🔗 Delever интегрируется с:
+
+• POS-системы: iiko, R-Keeper, Jowi, Poster, Paloma, Syrve
+• Агрегаторы: Uzum Tezkor, Glovo, Яндекс Еда, Wolt, Chocofood, Foody
+• Платежи: Payme, Click, Uzum Bank, Kaspi
+• Курьеры: Яндекс Доставка, Wolt Drive, Noor
+
+Для подробностей: +998 78 113 98 13`
+  }
+  
+  if (lowerMessage.includes('привет') || lowerMessage.includes('здравств') || lowerMessage.includes('добр')) {
+    return `Привет! 👋
+
+Я AI-помощник Delever — операционной системы для доставки.
+
+Я могу рассказать о:
+• Тарифах и ценах
+• Интеграциях (iiko, R-Keeper, агрегаторы)
+• Возможностях платформы
+• Продуктах (каналы продаж, операции, аналитика)
+
+Что вас интересует?`
+  }
+  
+  if (lowerMessage.includes('демо') || lowerMessage.includes('подключ') || lowerMessage.includes('хочу') || lowerMessage.includes('начать')) {
+    return `Отлично! 🚀
+
+Запуск Delever занимает всего 1 день:
+• Бесплатная настройка меню
+• Обучение персонала
+• Техподдержка 24/7
+
+Свяжитесь с нами для демо:
+📞 +998 78 113 98 13
+📧 support@delever.uz
+💬 Telegram: @deleverme`
+  }
+  
+  if (lowerMessage.includes('контакт') || lowerMessage.includes('связать') || lowerMessage.includes('телефон')) {
+    return `📞 Контакты Delever:
+
+Телефон: +998 78 113 98 13
+Email: support@delever.uz
+Telegram: @deleverme
+Адрес: Ташкент, Проспект Амира Темура 129Б, БЦ Анор Плаза
+
+Работаем 24/7!`
+  }
+  
+  return `Спасибо за вопрос! 
+
+Я AI-помощник Delever. Для подробной консультации свяжитесь с нами:
+📞 +998 78 113 98 13
+📧 support@delever.uz
+
+Или задайте вопрос о тарифах, интеграциях или возможностях платформы.`
+}
+
 // CORS headers
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -168,11 +245,35 @@ export default async function handler(req: Request): Promise<Response> {
       
       // Парсим ошибку для более понятного сообщения
       let errorMessage = 'Ошибка API'
+      let isRegionBlocked = false
       try {
         const errorJson = JSON.parse(errorText)
         errorMessage = errorJson.error?.message || errorText
+        // Проверяем, является ли это ошибкой блокировки региона
+        if (errorJson.error?.code === 'unsupported_country_region_territory' || 
+            errorMessage.includes('unsupported_country') ||
+            errorMessage.includes('region') ||
+            errorMessage.includes('territory')) {
+          isRegionBlocked = true
+        }
       } catch {
         errorMessage = errorText
+      }
+      
+      // Если регион заблокирован, используем fallback ответ
+      if (isRegionBlocked) {
+        const lastUserMessage = messages[messages.length - 1]?.content || ''
+        const fallbackResponse = getFallbackResponse(lastUserMessage)
+        
+        console.log('Using fallback response due to region block')
+        return new Response(JSON.stringify({ 
+          message: fallbackResponse,
+          fallback: true,
+          note: 'AI временно недоступен, используется базовый ответ'
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders },
+        })
       }
       
       return new Response(JSON.stringify({ 

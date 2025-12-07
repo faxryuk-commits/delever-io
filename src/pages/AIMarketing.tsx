@@ -14,7 +14,8 @@ import {
   Utensils,
   Target,
   Languages,
-  Wand2
+  Wand2,
+  Link as LinkIcon
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
@@ -26,6 +27,8 @@ interface MarketingResult {
   telegram_posts: string[]
   stories_ideas: string[]
   hashtags: string[]
+  fallback?: boolean
+  note?: string
 }
 
 interface FormData {
@@ -33,6 +36,7 @@ interface FormData {
   cuisine: string
   promoDescription: string
   goal: string
+  productUrl?: string
   channels: string[]
   language: 'ru' | 'uz' | 'en'
 }
@@ -44,15 +48,19 @@ export function AIMarketing() {
   const [error, setError] = useState<string | null>(null)
   const [result, setResult] = useState<MarketingResult | null>(null)
   const [copiedIndex, setCopiedIndex] = useState<string | null>(null)
+  const [isFallback, setIsFallback] = useState(false)
   
   const [formData, setFormData] = useState<FormData>({
     brandName: '',
     cuisine: '',
     promoDescription: '',
     goal: '',
+    productUrl: '',
     channels: ['instagram', 'telegram', 'stories'],
     language: 'ru'
   })
+  
+  const [isParsingUrl, setIsParsingUrl] = useState(false)
 
   const t = {
     ru: {
@@ -66,6 +74,9 @@ export function AIMarketing() {
       promoPlaceholder: 'Новая пицца Маргарита с двойным сыром. Скидка 20% до конца недели.',
       goal: 'Цель продвижения',
       goalPlaceholder: 'увеличить заказы в будние дни',
+      productUrl: 'Ссылка на товар (опционально)',
+      productUrlPlaceholder: 'https://example.com/product',
+      productUrlHelp: 'Вставьте ссылку на товар, и мы автоматически извлечем описание, фото и компоненты',
       channels: 'Каналы',
       language: 'Язык текстов',
       generate: 'Сгенерировать посты',
@@ -95,6 +106,9 @@ export function AIMarketing() {
       promoPlaceholder: "Ikki barobar pishloqli yangi Margarita pitsa. Hafta oxirigacha 20% chegirma.",
       goal: "Reklama maqsadi",
       goalPlaceholder: "ish kunlarida buyurtmalarni ko'paytirish",
+      productUrl: 'Mahsulot havolasi (ixtiyoriy)',
+      productUrlPlaceholder: 'https://example.com/product',
+      productUrlHelp: "Mahsulot havolasini kiriting va biz avtomatik ravishda tavsif, rasm va komponentlarni ajratib olamiz",
       channels: 'Kanallar',
       language: 'Matn tili',
       generate: 'Postlarni yaratish',
@@ -124,6 +138,9 @@ export function AIMarketing() {
       promoPlaceholder: 'New Margherita pizza with double cheese. 20% off until weekend.',
       goal: 'Promotion Goal',
       goalPlaceholder: 'increase weekday orders',
+      productUrl: 'Product URL (optional)',
+      productUrlPlaceholder: 'https://example.com/product',
+      productUrlHelp: 'Paste product link and we will automatically extract description, images and components',
       channels: 'Channels',
       language: 'Content Language',
       generate: 'Generate Posts',
@@ -150,6 +167,7 @@ export function AIMarketing() {
     e.preventDefault()
     setIsLoading(true)
     setError(null)
+    setIsFallback(false)
 
     try {
       const response = await fetch('/api/ai-marketing', {
@@ -160,13 +178,71 @@ export function AIMarketing() {
 
       const data = await response.json()
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to generate content')
+      // Проверяем, есть ли ошибка в ответе
+      if (data.error && !data.fallback) {
+        // Если details - это строка JSON, пытаемся распарсить
+        let errorMessage = data.error
+        if (data.details) {
+          try {
+            // Если details - это строка JSON, парсим её
+            const detailsObj = typeof data.details === 'string' ? JSON.parse(data.details) : data.details
+            if (detailsObj?.error) {
+              // Проверяем, является ли это ошибкой блокировки региона
+              if (detailsObj.error.code === 'unsupported_country_region_territory' || 
+                  detailsObj.error.message?.includes('unsupported_country') ||
+                  detailsObj.error.message?.includes('Country, region, or territory not supported')) {
+                // Это ошибка региона - используем fallback
+                console.log('Region blocked, using fallback')
+                setIsFallback(true)
+                // Создаем базовый результат
+                setResult({
+                  instagram_posts: ['🍽️ Специальное предложение от ' + formData.brandName + '!\n\n' + formData.promoDescription + '\n\n📞 +998 78 113 98 13'],
+                  telegram_posts: ['🍽️ ' + formData.brandName + '\n\n' + formData.promoDescription + '\n\n📞 Заказ: +998 78 113 98 13'],
+                  stories_ideas: ['🔥 ' + formData.promoDescription],
+                  hashtags: ['#ресторан', '#доставка', '#акция'],
+                  fallback: true
+                })
+                return
+              }
+              errorMessage = detailsObj.error.message || errorMessage
+            } else {
+              errorMessage = typeof data.details === 'string' ? data.details : JSON.stringify(data.details)
+            }
+          } catch {
+            // Если не удалось распарсить, используем как есть
+            errorMessage = data.details || errorMessage
+          }
+        }
+        throw new Error(errorMessage || 'Failed to generate content')
       }
 
+      // Если это fallback ответ, отмечаем это
+      if (data.fallback) {
+        setIsFallback(true)
+      }
+
+      // Устанавливаем результат (даже если это fallback)
       setResult(data)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Произошла ошибка')
+      // Проверяем, не является ли это ошибкой региона
+      const errorMsg = err instanceof Error ? err.message : String(err)
+      if (errorMsg.includes('unsupported_country') || 
+          errorMsg.includes('Country, region, or territory not supported') ||
+          errorMsg.includes('request_forbidden')) {
+        // Используем fallback вместо ошибки
+        setIsFallback(true)
+        setResult({
+          instagram_posts: ['🍽️ Специальное предложение от ' + formData.brandName + '!\n\n' + formData.promoDescription + '\n\n📞 +998 78 113 98 13'],
+          telegram_posts: ['🍽️ ' + formData.brandName + '\n\n' + formData.promoDescription + '\n\n📞 Заказ: +998 78 113 98 13'],
+          stories_ideas: ['🔥 ' + formData.promoDescription],
+          hashtags: ['#ресторан', '#доставка', '#акция'],
+          fallback: true
+        })
+        setError(null)
+      } else {
+        setError(errorMsg)
+        setResult(null)
+      }
     } finally {
       setIsLoading(false)
     }
@@ -286,13 +362,37 @@ export function AIMarketing() {
                       <Target className="w-4 h-4 inline mr-1.5" />
                       {txt.goal}
                     </label>
-                    <input
-                      type="text"
+                    <select
                       value={formData.goal}
                       onChange={e => setFormData(prev => ({ ...prev, goal: e.target.value }))}
-                      placeholder={txt.goalPlaceholder}
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all bg-white"
+                    >
+                      <option value="">{language === 'ru' ? 'Выберите цель...' : language === 'uz' ? 'Maqsadni tanlang...' : 'Select goal...'}</option>
+                      <option value="increase_sales">{language === 'ru' ? '📈 Увеличить продажи' : language === 'uz' ? '📈 Sotuvlarni oshirish' : '📈 Increase sales'}</option>
+                      <option value="increase_average_check">{language === 'ru' ? '💰 Рост среднего чека' : language === 'uz' ? '💰 O\'rtacha chekni oshirish' : '💰 Increase average check'}</option>
+                      <option value="return_customers">{language === 'ru' ? '🔄 Вернуть ушедших клиентов' : language === 'uz' ? '🔄 Ketgan mijozlarni qaytarish' : '🔄 Return lost customers'}</option>
+                      <option value="promo_discount">{language === 'ru' ? '🎁 Предложить скидку/промокод' : language === 'uz' ? '🎁 Chegirma/promokod taklif qilish' : '🎁 Offer discount/promo code'}</option>
+                      <option value="holiday_promo">{language === 'ru' ? '🎉 Праздничная акция' : language === 'uz' ? '🎉 Bayram aksiyasi' : '🎉 Holiday promotion'}</option>
+                      <option value="new_product">{language === 'ru' ? '🆕 Продвижение нового товара' : language === 'uz' ? '🆕 Yangi mahsulotni targ\'ib qilish' : '🆕 Promote new product'}</option>
+                      <option value="weekday_boost">{language === 'ru' ? '📅 Увеличить заказы в будние дни' : language === 'uz' ? '📅 Ish kunlarida buyurtmalarni oshirish' : '📅 Increase weekday orders'}</option>
+                      <option value="loyalty_program">{language === 'ru' ? '💎 Программа лояльности' : language === 'uz' ? '💎 Sadoqat dasturi' : '💎 Loyalty program'}</option>
+                    </select>
+                  </div>
+
+                  {/* Product URL */}
+                  <div>
+                    <label className="block text-sm font-medium text-brand-darkBlue mb-1.5">
+                      <Sparkles className="w-4 h-4 inline mr-1.5" />
+                      {txt.productUrl}
+                    </label>
+                    <input
+                      type="url"
+                      value={formData.productUrl || ''}
+                      onChange={e => setFormData(prev => ({ ...prev, productUrl: e.target.value }))}
+                      placeholder={txt.productUrlPlaceholder}
                       className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all"
                     />
+                    <p className="text-xs text-gray-500 mt-1.5">{txt.productUrlHelp}</p>
                   </div>
 
                   {/* Channels */}
@@ -380,7 +480,31 @@ export function AIMarketing() {
                     className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3"
                   >
                     <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                    <p className="text-red-700 text-sm">{error}</p>
+                    <div className="flex-1">
+                      <p className="text-red-700 text-sm font-medium mb-1">{error}</p>
+                      <p className="text-red-600 text-xs">
+                        Попробуйте позже или свяжитесь с нами: +998 78 113 98 13
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
+
+                {isFallback && result && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3"
+                  >
+                    <AlertCircle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <p className="text-amber-700 text-sm font-medium mb-1">
+                        Используется базовый шаблон
+                      </p>
+                      <p className="text-amber-600 text-xs">
+                        {result.note || 'AI временно недоступен, но вы получили готовые тексты на основе ваших данных'}
+                      </p>
+                    </div>
                   </motion.div>
                 )}
 
