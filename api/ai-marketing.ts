@@ -194,9 +194,9 @@ function getFallbackMarketingResponse(data: MarketingRequest, productData?: Pars
       ]
     : lang === 'uz'
     ? [
-        `🔥 ${promo.toUpperCase()}!\n\n${brand} sizning yuragingizni (va qorningizni 😉) zabt etadigan yangilikni taqdim etadi. ${productDetails}\n\nNima uchun tatib ko'rish kerak:\n✅ Betakror ta'm\n✅ Yangi masalliqlar\n✅ Tez yetkazib berish\n\n👇 Hoziroq profil sarlavhasidagi havola orqali buyurtma bering yoki qo'ng'iroq qiling!`,
-        `O'zgacha bir narsa xohlaganda... 🤔\n\n${brand} dan ${promo} — ajoyib tanlov! ${productDetails}\n\nBugunoq o'zingizga ta'm bayramini uyushtiring. 🚀\n\n📞 +998 78 113 98 13`,
-        `🍽️ ${brand} — bu shunchaki ovqat emas, bu hissiyotlar!\n\n${promo}\n${productDetails}\n\nTatib ko'ring va o'zingiz ishonch hosil qiling! Izohlarda fikrlaringizni kutamiz 👇`
+        `🔥 ${promo.toUpperCase()}!\n\n${brand} dan zo'r yangilik! ${productDetails}\n\nNega aynan bu:\n✅ Zo'r ta'm\n✅ Yangi mahsulotlar\n✅ Tez yetkazib beramiz\n\n👇 Hoziroq buyurtma bering — bio'dagi link yoki qo'ng'iroq qiling!`,
+        `Mazali narsa yemoqchimisiz? 🤔\n\n${brand} dan ${promo} — zo'r tanlov! ${productDetails}\n\nO'zingizni siylab qo'ying bugun! 🚀\n\n📞 +998 78 113 98 13`,
+        `🍽️ ${brand} — bu shunchaki ovqat emas, bu zavq!\n\n${promo}\n${productDetails}\n\nTatib ko'ring, o'zingiz baholang! Fikringizni yozing 👇`
       ]
     : [
         `🔥 ${promo.toUpperCase()}!\n\n${brand} presents a novelty that will win your heart (and stomach 😉). ${productDetails}\n\nWhy you should try it:\n✅ Incredible taste\n✅ Fresh ingredients\n✅ Fast delivery\n\n👇 Order right now via the link in bio or call us!`,
@@ -212,9 +212,9 @@ function getFallbackMarketingResponse(data: MarketingRequest, productData?: Pars
       ]
     : lang === 'uz'
     ? [
-        `⚡️ **${promo}** endi shu yerda!\n\nDo'stlar, ${brand} sizni yangilik bilan xursand qiladi! ${productDetails}\n\nYetkazib berishni buyurtma qiling va uydan chiqmasdan ta'mdan bahramand bo'ling.\n\n👉 [Onlayn buyurtma](https://delever.io)\n📞 +998 78 113 98 13`,
-        `🍔 **Qorin ochligi — ${promo} buyurtma qilish uchun sabab!**\n\n${brand} mazali ovqatni yaxshi biladi. ${productDetails}\n\n🚀 45 daqiqada issiq holda yetkazamiz!\n\nQuyidagi tugmani bosing 👇`,
-        `👋 Hammaga salom! Bizda siz uchun mazali narsa bor.\n\n**${promo}** — ajoyib kun uchun aynan kerakli narsa. ${productDetails}\n\nMehmonga keling yoki yetkazib berishni buyurtma qiling! 📦`
+        `⚡️ **${promo}** tayyor!\n\nDo'stlar, ${brand} dan yangilik! ${productDetails}\n\nBuyurtma bering — uydan chiqmay mazali ovqat yeng.\n\n👉 [Onlayn buyurtma](https://delever.io)\n📞 +998 78 113 98 13`,
+        `🍔 **Och qoldingizmi? ${promo} buyurtma qiling!**\n\n${brand} mazali taom qiladi. ${productDetails}\n\n🚀 45 daqiqada issiq yetkazamiz!\n\nPastdagi tugmani bosing 👇`,
+        `👋 Salom hammaga! Sizga mazali taklif.\n\n**${promo}** — ajoyib kun uchun zo'r tanlov. ${productDetails}\n\nO'zimizga keling yoki uyga buyurtma qiling! 📦`
       ]
     : [
         `⚡️ **${promo}** is here!\n\nFriends, ${brand} pleases you with a novelty! ${productDetails}\n\nOrder delivery and enjoy the taste without leaving home.\n\n👉 [Order online](https://delever.io)\n📞 +998 78 113 98 13`,
@@ -230,9 +230,9 @@ function getFallbackMarketingResponse(data: MarketingRequest, productData?: Pars
       ]
     : lang === 'uz'
     ? [
-        `🎥 **Ssenariy 1:** ${promo} ni yaqindan ko'rsating, so'ngra mamnun mijoz reaksiyasini. Matn: "O'sha lahza..."`,
-        `🎥 **Ssenariy 2:** So'rovnoma: "Siz ${promo} ni tatib ko'rdingizmi?" (Ha/Xohlayman). Orqa fonda ishtaha ochuvchi rasm.`,
-        `🎥 **Ssenariy 3:** "Parda ortida": ${promo} qanday tayyorlanishi. Qovurish/kesish tovushlari (ASMR).`
+        `🎥 **G'oya 1:** ${promo} ni yaqindan oling, keyin mamnun mijozni ko'rsating. Matn: "Mana shu lahza..."`,
+        `🎥 **G'oya 2:** So'rovnoma: "${promo} tatib ko'rdingizmi?" (Ha/Xohlayman). Orqada chiroyli rasm.`,
+        `🎥 **G'oya 3:** Oshxonadan video: ${promo} qanday tayyorlanadi. Qovurish tovushi (ASMR).`
       ]
     : [
         `🎥 **Scenario 1:** Show a close-up of ${promo}, then a happy customer's reaction. Text: "That moment..."`,

@@ -95,32 +95,32 @@ export function AIMarketing() {
       english: 'English',
     },
     uz: {
-      title: 'AI marketing postlar generatori',
-      subtitle: "Instagram, Telegram va Stories uchun sotuvchi matnlarni soniyalar ichida yarating",
-      brandName: 'Korxona nomi',
-      brandNamePlaceholder: "Masalan: Yaponamama",
-      cuisine: 'Oshxona turi',
-      cuisinePlaceholder: "fastfud, panosiyo, o'zbek...",
-      promo: "Taom yoki aksiya tavsifi",
-      promoPlaceholder: "Ikki barobar pishloqli yangi Margarita pitsa. Hafta oxirigacha 20% chegirma.",
-      goal: "Reklama maqsadi",
-      goalPlaceholder: "ish kunlarida buyurtmalarni ko'paytirish",
-      productUrl: 'Mahsulot havolasi (ixtiyoriy)',
+      title: 'AI post yaratuvchi',
+      subtitle: "Instagram, Telegram va Stories uchun tayyor postlarni bir zumda oling",
+      brandName: 'Restoran nomi',
+      brandNamePlaceholder: "Masalan: Oqtepa Lavash",
+      cuisine: 'Taom turi',
+      cuisinePlaceholder: "fastfud, milliy, koreya...",
+      promo: "Taom yoki aksiya haqida",
+      promoPlaceholder: "Yangi Margarita pizza ikki barobar pishloq bilan. Hafta oxirigacha 20% skidka.",
+      goal: "Maqsad",
+      goalPlaceholder: "oddiy kunlarda buyurtmani ko'paytirish",
+      productUrl: 'Mahsulot linki (majburiy emas)',
       productUrlPlaceholder: 'https://example.com/product',
-      productUrlHelp: "Mahsulot havolasini kiriting va biz avtomatik ravishda tavsif, rasm va komponentlarni ajratib olamiz",
+      productUrlHelp: "Mahsulot linkini qo'ying — tavsif, rasm va tarkibini avtomatik olamiz",
       channels: 'Kanallar',
-      language: 'Matn tili',
-      generate: 'Postlarni yaratish',
+      language: 'Post tili',
+      generate: 'Post yaratish',
       generating: 'Yaratilmoqda...',
-      instagram: 'Instagram postlar',
-      telegram: 'Telegram postlar',
-      stories: 'Stories g\'oyalari',
-      hashtags: 'Xeshteglar',
-      copy: 'Nusxalash',
-      copied: 'Nusxalandi!',
-      hint: "Formani to'ldiring va tayyor matnlarni olish uchun \"Yaratish\" tugmasini bosing",
-      promoTitle: "Bu Delever'dan bepul vosita",
-      promoText: "Delever ichida onlayn savdo va yetkazib berish uchun to'liq tizim mavjud. Restoraningizni 1 kunda ulaymiz.",
+      instagram: 'Instagram postlari',
+      telegram: 'Telegram postlari',
+      stories: 'Stories uchun g\'oyalar',
+      hashtags: 'Heshteglar',
+      copy: 'Nusxa olish',
+      copied: 'Nusxa olindi!',
+      hint: "Formani to'ldiring va \"Post yaratish\" tugmasini bosing",
+      promoTitle: "Bu Deleverdan bepul xizmat",
+      promoText: "Delever — onlayn savdo va yetkazib berish uchun tayyor tizim. Restoraningizni 1 kunda ulaymiz.",
       promoButton: "Ariza qoldirish",
       russian: 'Ruscha',
       uzbek: "O'zbekcha",
@@ -367,14 +367,14 @@ export function AIMarketing() {
                       className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all bg-white"
                     >
                       <option value="">{language === 'ru' ? 'Выберите цель...' : language === 'uz' ? 'Maqsadni tanlang...' : 'Select goal...'}</option>
-                      <option value="increase_sales">{language === 'ru' ? '📈 Увеличить продажи' : language === 'uz' ? '📈 Sotuvlarni oshirish' : '📈 Increase sales'}</option>
-                      <option value="increase_average_check">{language === 'ru' ? '💰 Рост среднего чека' : language === 'uz' ? '💰 O\'rtacha chekni oshirish' : '💰 Increase average check'}</option>
-                      <option value="return_customers">{language === 'ru' ? '🔄 Вернуть ушедших клиентов' : language === 'uz' ? '🔄 Ketgan mijozlarni qaytarish' : '🔄 Return lost customers'}</option>
-                      <option value="promo_discount">{language === 'ru' ? '🎁 Предложить скидку/промокод' : language === 'uz' ? '🎁 Chegirma/promokod taklif qilish' : '🎁 Offer discount/promo code'}</option>
+                      <option value="increase_sales">{language === 'ru' ? '📈 Увеличить продажи' : language === 'uz' ? '📈 Sotuvni oshirish' : '📈 Increase sales'}</option>
+                      <option value="increase_average_check">{language === 'ru' ? '💰 Рост среднего чека' : language === 'uz' ? '💰 Chekni kattalashtirish' : '💰 Increase average check'}</option>
+                      <option value="return_customers">{language === 'ru' ? '🔄 Вернуть ушедших клиентов' : language === 'uz' ? '🔄 Eski mijozlarni qaytarish' : '🔄 Return lost customers'}</option>
+                      <option value="promo_discount">{language === 'ru' ? '🎁 Предложить скидку/промокод' : language === 'uz' ? '🎁 Skidka/promokod berish' : '🎁 Offer discount/promo code'}</option>
                       <option value="holiday_promo">{language === 'ru' ? '🎉 Праздничная акция' : language === 'uz' ? '🎉 Bayram aksiyasi' : '🎉 Holiday promotion'}</option>
-                      <option value="new_product">{language === 'ru' ? '🆕 Продвижение нового товара' : language === 'uz' ? '🆕 Yangi mahsulotni targ\'ib qilish' : '🆕 Promote new product'}</option>
-                      <option value="weekday_boost">{language === 'ru' ? '📅 Увеличить заказы в будние дни' : language === 'uz' ? '📅 Ish kunlarida buyurtmalarni oshirish' : '📅 Increase weekday orders'}</option>
-                      <option value="loyalty_program">{language === 'ru' ? '💎 Программа лояльности' : language === 'uz' ? '💎 Sadoqat dasturi' : '💎 Loyalty program'}</option>
+                      <option value="new_product">{language === 'ru' ? '🆕 Продвижение нового товара' : language === 'uz' ? '🆕 Yangi mahsulotni reklama qilish' : '🆕 Promote new product'}</option>
+                      <option value="weekday_boost">{language === 'ru' ? '📅 Увеличить заказы в будние дни' : language === 'uz' ? '📅 Oddiy kunlarda buyurtmani oshirish' : '📅 Increase weekday orders'}</option>
+                      <option value="loyalty_program">{language === 'ru' ? '💎 Программа лояльности' : language === 'uz' ? '💎 Doimiy mijozlar uchun bonus' : '💎 Loyalty program'}</option>
                     </select>
                   </div>
 
