@@ -7,6 +7,8 @@ declare global {
       TELEGRAM_CHAT_ID?: string
       TELEGRAM_CLIENT_BOT_TOKEN?: string
       OPENAI_API_KEY?: string
+      ANTHROPIC_API_KEY?: string
+      GOOGLE_GEMINI_API_KEY?: string
       AMOCRM_SUBDOMAIN?: string
       AMOCRM_CLIENT_ID?: string
       AMOCRM_CLIENT_SECRET?: string

@@ -367,12 +367,19 @@ export default async function handler(request: Request) {
       }
     }
 
-    // Call OpenAI
-    console.log('AI Marketing: Calling OpenAI API...', {
+    // Попытка использовать альтернативный AI сервис, если OpenAI недоступен
+    // Проверяем наличие ключей альтернативных сервисов
+    const anthropicKey = process.env.ANTHROPIC_API_KEY
+    const geminiKey = process.env.GOOGLE_GEMINI_API_KEY
+    
+    // Call OpenAI (или альтернативный сервис)
+    console.log('AI Marketing: Calling AI API...', {
       brandName: requestBody.brandName,
       language: requestBody.language,
       channels: requestBody.channels,
-      hasProductData: !!productData?.extracted
+      hasProductData: !!productData?.extracted,
+      hasAnthropic: !!anthropicKey,
+      hasGemini: !!geminiKey
     })
     
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -439,9 +446,60 @@ export default async function handler(request: Request) {
         errorMessage = errorData
       }
       
-      // Если регион заблокирован, используем fallback ответ
+      // Если регион заблокирован, пробуем использовать альтернативный AI сервис
       if (isRegionBlocked) {
-        console.log('AI Marketing: Region blocked detected, using fallback response')
+        console.log('AI Marketing: Region blocked detected, trying alternative AI service...')
+        
+        // Пробуем Google Gemini, если доступен
+        if (geminiKey) {
+          console.log('AI Marketing: Trying Google Gemini API...')
+          try {
+            const geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'x-goog-api-key': geminiKey,
+              },
+              body: JSON.stringify({
+                model: 'gemini-1.5-flash',
+                messages: [
+                  { role: 'system', content: SYSTEM_PROMPT },
+                  { role: 'user', content: getUserPrompt(requestBody, productData) },
+                ],
+                temperature: 0.8,
+                max_tokens: 2000,
+                response_format: { type: 'json_object' },
+              }),
+            })
+
+            if (geminiResponse.ok) {
+              const geminiData = await geminiResponse.json()
+              const geminiContent = geminiData.choices?.[0]?.message?.content
+              
+              if (geminiContent) {
+                try {
+                  const result = JSON.parse(geminiContent)
+                  if (result.instagram_posts && result.telegram_posts && result.stories_ideas && result.hashtags) {
+                    console.log('AI Marketing: Successfully generated content using Google Gemini')
+                    return new Response(JSON.stringify(result), {
+                      status: 200,
+                      headers: { 'Content-Type': 'application/json' },
+                    })
+                  }
+                } catch (parseError) {
+                  console.error('AI Marketing: Failed to parse Gemini response:', parseError)
+                }
+              }
+            } else {
+              console.error('AI Marketing: Gemini API error:', geminiResponse.status)
+            }
+          } catch (geminiError) {
+            console.error('AI Marketing: Gemini API request failed:', geminiError)
+          }
+        }
+        
+        // Если Gemini не сработал, используем fallback
+        console.log('AI Marketing: Using fallback response')
         const fallbackResponse = getFallbackMarketingResponse(requestBody, productData)
         return new Response(JSON.stringify({
           ...fallbackResponse,
@@ -497,6 +555,53 @@ export default async function handler(request: Request) {
           errorString.includes('unsupported_country_region_territory') ||
           errorString.includes('country, region, or territory not supported')) {
         console.log('Using fallback marketing response due to region block in response')
+        
+        // Пробуем Google Gemini, если доступен
+        if (geminiKey) {
+          console.log('AI Marketing: Trying Google Gemini API as fallback...')
+          try {
+            const geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'x-goog-api-key': geminiKey,
+              },
+              body: JSON.stringify({
+                model: 'gemini-1.5-flash',
+                messages: [
+                  { role: 'system', content: SYSTEM_PROMPT },
+                  { role: 'user', content: getUserPrompt(requestBody, productData) },
+                ],
+                temperature: 0.8,
+                max_tokens: 2000,
+                response_format: { type: 'json_object' },
+              }),
+            })
+
+            if (geminiResponse.ok) {
+              const geminiData = await geminiResponse.json()
+              const geminiContent = geminiData.choices?.[0]?.message?.content
+              
+              if (geminiContent) {
+                try {
+                  const result = JSON.parse(geminiContent)
+                  if (result.instagram_posts && result.telegram_posts && result.stories_ideas && result.hashtags) {
+                    console.log('AI Marketing: Successfully generated content using Google Gemini')
+                    return new Response(JSON.stringify(result), {
+                      status: 200,
+                      headers: { 'Content-Type': 'application/json' },
+                    })
+                  }
+                } catch (parseError) {
+                  console.error('AI Marketing: Failed to parse Gemini response:', parseError)
+                }
+              }
+            }
+          } catch (geminiError) {
+            console.error('AI Marketing: Gemini API request failed:', geminiError)
+          }
+        }
+        
         const fallbackResponse = getFallbackMarketingResponse(requestBody, productData)
         return new Response(JSON.stringify({
           ...fallbackResponse,
@@ -513,8 +618,55 @@ export default async function handler(request: Request) {
     const contentString = JSON.stringify(data).toLowerCase()
     if (contentString.includes('unsupported_country_region_territory') ||
         contentString.includes('country, region, or territory not supported')) {
-      console.log('Detected region block in response content, using fallback')
-      const fallbackResponse = getFallbackMarketingResponse(body, productData)
+      console.log('Detected region block in response content, trying Gemini...')
+      
+      // Пробуем Google Gemini, если доступен
+      if (geminiKey) {
+        console.log('AI Marketing: Trying Google Gemini API as fallback...')
+        try {
+          const geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-goog-api-key': geminiKey,
+            },
+            body: JSON.stringify({
+              model: 'gemini-1.5-flash',
+              messages: [
+                { role: 'system', content: SYSTEM_PROMPT },
+                { role: 'user', content: getUserPrompt(requestBody, productData) },
+              ],
+              temperature: 0.8,
+              max_tokens: 2000,
+              response_format: { type: 'json_object' },
+            }),
+          })
+
+          if (geminiResponse.ok) {
+            const geminiData = await geminiResponse.json()
+            const geminiContent = geminiData.choices?.[0]?.message?.content
+            
+            if (geminiContent) {
+              try {
+                const result = JSON.parse(geminiContent)
+                if (result.instagram_posts && result.telegram_posts && result.stories_ideas && result.hashtags) {
+                  console.log('AI Marketing: Successfully generated content using Google Gemini')
+                  return new Response(JSON.stringify(result), {
+                    status: 200,
+                    headers: { 'Content-Type': 'application/json' },
+                  })
+                }
+              } catch (parseError) {
+                console.error('AI Marketing: Failed to parse Gemini response:', parseError)
+              }
+            }
+          }
+        } catch (geminiError) {
+          console.error('AI Marketing: Gemini API request failed:', geminiError)
+        }
+      }
+      
+      const fallbackResponse = getFallbackMarketingResponse(requestBody, productData)
       return new Response(JSON.stringify({
         ...fallbackResponse,
         fallback: true,
