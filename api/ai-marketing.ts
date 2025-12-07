@@ -695,6 +695,7 @@ export default async function handler(request: Request) {
         console.log('AI Marketing: Trying OpenRouter (global proxy)...')
         
         try {
+          // Используем бесплатную модель Llama которая не блокирует по региону
           const openrouterResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
             method: 'POST',
             headers: {
@@ -704,10 +705,10 @@ export default async function handler(request: Request) {
               'X-Title': 'Delever AI Marketing',
             },
             body: JSON.stringify({
-              model: 'anthropic/claude-3-haiku',
+              model: 'meta-llama/llama-3.1-8b-instruct:free',
               messages: [
                 { role: 'system', content: SYSTEM_PROMPT },
-                { role: 'user', content: getUserPrompt(requestBody, productData) },
+                { role: 'user', content: getUserPrompt(requestBody, productData) + '\n\nВерни ответ СТРОГО в формате JSON без markdown.' },
               ],
               temperature: 0.8,
               max_tokens: 2000,

@@ -143,6 +143,8 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
   if (openrouterKey) {
     console.log('Menu Doctor: Trying OpenRouter (global proxy)...')
     try {
+      // Используем модели которые НЕ блокируют по региону
+      // meta-llama/llama-3.1-8b-instruct:free - бесплатная и без блокировок
       const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -152,9 +154,9 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
           'X-Title': 'Delever Menu Doctor',
         },
         body: JSON.stringify({
-          model: 'anthropic/claude-3-haiku',
+          model: 'meta-llama/llama-3.1-8b-instruct:free',
           messages: [
-            { role: 'user', content: prompt }
+            { role: 'user', content: prompt + '\n\nВерни ответ СТРОГО в формате JSON без markdown.' }
           ],
           temperature: 0.7,
           max_tokens: 4000,
@@ -174,7 +176,7 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
             jsonStr = jsonMatch[1] || jsonMatch[0]
           }
           const result = JSON.parse(jsonStr)
-          console.log('Menu Doctor: ✅ Generated using OpenRouter (Claude)')
+          console.log('Menu Doctor: ✅ Generated using OpenRouter (Llama 3.1)')
           return result
         }
       } else {
