@@ -416,12 +416,12 @@ export default async function handler(request: Request) {
       
       // Если регион заблокирован, пробуем Gemini
       if (isRegionBlocked && geminiKey) {
-        console.log('AI Marketing: Region blocked, trying Google Gemini 1.5 Flash...')
+        console.log('AI Marketing: Region blocked, trying Google Gemini 2.0 Flash...')
         
         try {
           // 1. Пробуем нативный Gemini API endpoint (generateContent)
-          // Используем gemini-1.5-flash - он самый быстрый и стабильный
-          const geminiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`, {
+          // Используем gemini-2.0-flash - актуальная стабильная модель
+          const geminiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
