@@ -458,7 +458,7 @@ export default async function handler(request: Request) {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
-                'x-goog-api-key': geminiKey,
+                'Authorization': `Bearer ${geminiKey}`,
               },
               body: JSON.stringify({
                 model: 'gemini-1.5-flash',
@@ -592,7 +592,7 @@ export default async function handler(request: Request) {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
-                'x-goog-api-key': geminiKey,
+                'Authorization': `Bearer ${geminiKey}`,
               },
               body: JSON.stringify({
                 model: 'gemini-1.5-flash',
@@ -665,7 +665,7 @@ export default async function handler(request: Request) {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'x-goog-api-key': geminiKey,
+                'Authorization': `Bearer ${geminiKey}`,
             },
             body: JSON.stringify({
               model: 'gemini-1.5-flash',
