@@ -461,7 +461,7 @@ export default async function handler(request: Request) {
                 'Authorization': `Bearer ${geminiKey}`,
               },
               body: JSON.stringify({
-                model: 'gemini-1.5-flash',
+                model: 'gemini-1.5-pro',
                 messages: [
                   { role: 'system', content: SYSTEM_PROMPT },
                   { role: 'user', content: getUserPrompt(requestBody, productData) },
@@ -595,7 +595,7 @@ export default async function handler(request: Request) {
                 'Authorization': `Bearer ${geminiKey}`,
               },
               body: JSON.stringify({
-                model: 'gemini-1.5-flash',
+                model: 'gemini-1.5-pro',
                 messages: [
                   { role: 'system', content: SYSTEM_PROMPT },
                   { role: 'user', content: getUserPrompt(requestBody, productData) },
@@ -668,7 +668,7 @@ export default async function handler(request: Request) {
                 'Authorization': `Bearer ${geminiKey}`,
             },
             body: JSON.stringify({
-              model: 'gemini-1.5-flash',
+                model: 'gemini-1.5-pro',
               messages: [
                 { role: 'system', content: SYSTEM_PROMPT },
                 { role: 'user', content: getUserPrompt(requestBody, productData) },
