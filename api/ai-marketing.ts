@@ -611,7 +611,7 @@ export default async function handler(request: Request) {
             if (geminiContent) {
               try {
                 const result = JSON.parse(geminiContent)
-                console.log('AI Marketing: ✅ Generated content using Gemini 1.5 Flash')
+                console.log('AI Marketing: ✅ Generated content using Gemini 2.0 Flash')
                 return new Response(JSON.stringify(result), {
                   status: 200,
                   headers: { 'Content-Type': 'application/json' },

@@ -69,7 +69,7 @@ AI Marketing: Using fallback response
 https://generativelanguage.googleapis.com/v1beta/openai/chat/completions
 ```
 
-Модель: `gemini-1.5-flash`
+Модель: `gemini-2.0-flash`
 
 ## 📊 Логи для диагностики
 
