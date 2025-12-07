@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, ShoppingCart, Truck, BarChart3, Megaphone, Plug, ChevronDown, Layers, Sparkles } from 'lucide-react'
+import { Menu, X, ShoppingCart, Truck, BarChart3, Megaphone, Plug, ChevronDown, Layers, Sparkles, Stethoscope } from 'lucide-react'
 import { Button } from './ui/Button'
 import { ContactForm } from './ContactForm'
 import { Logo } from './Logo'
@@ -44,6 +44,7 @@ export function Header() {
       items: [
         { path: '/products/marketing', labelKey: 'header.marketingItem', icon: <Megaphone className="h-5 w-5" />, descKey: 'header.marketingDesc' },
         { path: '/ai-marketing', labelKey: 'nav.aiMarketing', icon: <Sparkles className="h-5 w-5" />, descKey: 'nav.aiMarketingDesc' },
+        { path: '/menu-doctor', labelKey: 'nav.menuDoctor', icon: <Stethoscope className="h-5 w-5" />, descKey: 'nav.menuDoctorDesc' },
       ],
     },
     {

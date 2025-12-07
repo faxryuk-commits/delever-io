@@ -24,6 +24,7 @@ import { Aggregators } from './pages/Aggregators'
 import { ESG } from './pages/ESG'
 import { Investors } from './pages/Investors'
 import { AIMarketing } from './pages/AIMarketing'
+import { MenuDoctor } from './pages/MenuDoctor'
 import { NotFound } from './pages/NotFound'
 import { AnnouncementBar } from './components/AnnouncementBar'
 
@@ -55,6 +56,7 @@ function App() {
                 <Route path="/esg" element={<ESG />} />
                 <Route path="/investors" element={<Investors />} />
                 <Route path="/ai-marketing" element={<AIMarketing />} />
+                <Route path="/menu-doctor" element={<MenuDoctor />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
