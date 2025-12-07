@@ -333,24 +333,27 @@ export default async function handler(request: Request) {
     })
   }
 
-  let body: MarketingRequest
+  let body: MarketingRequest | undefined
   
   try {
     body = await request.json()
 
     // Validate required fields
-    if (!body.brandName || !body.promoDescription) {
+    if (!body || !body.brandName || !body.promoDescription) {
       return new Response(JSON.stringify({ error: 'brandName and promoDescription are required' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
       })
     }
 
+    // После проверки body точно определен
+    const requestBody: MarketingRequest = body
+
     // Парсим URL товара, если он предоставлен
     let productData: ParsedProductData | undefined
-    if (body.productUrl && body.productUrl.trim()) {
+    if (requestBody.productUrl && requestBody.productUrl.trim()) {
       console.log('AI Marketing: Parsing product URL...')
-      productData = await parseProductUrl(body.productUrl.trim())
+      productData = await parseProductUrl(requestBody.productUrl.trim())
       if (productData.extracted) {
         console.log('AI Marketing: Successfully extracted product data:', {
           hasTitle: !!productData.title,
@@ -366,9 +369,9 @@ export default async function handler(request: Request) {
 
     // Call OpenAI
     console.log('AI Marketing: Calling OpenAI API...', {
-      brandName: body.brandName,
-      language: body.language,
-      channels: body.channels,
+      brandName: requestBody.brandName,
+      language: requestBody.language,
+      channels: requestBody.channels,
       hasProductData: !!productData?.extracted
     })
     
@@ -382,7 +385,7 @@ export default async function handler(request: Request) {
         model: 'gpt-4o-mini',
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
-          { role: 'user', content: getUserPrompt(body, productData) },
+          { role: 'user', content: getUserPrompt(requestBody, productData) },
         ],
         temperature: 0.8,
         max_tokens: 2000,
@@ -439,7 +442,7 @@ export default async function handler(request: Request) {
       // Если регион заблокирован, используем fallback ответ
       if (isRegionBlocked) {
         console.log('AI Marketing: Region blocked detected, using fallback response')
-        const fallbackResponse = getFallbackMarketingResponse(body, productData)
+        const fallbackResponse = getFallbackMarketingResponse(requestBody, productData)
         return new Response(JSON.stringify({
           ...fallbackResponse,
           fallback: true,
@@ -494,7 +497,7 @@ export default async function handler(request: Request) {
           errorString.includes('unsupported_country_region_territory') ||
           errorString.includes('country, region, or territory not supported')) {
         console.log('Using fallback marketing response due to region block in response')
-        const fallbackResponse = getFallbackMarketingResponse(body, productData)
+        const fallbackResponse = getFallbackMarketingResponse(requestBody, productData)
         return new Response(JSON.stringify({
           ...fallbackResponse,
           fallback: true,
@@ -581,7 +584,7 @@ export default async function handler(request: Request) {
     console.error('AI Marketing API error:', error)
     // В случае любой ошибки используем fallback вместо возврата ошибки
     // Используем body, если он был прочитан, иначе используем значения по умолчанию
-    const fallbackBody: MarketingRequest = body || {
+    const fallbackBody: MarketingRequest = (body as MarketingRequest) || {
       brandName: '',
       cuisine: '',
       promoDescription: '',

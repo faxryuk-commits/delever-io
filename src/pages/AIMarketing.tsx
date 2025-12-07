@@ -14,8 +14,7 @@ import {
   Utensils,
   Target,
   Languages,
-  Wand2,
-  Link as LinkIcon
+  Wand2
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
@@ -60,7 +59,6 @@ export function AIMarketing() {
     language: 'ru'
   })
   
-  const [isParsingUrl, setIsParsingUrl] = useState(false)
 
   const t = {
     ru: {
