@@ -706,8 +706,16 @@ export function MenuDoctor() {
       const parsed = await parseResponse.json()
       console.log('Parsed:', parsed.items?.length, 'items')
       
+      // Проверяем ошибки парсинга
+      if (parsed.error) {
+        if (parsed.error === 'SPA_NOT_SUPPORTED') {
+          throw new Error('Этот сайт загружает меню динамически (SPA). Попробуйте:\n• Ссылку на конкретный продукт\n• PDF меню\n• Сайт с обычным HTML')
+        }
+        throw new Error(parsed.message || parsed.error)
+      }
+      
       if (!parsed.items || parsed.items.length === 0) {
-        throw new Error('Не удалось найти позиции меню на странице')
+        throw new Error('Не удалось найти позиции меню на странице. Попробуйте другую ссылку.')
       }
 
       // ЭТАП 2: Расчёт метрик

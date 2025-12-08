@@ -259,33 +259,94 @@ export default async function handler(request: Request) {
     
     let content = ''
     let isText = false
+    let items: MenuItem[] = []
     
-    // Сначала пробуем Jina AI Reader (рендерит JS)
-    try {
-      const jinaController = new AbortController()
-      const jinaTimeout = setTimeout(() => jinaController.abort(), 5000)
-      
-      const jinaResponse = await fetch(`https://r.jina.ai/${url}`, {
-        method: 'GET',
-        signal: jinaController.signal,
-        headers: { 'Accept': 'text/plain' },
-      })
-      
-      clearTimeout(jinaTimeout)
-      
-      if (jinaResponse.ok) {
-        content = await jinaResponse.text()
-        isText = true
-        console.log('Parse: Got content via Jina, length:', content.length)
-        // Логируем первые строки для отладки
-        console.log('Parse: First 500 chars:', content.slice(0, 500).replace(/\n/g, '\\n'))
+    // Определяем известные SPA сайты с их API
+    const knownApis: Record<string, string> = {
+      'im.kz': 'https://api.im.kz/api/v1/products?per_page=100',
+      'maxway.uz': '', // Delever-based, will try direct
+    }
+    
+    const hostname = new URL(url).hostname.replace('www.', '')
+    const apiUrl = knownApis[hostname]
+    
+    // Попробуем получить данные через известный API
+    if (apiUrl) {
+      console.log('Parse: Trying known API for', hostname)
+      try {
+        const apiResponse = await fetch(apiUrl, {
+          headers: { 'Accept': 'application/json' }
+        })
+        if (apiResponse.ok) {
+          const data = await apiResponse.json()
+          // Парсим API ответ
+          if (Array.isArray(data)) {
+            items = data.map((p: any) => ({
+              name: p.name || p.title || '',
+              price: p.price || p.prices?.[0]?.price || null,
+              priceRaw: String(p.price || ''),
+              category: p.category?.name || p.category_name || 'Без категории'
+            })).filter((i: MenuItem) => i.name)
+          } else if (data.data && Array.isArray(data.data)) {
+            items = data.data.map((p: any) => ({
+              name: p.name || p.title || '',
+              price: p.price || p.prices?.[0]?.price || null,
+              priceRaw: String(p.price || ''),
+              category: p.category?.name || p.category_name || 'Без категории'
+            })).filter((i: MenuItem) => i.name)
+          }
+          if (items.length > 0) {
+            console.log('Parse: Got', items.length, 'items from API')
+          }
+        }
+      } catch (e) {
+        console.log('Parse: API failed for', hostname)
       }
-    } catch (e) {
-      console.log('Parse: Jina failed, trying direct fetch')
+    }
+    
+    // Если API не дал данных - пробуем Jina
+    if (items.length === 0) {
+      try {
+        const jinaController = new AbortController()
+        const jinaTimeout = setTimeout(() => jinaController.abort(), 6000)
+        
+        const jinaResponse = await fetch(`https://r.jina.ai/${url}`, {
+          method: 'GET',
+          signal: jinaController.signal,
+          headers: { 'Accept': 'text/plain' },
+        })
+        
+        clearTimeout(jinaTimeout)
+        
+        if (jinaResponse.ok) {
+          content = await jinaResponse.text()
+          isText = true
+          console.log('Parse: Got content via Jina, length:', content.length)
+          console.log('Parse: First 300 chars:', content.slice(0, 300).replace(/\n/g, '\\n'))
+          
+          // Проверяем что это SPA без данных
+          if (content.includes('_nuxt') || content.includes('__NUXT__')) {
+            const hasPrices = content.match(/\d{3,}\s*(₸|тг|сум|₽)/g)
+            if (!hasPrices || hasPrices.length < 3) {
+              console.log('Parse: Detected SPA without rendered prices')
+              // Вернём ошибку с понятным сообщением
+              return new Response(JSON.stringify({ 
+                error: 'SPA_NOT_SUPPORTED',
+                message: 'Этот сайт (SPA) загружает данные динамически. Попробуйте ссылку на конкретную страницу продукта или меню в PDF формате.'
+              }), {
+                status: 400,
+                headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+              })
+            }
+          }
+        }
+      } catch (e) {
+        console.log('Parse: Jina failed, trying direct fetch')
+      }
     }
     
     // Fallback на прямой fetch
-    if (!content) {
+    if (items.length === 0 && !content) {
       const fetchController = new AbortController()
       const fetchTimeout = setTimeout(() => fetchController.abort(), 8000)
       
@@ -308,8 +369,10 @@ export default async function handler(request: Request) {
       console.log('Parse: Got HTML via direct fetch, length:', content.length)
     }
     
-    // Парсим контент
-    const items = isText ? parseTextContent(content) : parseHtmlContent(content)
+    // Парсим контент если ещё не распарсили через API
+    if (items.length === 0 && content) {
+      items = isText ? parseTextContent(content) : parseHtmlContent(content)
+    }
     
     // Извлекаем уникальные категории
     const categories = [...new Set(items.map(i => i.category))].filter(c => c !== 'Без категории')
