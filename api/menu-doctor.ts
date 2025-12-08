@@ -139,58 +139,77 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
     openrouter: !!openrouterKey
   })
   
-  // Сначала пробуем OpenRouter (работает везде, без региональных блокировок)
+  // Сначала пробуем OpenRouter с разными моделями
   if (openrouterKey) {
-    console.log('Menu Doctor: Trying OpenRouter (global proxy)...')
-    try {
-      // Таймаут 20 секунд для OpenRouter
-      const openrouterController = new AbortController()
-      const openrouterTimeout = setTimeout(() => openrouterController.abort(), 20000)
-      
-      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-        signal: openrouterController.signal,
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${openrouterKey}`,
-          'HTTP-Referer': 'https://delever.io',
-          'X-Title': 'Delever Menu Doctor',
-        },
-        body: JSON.stringify({
-          model: 'mistralai/mistral-small-latest',
-          messages: [
-            { role: 'user', content: prompt + '\n\nВерни ответ СТРОГО в формате JSON без markdown.' }
-          ],
-          temperature: 0.7,
-          max_tokens: 2000,
-        }),
-      })
+    // Модели без региональных блокировок (приоритет - бесплатные и быстрые)
+    const modelsToTry = [
+      'nousresearch/nous-capybara-7b:free',      // Бесплатная, без блокировок
+      'openchat/openchat-7b:free',               // Бесплатная
+      'huggingfaceh4/zephyr-7b-beta:free',       // Бесплатная
+      'mistralai/mistral-7b-instruct',           // Mistral (Франция)
+      'meta-llama/llama-3-8b-instruct',          // Meta Llama
+    ]
+    
+    for (const model of modelsToTry) {
+      console.log(`Menu Doctor: Trying OpenRouter with ${model}...`)
+      try {
+        const openrouterController = new AbortController()
+        const openrouterTimeout = setTimeout(() => openrouterController.abort(), 20000)
+        
+        const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          signal: openrouterController.signal,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${openrouterKey}`,
+            'HTTP-Referer': 'https://delever.io',
+            'X-Title': 'Delever Menu Doctor',
+          },
+          body: JSON.stringify({
+            model: model,
+            messages: [
+              { role: 'user', content: prompt + '\n\nВерни ответ СТРОГО в формате JSON без markdown.' }
+            ],
+            temperature: 0.7,
+            max_tokens: 2000,
+          }),
+        })
 
-      clearTimeout(openrouterTimeout)
-      
-      if (response.ok) {
-        const data = await response.json()
-        const content = data.choices?.[0]?.message?.content
-        if (content) {
-          // Извлекаем JSON из ответа
-          let jsonStr = content
-          const jsonMatch = content.match(/```json\s*([\s\S]*?)\s*```/) || 
-                            content.match(/```\s*([\s\S]*?)\s*```/) ||
-                            content.match(/\{[\s\S]*\}/)
-          if (jsonMatch) {
-            jsonStr = jsonMatch[1] || jsonMatch[0]
+        clearTimeout(openrouterTimeout)
+        
+        if (response.ok) {
+          const data = await response.json()
+          const content = data.choices?.[0]?.message?.content
+          if (content) {
+            // Извлекаем JSON из ответа
+            let jsonStr = content
+            const jsonMatch = content.match(/```json\s*([\s\S]*?)\s*```/) || 
+                              content.match(/```\s*([\s\S]*?)\s*```/) ||
+                              content.match(/\{[\s\S]*\}/)
+            if (jsonMatch) {
+              jsonStr = jsonMatch[1] || jsonMatch[0]
+            }
+            try {
+              const result = JSON.parse(jsonStr)
+              console.log(`Menu Doctor: ✅ Generated using OpenRouter (${model})`)
+              return result
+            } catch (parseErr) {
+              console.log(`Menu Doctor: Failed to parse response from ${model}`)
+              continue // Пробуем следующую модель
+            }
           }
-          const result = JSON.parse(jsonStr)
-          console.log('Menu Doctor: ✅ Generated using OpenRouter (Mistral)')
-          return result
+        } else {
+          const errText = await response.text()
+          console.log(`Menu Doctor: ${model} failed:`, response.status, errText.slice(0, 200))
+          // Если модель не найдена или заблокирована - пробуем следующую
+          continue
         }
-      } else {
-        const errText = await response.text()
-        console.log('Menu Doctor: OpenRouter failed:', response.status, errText)
+      } catch (error) {
+        console.log(`Menu Doctor: ${model} error:`, error instanceof Error ? error.message : 'Unknown')
+        continue
       }
-    } catch (error) {
-      console.log('Menu Doctor: OpenRouter error (possibly timeout):', error instanceof Error ? error.message : 'Unknown')
     }
+    console.log('Menu Doctor: All OpenRouter models failed')
   }
   
   // Попытка OpenAI

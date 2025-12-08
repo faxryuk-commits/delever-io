@@ -690,65 +690,74 @@ export default async function handler(request: Request) {
         }
       }
       
-      // Пробуем OpenRouter (глобальный прокси, работает везде)
+      // Пробуем OpenRouter с разными моделями
       if (isRegionBlocked && openrouterKey) {
-        console.log('AI Marketing: Trying OpenRouter (global proxy)...')
+        const modelsToTry = [
+          'nousresearch/nous-capybara-7b:free',
+          'openchat/openchat-7b:free', 
+          'huggingfaceh4/zephyr-7b-beta:free',
+          'mistralai/mistral-7b-instruct',
+          'meta-llama/llama-3-8b-instruct',
+        ]
         
-        try {
-          // Используем бесплатную модель Llama которая не блокирует по региону
-          const openrouterResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${openrouterKey}`,
-              'HTTP-Referer': 'https://delever.io',
-              'X-Title': 'Delever AI Marketing',
-            },
-            body: JSON.stringify({
-              model: 'mistralai/mistral-small-latest',
-              messages: [
-                { role: 'system', content: SYSTEM_PROMPT },
-                { role: 'user', content: getUserPrompt(requestBody, productData) + '\n\nВерни ответ СТРОГО в формате JSON без markdown.' },
-              ],
-              temperature: 0.8,
-              max_tokens: 2000,
-            }),
-          })
+        for (const model of modelsToTry) {
+          console.log(`AI Marketing: Trying OpenRouter with ${model}...`)
+          try {
+            const openrouterResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${openrouterKey}`,
+                'HTTP-Referer': 'https://delever.io',
+                'X-Title': 'Delever AI Marketing',
+              },
+              body: JSON.stringify({
+                model: model,
+                messages: [
+                  { role: 'system', content: SYSTEM_PROMPT },
+                  { role: 'user', content: getUserPrompt(requestBody, productData) + '\n\nВерни ответ СТРОГО в формате JSON без markdown.' },
+                ],
+                temperature: 0.8,
+                max_tokens: 2000,
+              }),
+            })
 
-          console.log('AI Marketing: OpenRouter response status:', openrouterResponse.status)
-
-          if (openrouterResponse.ok) {
-            const openrouterData = await openrouterResponse.json()
-            const openrouterContent = openrouterData.choices?.[0]?.message?.content
-            
-            if (openrouterContent) {
-              try {
-                // Извлекаем JSON из ответа
-                let jsonStr = openrouterContent
-                const jsonMatch = openrouterContent.match(/```json\s*([\s\S]*?)\s*```/) || 
-                                  openrouterContent.match(/```\s*([\s\S]*?)\s*```/) ||
-                                  openrouterContent.match(/\{[\s\S]*\}/)
-                if (jsonMatch) {
-                  jsonStr = jsonMatch[1] || jsonMatch[0]
+            if (openrouterResponse.ok) {
+              const openrouterData = await openrouterResponse.json()
+              const openrouterContent = openrouterData.choices?.[0]?.message?.content
+              
+              if (openrouterContent) {
+                try {
+                  let jsonStr = openrouterContent
+                  const jsonMatch = openrouterContent.match(/```json\s*([\s\S]*?)\s*```/) || 
+                                    openrouterContent.match(/```\s*([\s\S]*?)\s*```/) ||
+                                    openrouterContent.match(/\{[\s\S]*\}/)
+                  if (jsonMatch) {
+                    jsonStr = jsonMatch[1] || jsonMatch[0]
+                  }
+                  
+                  const result = JSON.parse(jsonStr)
+                  console.log(`AI Marketing: ✅ Generated using OpenRouter (${model})`)
+                  return new Response(JSON.stringify(result), {
+                    status: 200,
+                    headers: { 'Content-Type': 'application/json' },
+                  })
+                } catch (parseError) {
+                  console.log(`AI Marketing: Failed to parse ${model} response`)
+                  continue
                 }
-                
-                const result = JSON.parse(jsonStr)
-                console.log('AI Marketing: ✅ Generated content using OpenRouter')
-                return new Response(JSON.stringify(result), {
-                  status: 200,
-                  headers: { 'Content-Type': 'application/json' },
-                })
-              } catch (parseError) {
-                console.error('AI Marketing: Failed to parse OpenRouter response:', parseError)
               }
+            } else {
+              const errText = await openrouterResponse.text()
+              console.log(`AI Marketing: ${model} failed:`, errText.slice(0, 200))
+              continue
             }
-          } else {
-            const errText = await openrouterResponse.text()
-            console.error('AI Marketing: OpenRouter API error:', errText)
+          } catch (openrouterError) {
+            console.log(`AI Marketing: ${model} error`)
+            continue
           }
-        } catch (openrouterError) {
-          console.error('AI Marketing: OpenRouter request failed:', openrouterError)
         }
+        console.log('AI Marketing: All OpenRouter models failed')
       }
       
       // Fallback если ничего не сработало
