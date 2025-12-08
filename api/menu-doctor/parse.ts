@@ -134,18 +134,53 @@ function parseTextContent(text: string): MenuItem[] {
       }
     }
     
-    // Формат 4: Jina markdown link "[Название Описание...](url)" с ценой ниже
+    // Формат 4a: Delever/MaxWay markdown "[52 000 UZS Название Описание...](url)"
+    const deleverLinkMatch = line.match(/^\[(\d[\d\s]+)\s*(UZS|сум)\s+(.+?)\s+[А-Яа-яA-Za-z].*\]\([^)]+\)$/i)
+    if (deleverLinkMatch) {
+      const priceRaw = deleverLinkMatch[1].replace(/\s/g, '') + ' ' + deleverLinkMatch[2]
+      const name = deleverLinkMatch[3].trim()
+      if (name.length > 2 && name.length < 80) {
+        items.push({
+          name,
+          price: parsePrice(deleverLinkMatch[1]),
+          priceRaw,
+          category: currentCategory
+        })
+        continue
+      }
+    }
+    
+    // Формат 4b: Jina markdown link "[Название Описание...](url)" с ценой ниже
     const jinalinkMatch = line.match(/^\[([^\]]+)\]\([^)]+\)$/)
     if (jinalinkMatch) {
-      // Ищем цену в следующих 3 строках
+      const linkText = jinalinkMatch[1]
+      
+      // Проверяем если цена внутри ссылки: "52 000 UZS Название..."
+      const priceInLinkMatch = linkText.match(/^(\d[\d\s]+)\s*(UZS|сум|so'm)\s+(.+)/i)
+      if (priceInLinkMatch) {
+        const priceRaw = priceInLinkMatch[1].replace(/\s/g, '') + ' ' + priceInLinkMatch[2]
+        // Извлекаем название (первые слова до описания)
+        const restText = priceInLinkMatch[3]
+        const nameParts = restText.split(/\s{2,}|\.{3}|…/)
+        const name = nameParts[0].trim()
+        if (name.length > 2 && name.length < 80) {
+          items.push({
+            name,
+            price: parsePrice(priceInLinkMatch[1]),
+            priceRaw,
+            category: currentCategory
+          })
+          continue
+        }
+      }
+      
+      // Иначе ищем цену в следующих 3 строках
       for (let j = 1; j <= 3; j++) {
         const priceLine = lines[i + j] || ''
         const priceMatch = priceLine.match(/^(\d[\d\s]+)\s*(сум|so'm|₽|руб|₸|тг)$/i)
         if (priceMatch) {
           // Извлекаем только название (до описания)
-          let fullText = jinalinkMatch[1]
-          // Разделяем название и описание
-          const parts = fullText.split(/\s{2,}|\.{3}|…/)
+          const parts = linkText.split(/\s{2,}|\.{3}|…/)
           const name = parts[0].trim()
           if (name.length > 2 && name.length < 80) {
             items.push({
@@ -154,7 +189,7 @@ function parseTextContent(text: string): MenuItem[] {
               priceRaw: priceLine.trim(),
               category: currentCategory
             })
-            i += j // Пропускаем строки до цены
+            i += j
             break
           }
         }
