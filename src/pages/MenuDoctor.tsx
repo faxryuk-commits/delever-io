@@ -542,6 +542,41 @@ export function MenuDoctor() {
                       </div>
                     </div>
 
+                    {/* Metrics */}
+                    {report.metrics && (
+                      <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.15 }}
+                        className="grid grid-cols-2 md:grid-cols-4 gap-4"
+                      >
+                        {report.metrics.totalItems && (
+                          <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm text-center">
+                            <div className="text-3xl font-bold text-teal-600">{report.metrics.totalItems}</div>
+                            <div className="text-sm text-gray-500 mt-1">позиций</div>
+                          </div>
+                        )}
+                        {report.metrics.categories && (
+                          <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm text-center">
+                            <div className="text-3xl font-bold text-emerald-600">{report.metrics.categories}</div>
+                            <div className="text-sm text-gray-500 mt-1">категорий</div>
+                          </div>
+                        )}
+                        {report.metrics.avgPrice && (
+                          <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm text-center">
+                            <div className="text-2xl font-bold text-blue-600">{report.metrics.avgPrice}</div>
+                            <div className="text-sm text-gray-500 mt-1">средняя цена</div>
+                          </div>
+                        )}
+                        <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm text-center">
+                          <div className={`text-3xl font-bold ${report.metrics.hasCombo ? 'text-green-600' : 'text-red-500'}`}>
+                            {report.metrics.hasCombo ? (report.metrics.comboCount || '✓') : '✗'}
+                          </div>
+                          <div className="text-sm text-gray-500 mt-1">комбо-наборы</div>
+                        </div>
+                      </motion.div>
+                    )}
+
                     {/* Summary */}
                     <motion.div 
                       initial={{ opacity: 0, y: 20 }}

@@ -8,8 +8,18 @@ export type MenuStructureItem = {
   }[]
 }
 
+export type MenuMetrics = {
+  totalItems?: number
+  categories?: number
+  priceRange?: string
+  avgPrice?: string
+  hasCombo?: boolean
+  comboCount?: number
+}
+
 export type MenuDoctorReport = {
   score: number // 0–100
+  metrics?: MenuMetrics
   summary: string
   issues: string[]
   recommendations: string[]
