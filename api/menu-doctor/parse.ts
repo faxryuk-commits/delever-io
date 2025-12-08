@@ -265,32 +265,61 @@ export default async function handler(request: Request) {
     if (hostname === 'im.kz') {
       console.log('Parse: Using im.kz API')
       try {
-        // Получаем все страницы (до 5)
-        const allItems: MenuItem[] = []
-        for (let page = 1; page <= 5; page++) {
-          const apiResponse = await fetch(
-            `https://api.im.kz/api/v1/products?per_page=50&page=${page}`,
-            { headers: { 'Accept': 'application/json' } }
-          )
-          if (apiResponse.ok) {
-            const data = await apiResponse.json()
-            if (data.success && data.data?.data) {
-              for (const p of data.data.data) {
-                allItems.push({
-                  name: p.title || p.name || '',
-                  price: p.price || null,
-                  priceRaw: p.price ? `${p.price} ₸` : '',
-                  category: p.category?.name || 'Без категории'
-                })
-              }
+        // 1. Сначала загружаем категории
+        const categoriesMap: Record<number, string> = {}
+        const catResponse = await fetch('https://api.im.kz/api/v1/categories', {
+          headers: { 'Accept': 'application/json' }
+        })
+        if (catResponse.ok) {
+          const catData = await catResponse.json()
+          if (catData.success && catData.data?.data) {
+            for (const cat of catData.data.data) {
+              categoriesMap[cat.id] = cat.title
             }
-            // Если это последняя страница
-            if (!data.data?.links?.next) break
+            console.log('Parse: Found', Object.keys(categoriesMap).length, 'categories')
           }
         }
-        if (allItems.length > 0) {
-          items = allItems.filter(i => i.name)
-          console.log('Parse: Got', items.length, 'items from im.kz API')
+        
+        // 2. Загружаем продукты по категориям
+        const allItems: MenuItem[] = []
+        const categoryIds = Object.keys(categoriesMap)
+        
+        for (const catId of categoryIds) {
+          try {
+            const prodResponse = await fetch(
+              `https://api.im.kz/api/v1/products?per_page=100&category_id=${catId}`,
+              { headers: { 'Accept': 'application/json' } }
+            )
+            if (prodResponse.ok) {
+              const prodData = await prodResponse.json()
+              if (prodData.success && prodData.data?.data) {
+                const categoryName = categoriesMap[parseInt(catId)]
+                for (const p of prodData.data.data) {
+                  allItems.push({
+                    name: p.title || p.name || '',
+                    price: p.price || null,
+                    priceRaw: p.price ? `${p.price} ₸` : '',
+                    category: categoryName
+                  })
+                }
+              }
+            }
+          } catch (e) {
+            // Пропускаем ошибки отдельных категорий
+          }
+        }
+        
+        // Дедупликация по имени
+        const uniqueItems = allItems.reduce((acc, item) => {
+          if (item.name && !acc.find(i => i.name === item.name)) {
+            acc.push(item)
+          }
+          return acc
+        }, [] as MenuItem[])
+        
+        if (uniqueItems.length > 0) {
+          items = uniqueItems
+          console.log('Parse: Got', items.length, 'unique items from im.kz API')
         }
       } catch (e) {
         console.log('Parse: im.kz API failed:', e)
