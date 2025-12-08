@@ -141,12 +141,11 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
   
   // Сначала пробуем OpenRouter с разными моделями
   if (openrouterKey) {
-    // Актуальные модели OpenRouter (проверены на декабрь 2024)
+    // Модели OpenRouter - платные работают стабильнее
     const modelsToTry = [
-      'google/gemma-2-9b-it:free',               // Google Gemma - бесплатная
-      'meta-llama/llama-3.2-3b-instruct:free',   // Llama 3.2 - бесплатная, быстрая
-      'qwen/qwen-2-7b-instruct:free',            // Qwen (Alibaba) - без блокировок
-      'microsoft/phi-3-mini-128k-instruct:free', // Microsoft Phi-3 - бесплатная
+      'mistralai/mistral-7b-instruct-v0.2',      // Mistral (Франция) - нет блокировок
+      'meta-llama/llama-3.1-8b-instruct',        // Llama 3.1 - Meta, быстрая
+      'meta-llama/llama-3.2-3b-instruct:free',   // Llama 3.2 free - как запасной
     ]
     
     for (const model of modelsToTry) {

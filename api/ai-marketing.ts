@@ -692,12 +692,11 @@ export default async function handler(request: Request) {
       
       // Пробуем OpenRouter с разными моделями
       if (isRegionBlocked && openrouterKey) {
-        // Актуальные модели OpenRouter (декабрь 2024)
+        // Модели OpenRouter - платные работают стабильнее
         const modelsToTry = [
-          'google/gemma-2-9b-it:free',
-          'meta-llama/llama-3.2-3b-instruct:free',
-          'qwen/qwen-2-7b-instruct:free',
-          'microsoft/phi-3-mini-128k-instruct:free',
+          'mistralai/mistral-7b-instruct-v0.2',      // Mistral (Франция) - нет блокировок
+          'meta-llama/llama-3.1-8b-instruct',        // Llama 3.1 - Meta
+          'meta-llama/llama-3.2-3b-instruct:free',   // Llama 3.2 free - запасной
         ]
         
         for (const model of modelsToTry) {
