@@ -692,11 +692,13 @@ export default async function handler(request: Request) {
       
       // Пробуем OpenRouter с разными моделями
       if (isRegionBlocked && openrouterKey) {
-        // Модели OpenRouter - платные работают стабильнее
+        // Модели OpenRouter - больше вариантов для обхода rate limits
         const modelsToTry = [
-          'mistralai/mistral-7b-instruct-v0.2',      // Mistral (Франция) - нет блокировок
-          'meta-llama/llama-3.1-8b-instruct',        // Llama 3.1 - Meta
-          'meta-llama/llama-3.2-3b-instruct:free',   // Llama 3.2 free - запасной
+          'mistralai/mistral-7b-instruct-v0.2',      // Mistral (Франция)
+          'mistralai/mixtral-8x7b-instruct',         // Mixtral - мощнее
+          'meta-llama/llama-3.1-8b-instruct',        // Llama 3.1
+          'meta-llama/llama-3.1-70b-instruct',       // Llama 3.1 70B
+          'cohere/command-r',                         // Cohere (Канада)
         ]
         
         for (const model of modelsToTry) {
