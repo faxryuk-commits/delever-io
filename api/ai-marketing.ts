@@ -729,22 +729,41 @@ export default async function handler(request: Request) {
               
               if (openrouterContent) {
                 try {
-                  let jsonStr = openrouterContent
-                  const jsonMatch = openrouterContent.match(/```json\s*([\s\S]*?)\s*```/) || 
-                                    openrouterContent.match(/```\s*([\s\S]*?)\s*```/) ||
-                                    openrouterContent.match(/\{[\s\S]*\}/)
+                  let jsonStr = openrouterContent.trim()
+                  
+                  // Пробуем разные способы извлечь JSON
+                  const jsonMatch = jsonStr.match(/```json\s*([\s\S]*?)\s*```/) || 
+                                    jsonStr.match(/```\s*([\s\S]*?)\s*```/)
                   if (jsonMatch) {
-                    jsonStr = jsonMatch[1] || jsonMatch[0]
+                    jsonStr = jsonMatch[1].trim()
                   }
                   
+                  // Если не нашли в блоке кода, ищем объект JSON
+                  if (!jsonStr.startsWith('{')) {
+                    const objectMatch = jsonStr.match(/\{[\s\S]*\}/)
+                    if (objectMatch) {
+                      jsonStr = objectMatch[0]
+                    }
+                  }
+                  
+                  // Очищаем от возможных артефактов
+                  jsonStr = jsonStr.replace(/^[^{]*/, '').replace(/[^}]*$/, '')
+                  
                   const result = JSON.parse(jsonStr)
-                  console.log(`AI Marketing: ✅ Generated using OpenRouter (${model})`)
-                  return new Response(JSON.stringify(result), {
-                    status: 200,
-                    headers: { 'Content-Type': 'application/json' },
-                  })
+                  
+                  // Проверяем что результат имеет нужную структуру
+                  if (result.instagram_posts || result.telegram_posts) {
+                    console.log(`AI Marketing: ✅ Generated using OpenRouter (${model})`)
+                    return new Response(JSON.stringify(result), {
+                      status: 200,
+                      headers: { 'Content-Type': 'application/json' },
+                    })
+                  } else {
+                    console.log(`AI Marketing: ${model} returned invalid structure`)
+                    continue
+                  }
                 } catch (parseError) {
-                  console.log(`AI Marketing: Failed to parse ${model} response`)
+                  console.log(`AI Marketing: Failed to parse ${model} response:`, openrouterContent.slice(0, 100))
                   continue
                 }
               }

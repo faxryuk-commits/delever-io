@@ -181,21 +181,40 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
           const data = await response.json()
           const content = data.choices?.[0]?.message?.content
           if (content) {
-            // Извлекаем JSON из ответа
-            let jsonStr = content
-            const jsonMatch = content.match(/```json\s*([\s\S]*?)\s*```/) || 
-                              content.match(/```\s*([\s\S]*?)\s*```/) ||
-                              content.match(/\{[\s\S]*\}/)
-            if (jsonMatch) {
-              jsonStr = jsonMatch[1] || jsonMatch[0]
-            }
             try {
+              let jsonStr = content.trim()
+              
+              // Пробуем разные способы извлечь JSON
+              const jsonMatch = jsonStr.match(/```json\s*([\s\S]*?)\s*```/) || 
+                                jsonStr.match(/```\s*([\s\S]*?)\s*```/)
+              if (jsonMatch) {
+                jsonStr = jsonMatch[1].trim()
+              }
+              
+              // Если не нашли в блоке кода, ищем объект JSON
+              if (!jsonStr.startsWith('{')) {
+                const objectMatch = jsonStr.match(/\{[\s\S]*\}/)
+                if (objectMatch) {
+                  jsonStr = objectMatch[0]
+                }
+              }
+              
+              // Очищаем от возможных артефактов
+              jsonStr = jsonStr.replace(/^[^{]*/, '').replace(/[^}]*$/, '')
+              
               const result = JSON.parse(jsonStr)
-              console.log(`Menu Doctor: ✅ Generated using OpenRouter (${model})`)
-              return result
+              
+              // Проверяем что результат имеет нужную структуру
+              if (typeof result.score === 'number' && result.summary) {
+                console.log(`Menu Doctor: ✅ Generated using OpenRouter (${model})`)
+                return result
+              } else {
+                console.log(`Menu Doctor: ${model} returned invalid structure`)
+                continue
+              }
             } catch (parseErr) {
-              console.log(`Menu Doctor: Failed to parse response from ${model}`)
-              continue // Пробуем следующую модель
+              console.log(`Menu Doctor: Failed to parse ${model}:`, content.slice(0, 100))
+              continue
             }
           }
         } else {
