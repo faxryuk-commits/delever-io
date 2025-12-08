@@ -692,20 +692,23 @@ export default async function handler(request: Request) {
       
       // Пробуем OpenRouter с разными моделями
       if (isRegionBlocked && openrouterKey) {
-        // Модели OpenRouter - больше вариантов для обхода rate limits
+        // Модели OpenRouter - Mixtral первый (быстрее и надёжнее)
         const modelsToTry = [
-          'mistralai/mistral-7b-instruct-v0.2',      // Mistral (Франция)
-          'mistralai/mixtral-8x7b-instruct',         // Mixtral - мощнее
+          'mistralai/mixtral-8x7b-instruct',         // Mixtral - быстрый и надёжный
+          'mistralai/mistral-7b-instruct-v0.2',      // Mistral 7B
           'meta-llama/llama-3.1-8b-instruct',        // Llama 3.1
-          'meta-llama/llama-3.1-70b-instruct',       // Llama 3.1 70B
-          'cohere/command-r',                         // Cohere (Канада)
         ]
         
         for (const model of modelsToTry) {
           console.log(`AI Marketing: Trying OpenRouter with ${model}...`)
           try {
+            // Таймаут 10 секунд на модель чтобы успеть попробовать несколько
+            const controller = new AbortController()
+            const timeout = setTimeout(() => controller.abort(), 10000)
+            
             const openrouterResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
               method: 'POST',
+              signal: controller.signal,
               headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${openrouterKey}`,
@@ -723,6 +726,8 @@ export default async function handler(request: Request) {
               }),
             })
 
+            clearTimeout(timeout)
+            
             if (openrouterResponse.ok) {
               const openrouterData = await openrouterResponse.json()
               const openrouterContent = openrouterData.choices?.[0]?.message?.content

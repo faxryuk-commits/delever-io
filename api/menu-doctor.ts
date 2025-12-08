@@ -141,20 +141,18 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
   
   // Сначала пробуем OpenRouter с разными моделями
   if (openrouterKey) {
-    // Модели OpenRouter - больше вариантов для обхода rate limits
+    // Модели OpenRouter - Mixtral первый (быстрее и надёжнее)
     const modelsToTry = [
-      'mistralai/mistral-7b-instruct-v0.2',      // Mistral (Франция)
-      'mistralai/mixtral-8x7b-instruct',         // Mixtral - мощнее
+      'mistralai/mixtral-8x7b-instruct',         // Mixtral - быстрый и надёжный
+      'mistralai/mistral-7b-instruct-v0.2',      // Mistral 7B
       'meta-llama/llama-3.1-8b-instruct',        // Llama 3.1
-      'meta-llama/llama-3.1-70b-instruct',       // Llama 3.1 70B - мощнее
-      'cohere/command-r',                         // Cohere (Канада)
     ]
     
     for (const model of modelsToTry) {
       console.log(`Menu Doctor: Trying OpenRouter with ${model}...`)
       try {
         const openrouterController = new AbortController()
-        const openrouterTimeout = setTimeout(() => openrouterController.abort(), 15000) // 15 сек на модель
+        const openrouterTimeout = setTimeout(() => openrouterController.abort(), 10000) // 10 сек на модель
         
         const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
           signal: openrouterController.signal,
