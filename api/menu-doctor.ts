@@ -72,9 +72,8 @@ function buildPrompt(
     en: 'English'
   }
   const reportLang = langMap[data.language || 'ru']
-  const contentType = isRenderedText ? 'текст страницы' : 'HTML'
   
-  return `Ты — эксперт по ресторанному меню. Анализируй ТОЛЬКО то, что видишь в контенте.
+  return `Ты — эксперт по ресторанному меню. Анализируй ТОЛЬКО то, что видишь в контенте (${isRenderedText ? 'текст' : 'HTML'}).
 
 URL: ${data.menuUrl}
 ${truncated ? '⚠️ ВАЖНО: Показана только ЧАСТЬ меню. Укажи это в summary.\n' : ''}
