@@ -259,45 +259,41 @@ export default async function handler(request: Request) {
     let items: MenuItem[] = []
     
     // Определяем известные SPA сайты с их API
-    const knownApis: Record<string, string> = {
-      'im.kz': 'https://api.im.kz/api/v1/products?per_page=100',
-      'maxway.uz': '', // Delever-based, will try direct
-    }
-    
     const hostname = new URL(url).hostname.replace('www.', '')
-    const apiUrl = knownApis[hostname]
     
-    // Попробуем получить данные через известный API
-    if (apiUrl) {
-      console.log('Parse: Trying known API for', hostname)
+    // Специальная обработка для im.kz (I'm restaurants Kazakhstan)
+    if (hostname === 'im.kz') {
+      console.log('Parse: Using im.kz API')
       try {
-        const apiResponse = await fetch(apiUrl, {
-          headers: { 'Accept': 'application/json' }
-        })
-        if (apiResponse.ok) {
-          const data = await apiResponse.json()
-          // Парсим API ответ
-          if (Array.isArray(data)) {
-            items = data.map((p: any) => ({
-              name: p.name || p.title || '',
-              price: p.price || p.prices?.[0]?.price || null,
-              priceRaw: String(p.price || ''),
-              category: p.category?.name || p.category_name || 'Без категории'
-            })).filter((i: MenuItem) => i.name)
-          } else if (data.data && Array.isArray(data.data)) {
-            items = data.data.map((p: any) => ({
-              name: p.name || p.title || '',
-              price: p.price || p.prices?.[0]?.price || null,
-              priceRaw: String(p.price || ''),
-              category: p.category?.name || p.category_name || 'Без категории'
-            })).filter((i: MenuItem) => i.name)
-          }
-          if (items.length > 0) {
-            console.log('Parse: Got', items.length, 'items from API')
+        // Получаем все страницы (до 5)
+        const allItems: MenuItem[] = []
+        for (let page = 1; page <= 5; page++) {
+          const apiResponse = await fetch(
+            `https://api.im.kz/api/v1/products?per_page=50&page=${page}`,
+            { headers: { 'Accept': 'application/json' } }
+          )
+          if (apiResponse.ok) {
+            const data = await apiResponse.json()
+            if (data.success && data.data?.data) {
+              for (const p of data.data.data) {
+                allItems.push({
+                  name: p.title || p.name || '',
+                  price: p.price || null,
+                  priceRaw: p.price ? `${p.price} ₸` : '',
+                  category: p.category?.name || 'Без категории'
+                })
+              }
+            }
+            // Если это последняя страница
+            if (!data.data?.links?.next) break
           }
         }
+        if (allItems.length > 0) {
+          items = allItems.filter(i => i.name)
+          console.log('Parse: Got', items.length, 'items from im.kz API')
+        }
       } catch (e) {
-        console.log('Parse: API failed for', hostname)
+        console.log('Parse: im.kz API failed:', e)
       }
     }
     
