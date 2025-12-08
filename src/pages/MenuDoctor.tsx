@@ -336,7 +336,16 @@ export function MenuDoctor() {
         }),
       })
 
-      const data = await response.json()
+      // Проверяем что ответ JSON
+      const text = await response.text()
+      let data
+      try {
+        data = JSON.parse(text)
+      } catch {
+        // Если не JSON - показываем понятную ошибку
+        console.error('API returned non-JSON:', text.slice(0, 200))
+        throw new Error('Сервер временно недоступен. Попробуйте через минуту.')
+      }
 
       if (!response.ok) {
         throw new Error(data.error || 'Failed to analyze menu')
