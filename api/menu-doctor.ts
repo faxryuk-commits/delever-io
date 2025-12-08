@@ -72,10 +72,10 @@ function buildPrompt(
     en: 'English'
   }
   const reportLang = langMap[data.language || 'ru']
-  
-  const contentType = isRenderedText ? 'текстовое содержимое' : 'HTML-код'
+  const contentType = isRenderedText ? 'текст страницы' : 'HTML'
   
   return `Ты — ведущий консультант ресторанного бизнеса (15 лет опыта с McDonald's, Domino's, Starbucks).
+Анализируешь ${contentType} меню.
 
 АНАЛИЗИРУЙ: ${data.menuUrl}
 ${truncated ? '⚠️ Контент сокращён.\n' : ''}

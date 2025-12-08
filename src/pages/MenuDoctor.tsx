@@ -20,14 +20,145 @@ import {
   HelpCircle,
   ThumbsUp,
   ThumbsDown,
-  Star,
-  Heart
+  Download
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { SEO } from '@/components/SEO'
 import { useLocale } from '@/i18n/LocaleContext'
 import type { MenuDoctorReport, GoalSection, ScoreCriteria } from '@/types/menuDoctor'
+
+// Download PDF Function
+function downloadPDF(report: MenuDoctorReport, menuUrl: string) {
+  const printWindow = window.open('', '_blank')
+  if (!printWindow) return
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Menu Doctor Report - ${new Date().toLocaleDateString()}</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 40px; color: #1f2937; line-height: 1.6; }
+    .header { text-align: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid #10b981; }
+    .logo { font-size: 28px; font-weight: bold; color: #10b981; margin-bottom: 8px; }
+    .subtitle { color: #6b7280; font-size: 14px; }
+    .score-section { display: flex; align-items: center; gap: 30px; margin-bottom: 30px; padding: 20px; background: #f0fdf4; border-radius: 12px; }
+    .score-circle { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #10b981, #059669); display: flex; align-items: center; justify-content: center; }
+    .score-value { font-size: 36px; font-weight: bold; color: white; }
+    .score-info h2 { font-size: 20px; color: #1f2937; margin-bottom: 8px; }
+    .summary { background: #f9fafb; padding: 20px; border-radius: 12px; margin-bottom: 30px; border-left: 4px solid #10b981; }
+    .section { margin-bottom: 30px; }
+    .section h3 { font-size: 18px; color: #1f2937; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #e5e7eb; }
+    .issue { padding: 12px; background: #fef2f2; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #ef4444; }
+    .recommendation { padding: 12px; background: #eff6ff; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #3b82f6; }
+    .goal-card { padding: 15px; background: #f9fafb; border-radius: 8px; margin-bottom: 10px; }
+    .goal-card strong { color: #1f2937; }
+    .goal-card .why { color: #6b7280; font-size: 14px; margin-top: 5px; }
+    .goal-card .result { display: inline-block; background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-top: 8px; }
+    .quick-win { padding: 8px 12px; background: #fef3c7; border-radius: 6px; margin-bottom: 8px; }
+    .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #e5e7eb; text-align: center; color: #9ca3af; font-size: 12px; }
+    .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 30px; }
+    .metric { text-align: center; padding: 15px; background: white; border: 1px solid #e5e7eb; border-radius: 8px; }
+    .metric-value { font-size: 24px; font-weight: bold; color: #10b981; }
+    .metric-label { font-size: 12px; color: #6b7280; }
+    @media print { body { padding: 20px; } }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">🩺 Menu Doctor</div>
+    <div class="subtitle">Анализ меню: ${menuUrl}</div>
+    <div class="subtitle">${new Date().toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })}</div>
+  </div>
+
+  <div class="score-section">
+    <div class="score-circle">
+      <span class="score-value">${report.score}</span>
+    </div>
+    <div class="score-info">
+      <h2>Оценка меню: ${report.score}/100</h2>
+      <p>${report.score >= 80 ? 'Отличная структура!' : report.score >= 60 ? 'Хорошее меню с потенциалом' : report.score >= 40 ? 'Есть что улучшить' : 'Требует доработки'}</p>
+    </div>
+  </div>
+
+  ${report.metrics ? `
+  <div class="metrics">
+    ${report.metrics.totalItems ? `<div class="metric"><div class="metric-value">${report.metrics.totalItems}</div><div class="metric-label">позиций</div></div>` : ''}
+    ${report.metrics.categories ? `<div class="metric"><div class="metric-value">${report.metrics.categories}</div><div class="metric-label">категорий</div></div>` : ''}
+    ${report.metrics.avgPrice ? `<div class="metric"><div class="metric-value">${report.metrics.avgPrice}</div><div class="metric-label">средняя цена</div></div>` : ''}
+    <div class="metric"><div class="metric-value">${report.metrics.hasCombo ? '✓' : '✗'}</div><div class="metric-label">комбо-наборы</div></div>
+  </div>
+  ` : ''}
+
+  <div class="summary">
+    <strong>Общий вывод:</strong><br>
+    ${report.summary}
+  </div>
+
+  ${report.issues?.length ? `
+  <div class="section">
+    <h3>⚠️ Проблемы</h3>
+    ${report.issues.map(issue => `<div class="issue">${issue}</div>`).join('')}
+  </div>
+  ` : ''}
+
+  ${report.goalSales?.items?.length ? `
+  <div class="section">
+    <h3>📈 Для роста продаж</h3>
+    ${report.goalSales.items.map(item => `
+      <div class="goal-card">
+        <strong>${item.action}</strong>
+        ${item.why ? `<div class="why">Почему: ${item.why}</div>` : ''}
+        ${item.how ? `<div class="why">Как: ${item.how}</div>` : ''}
+        ${item.result ? `<span class="result">${item.result}</span>` : ''}
+      </div>
+    `).join('')}
+  </div>
+  ` : ''}
+
+  ${report.goalCheck?.items?.length ? `
+  <div class="section">
+    <h3>💰 Для увеличения чека</h3>
+    ${report.goalCheck.items.map(item => `
+      <div class="goal-card">
+        <strong>${item.action}</strong>
+        ${item.why ? `<div class="why">Почему: ${item.why}</div>` : ''}
+        ${item.how ? `<div class="why">Как: ${item.how}</div>` : ''}
+        ${item.result ? `<span class="result">${item.result}</span>` : ''}
+      </div>
+    `).join('')}
+  </div>
+  ` : ''}
+
+  ${report.quickWins?.items?.length ? `
+  <div class="section">
+    <h3>⚡ Быстрые победы</h3>
+    ${report.quickWins.items.map(item => `<div class="quick-win">→ ${item}</div>`).join('')}
+  </div>
+  ` : ''}
+
+  ${report.recommendations?.length && !report.goalSales ? `
+  <div class="section">
+    <h3>💡 Рекомендации</h3>
+    ${report.recommendations.map(rec => `<div class="recommendation">${rec}</div>`).join('')}
+  </div>
+  ` : ''}
+
+  <div class="footer">
+    <p>Отчёт сгенерирован Menu Doctor by Delever</p>
+    <p>delever.uz • support@delever.uz</p>
+  </div>
+
+  <script>window.onload = () => window.print()</script>
+</body>
+</html>`
+
+  printWindow.document.write(html)
+  printWindow.document.close()
+}
 
 // Feedback Component
 function FeedbackSection() {
@@ -775,8 +906,22 @@ export function MenuDoctor() {
                       <div className="flex items-center gap-8">
                         <ScoreDisplay score={report.score} scoreCriteria={report.scoreCriteria} />
                         <div className="flex-1">
-                          <h3 className="text-2xl font-bold text-gray-800 mb-2">{texts.score}</h3>
-                          <p className="text-lg text-gray-600">{getScoreLabel(report.score)}</p>
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <h3 className="text-2xl font-bold text-gray-800 mb-2">{texts.score}</h3>
+                              <p className="text-lg text-gray-600">{getScoreLabel(report.score)}</p>
+                            </div>
+                            <motion.button
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: 0.8 }}
+                              onClick={() => downloadPDF(report, formData.menuUrl)}
+                              className="flex items-center gap-2 px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition-colors shadow-lg shadow-teal-500/25"
+                            >
+                              <Download className="w-4 h-4" />
+                              Скачать PDF
+                            </motion.button>
+                          </div>
                           <div className="mt-4 w-full h-3 bg-gray-100 rounded-full overflow-hidden">
                             <motion.div
                               className={`h-full rounded-full ${
