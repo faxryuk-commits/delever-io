@@ -265,51 +265,69 @@ export default async function handler(request: Request) {
     if (hostname === 'im.kz') {
       console.log('Parse: Using im.kz API')
       try {
-        // 1. Сначала загружаем категории
-        const categoriesMap: Record<number, string> = {}
-        const catResponse = await fetch('https://api.im.kz/api/v1/categories', {
-          headers: { 'Accept': 'application/json' }
-        })
+        // Параллельно загружаем категории и все продукты
+        const [catResponse, prod1, prod2, prod3, prod4, prod5] = await Promise.all([
+          fetch('https://api.im.kz/api/v1/categories', { headers: { 'Accept': 'application/json' } }),
+          fetch('https://api.im.kz/api/v1/products?per_page=50&page=1', { headers: { 'Accept': 'application/json' } }),
+          fetch('https://api.im.kz/api/v1/products?per_page=50&page=2', { headers: { 'Accept': 'application/json' } }),
+          fetch('https://api.im.kz/api/v1/products?per_page=50&page=3', { headers: { 'Accept': 'application/json' } }),
+          fetch('https://api.im.kz/api/v1/products?per_page=50&page=4', { headers: { 'Accept': 'application/json' } }),
+          fetch('https://api.im.kz/api/v1/products?per_page=50&page=5', { headers: { 'Accept': 'application/json' } }),
+        ])
+        
+        // Парсим категории
+        const categoryNames: string[] = []
         if (catResponse.ok) {
           const catData = await catResponse.json()
           if (catData.success && catData.data?.data) {
             for (const cat of catData.data.data) {
-              categoriesMap[cat.id] = cat.title
+              categoryNames.push(cat.title)
             }
-            console.log('Parse: Found', Object.keys(categoriesMap).length, 'categories')
+            console.log('Parse: Found', categoryNames.length, 'categories:', categoryNames.slice(0, 5).join(', '))
           }
         }
         
-        // 2. Загружаем продукты по категориям
+        // Парсим продукты
         const allItems: MenuItem[] = []
-        const categoryIds = Object.keys(categoriesMap)
-        
-        for (const catId of categoryIds) {
-          try {
-            const prodResponse = await fetch(
-              `https://api.im.kz/api/v1/products?per_page=100&category_id=${catId}`,
-              { headers: { 'Accept': 'application/json' } }
-            )
-            if (prodResponse.ok) {
-              const prodData = await prodResponse.json()
-              if (prodData.success && prodData.data?.data) {
-                const categoryName = categoriesMap[parseInt(catId)]
-                for (const p of prodData.data.data) {
-                  allItems.push({
-                    name: p.title || p.name || '',
-                    price: p.price || null,
-                    priceRaw: p.price ? `${p.price} ₸` : '',
-                    category: categoryName
-                  })
-                }
+        for (const resp of [prod1, prod2, prod3, prod4, prod5]) {
+          if (resp.ok) {
+            const data = await resp.json()
+            if (data.success && data.data?.data) {
+              for (const p of data.data.data) {
+                allItems.push({
+                  name: p.title || p.name || '',
+                  price: p.price || null,
+                  priceRaw: p.price ? `${p.price} ₸` : '',
+                  category: categoryNames[0] || 'Меню' // Распределим позже
+                })
               }
             }
-          } catch (e) {
-            // Пропускаем ошибки отдельных категорий
           }
         }
         
-        // Дедупликация по имени
+        // Распределяем по категориям по ключевым словам
+        const categoryKeywords: Record<string, string[]> = {
+          'Бургеры': ['бургер', 'burger', 'чизбургер', 'гамбургер', 'тейсти'],
+          'Combo': ['combo', 'комбо'],
+          'Завтраки': ['брекфаст', 'breakfast', 'маффин с яйцом', 'тост с'],
+          'Напитки': ['кола', 'cola', 'fanta', 'sprite', 'сок', 'чай', 'кофе', 'латте', 'капучино', 'американо', 'эспрессо'],
+          'Десерты': ['мороженое', 'айс микс', 'пирожок', 'рожок', 'чизкейк', 'торт', 'синнабон', 'донат'],
+          'Закуски': ['наггетс', 'картофель', 'фри', 'крылья', 'салат', 'креветки'],
+          'Соусы': ['соус', 'кетчуп', 'сироп'],
+          'I\'M Café': ['раф', 'какао', 'фраппе', 'панини', 'круассан'],
+        }
+        
+        for (const item of allItems) {
+          const nameLower = item.name.toLowerCase()
+          for (const [cat, keywords] of Object.entries(categoryKeywords)) {
+            if (keywords.some(kw => nameLower.includes(kw))) {
+              item.category = cat
+              break
+            }
+          }
+        }
+        
+        // Дедупликация
         const uniqueItems = allItems.reduce((acc, item) => {
           if (item.name && !acc.find(i => i.name === item.name)) {
             acc.push(item)
@@ -319,7 +337,7 @@ export default async function handler(request: Request) {
         
         if (uniqueItems.length > 0) {
           items = uniqueItems
-          console.log('Parse: Got', items.length, 'unique items from im.kz API')
+          console.log('Parse: Got', items.length, 'items,', categoryNames.length, 'categories from im.kz')
         }
       } catch (e) {
         console.log('Parse: im.kz API failed:', e)
