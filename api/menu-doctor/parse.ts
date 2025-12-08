@@ -58,6 +58,34 @@ function parseTextContent(text: string): MenuItem[] {
       continue
     }
     
+    // Delever категории: повторяющееся название категории (напр. "Бургеры\n\nБургеры\n\n32 000UZS...")
+    // Или просто строка без цифр перед ценами
+    if (line.length > 3 && line.length < 50 && !line.match(/\d/) && !line.match(/^[#\[\]*-]/) && !line.includes('http')) {
+      const nextLine = lines[i + 1] || ''
+      const nextNextLine = lines[i + 2] || ''
+      // Если следующая строка такая же или содержит цену - это категория
+      if (nextLine === line || nextLine.match(/^\d[\d\s]+(UZS|сум)/i) || nextNextLine.match(/^\d[\d\s]+(UZS|сум)/i)) {
+        currentCategory = line.trim()
+        continue
+      }
+    }
+    
+    // Формат 0: Delever/MaxWay "52 000UZSMaxi Box Традиция" (цена+валюта слитно с названием)
+    const deleverMatch = line.match(/^(\d[\d\s]+)(UZS|сум)(.+)$/i)
+    if (deleverMatch) {
+      const name = deleverMatch[3].trim()
+      const priceRaw = deleverMatch[1].replace(/\s/g, '') + ' ' + deleverMatch[2]
+      if (name.length > 2 && name.length < 100) {
+        items.push({
+          name,
+          price: parsePrice(deleverMatch[1]),
+          priceRaw,
+          category: currentCategory
+        })
+        continue
+      }
+    }
+    
     // Формат 1: "Биг Мак® 2 050 ₸" или "Биг Мак - 2500 тг"
     const priceMatch = line.match(/^(.+?)\s*[-–—:]?\s*(\d[\d\s,.]+)\s*(₸|тг|тенге|сум|so'm|₽|руб|usd|\$|€)?$/i)
     if (priceMatch) {
