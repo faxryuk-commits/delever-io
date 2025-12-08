@@ -24,16 +24,6 @@ import { SEO } from '@/components/SEO'
 import { useLocale } from '@/i18n/LocaleContext'
 import type { MenuDoctorReport } from '@/types/menuDoctor'
 
-const venueTypes = [
-  { value: 'fastfood', label: { ru: 'Фастфуд', en: 'Fast food', uz: 'Fastfud' } },
-  { value: 'coffee', label: { ru: 'Кофейня', en: 'Coffee shop', uz: 'Qahvaxona' } },
-  { value: 'restaurant', label: { ru: 'Ресторан', en: 'Restaurant', uz: 'Restoran' } },
-  { value: 'sushi', label: { ru: 'Доставка суши', en: 'Sushi delivery', uz: 'Sushi yetkazish' } },
-  { value: 'pizza', label: { ru: 'Пиццерия', en: 'Pizzeria', uz: 'Pitseriya' } },
-  { value: 'canteen', label: { ru: 'Столовая', en: 'Canteen', uz: 'Oshxona' } },
-  { value: 'other', label: { ru: 'Другое', en: 'Other', uz: 'Boshqa' } },
-]
-
 // Magic Animation Component
 function MagicAnimation() {
   return (
@@ -126,9 +116,6 @@ export function MenuDoctor() {
   
   const [formData, setFormData] = useState({
     menuUrl: '',
-    venueType: 'restaurant',
-    averageBill: '',
-    location: '',
     language: language as 'ru' | 'uz' | 'en',
   })
 
@@ -187,9 +174,6 @@ export function MenuDoctor() {
       menuUrl: 'Ссылка на меню',
       menuUrlPlaceholder: 'https://restaurant.uz/menu',
       menuUrlHelp: 'Вставьте ссылку на страницу, где есть меню с блюдами и ценами',
-      venueType: 'Тип заведения',
-      averageBill: 'Средний чек (опционально)',
-      location: 'Город / страна (опционально)',
       reportLanguage: 'Язык отчёта',
       analyze: 'Анализировать меню',
       analyzing: 'Анализируем...',
@@ -224,9 +208,6 @@ export function MenuDoctor() {
       menuUrl: 'Menu link',
       menuUrlPlaceholder: 'https://restaurant.com/menu',
       menuUrlHelp: 'Paste a link to a page with menu items and prices',
-      venueType: 'Venue type',
-      averageBill: 'Average check (optional)',
-      location: 'City / country (optional)',
       reportLanguage: 'Report language',
       analyze: 'Analyze menu',
       analyzing: 'Analyzing...',
@@ -261,9 +242,6 @@ export function MenuDoctor() {
       menuUrl: 'Menyu havolasi',
       menuUrlPlaceholder: 'https://restoran.uz/menyu',
       menuUrlHelp: 'Menyu va narxlar bor sahifaga havola qo\'ying',
-      venueType: 'Muassasa turi',
-      averageBill: 'O\'rtacha chek (ixtiyoriy)',
-      location: 'Shahar / mamlakat (ixtiyoriy)',
       reportLanguage: 'Hisobot tili',
       analyze: 'Menyuni tahlil qilish',
       analyzing: 'Tahlil qilinmoqda...',
@@ -326,9 +304,6 @@ export function MenuDoctor() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           menuUrl: formData.menuUrl,
-          venueType: formData.venueType,
-          averageBill: formData.averageBill || undefined,
-          location: formData.location || undefined,
           language: formData.language,
         }),
       })
