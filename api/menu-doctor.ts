@@ -141,20 +141,19 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
   
   // Сначала пробуем OpenRouter с разными моделями
   if (openrouterKey) {
-    // Модели без региональных блокировок (приоритет - бесплатные и быстрые)
+    // Актуальные модели OpenRouter (проверены на декабрь 2024)
     const modelsToTry = [
-      'nousresearch/nous-capybara-7b:free',      // Бесплатная, без блокировок
-      'openchat/openchat-7b:free',               // Бесплатная
-      'huggingfaceh4/zephyr-7b-beta:free',       // Бесплатная
-      'mistralai/mistral-7b-instruct',           // Mistral (Франция)
-      'meta-llama/llama-3-8b-instruct',          // Meta Llama
+      'google/gemma-2-9b-it:free',               // Google Gemma - бесплатная
+      'meta-llama/llama-3.2-3b-instruct:free',   // Llama 3.2 - бесплатная, быстрая
+      'qwen/qwen-2-7b-instruct:free',            // Qwen (Alibaba) - без блокировок
+      'microsoft/phi-3-mini-128k-instruct:free', // Microsoft Phi-3 - бесплатная
     ]
     
     for (const model of modelsToTry) {
       console.log(`Menu Doctor: Trying OpenRouter with ${model}...`)
       try {
         const openrouterController = new AbortController()
-        const openrouterTimeout = setTimeout(() => openrouterController.abort(), 20000)
+        const openrouterTimeout = setTimeout(() => openrouterController.abort(), 15000) // 15 сек на модель
         
         const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
           signal: openrouterController.signal,

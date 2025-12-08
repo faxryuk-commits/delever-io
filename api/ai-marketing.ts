@@ -692,12 +692,12 @@ export default async function handler(request: Request) {
       
       // Пробуем OpenRouter с разными моделями
       if (isRegionBlocked && openrouterKey) {
+        // Актуальные модели OpenRouter (декабрь 2024)
         const modelsToTry = [
-          'nousresearch/nous-capybara-7b:free',
-          'openchat/openchat-7b:free', 
-          'huggingfaceh4/zephyr-7b-beta:free',
-          'mistralai/mistral-7b-instruct',
-          'meta-llama/llama-3-8b-instruct',
+          'google/gemma-2-9b-it:free',
+          'meta-llama/llama-3.2-3b-instruct:free',
+          'qwen/qwen-2-7b-instruct:free',
+          'microsoft/phi-3-mini-128k-instruct:free',
         ]
         
         for (const model of modelsToTry) {
