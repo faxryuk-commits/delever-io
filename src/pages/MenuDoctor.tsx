@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { 
   Stethoscope, 
   Globe, 
-  MapPin, 
   Languages,
   Loader2,
   AlertCircle,
@@ -11,8 +10,6 @@ import {
   TrendingUp,
   Lightbulb,
   List,
-  ChefHat,
-  DollarSign,
   Search,
   Sparkles,
   Wand2,
@@ -456,55 +453,6 @@ export function MenuDoctor() {
                       className="w-full"
                     />
                     <p className="text-xs text-gray-400 mt-1">{texts.menuUrlHelp}</p>
-                  </div>
-
-                  {/* Venue Type */}
-                  <div>
-                    <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                      <ChefHat className="h-4 w-4 text-teal-600" />
-                      {texts.venueType}
-                    </label>
-                    <select
-                      value={formData.venueType}
-                      onChange={(e) => setFormData({ ...formData, venueType: e.target.value })}
-                      className="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-                    >
-                      {venueTypes.map((type) => (
-                        <option key={type.value} value={type.value}>
-                          {type.label[language] || type.label.ru}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {/* Average Bill */}
-                  <div>
-                    <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                      <DollarSign className="h-4 w-4 text-teal-600" />
-                      {texts.averageBill}
-                    </label>
-                    <Input
-                      type="text"
-                      value={formData.averageBill}
-                      onChange={(e) => setFormData({ ...formData, averageBill: e.target.value })}
-                      placeholder="50 000 сум"
-                      className="w-full"
-                    />
-                  </div>
-
-                  {/* Location */}
-                  <div>
-                    <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                      <MapPin className="h-4 w-4 text-teal-600" />
-                      {texts.location}
-                    </label>
-                    <Input
-                      type="text"
-                      value={formData.location}
-                      onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                      placeholder="Ташкент, Узбекистан"
-                      className="w-full"
-                    />
                   </div>
 
                   {/* Report Language */}
