@@ -157,12 +157,12 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
           'X-Title': 'Delever Menu Doctor',
         },
         body: JSON.stringify({
-          model: 'mistralai/mistral-7b-instruct:free',
+          model: 'openai/gpt-3.5-turbo',
           messages: [
             { role: 'user', content: prompt + '\n\nВерни ответ СТРОГО в формате JSON без markdown.' }
           ],
           temperature: 0.7,
-          max_tokens: 4000,
+          max_tokens: 2000,
         }),
       })
 
@@ -181,7 +181,7 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
             jsonStr = jsonMatch[1] || jsonMatch[0]
           }
           const result = JSON.parse(jsonStr)
-          console.log('Menu Doctor: ✅ Generated using OpenRouter (Mistral 7B)')
+          console.log('Menu Doctor: ✅ Generated using OpenRouter (GPT-3.5)')
           return result
         }
       } else {
