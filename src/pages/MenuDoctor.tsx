@@ -22,7 +22,58 @@ import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { SEO } from '@/components/SEO'
 import { useLocale } from '@/i18n/LocaleContext'
-import type { MenuDoctorReport } from '@/types/menuDoctor'
+import type { MenuDoctorReport, GoalSection } from '@/types/menuDoctor'
+
+// Goal Card Component
+function GoalCard({ goal, color, icon, delay }: { goal: GoalSection; color: 'blue' | 'green' | 'purple'; icon: string; delay: number }) {
+  const colors = {
+    blue: { bg: 'from-blue-50 to-indigo-50', border: 'border-blue-200', title: 'text-blue-700', badge: 'bg-blue-100 text-blue-700' },
+    green: { bg: 'from-green-50 to-emerald-50', border: 'border-green-200', title: 'text-green-700', badge: 'bg-green-100 text-green-700' },
+    purple: { bg: 'from-purple-50 to-pink-50', border: 'border-purple-200', title: 'text-purple-700', badge: 'bg-purple-100 text-purple-700' },
+  }
+  const c = colors[color]
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay }}
+      className={`bg-gradient-to-br ${c.bg} rounded-2xl p-6 ${c.border} border`}
+    >
+      <h3 className={`flex items-center gap-2 text-lg font-semibold ${c.title} mb-4`}>
+        {icon} {goal.title}
+      </h3>
+      <div className="space-y-4">
+        {goal.items.map((item, idx) => (
+          <motion.div
+            key={idx}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: delay + 0.1 + idx * 0.1 }}
+            className="bg-white/70 rounded-xl p-4 space-y-2"
+          >
+            <div className="font-medium text-gray-800">{item.action}</div>
+            {item.why && (
+              <div className="text-sm text-gray-600">
+                <span className="font-medium">Почему: </span>{item.why}
+              </div>
+            )}
+            {item.how && (
+              <div className="text-sm text-gray-600">
+                <span className="font-medium">Как: </span>{item.how}
+              </div>
+            )}
+            {item.result && (
+              <div className={`inline-block text-sm font-semibold ${c.badge} px-2 py-1 rounded-lg`}>
+                {item.result}
+              </div>
+            )}
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
+  )
+}
 
 // Magic Animation Component
 function MagicAnimation() {
@@ -116,6 +167,7 @@ export function MenuDoctor() {
   
   const [formData, setFormData] = useState({
     menuUrl: '',
+    email: '',
     language: language as 'ru' | 'uz' | 'en',
   })
 
@@ -289,6 +341,11 @@ export function MenuDoctor() {
       return
     }
 
+    if (!formData.email.trim() || !formData.email.includes('@')) {
+      setError('Введите корректный email для получения отчёта')
+      return
+    }
+
     try {
       new URL(formData.menuUrl)
     } catch {
@@ -304,6 +361,7 @@ export function MenuDoctor() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           menuUrl: formData.menuUrl,
+          email: formData.email,
           language: formData.language,
         }),
       })
@@ -428,6 +486,24 @@ export function MenuDoctor() {
                       className="w-full"
                     />
                     <p className="text-xs text-gray-400 mt-1">{texts.menuUrlHelp}</p>
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                      <Mail className="h-4 w-4 text-teal-600" />
+                      Email
+                      <span className="text-red-500">*</span>
+                    </label>
+                    <Input
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="you@company.com"
+                      className="w-full"
+                      required
+                    />
+                    <p className="text-xs text-gray-400 mt-1">Пришлём детальный отчёт на почту</p>
                   </div>
 
                   {/* Report Language */}
@@ -622,8 +698,51 @@ export function MenuDoctor() {
                       </motion.div>
                     )}
 
-                    {/* Recommendations */}
-                    {report.recommendations.length > 0 && (
+                    {/* Goal: Sales */}
+                    {report.goalSales && report.goalSales.items?.length > 0 && (
+                      <GoalCard goal={report.goalSales} color="blue" icon="📈" delay={0.4} />
+                    )}
+
+                    {/* Goal: Average Check */}
+                    {report.goalCheck && report.goalCheck.items?.length > 0 && (
+                      <GoalCard goal={report.goalCheck} color="green" icon="💰" delay={0.5} />
+                    )}
+
+                    {/* Goal: Retention */}
+                    {report.goalRetention && report.goalRetention.items?.length > 0 && (
+                      <GoalCard goal={report.goalRetention} color="purple" icon="🔄" delay={0.6} />
+                    )}
+
+                    {/* Quick Wins */}
+                    {report.quickWins && report.quickWins.items?.length > 0 && (
+                      <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.7 }}
+                        className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl p-6 border border-yellow-200"
+                      >
+                        <h3 className="flex items-center gap-2 text-lg font-semibold text-orange-700 mb-4">
+                          ⚡ {report.quickWins.title}
+                        </h3>
+                        <ul className="space-y-2">
+                          {report.quickWins.items.map((item, idx) => (
+                            <motion.li
+                              key={idx}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: 0.8 + idx * 0.05 }}
+                              className="flex items-start gap-3 text-gray-700"
+                            >
+                              <span className="text-orange-500">→</span>
+                              {item}
+                            </motion.li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    )}
+
+                    {/* Fallback: Old Recommendations */}
+                    {report.recommendations && report.recommendations.length > 0 && !report.goalSales && (
                       <motion.div 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -653,8 +772,8 @@ export function MenuDoctor() {
                       </motion.div>
                     )}
 
-                    {/* Upsell Ideas */}
-                    {report.upsellIdeas.length > 0 && (
+                    {/* Fallback: Old Upsell Ideas */}
+                    {report.upsellIdeas && report.upsellIdeas.length > 0 && !report.goalCheck && (
                       <motion.div 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}

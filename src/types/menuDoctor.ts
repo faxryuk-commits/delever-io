@@ -17,20 +17,41 @@ export type MenuMetrics = {
   comboCount?: number
 }
 
+export type GoalItem = {
+  action: string
+  why: string
+  how: string
+  result: string
+}
+
+export type GoalSection = {
+  title: string
+  items: GoalItem[]
+}
+
+export type QuickWins = {
+  title: string
+  items: string[]
+}
+
 export type MenuDoctorReport = {
-  score: number // 0–100
+  score: number
   metrics?: MenuMetrics
   summary: string
   issues: string[]
-  recommendations: string[]
-  upsellIdeas: string[]
+  // Старые поля (для обратной совместимости)
+  recommendations?: string[]
+  upsellIdeas?: string[]
+  // Новые поля по целям
+  goalSales?: GoalSection
+  goalCheck?: GoalSection
+  goalRetention?: GoalSection
+  quickWins?: QuickWins
   menuStructure?: MenuStructureItem[]
 }
 
 export type MenuDoctorRequest = {
   menuUrl: string
-  averageBill?: string
-  location?: string
-  venueType?: string
+  email?: string
   language?: 'ru' | 'uz' | 'en'
 }
