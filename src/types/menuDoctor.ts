@@ -34,8 +34,16 @@ export type QuickWins = {
   items: string[]
 }
 
+export type ScoreCriteria = {
+  structure: number // 0-25
+  descriptions: number // 0-25
+  pricing: number // 0-25
+  upsell: number // 0-25
+}
+
 export type MenuDoctorReport = {
   score: number
+  scoreCriteria?: ScoreCriteria
   metrics?: MenuMetrics
   summary: string
   issues: string[]
