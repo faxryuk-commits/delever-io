@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   Stethoscope, 
@@ -18,7 +18,8 @@ import {
   Wand2,
   Mail,
   Building2,
-  Send
+  Send,
+  Clock
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
@@ -141,6 +142,45 @@ export function MenuDoctor() {
     wantImport: false,
   })
 
+  // Rate limiting - 3 минуты между анализами
+  const COOLDOWN_SECONDS = 180
+  const STORAGE_KEY = 'menu_doctor_last_gen'
+  
+  const [cooldownRemaining, setCooldownRemaining] = useState(0)
+  
+  useEffect(() => {
+    const lastGen = localStorage.getItem(STORAGE_KEY)
+    if (lastGen) {
+      const elapsed = Math.floor((Date.now() - parseInt(lastGen)) / 1000)
+      const remaining = COOLDOWN_SECONDS - elapsed
+      if (remaining > 0) {
+        setCooldownRemaining(remaining)
+      }
+    }
+  }, [])
+  
+  useEffect(() => {
+    if (cooldownRemaining <= 0) return
+    
+    const timer = setInterval(() => {
+      setCooldownRemaining(prev => {
+        if (prev <= 1) {
+          clearInterval(timer)
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+    
+    return () => clearInterval(timer)
+  }, [cooldownRemaining])
+  
+  const formatTime = useCallback((seconds: number) => {
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${mins}:${secs.toString().padStart(2, '0')}`
+  }, [])
+
   const t = {
     ru: {
       title: 'Menu Doctor — анализ меню по ссылке',
@@ -259,6 +299,13 @@ export function MenuDoctor() {
 
   const handleAnalyze = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Проверка rate limit
+    if (cooldownRemaining > 0) {
+      setError(`Подождите ${formatTime(cooldownRemaining)} перед следующим анализом`)
+      return
+    }
+    
     setError(null)
     setReport(null)
 
@@ -296,6 +343,10 @@ export function MenuDoctor() {
       }
 
       setReport(data)
+      
+      // Устанавливаем cooldown
+      localStorage.setItem(STORAGE_KEY, Date.now().toString())
+      setCooldownRemaining(COOLDOWN_SECONDS)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong')
     } finally {
@@ -482,13 +533,22 @@ export function MenuDoctor() {
                   {/* Submit */}
                   <Button
                     type="submit"
-                    disabled={isLoading}
-                    className="w-full bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white py-3.5 text-base font-medium shadow-lg shadow-teal-500/25"
+                    disabled={isLoading || cooldownRemaining > 0}
+                    className={`w-full py-3.5 text-base font-medium shadow-lg ${
+                      cooldownRemaining > 0 
+                        ? 'bg-gray-400 cursor-not-allowed shadow-none' 
+                        : 'bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white shadow-teal-500/25'
+                    }`}
                   >
                     {isLoading ? (
                       <>
                         <Loader2 className="h-5 w-5 mr-2 animate-spin" />
                         {texts.analyzing}
+                      </>
+                    ) : cooldownRemaining > 0 ? (
+                      <>
+                        <Clock className="h-5 w-5 mr-2" />
+                        {formatTime(cooldownRemaining)}
                       </>
                     ) : (
                       <>

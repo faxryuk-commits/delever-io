@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   Sparkles, 
@@ -18,7 +18,8 @@ import {
   Search,
   CheckCircle2,
   Store,
-  ShoppingBag
+  ShoppingBag,
+  Clock
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
@@ -76,6 +77,48 @@ export function AIMarketing() {
     channels: ['instagram', 'telegram', 'stories'],
     language: 'ru'
   })
+
+  // Rate limiting - 3 минуты между генерациями
+  const COOLDOWN_SECONDS = 180 // 3 минуты
+  const STORAGE_KEY = 'ai_marketing_last_gen'
+  
+  const [cooldownRemaining, setCooldownRemaining] = useState(0)
+  
+  // Проверяем cooldown при загрузке
+  useEffect(() => {
+    const lastGen = localStorage.getItem(STORAGE_KEY)
+    if (lastGen) {
+      const elapsed = Math.floor((Date.now() - parseInt(lastGen)) / 1000)
+      const remaining = COOLDOWN_SECONDS - elapsed
+      if (remaining > 0) {
+        setCooldownRemaining(remaining)
+      }
+    }
+  }, [])
+  
+  // Таймер обратного отсчёта
+  useEffect(() => {
+    if (cooldownRemaining <= 0) return
+    
+    const timer = setInterval(() => {
+      setCooldownRemaining(prev => {
+        if (prev <= 1) {
+          clearInterval(timer)
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+    
+    return () => clearInterval(timer)
+  }, [cooldownRemaining])
+  
+  // Форматирование времени
+  const formatTime = useCallback((seconds: number) => {
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${mins}:${secs.toString().padStart(2, '0')}`
+  }, [])
 
   // Функция парсинга URL
   const handleParseUrl = async () => {
@@ -245,6 +288,13 @@ export function AIMarketing() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Проверка rate limit
+    if (cooldownRemaining > 0) {
+      setError(`Подождите ${formatTime(cooldownRemaining)} перед следующей генерацией`)
+      return
+    }
+    
     setIsLoading(true)
     setError(null)
     setIsFallback(false)
@@ -282,6 +332,9 @@ export function AIMarketing() {
                   hashtags: ['#ресторан', '#доставка', '#акция'],
                   fallback: true
                 })
+                // Устанавливаем cooldown
+                localStorage.setItem(STORAGE_KEY, Date.now().toString())
+                setCooldownRemaining(COOLDOWN_SECONDS)
                 return
               }
               errorMessage = detailsObj.error.message || errorMessage
@@ -303,6 +356,10 @@ export function AIMarketing() {
 
       // Устанавливаем результат (даже если это fallback)
       setResult(data)
+      
+      // Устанавливаем cooldown
+      localStorage.setItem(STORAGE_KEY, Date.now().toString())
+      setCooldownRemaining(COOLDOWN_SECONDS)
     } catch (err) {
       // Проверяем, не является ли это ошибкой региона
       const errorMsg = err instanceof Error ? err.message : String(err)
@@ -319,6 +376,10 @@ export function AIMarketing() {
           fallback: true
         })
         setError(null)
+        
+        // Устанавливаем cooldown даже для fallback
+        localStorage.setItem(STORAGE_KEY, Date.now().toString())
+        setCooldownRemaining(COOLDOWN_SECONDS)
       } else {
         setError(errorMsg)
         setResult(null)
@@ -500,52 +561,52 @@ export function AIMarketing() {
                         exit={{ opacity: 0, height: 0 }}
                         className="space-y-5"
                       >
-                        {/* Brand Name */}
-                        <div>
-                          <label className="block text-sm font-medium text-brand-darkBlue mb-1.5">
+                  {/* Brand Name */}
+                  <div>
+                    <label className="block text-sm font-medium text-brand-darkBlue mb-1.5">
                             <Store className="w-4 h-4 inline mr-1.5" />
-                            {txt.brandName}
-                          </label>
-                          <input
-                            type="text"
-                            value={formData.brandName}
-                            onChange={e => setFormData(prev => ({ ...prev, brandName: e.target.value }))}
-                            placeholder={txt.brandNamePlaceholder}
-                            className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all"
-                            required
-                          />
-                        </div>
+                      {txt.brandName}
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.brandName}
+                      onChange={e => setFormData(prev => ({ ...prev, brandName: e.target.value }))}
+                      placeholder={txt.brandNamePlaceholder}
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all"
+                      required
+                    />
+                  </div>
 
                         {/* Cuisine / Business Type */}
-                        <div>
-                          <label className="block text-sm font-medium text-brand-darkBlue mb-1.5">
+                  <div>
+                    <label className="block text-sm font-medium text-brand-darkBlue mb-1.5">
                             <ShoppingBag className="w-4 h-4 inline mr-1.5" />
-                            {txt.cuisine}
-                          </label>
-                          <input
-                            type="text"
-                            value={formData.cuisine}
-                            onChange={e => setFormData(prev => ({ ...prev, cuisine: e.target.value }))}
-                            placeholder={txt.cuisinePlaceholder}
-                            className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all"
-                          />
-                        </div>
+                      {txt.cuisine}
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.cuisine}
+                      onChange={e => setFormData(prev => ({ ...prev, cuisine: e.target.value }))}
+                      placeholder={txt.cuisinePlaceholder}
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all"
+                    />
+                  </div>
 
-                        {/* Promo Description */}
-                        <div>
-                          <label className="block text-sm font-medium text-brand-darkBlue mb-1.5">
-                            <Sparkles className="w-4 h-4 inline mr-1.5" />
-                            {txt.promo}
-                          </label>
-                          <textarea
-                            value={formData.promoDescription}
-                            onChange={e => setFormData(prev => ({ ...prev, promoDescription: e.target.value }))}
-                            placeholder={txt.promoPlaceholder}
-                            rows={3}
-                            className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all resize-none"
+                  {/* Promo Description */}
+                  <div>
+                    <label className="block text-sm font-medium text-brand-darkBlue mb-1.5">
+                      <Sparkles className="w-4 h-4 inline mr-1.5" />
+                      {txt.promo}
+                    </label>
+                    <textarea
+                      value={formData.promoDescription}
+                      onChange={e => setFormData(prev => ({ ...prev, promoDescription: e.target.value }))}
+                      placeholder={txt.promoPlaceholder}
+                      rows={3}
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all resize-none"
                             required={!parsedData}
-                          />
-                        </div>
+                    />
+                  </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -626,15 +687,24 @@ export function AIMarketing() {
                   {/* Submit Button */}
                   <motion.button
                     type="submit"
-                    disabled={isLoading}
-                    className="w-full py-3 px-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl disabled:opacity-70 transition-all flex items-center justify-center gap-2"
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.99 }}
+                    disabled={isLoading || cooldownRemaining > 0}
+                    className={`w-full py-3 px-6 text-white font-semibold rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 ${
+                      cooldownRemaining > 0 
+                        ? 'bg-gray-400 cursor-not-allowed' 
+                        : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:shadow-xl disabled:opacity-70'
+                    }`}
+                    whileHover={cooldownRemaining > 0 ? {} : { scale: 1.01 }}
+                    whileTap={cooldownRemaining > 0 ? {} : { scale: 0.99 }}
                   >
                     {isLoading ? (
                       <>
                         <Loader2 className="w-5 h-5 animate-spin" />
                         {txt.generating}
+                      </>
+                    ) : cooldownRemaining > 0 ? (
+                      <>
+                        <Clock className="w-5 h-5" />
+                        {formatTime(cooldownRemaining)}
                       </>
                     ) : (
                       <>
@@ -826,8 +896,8 @@ export function AIMarketing() {
                                 key={idx}
                                 content={post}
                                 brandName={formData.brandName || 'Brand'}
-                                onCopy={copyToClipboard}
-                                copiedIndex={copiedIndex}
+                      onCopy={copyToClipboard}
+                      copiedIndex={copiedIndex}
                                 id={`instagram-${idx}`}
                               />
                             ))}
@@ -857,8 +927,8 @@ export function AIMarketing() {
                                 key={idx}
                                 content={post}
                                 brandName={formData.brandName || 'Brand'}
-                                onCopy={copyToClipboard}
-                                copiedIndex={copiedIndex}
+                      onCopy={copyToClipboard}
+                      copiedIndex={copiedIndex}
                                 id={`telegram-${idx}`}
                               />
                             ))}
@@ -888,8 +958,8 @@ export function AIMarketing() {
                                 key={idx}
                                 content={idea}
                                 brandName={formData.brandName || 'Brand'}
-                                onCopy={copyToClipboard}
-                                copiedIndex={copiedIndex}
+                      onCopy={copyToClipboard}
+                      copiedIndex={copiedIndex}
                                 id={`stories-${idx}`}
                               />
                             ))}
@@ -905,39 +975,39 @@ export function AIMarketing() {
                           exit={{ opacity: 0, y: -10 }}
                           transition={{ duration: 0.2 }}
                         >
-                          <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-                            <div className="flex items-center justify-between mb-3">
-                              <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-gray-600 to-gray-800 flex items-center justify-center">
-                                  <Hash className="w-4 h-4 text-white" />
-                                </div>
-                                <h3 className="font-semibold text-brand-darkBlue">{txt.hashtags}</h3>
-                              </div>
-                              <button
-                                onClick={() => copyToClipboard(result.hashtags.join(' '), 'hashtags')}
-                                className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-purple-600 transition-colors"
-                              >
-                                {copiedIndex === 'hashtags' ? (
-                                  <>
-                                    <Check className="w-4 h-4 text-green-500" />
-                                    {txt.copied}
-                                  </>
-                                ) : (
-                                  <>
-                                    <Copy className="w-4 h-4" />
-                                    {txt.copy}
-                                  </>
-                                )}
-                              </button>
-                            </div>
-                            <div className="flex flex-wrap gap-1.5">
-                              {result.hashtags.map((tag, idx) => (
-                                <span key={idx} className="bg-gray-100 text-gray-700 text-sm px-2.5 py-1 rounded-full">
-                                  {tag}
-                                </span>
-                              ))}
-                            </div>
+                    <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-gray-600 to-gray-800 flex items-center justify-center">
+                            <Hash className="w-4 h-4 text-white" />
                           </div>
+                          <h3 className="font-semibold text-brand-darkBlue">{txt.hashtags}</h3>
+                        </div>
+                        <button
+                          onClick={() => copyToClipboard(result.hashtags.join(' '), 'hashtags')}
+                          className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-purple-600 transition-colors"
+                        >
+                          {copiedIndex === 'hashtags' ? (
+                            <>
+                              <Check className="w-4 h-4 text-green-500" />
+                              {txt.copied}
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="w-4 h-4" />
+                              {txt.copy}
+                            </>
+                          )}
+                        </button>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {result.hashtags.map((tag, idx) => (
+                          <span key={idx} className="bg-gray-100 text-gray-700 text-sm px-2.5 py-1 rounded-full">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -1001,8 +1071,8 @@ function InstagramPostMockup({
           <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 p-0.5">
             <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
               <span className="text-xs font-bold text-gray-700">{brandName.slice(0, 2).toUpperCase()}</span>
-            </div>
-          </div>
+        </div>
+      </div>
           <div>
             <p className="text-sm font-semibold text-gray-900">{brandName.toLowerCase().replace(/\s+/g, '_')}</p>
             <p className="text-xs text-gray-500">Реклама</p>
@@ -1094,7 +1164,7 @@ function TelegramMessageMockup({
   copiedIndex: string | null
   id: string
 }) {
-  return (
+          return (
     <div className="bg-[#0e1621] rounded-2xl shadow-lg overflow-hidden max-w-sm mx-auto">
       {/* Header */}
       <div className="bg-[#17212b] p-3 flex items-center gap-3">
@@ -1140,25 +1210,25 @@ function TelegramMessageMockup({
 
       {/* Copy Button */}
       <div className="p-3 bg-[#17212b]">
-        <button
+              <button
           onClick={() => onCopy(content, id)}
           className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity"
-        >
-          {copiedIndex === id ? (
+              >
+                {copiedIndex === id ? (
             <>
               <Check className="w-4 h-4" />
               Скопировано!
             </>
-          ) : (
+                ) : (
             <>
               <Copy className="w-4 h-4" />
               Скопировать текст
             </>
-          )}
-        </button>
+                )}
+              </button>
       </div>
-    </div>
-  )
+            </div>
+          )
 }
 
 // Stories Mockup Component
