@@ -705,7 +705,7 @@ export default async function handler(request: Request) {
               'X-Title': 'Delever AI Marketing',
             },
             body: JSON.stringify({
-              model: 'openai/gpt-3.5-turbo',
+              model: 'mistralai/mistral-small-latest',
               messages: [
                 { role: 'system', content: SYSTEM_PROMPT },
                 { role: 'user', content: getUserPrompt(requestBody, productData) + '\n\nВерни ответ СТРОГО в формате JSON без markdown.' },
