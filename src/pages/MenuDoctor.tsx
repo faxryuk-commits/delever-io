@@ -311,7 +311,15 @@ function GoalCard({ goal, color, icon, delay }: { goal: GoalSection; color: 'blu
 }
 
 // Magic Animation Component
-function MagicAnimation() {
+function MagicAnimation({ stage }: { stage: 'parsing' | 'metrics' | 'analyzing' }) {
+  const stages = {
+    parsing: { text: 'Загружаем меню...', subtext: 'Сканируем страницу и извлекаем данные', progress: 33 },
+    metrics: { text: 'Считаем метрики...', subtext: 'Анализируем цены, категории и комбо', progress: 66 },
+    analyzing: { text: 'Генерируем рекомендации...', subtext: 'AI формирует персональные советы', progress: 90 },
+  }
+  
+  const current = stages[stage]
+  
   return (
     <div className="flex flex-col items-center justify-center py-16">
       <motion.div
@@ -329,32 +337,48 @@ function MagicAnimation() {
         </motion.div>
       </motion.div>
       
-      <motion.div
-        className="mt-8 flex gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-      >
-        {[0, 1, 2, 3, 4].map((i) => (
-          <motion.div
-            key={i}
-            className="w-2 h-2 rounded-full bg-teal-500"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.1 }}
-          />
+      {/* Progress bar */}
+      <div className="mt-8 w-48 h-2 bg-gray-200 rounded-full overflow-hidden">
+        <motion.div
+          className="h-full bg-gradient-to-r from-teal-500 to-emerald-500"
+          initial={{ width: 0 }}
+          animate={{ width: `${current.progress}%` }}
+          transition={{ duration: 0.5 }}
+        />
+      </div>
+      
+      {/* Stage indicators */}
+      <div className="mt-4 flex gap-4">
+        {Object.keys(stages).map((s, i) => (
+          <div key={s} className="flex items-center gap-1">
+            <div className={`w-2 h-2 rounded-full ${
+              s === stage ? 'bg-teal-500' : 
+              Object.keys(stages).indexOf(stage) > i ? 'bg-teal-300' : 'bg-gray-300'
+            }`} />
+            <span className={`text-xs ${s === stage ? 'text-teal-600 font-medium' : 'text-gray-400'}`}>
+              {i + 1}
+            </span>
+          </div>
         ))}
-      </motion.div>
+      </div>
       
       <motion.p
+        key={stage}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
         className="mt-6 text-lg font-medium text-gray-600"
-        animate={{ opacity: [0.5, 1, 0.5] }}
-        transition={{ duration: 2, repeat: Infinity }}
       >
-        Анализируем меню...
+        {current.text}
       </motion.p>
       
-      <div className="mt-4 text-sm text-gray-400 text-center max-w-sm">
-        Сканируем страницу, находим блюда, цены и категории
-      </div>
+      <motion.div 
+        key={`sub-${stage}`}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="mt-2 text-sm text-gray-400 text-center max-w-sm"
+      >
+        {current.subtext}
+      </motion.div>
     </div>
   )
 }
@@ -631,6 +655,8 @@ export function MenuDoctor() {
 
   const texts = t[language] || t.ru
 
+  const [analysisStage, setAnalysisStage] = useState<'idle' | 'parsing' | 'metrics' | 'analyzing'>('idle')
+
   const handleAnalyze = async (e: React.FormEvent) => {
     e.preventDefault()
     
@@ -661,34 +687,71 @@ export function MenuDoctor() {
     }
 
     setIsLoading(true)
+    setAnalysisStage('parsing')
 
     try {
-      const response = await fetch('/api/menu-doctor', {
+      // ЭТАП 1: Парсинг меню
+      console.log('Stage 1: Parsing...')
+      const parseResponse = await fetch('/api/menu-doctor/parse', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: formData.menuUrl }),
+      })
+      
+      if (!parseResponse.ok) {
+        const err = await parseResponse.json()
+        throw new Error(err.error || 'Не удалось загрузить меню')
+      }
+      
+      const parsed = await parseResponse.json()
+      console.log('Parsed:', parsed.items?.length, 'items')
+      
+      if (!parsed.items || parsed.items.length === 0) {
+        throw new Error('Не удалось найти позиции меню на странице')
+      }
+
+      // ЭТАП 2: Расчёт метрик
+      setAnalysisStage('metrics')
+      console.log('Stage 2: Metrics...')
+      
+      const metricsResponse = await fetch('/api/menu-doctor/metrics', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(parsed),
+      })
+      
+      if (!metricsResponse.ok) {
+        const err = await metricsResponse.json()
+        throw new Error(err.error || 'Не удалось рассчитать метрики')
+      }
+      
+      const metrics = await metricsResponse.json()
+      console.log('Metrics:', metrics)
+
+      // ЭТАП 3: AI анализ
+      setAnalysisStage('analyzing')
+      console.log('Stage 3: Analyzing...')
+      
+      const analyzeResponse = await fetch('/api/menu-doctor/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          menuUrl: formData.menuUrl,
+          parsed,
+          metrics,
           email: formData.email,
           language: formData.language,
         }),
       })
-
-      // Проверяем что ответ JSON
-      const text = await response.text()
-      let data
-      try {
-        data = JSON.parse(text)
-      } catch {
-        // Если не JSON - показываем понятную ошибку
-        console.error('API returned non-JSON:', text.slice(0, 200))
-        throw new Error('Сервер временно недоступен. Попробуйте через минуту.')
+      
+      if (!analyzeResponse.ok) {
+        const err = await analyzeResponse.json()
+        throw new Error(err.error || 'Не удалось проанализировать меню')
       }
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to analyze menu')
-      }
-
-      setReport(data)
+      
+      const result = await analyzeResponse.json()
+      console.log('Result:', result)
+      
+      setReport(result)
       
       // Устанавливаем cooldown
       localStorage.setItem(STORAGE_KEY, Date.now().toString())
@@ -697,6 +760,7 @@ export function MenuDoctor() {
       setError(err instanceof Error ? err.message : 'Something went wrong')
     } finally {
       setIsLoading(false)
+      setAnalysisStage('idle')
     }
   }
 
@@ -892,7 +956,7 @@ export function MenuDoctor() {
                     exit={{ opacity: 0 }}
                     className="bg-white rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100 min-h-[500px] flex items-center justify-center"
                   >
-                    <MagicAnimation />
+                    <MagicAnimation stage={analysisStage === 'idle' ? 'parsing' : analysisStage} />
                   </motion.div>
                 ) : report ? (
                   <motion.div
