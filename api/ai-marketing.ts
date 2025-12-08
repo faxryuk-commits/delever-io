@@ -479,13 +479,15 @@ function getUserPrompt(data: MarketingRequest, productData?: ParsedProductData):
 - Каналы: ${data.channels.join(', ')}
 - Язык: ${langName}${productInfo}
 
-ФОРМАТ JSON:
+ФОРМАТ JSON (КРАТКИЙ):
 {
-  "instagram_posts": ["Пост 1 (яркий, продающий)", "Пост 2 (сторителлинг)", "Пост 3 (короткий, с юмором)"],
-  "telegram_posts": ["Пост 1 (дружеский)", "Пост 2 (новостной)", "Пост 3 (продающий)"],
-  "stories_ideas": ["Идея 1", "Идея 2", "Идея 3"],
-  "hashtags": ["#хэштег1", "#хэштег2", "...до 15 хэштегов"]
-}`
+  "instagram_posts": ["Пост 1 (короткий, яркий)", "Пост 2 (продающий)"],
+  "telegram_posts": ["Пост 1 (дружеский)", "Пост 2 (новостной)"],
+  "stories_ideas": ["Идея 1", "Идея 2"],
+  "hashtags": ["#тег1", "#тег2", "...до 10"]
+}
+
+ВАЖНО: Отвечай ТОЛЬКО JSON, без markdown. Посты должны быть короткими (2-3 предложения).`
 }
 
 export default async function handler(request: Request) {
@@ -692,19 +694,18 @@ export default async function handler(request: Request) {
       
       // Пробуем OpenRouter с разными моделями
       if (isRegionBlocked && openrouterKey) {
-        // Модели OpenRouter - Mixtral первый (быстрее и надёжнее)
+        // Модели OpenRouter - быстрые модели первыми
         const modelsToTry = [
-          'mistralai/mixtral-8x7b-instruct',         // Mixtral - быстрый и надёжный
-          'mistralai/mistral-7b-instruct-v0.2',      // Mistral 7B
-          'meta-llama/llama-3.1-8b-instruct',        // Llama 3.1
+          'mistralai/mistral-7b-instruct',           // Mistral 7B - быстрый
+          'meta-llama/llama-3.1-8b-instruct',        // Llama 3.1 8B
         ]
         
         for (const model of modelsToTry) {
           console.log(`AI Marketing: Trying OpenRouter with ${model}...`)
           try {
-            // Таймаут 10 секунд на модель чтобы успеть попробовать несколько
+            // Таймаут 18 секунд - даём модели завершить генерацию
             const controller = new AbortController()
-            const timeout = setTimeout(() => controller.abort(), 10000)
+            const timeout = setTimeout(() => controller.abort(), 18000)
             
             const openrouterResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
               method: 'POST',
@@ -721,8 +722,8 @@ export default async function handler(request: Request) {
                   { role: 'system', content: SYSTEM_PROMPT },
                   { role: 'user', content: getUserPrompt(requestBody, productData) + '\n\nВерни ответ СТРОГО в формате JSON без markdown.' },
                 ],
-                temperature: 0.8,
-                max_tokens: 2000,
+                temperature: 0.7,
+                max_tokens: 3500,
               }),
             })
 
