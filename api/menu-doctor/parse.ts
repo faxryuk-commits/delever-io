@@ -325,23 +325,45 @@ export default async function handler(request: Request) {
           console.log('Parse: First 300 chars:', content.slice(0, 300).replace(/\n/g, '\\n'))
           
           // Проверяем что это SPA без данных
-          if (content.includes('_nuxt') || content.includes('__NUXT__')) {
+          const isSpa = content.includes('_nuxt') || content.includes('__NUXT__') || 
+                        content.includes('__NEXT_DATA__') || content.includes('window.__INITIAL_STATE__')
+          if (isSpa) {
             const hasPrices = content.match(/\d{3,}\s*(₸|тг|сум|₽)/g)
             if (!hasPrices || hasPrices.length < 3) {
-              console.log('Parse: Detected SPA without rendered prices')
-              // Вернём ошибку с понятным сообщением
-              return new Response(JSON.stringify({ 
-                error: 'SPA_NOT_SUPPORTED',
-                message: 'Этот сайт (SPA) загружает данные динамически. Попробуйте ссылку на конкретную страницу продукта или меню в PDF формате.'
-              }), {
-                status: 400,
-                headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-              })
+              console.log('Parse: Detected SPA without rendered prices, trying Microlink...')
+              content = '' // Сбрасываем, чтобы попробовать Microlink
             }
           }
         }
       } catch (e) {
-        console.log('Parse: Jina failed, trying direct fetch')
+        console.log('Parse: Jina failed, trying Microlink')
+      }
+    }
+    
+    // Если Jina не дал данных - пробуем Microlink (рендерит JS)
+    if (items.length === 0 && !content) {
+      try {
+        console.log('Parse: Trying Microlink for JS rendering...')
+        const microlinkController = new AbortController()
+        const microlinkTimeout = setTimeout(() => microlinkController.abort(), 10000)
+        
+        const microlinkResponse = await fetch(
+          `https://api.microlink.io/?url=${encodeURIComponent(url)}&screenshot=false&meta=false&scripts=false&styles=false`,
+          { signal: microlinkController.signal }
+        )
+        
+        clearTimeout(microlinkTimeout)
+        
+        if (microlinkResponse.ok) {
+          const microlinkData = await microlinkResponse.json()
+          if (microlinkData.status === 'success' && microlinkData.data?.html) {
+            content = microlinkData.data.html
+            isText = false
+            console.log('Parse: Got HTML via Microlink, length:', content.length)
+          }
+        }
+      } catch (e) {
+        console.log('Parse: Microlink failed, trying direct fetch')
       }
     }
     
