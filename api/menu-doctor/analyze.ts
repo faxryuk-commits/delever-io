@@ -222,36 +222,30 @@ export default async function handler(request: Request) {
       })
     }
     
-    // Вызов OpenRouter
-    const modelsToTry = [
-      'google/gemma-2-9b-it:free',
-      'mistralai/mistral-7b-instruct:free',
-      'meta-llama/llama-3.2-3b-instruct:free',
-    ]
+    // Вызов OpenRouter - только 1 попытка, 8 сек таймаут
+    const model = 'google/gemma-2-9b-it:free'
+    console.log(`Analyze: Trying ${model}...`)
     
-    for (const model of modelsToTry) {
-      console.log(`Analyze: Trying ${model}...`)
+    try {
+      const controller = new AbortController()
+      const timeout = setTimeout(() => controller.abort(), 8000) // 8 сек макс
       
-      try {
-        const controller = new AbortController()
-        const timeout = setTimeout(() => controller.abort(), 15000)
-        
-        const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-          method: 'POST',
-          signal: controller.signal,
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${openrouterKey}`,
-            'HTTP-Referer': 'https://delever.uz',
-            'X-Title': 'Menu Doctor',
-          },
-          body: JSON.stringify({
-            model,
-            messages: [{ role: 'user', content: prompt }],
-            temperature: 0.7,
-            max_tokens: 1500,
-          }),
-        })
+      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        signal: controller.signal,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${openrouterKey}`,
+          'HTTP-Referer': 'https://delever.uz',
+          'X-Title': 'Menu Doctor',
+        },
+        body: JSON.stringify({
+          model,
+          messages: [{ role: 'user', content: prompt }],
+          temperature: 0.7,
+          max_tokens: 800, // Уменьшено для скорости
+        }),
+      })
         
         clearTimeout(timeout)
         
@@ -296,44 +290,94 @@ export default async function handler(request: Request) {
               
             } catch (parseErr) {
               console.log(`Analyze: Failed to parse ${model} response`)
-              continue
             }
           }
         }
       } catch (err) {
-        console.log(`Analyze: ${model} error`)
-        continue
+        console.log(`Analyze: ${model} error or timeout`)
       }
+    
+    // AI не сработал - возвращаем умный fallback на основе метрик
+    console.log('Analyze: Using smart fallback')
+    
+    // Генерируем рекомендации на основе реальных данных
+    const issues: string[] = []
+    const salesItems: GoalItem[] = []
+    const checkItems: GoalItem[] = []
+    const quickWins: string[] = []
+    
+    // Анализируем комбо
+    if (metrics.comboCount === 0) {
+      issues.push('Отсутствуют комбо-наборы — упускаете 15-20% потенциального чека')
+      salesItems.push({
+        action: 'Создать 3-5 комбо-наборов',
+        why: '67% клиентов выбирают комбо, средний чек выше на 25%',
+        how: 'Объединить популярное блюдо + напиток + закуска со скидкой 10-15%',
+        result: '+20-25% к среднему чеку'
+      })
+    } else if (metrics.comboPercentage < 15) {
+      checkItems.push({
+        action: 'Расширить линейку комбо',
+        why: `Сейчас только ${metrics.comboCount} комбо (${metrics.comboPercentage}%), оптимально 15-20%`,
+        how: 'Добавить комбо для разных ценовых сегментов',
+        result: '+10-15% к чеку'
+      })
     }
     
-    // Если все модели не сработали - возвращаем fallback
-    console.log('Analyze: All models failed, using fallback')
+    // Анализируем категории
+    if (metrics.categories < 5) {
+      issues.push(`Мало категорий (${metrics.categories}) — сложная навигация для клиентов`)
+      quickWins.push('Разбить меню на больше категорий для удобства выбора')
+    }
+    
+    // Анализируем цены
+    if (metrics.avgPrice && metrics.topExpensive.length > 0) {
+      const topItem = metrics.topExpensive[0]
+      salesItems.push({
+        action: `Выделить хит "${topItem.name}" в меню`,
+        why: 'Визуальное выделение увеличивает продажи на 15-20%',
+        how: 'Добавить бейдж "Хит", фото, подробное описание',
+        result: '+15% к продажам позиции'
+      })
+    }
+    
+    // Стандартные рекомендации
+    if (salesItems.length === 0) {
+      salesItems.push({
+        action: 'Внедрить сезонные предложения',
+        why: 'Лимитированные позиции создают срочность покупки',
+        how: 'Запустить 2-3 сезонных блюда с ограниченным сроком',
+        result: '+10-15% к продажам'
+      })
+    }
+    
+    if (checkItems.length === 0) {
+      checkItems.push({
+        action: 'Внедрить апсейл при заказе',
+        why: 'Предложение доп. позиций увеличивает чек на 10-20%',
+        how: 'К основным блюдам предлагать напиток или десерт',
+        result: '+15% к чеку'
+      })
+    }
+    
+    quickWins.push('Добавить качественные фото к позициям без них')
+    quickWins.push('Оптимизировать описания блюд (2-3 предложения)')
     
     const fallback: AnalysisResult = {
       score,
-      summary: `Меню содержит ${metrics.totalItems} позиций. Средняя цена: ${metrics.avgPrice || 'Н/Д'}.`,
-      issues: [],
+      summary: `Меню содержит ${metrics.totalItems} позиций в ${metrics.categories} категориях. Средняя цена: ${metrics.avgPrice || 'Н/Д'} ₸. ${metrics.comboCount > 0 ? `Комбо-наборов: ${metrics.comboCount}.` : 'Комбо-наборы отсутствуют.'}`,
+      issues: issues.length > 0 ? issues : ['Меню структурировано хорошо, но есть потенциал для оптимизации'],
       goalSales: {
         title: '📈 Для роста продаж',
-        items: [{
-          action: 'Добавить сезонные предложения',
-          why: 'Сезонность увеличивает интерес',
-          how: 'Создать 2-3 лимитированных блюда',
-          result: '+10% к продажам'
-        }]
+        items: salesItems
       },
       goalCheck: {
         title: '💰 Для увеличения чека',
-        items: [{
-          action: 'Внедрить апсейл при заказе',
-          why: 'Предложение доп. позиций увеличивает чек',
-          how: 'К каждому основному блюду предлагать напиток/десерт',
-          result: '+15% к чеку'
-        }]
+        items: checkItems
       },
       quickWins: {
         title: '⚡ Быстрые победы',
-        items: ['Добавить фото к позициям', 'Выделить популярные блюда']
+        items: quickWins.slice(0, 3)
       }
     }
     
