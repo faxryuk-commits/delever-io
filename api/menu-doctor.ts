@@ -170,7 +170,7 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
       console.log(`Menu Doctor: Trying OpenRouter with ${model}...`)
       try {
         const openrouterController = new AbortController()
-        const openrouterTimeout = setTimeout(() => openrouterController.abort(), 12000) // 12 сек на модель
+        const openrouterTimeout = setTimeout(() => openrouterController.abort(), 10000) // 10 сек на модель
         
         const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
           signal: openrouterController.signal,
@@ -541,7 +541,7 @@ export default async function handler(request: Request) {
       const jinaUrl = `https://r.jina.ai/${menuUrl}`
       
       const jinaController = new AbortController()
-      const jinaTimeout = setTimeout(() => jinaController.abort(), 8000) // 8 сек на Jina
+      const jinaTimeout = setTimeout(() => jinaController.abort(), 5000) // 5 сек на Jina
       
       const jinaResponse = await fetch(jinaUrl, {
         method: 'GET',
@@ -601,7 +601,7 @@ export default async function handler(request: Request) {
     }
 
     // Ограничение длины контента (меньше = быстрее ответ от AI)
-    const MAX_CONTENT_LENGTH = 10000 // 10KB - для быстрой генерации
+    const MAX_CONTENT_LENGTH = 6000 // 6KB - для укладывания в 25 сек
     let truncated = false
     if (html.length > MAX_CONTENT_LENGTH) {
       html = html.slice(0, MAX_CONTENT_LENGTH)
