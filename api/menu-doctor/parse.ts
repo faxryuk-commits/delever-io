@@ -42,11 +42,19 @@ function parseTextContent(text: string): MenuItem[] {
     if (line.length < 3) continue
     
     // Определяем категорию (заголовки секций)
-    // "## Бургеры" или "БУРГЕРЫ" или "### Напитки"
+    // "## Бургеры" или "БУРГЕРЫ" или "### Напитки" или "Роллы и суши\n======="
     const categoryMatch = line.match(/^#{1,3}\s*(.+)$/) || 
+                          line.match(/^(.+)\s*\n*=+$/) ||
                           (line.length < 35 && line === line.toUpperCase() && !line.match(/\d/) ? [null, line] : null)
     if (categoryMatch && categoryMatch[1]) {
-      currentCategory = categoryMatch[1].replace(/[#*]/g, '').trim()
+      currentCategory = categoryMatch[1].replace(/[#*=]/g, '').trim()
+      continue
+    }
+    
+    // Jina категории: [Роллы и суши](url) где url содержит /categories/
+    const jinaCatMatch = line.match(/^\[([^\]]+)\]\([^)]*\/categories\/[^)]+\)$/)
+    if (jinaCatMatch && jinaCatMatch[1].length < 40) {
+      currentCategory = jinaCatMatch[1].trim()
       continue
     }
     
@@ -98,11 +106,39 @@ function parseTextContent(text: string): MenuItem[] {
       }
     }
     
-    // Формат 4: Цена на следующей строке
+    // Формат 4: Jina markdown link "[Название Описание...](url)" с ценой ниже
+    const jinalinkMatch = line.match(/^\[([^\]]+)\]\([^)]+\)$/)
+    if (jinalinkMatch) {
+      // Ищем цену в следующих 3 строках
+      for (let j = 1; j <= 3; j++) {
+        const priceLine = lines[i + j] || ''
+        const priceMatch = priceLine.match(/^(\d[\d\s]+)\s*(сум|so'm|₽|руб|₸|тг)$/i)
+        if (priceMatch) {
+          // Извлекаем только название (до описания)
+          let fullText = jinalinkMatch[1]
+          // Разделяем название и описание
+          const parts = fullText.split(/\s{2,}|\.{3}|…/)
+          const name = parts[0].trim()
+          if (name.length > 2 && name.length < 80) {
+            items.push({
+              name,
+              price: parsePrice(priceMatch[1]),
+              priceRaw: priceLine.trim(),
+              category: currentCategory
+            })
+            i += j // Пропускаем строки до цены
+            break
+          }
+        }
+      }
+      continue
+    }
+    
+    // Формат 5: Цена на следующей строке
     const nextLine = lines[i + 1] || ''
-    if (nextLine.match(/^\d[\d\s,.]*\s*(₸|тг|тенге|сум|₽|руб|usd|\$)?$/i)) {
-      const name = line.replace(/[®™©]/g, '').trim()
-      if (name.length > 2 && name.length < 100 && !name.match(/^\d/) && !name.match(/^[-*#]/)) {
+    if (nextLine.match(/^\d[\d\s,.]*\s*(₸|тг|тенге|сум|so'm|₽|руб|usd|\$)?$/i)) {
+      const name = line.replace(/[®™©\[\]]/g, '').trim()
+      if (name.length > 2 && name.length < 100 && !name.match(/^\d/) && !name.match(/^[-*#\[]/) && !name.includes('](')) {
         items.push({
           name,
           price: parsePrice(nextLine),
