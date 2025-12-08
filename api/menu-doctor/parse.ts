@@ -58,14 +58,24 @@ function parseTextContent(text: string): MenuItem[] {
       continue
     }
     
-    // Delever категории: повторяющееся название категории (напр. "Бургеры\n\nБургеры\n\n32 000UZS...")
-    // Или просто строка без цифр перед ценами
-    if (line.length > 3 && line.length < 50 && !line.match(/\d/) && !line.match(/^[#\[\]*-]/) && !line.includes('http')) {
+    // Delever категории: текст перед картинками или товарами
+    // Формат MaxWay: "BARAKALI Maxi BOX\n[![Image..." или "Сэндвичи\n![Image..."
+    if (line.length > 2 && line.length < 60 && !line.match(/^\[/) && !line.match(/^!\[/) && !line.includes('http')) {
       const nextLine = lines[i + 1] || ''
       const nextNextLine = lines[i + 2] || ''
-      // Если следующая строка такая же или содержит цену - это категория
-      if (nextLine === line || nextLine.match(/^\d[\d\s]+(UZS|сум)/i) || nextNextLine.match(/^\d[\d\s]+(UZS|сум)/i)) {
-        currentCategory = line.trim()
+      const next3Line = lines[i + 3] || ''
+      
+      // Проверяем следующие строки на картинки или товары
+      const isFollowedByImage = nextLine.startsWith('![') || nextLine.startsWith('[![') || 
+                                 nextNextLine.startsWith('![') || nextNextLine.startsWith('[![')
+      const isFollowedByProduct = nextLine.match(/^\[\d[\d\s]+(UZS|сум)/i) || 
+                                   nextNextLine.match(/^\[\d[\d\s]+(UZS|сум)/i) ||
+                                   next3Line.match(/^\[\d[\d\s]+(UZS|сум)/i)
+      const isFollowedBySameName = nextLine === line
+      const hasNoPrice = !line.match(/\d{3,}/)
+      
+      if (hasNoPrice && (isFollowedByImage || isFollowedByProduct || isFollowedBySameName)) {
+        currentCategory = line.replace(/[—–-]\s*.+$/, '').trim() // Убираем подзаголовок "— Супер сытный"
         continue
       }
     }
