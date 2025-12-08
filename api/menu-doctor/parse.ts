@@ -34,25 +34,46 @@ function parseTextContent(text: string): MenuItem[] {
   
   let currentCategory = 'Без категории'
   
+  // Валюты: тенге ₸, рубли ₽, сумы, доллары
+  const currencyPattern = /(\d[\d\s,.]*)\s*(₸|тг|тенге|сум|so'm|₽|руб|rub|usd|\$|€)/i
+  
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i]
     
-    // Определяем категорию (обычно короткие строки без цен)
-    if (line.length < 30 && !line.match(/\d{2,}/) && line.match(/^[A-ZА-ЯЁ]/)) {
-      // Проверяем что это не блюдо (следующая строка не цена)
-      const nextLine = lines[i + 1] || ''
-      if (!nextLine.match(/^\d/) && !nextLine.match(/тг|сум|₽|\$/i)) {
-        currentCategory = line
+    // Пропускаем служебные строки
+    if (line.match(/^(Title:|URL:|Markdown|Source|---|^\*\*\*)/i)) continue
+    if (line.length < 3) continue
+    
+    // Определяем категорию (заголовки секций)
+    // "## Бургеры" или "БУРГЕРЫ" или "### Напитки"
+    const categoryMatch = line.match(/^#{1,3}\s*(.+)$/) || 
+                          (line.length < 35 && line === line.toUpperCase() && !line.match(/\d/) ? [null, line] : null)
+    if (categoryMatch && categoryMatch[1]) {
+      currentCategory = categoryMatch[1].replace(/[#*]/g, '').trim()
+      continue
+    }
+    
+    // Формат 1: "Биг Мак® 2 050 ₸" или "Биг Мак - 2500 тг"
+    const priceMatch = line.match(/^(.+?)\s*[-–—:]?\s*(\d[\d\s,.]+)\s*(₸|тг|тенге|сум|so'm|₽|руб|usd|\$|€)?$/i)
+    if (priceMatch) {
+      const name = priceMatch[1].replace(/[®™©]/g, '').trim()
+      const priceRaw = priceMatch[2].replace(/\s/g, '') + (priceMatch[3] || '')
+      if (name.length > 2 && name.length < 100 && !name.match(/^[\d\s-]+$/)) {
+        items.push({
+          name,
+          price: parsePrice(priceRaw),
+          priceRaw,
+          category: currentCategory
+        })
         continue
       }
     }
     
-    // Ищем паттерн: название + цена
-    // Формат 1: "Биг Мак 2500 тг" или "Биг Мак - 2500"
-    const priceMatch = line.match(/^(.+?)\s*[-–—]?\s*(\d[\d\s,.]*)\s*(тг|тенге|сум|₽|руб|usd|\$)?$/i)
-    if (priceMatch) {
-      const name = priceMatch[1].trim()
-      const priceRaw = priceMatch[2].replace(/\s/g, '') + (priceMatch[3] || '')
+    // Формат 2: Цена в начале "2050 ₸ Биг Мак"
+    const priceFirstMatch = line.match(/^(\d[\d\s,.]+)\s*(₸|тг|тенге|сум|₽|руб)?\s+(.+)$/i)
+    if (priceFirstMatch) {
+      const name = priceFirstMatch[3].replace(/[®™©]/g, '').trim()
+      const priceRaw = priceFirstMatch[1].replace(/\s/g, '') + (priceFirstMatch[2] || '')
       if (name.length > 2 && name.length < 100) {
         items.push({
           name,
@@ -64,26 +85,63 @@ function parseTextContent(text: string): MenuItem[] {
       }
     }
     
-    // Формат 2: Цена на следующей строке
-    // "Биг Мак"
-    // "2500 тг"
+    // Формат 3: Markdown список "- Биг Мак - 2050"
+    const listMatch = line.match(/^[-*•]\s*(.+?)\s*[-–—:]\s*(\d[\d\s,.]+)\s*(₸|тг|тенге|сум|₽|руб)?$/i)
+    if (listMatch) {
+      const name = listMatch[1].replace(/[®™©\[\]]/g, '').trim()
+      const priceRaw = listMatch[2].replace(/\s/g, '') + (listMatch[3] || '')
+      if (name.length > 2 && name.length < 100) {
+        items.push({
+          name,
+          price: parsePrice(priceRaw),
+          priceRaw,
+          category: currentCategory
+        })
+        continue
+      }
+    }
+    
+    // Формат 4: Цена на следующей строке
     const nextLine = lines[i + 1] || ''
-    if (nextLine.match(/^\d[\d\s,.]*\s*(тг|тенге|сум|₽|руб|usd|\$)?$/i)) {
-      const name = line
-      if (name.length > 2 && name.length < 100 && !name.match(/^\d/)) {
+    if (nextLine.match(/^\d[\d\s,.]*\s*(₸|тг|тенге|сум|₽|руб|usd|\$)?$/i)) {
+      const name = line.replace(/[®™©]/g, '').trim()
+      if (name.length > 2 && name.length < 100 && !name.match(/^\d/) && !name.match(/^[-*#]/)) {
         items.push({
           name,
           price: parsePrice(nextLine),
           priceRaw: nextLine.trim(),
           category: currentCategory
         })
-        i++ // Пропускаем строку с ценой
+        i++
         continue
+      }
+    }
+    
+    // Формат 5: Ищем цену в любом месте строки
+    const anyPriceMatch = line.match(/(.{3,50}?)\s+(\d[\d\s]{0,6})\s*(₸|тг|тенге)/i)
+    if (anyPriceMatch && !items.find(it => it.name === anyPriceMatch[1].trim())) {
+      const name = anyPriceMatch[1].replace(/[®™©\[\]|]/g, '').trim()
+      const priceRaw = anyPriceMatch[2].replace(/\s/g, '') + anyPriceMatch[3]
+      if (name.length > 2 && name.length < 80 && !name.match(/^[\d\s-]+$/) && !name.match(/^(от|до|цена|price)/i)) {
+        items.push({
+          name,
+          price: parsePrice(priceRaw),
+          priceRaw,
+          category: currentCategory
+        })
       }
     }
   }
   
-  return items
+  // Дедупликация по имени
+  const unique = items.reduce((acc, item) => {
+    if (!acc.find(i => i.name.toLowerCase() === item.name.toLowerCase())) {
+      acc.push(item)
+    }
+    return acc
+  }, [] as MenuItem[])
+  
+  return unique
 }
 
 // Извлечение блюд из HTML
@@ -219,6 +277,8 @@ export default async function handler(request: Request) {
         content = await jinaResponse.text()
         isText = true
         console.log('Parse: Got content via Jina, length:', content.length)
+        // Логируем первые строки для отладки
+        console.log('Parse: First 500 chars:', content.slice(0, 500).replace(/\n/g, '\\n'))
       }
     } catch (e) {
       console.log('Parse: Jina failed, trying direct fetch')
