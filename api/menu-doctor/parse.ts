@@ -34,9 +34,6 @@ function parseTextContent(text: string): MenuItem[] {
   
   let currentCategory = 'Без категории'
   
-  // Валюты: тенге ₸, рубли ₽, сумы, доллары
-  const currencyPattern = /(\d[\d\s,.]*)\s*(₸|тг|тенге|сум|so'm|₽|руб|rub|usd|\$|€)/i
-  
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i]
     
