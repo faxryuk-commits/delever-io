@@ -143,16 +143,15 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
   if (openrouterKey) {
     // Модели OpenRouter - Mixtral первый (быстрее и надёжнее)
     const modelsToTry = [
-      'mistralai/mixtral-8x7b-instruct',         // Mixtral - быстрый и надёжный
-      'mistralai/mistral-7b-instruct-v0.2',      // Mistral 7B
-      'meta-llama/llama-3.1-8b-instruct',        // Llama 3.1
+      'mistralai/mistral-7b-instruct',           // Mistral 7B - быстрый
+      'meta-llama/llama-3.1-8b-instruct',        // Llama 3.1 8B
     ]
     
     for (const model of modelsToTry) {
       console.log(`Menu Doctor: Trying OpenRouter with ${model}...`)
       try {
         const openrouterController = new AbortController()
-        const openrouterTimeout = setTimeout(() => openrouterController.abort(), 10000) // 10 сек на модель
+        const openrouterTimeout = setTimeout(() => openrouterController.abort(), 12000) // 12 сек на модель
         
         const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
           signal: openrouterController.signal,
@@ -509,7 +508,7 @@ export default async function handler(request: Request) {
       const jinaUrl = `https://r.jina.ai/${menuUrl}`
       
       const jinaController = new AbortController()
-      const jinaTimeout = setTimeout(() => jinaController.abort(), 15000)
+      const jinaTimeout = setTimeout(() => jinaController.abort(), 8000) // 8 сек на Jina
       
       const jinaResponse = await fetch(jinaUrl, {
         method: 'GET',
@@ -569,7 +568,7 @@ export default async function handler(request: Request) {
     }
 
     // Ограничение длины контента (меньше = быстрее ответ от AI)
-    const MAX_CONTENT_LENGTH = 15000 // 15KB - оптимально для скорости
+    const MAX_CONTENT_LENGTH = 10000 // 10KB - для быстрой генерации
     let truncated = false
     if (html.length > MAX_CONTENT_LENGTH) {
       html = html.slice(0, MAX_CONTENT_LENGTH)
