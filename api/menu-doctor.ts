@@ -143,15 +143,16 @@ async function callAiModel(prompt: string): Promise<MenuDoctorReport> {
   if (openrouterKey) {
     // Модели OpenRouter - Mixtral первый (быстрее и надёжнее)
     const modelsToTry = [
-      'mistralai/mistral-7b-instruct',           // Mistral 7B - быстрый
-      'meta-llama/llama-3.1-8b-instruct',        // Llama 3.1 8B
+      'google/gemma-2-9b-it:free',               // Gemma 2 - быстрая и бесплатная
+      'mistralai/mistral-7b-instruct:free',      // Mistral 7B free
+      'meta-llama/llama-3.2-3b-instruct:free',   // Llama 3.2 3B - очень быстрая
     ]
     
     for (const model of modelsToTry) {
       console.log(`Menu Doctor: Trying OpenRouter with ${model}...`)
       try {
         const openrouterController = new AbortController()
-        const openrouterTimeout = setTimeout(() => openrouterController.abort(), 15000) // 15 сек на модель (больше контента)
+        const openrouterTimeout = setTimeout(() => openrouterController.abort(), 12000) // 12 сек на модель
         
         const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
           signal: openrouterController.signal,
@@ -582,7 +583,7 @@ export default async function handler(request: Request) {
     }
 
     // Ограничение длины контента (меньше = быстрее ответ от AI)
-    const MAX_CONTENT_LENGTH = 12000 // 12KB - больше данных для анализа
+    const MAX_CONTENT_LENGTH = 8000 // 8KB - баланс данных и скорости
     let truncated = false
     if (html.length > MAX_CONTENT_LENGTH) {
       html = html.slice(0, MAX_CONTENT_LENGTH)
