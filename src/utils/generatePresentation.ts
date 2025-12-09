@@ -1418,15 +1418,55 @@ export function generatePresentation(data: PresentationData): string {
 }
 
 // Функция скачивания презентации
-export function downloadPresentation(data: PresentationData, filename = 'Delever_Presentation') {
+export function downloadPresentation(data: PresentationData, filename = 'Delever_Presentation', format: 'html' | 'pdf' = 'pdf') {
   const html = generatePresentation(data)
-  const blob = new Blob([html], { type: 'text/html' })
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement('a')
-  a.href = url
-  a.download = `${filename}.html`
-  document.body.appendChild(a)
-  a.click()
-  document.body.removeChild(a)
-  URL.revokeObjectURL(url)
+  
+  if (format === 'html') {
+    // Скачать как HTML файл
+    const blob = new Blob([html], { type: 'text/html' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `${filename}.html`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  } else {
+    // Открыть для печати в PDF
+    const printWindow = window.open('', '_blank', 'width=1200,height=800')
+    if (printWindow) {
+      printWindow.document.write(html)
+      printWindow.document.close()
+      
+      // Добавляем стили для печати PDF
+      const printStyles = printWindow.document.createElement('style')
+      printStyles.textContent = `
+        @media print {
+          @page {
+            size: A4 portrait;
+            margin: 0;
+          }
+          body {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+          .slide {
+            page-break-after: always;
+            page-break-inside: avoid;
+          }
+          .slide:last-child {
+            page-break-after: auto;
+          }
+        }
+      `
+      printWindow.document.head.appendChild(printStyles)
+      
+      // Ждём загрузки шрифтов и запускаем печать
+      setTimeout(() => {
+        printWindow.focus()
+        printWindow.print()
+      }, 1000)
+    }
+  }
 }
