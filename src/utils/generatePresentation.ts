@@ -75,7 +75,45 @@ export function generatePresentation(data: PresentationData): string {
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
       
-      * { margin: 0; padding: 0; box-sizing: border-box; }
+      * { 
+        margin: 0; 
+        padding: 0; 
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+      
+      /* Критические стили для печати */
+      @media print {
+        @page {
+          size: A4 portrait;
+          margin: 0;
+        }
+        
+        html, body {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
+        }
+        
+        .slide {
+          page-break-after: always !important;
+          page-break-inside: avoid !important;
+          break-after: page !important;
+          break-inside: avoid !important;
+        }
+        
+        .slide:last-child {
+          page-break-after: auto !important;
+          break-after: auto !important;
+        }
+        
+        .slide-cover, .slide-cta, [style*="background"], [style*="gradient"] {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+      }
       
       body {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -1439,34 +1477,60 @@ export function downloadPresentation(data: PresentationData, filename = 'Delever
       printWindow.document.write(html)
       printWindow.document.close()
       
-      // Добавляем стили для печати PDF
+      // Добавляем усиленные стили для печати PDF с сохранением цветов
       const printStyles = printWindow.document.createElement('style')
       printStyles.textContent = `
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
+        }
+        
         @media print {
           @page {
             size: A4 portrait;
             margin: 0;
           }
-          body {
+          
+          html, body {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
+            color-adjust: exact !important;
           }
+          
           .slide {
-            page-break-after: always;
-            page-break-inside: avoid;
+            page-break-after: always !important;
+            page-break-inside: avoid !important;
+            break-after: page !important;
           }
+          
           .slide:last-child {
-            page-break-after: auto;
+            page-break-after: auto !important;
+            break-after: auto !important;
+          }
+          
+          /* Принудительно сохраняем фоны */
+          .slide-cover {
+            background: linear-gradient(135deg, #002A47 0%, #004d7a 50%, #006494 100%) !important;
+          }
+          
+          .slide-cta {
+            background: linear-gradient(135deg, #002A47 0%, #00CED1 100%) !important;
+          }
+          
+          .card, .plan-card, .metric-card {
+            background: white !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
           }
         }
       `
       printWindow.document.head.appendChild(printStyles)
       
-      // Ждём загрузки шрифтов и запускаем печать
+      // Ждём загрузки шрифтов и изображений
       setTimeout(() => {
         printWindow.focus()
         printWindow.print()
-      }, 1000)
+      }, 1500)
     }
   }
 }
