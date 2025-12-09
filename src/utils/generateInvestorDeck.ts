@@ -462,7 +462,30 @@ const translations: Record<Language, DeckTranslations> = {
 function getStyles(): string {
   return `
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
+    
+    @media print {
+      @page { size: A4 landscape; margin: 0; }
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .slide { page-break-after: always !important; page-break-inside: avoid !important; }
+      .slide:last-child { page-break-after: auto !important; }
+      .cover { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%) !important; }
+      .contact { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%) !important; }
+      .card, .metric-box { background: #f8fafc !important; }
+      .card.highlight { background: linear-gradient(135deg, #ecfdf5, #f0fdf4) !important; }
+    }
+    
     body { font-family: 'Inter', sans-serif; background: white; color: #0f172a; line-height: 1.6; }
     .slide { min-height: 100vh; padding: 60px; display: flex; flex-direction: column; justify-content: center; page-break-after: always; position: relative; }
     .slide-number { position: absolute; bottom: 30px; right: 60px; color: #94a3b8; font-size: 14px; }
@@ -744,17 +767,64 @@ function generateInvestorDeckHTML(language: Language): string {
 </html>`
 }
 
-export function downloadInvestorDeck(language: Language): void {
+export function downloadInvestorDeck(language: Language, format: 'html' | 'pdf' = 'pdf'): void {
   const html = generateInvestorDeckHTML(language)
-  const blob = new Blob([html], { type: 'text/html' })
-  const url = URL.createObjectURL(blob)
   
-  const a = document.createElement('a')
-  a.href = url
-  a.download = `Delever_Investor_Deck_${language.toUpperCase()}.html`
-  document.body.appendChild(a)
-  a.click()
-  document.body.removeChild(a)
-  URL.revokeObjectURL(url)
+  if (format === 'html') {
+    const blob = new Blob([html], { type: 'text/html' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `Delever_Investor_Deck_${language.toUpperCase()}.html`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  } else {
+    // Открыть для печати в PDF
+    const printWindow = window.open('', '_blank', 'width=1200,height=800')
+    if (printWindow) {
+      printWindow.document.write(html)
+      printWindow.document.close()
+      
+      // Добавляем стили для сохранения цветов при печати
+      const printStyles = printWindow.document.createElement('style')
+      printStyles.textContent = `
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
+        }
+        
+        @media print {
+          @page {
+            size: A4 landscape;
+            margin: 0;
+          }
+          
+          html, body {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+          
+          .slide {
+            page-break-after: always !important;
+            page-break-inside: avoid !important;
+          }
+          
+          .slide:last-child {
+            page-break-after: auto !important;
+          }
+        }
+      `
+      printWindow.document.head.appendChild(printStyles)
+      
+      // Ждём загрузки шрифтов
+      setTimeout(() => {
+        printWindow.focus()
+        printWindow.print()
+      }, 1500)
+    }
+  }
 }
 
