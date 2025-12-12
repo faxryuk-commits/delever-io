@@ -1,3 +1,5 @@
+import { saveLead, isRedisConfigured, type Lead } from './lib/redis'
+
 export const config = {
   runtime: 'edge',
 }
@@ -107,6 +109,29 @@ ${detectedCountry ? `🌍 Страна: ${detectedCountry}\n` : ''}${language ? 
       })
     }
 
+    const telegramData = await telegramResponse.json()
+    const messageId = telegramData.result?.message_id
+
+    // Сохраняем заявку в Redis для отслеживания
+    if (isRedisConfigured()) {
+      const lead: Lead = {
+        id: leadId,
+        name,
+        phone,
+        email,
+        company,
+        message,
+        tag,
+        status: 'pending',
+        createdAt: Date.now(),
+        telegramMessageId: messageId,
+        telegramChatId: typeof chatId === 'string' ? parseInt(chatId) || 0 : chatId as number,
+      }
+      
+      await saveLead(lead)
+      console.log('Lead saved to Redis:', leadId)
+    }
+
     // Отправка в amoCRM (если настроено)
     let amoResult = null
     if (amoSubdomain && amoAccessToken) {
@@ -130,11 +155,10 @@ ${detectedCountry ? `🌍 Страна: ${detectedCountry}\n` : ''}${language ? 
       }
     }
 
-    const data = await telegramResponse.json()
     return new Response(JSON.stringify({ 
       success: true, 
       leadId,
-      telegram: data,
+      telegram: telegramData,
       amocrm: amoResult 
     }), {
       status: 200,

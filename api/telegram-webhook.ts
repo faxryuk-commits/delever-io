@@ -1,3 +1,5 @@
+import { getLead, updateLeadStatus, isRedisConfigured, type Lead } from './lib/redis'
+
 export const config = {
   runtime: 'edge',
 }
@@ -316,48 +318,34 @@ export default async function handler(req: Request): Promise<Response> {
         return new Response('OK', { status: 200 })
       }
 
-      // Обработка нажатия "Принять заявку"
+      const managerName = user.first_name + (user.last_name ? ` ${user.last_name}` : '')
+      const managerUsername = user.username ? `@${user.username}` : ''
+      const timestamp = new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Tashkent' })
+      const phoneDigits = extractPhone(originalText).replace(/\D/g, '')
+
+      // ========== ПРИНЯТЬ ЗАЯВКУ → Показать выбор времени ==========
       if (data.startsWith('accept_lead:')) {
         const leadId = data.replace('accept_lead:', '')
-        const timestamp = new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Tashkent' })
         
-        // Формируем имя менеджера
-        const managerName = user.first_name + (user.last_name ? ` ${user.last_name}` : '')
-        const managerUsername = user.username ? `@${user.username}` : ''
-
-        // Обновляем текст сообщения - меняем статус
-        const updatedText = originalText
-          .replace('🟡 Ожидает обработки', '🟢 В работе')
-          + `\n\n━━━━━━━━━━━━━━━━━━━━━\n✅ *Принято:* ${managerName} ${managerUsername}\n🕐 *Когда:* ${timestamp}`
-
-        // Обновляем кнопки - убираем "Принять", добавляем другие действия
-        const phoneDigits = extractPhone(originalText).replace(/\D/g, '')
-        const updatedKeyboard = {
+        // Показываем кнопки выбора времени
+        const timeKeyboard = {
           inline_keyboard: [
             [
-              {
-                text: '💬 WhatsApp',
-                url: `https://wa.me/${phoneDigits}`
-              },
-              {
-                text: '📱 Telegram',
-                url: `https://t.me/+${phoneDigits}`
-              }
+              { text: '⏰ 10 мин', callback_data: `timer:${leadId}:10` },
+              { text: '⏰ 20 мин', callback_data: `timer:${leadId}:20` },
+              { text: '⏰ 60 мин', callback_data: `timer:${leadId}:60` },
             ],
             [
-              {
-                text: '✔️ Завершить',
-                callback_data: `complete_lead:${leadId}`
-              },
-              {
-                text: '❌ Отклонить',
-                callback_data: `reject_lead:${leadId}`
-              }
-            ]
+              { text: '📅 Завтра', callback_data: `timer:${leadId}:1440` },
+              { text: '❌ Отмена', callback_data: `cancel_accept:${leadId}` },
+            ],
           ]
         }
 
-        // Редактируем сообщение
+        const updatedText = originalText
+          .replace('🟡 Ожидает обработки', '⏳ Выбор времени')
+          + `\n\n━━━━━━━━━━━━━━━━━━━━━\n👤 *Принимает:* ${managerName}\n⏰ *Выберите время на обработку:*`
+
         await fetch(`https://api.telegram.org/bot${botToken}/editMessageText`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -366,85 +354,295 @@ export default async function handler(req: Request): Promise<Response> {
             message_id: messageId,
             text: updatedText,
             parse_mode: 'Markdown',
-            reply_markup: updatedKeyboard,
+            reply_markup: timeKeyboard,
           }),
         })
 
-        // Отвечаем на callback чтобы убрать "часики"
-        await fetch(`https://api.telegram.org/bot${botToken}/answerCallbackQuery`, {
+        await answerCallback(botToken, callbackQuery.id, '⏰ Выберите время')
+      }
+
+      // ========== ВЫБОР ВРЕМЕНИ ==========
+      if (data.startsWith('timer:')) {
+        const parts = data.split(':')
+        const leadId = parts[1]
+        const minutes = parseInt(parts[2])
+        
+        const timeLabels: Record<number, string> = {
+          10: '10 минут',
+          20: '20 минут', 
+          60: '1 час',
+          1440: 'до завтра',
+        }
+
+        // Обновляем в Redis
+        if (isRedisConfigured()) {
+          await updateLeadStatus(leadId, 'accepted', {
+            acceptedAt: Date.now(),
+            acceptedBy: managerName,
+            acceptedByUsername: managerUsername,
+            timerMinutes: minutes,
+            timerExpiresAt: Date.now() + minutes * 60 * 1000,
+          })
+        }
+
+        const updatedText = originalText
+          .replace('⏳ Выбор времени', '🟢 В работе')
+          .replace(/\n\n━━━━━━━━━━━━━━━━━━━━━\n👤 \*Принимает:[\s\S]*$/, '')
+          + `\n\n━━━━━━━━━━━━━━━━━━━━━\n✅ *Принято:* ${managerName} ${managerUsername}\n⏰ *Таймер:* ${timeLabels[minutes]}\n🕐 *Когда:* ${timestamp}`
+
+        const workKeyboard = {
+          inline_keyboard: [
+            [
+              { text: '💬 WhatsApp', url: `https://wa.me/${phoneDigits}` },
+              { text: '📱 Telegram', url: `https://t.me/+${phoneDigits}` },
+            ],
+            [
+              { text: '✅ Завершить', callback_data: `complete:${leadId}` },
+              { text: '📵 Не дозвонился', callback_data: `no_answer:${leadId}` },
+            ],
+            [
+              { text: '❌ Отклонить', callback_data: `reject:${leadId}` },
+              { text: '⏰ +30 мин', callback_data: `extend:${leadId}:30` },
+            ],
+          ]
+        }
+
+        await fetch(`https://api.telegram.org/bot${botToken}/editMessageText`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            callback_query_id: callbackQuery.id,
-            text: `✅ Заявка ${leadId} принята!`,
-            show_alert: false,
+            chat_id: chatId,
+            message_id: messageId,
+            text: updatedText,
+            parse_mode: 'Markdown',
+            reply_markup: workKeyboard,
           }),
         })
+
+        await answerCallback(botToken, callbackQuery.id, `✅ Таймер установлен: ${timeLabels[minutes]}`, true)
       }
 
-      // Обработка "Завершить"
+      // ========== ОТМЕНА ПРИНЯТИЯ ==========
+      if (data.startsWith('cancel_accept:')) {
+        const leadId = data.replace('cancel_accept:', '')
+        
+        const updatedText = originalText
+          .replace('⏳ Выбор времени', '🟡 Ожидает обработки')
+          .replace(/\n\n━━━━━━━━━━━━━━━━━━━━━\n👤 \*Принимает:[\s\S]*$/, '')
+
+        const pendingKeyboard = {
+          inline_keyboard: [
+            [{ text: '✅ Принять заявку', callback_data: `accept_lead:${leadId}` }],
+            [
+              { text: '💬 WhatsApp', url: `https://wa.me/${phoneDigits}` },
+              { text: '📱 Telegram', url: `https://t.me/+${phoneDigits}` },
+            ],
+          ]
+        }
+
+        await fetch(`https://api.telegram.org/bot${botToken}/editMessageText`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: chatId,
+            message_id: messageId,
+            text: updatedText,
+            parse_mode: 'Markdown',
+            reply_markup: pendingKeyboard,
+          }),
+        })
+
+        await answerCallback(botToken, callbackQuery.id, '↩️ Отменено')
+      }
+
+      // ========== НЕ ДОЗВОНИЛСЯ ==========
+      if (data.startsWith('no_answer:')) {
+        const leadId = data.replace('no_answer:', '')
+
+        // Показываем выбор нового времени
+        const retryKeyboard = {
+          inline_keyboard: [
+            [
+              { text: '⏰ 30 мин', callback_data: `retry:${leadId}:30` },
+              { text: '⏰ 60 мин', callback_data: `retry:${leadId}:60` },
+              { text: '📅 Завтра', callback_data: `retry:${leadId}:1440` },
+            ],
+            [
+              { text: '❌ Отклонить заявку', callback_data: `reject:${leadId}` },
+            ],
+          ]
+        }
+
+        const updatedText = originalText
+          .replace('🟢 В работе', '📵 Не дозвонился')
+          + `\n📵 *Не дозвонился:* ${managerName}\n⏰ *Выберите время для повторного звонка:*`
+
+        await fetch(`https://api.telegram.org/bot${botToken}/editMessageText`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: chatId,
+            message_id: messageId,
+            text: updatedText,
+            parse_mode: 'Markdown',
+            reply_markup: retryKeyboard,
+          }),
+        })
+
+        if (isRedisConfigured()) {
+          await updateLeadStatus(leadId, 'no_answer')
+        }
+
+        await answerCallback(botToken, callbackQuery.id, '📵 Выберите время повторного звонка')
+      }
+
+      // ========== ПОВТОРНЫЙ ЗВОНОК (после "Не дозвонился") ==========
+      if (data.startsWith('retry:')) {
+        const parts = data.split(':')
+        const leadId = parts[1]
+        const minutes = parseInt(parts[2])
+
+        const timeLabels: Record<number, string> = { 30: '30 минут', 60: '1 час', 1440: 'завтра' }
+
+        if (isRedisConfigured()) {
+          await updateLeadStatus(leadId, 'in_progress', {
+            timerMinutes: minutes,
+            timerExpiresAt: Date.now() + minutes * 60 * 1000,
+          })
+        }
+
+        const updatedText = originalText
+          .replace('📵 Не дозвонился', '🔄 Повторный звонок')
+          .replace(/📵 \*Не дозвонился:[\s\S]*$/, '')
+          + `\n🔄 *Повторный звонок через:* ${timeLabels[minutes]}\n👤 *Ответственный:* ${managerName}`
+
+        const workKeyboard = {
+          inline_keyboard: [
+            [
+              { text: '💬 WhatsApp', url: `https://wa.me/${phoneDigits}` },
+              { text: '📱 Telegram', url: `https://t.me/+${phoneDigits}` },
+            ],
+            [
+              { text: '✅ Завершить', callback_data: `complete:${leadId}` },
+              { text: '📵 Не дозвонился', callback_data: `no_answer:${leadId}` },
+            ],
+            [
+              { text: '❌ Отклонить', callback_data: `reject:${leadId}` },
+            ],
+          ]
+        }
+
+        await fetch(`https://api.telegram.org/bot${botToken}/editMessageText`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: chatId,
+            message_id: messageId,
+            text: updatedText,
+            parse_mode: 'Markdown',
+            reply_markup: workKeyboard,
+          }),
+        })
+
+        await answerCallback(botToken, callbackQuery.id, `⏰ Напомню через ${timeLabels[minutes]}`, true)
+      }
+
+      // ========== ПРОДЛИТЬ ТАЙМЕР ==========
+      if (data.startsWith('extend:')) {
+        const parts = data.split(':')
+        const leadId = parts[1]
+        const minutes = parseInt(parts[2])
+
+        if (isRedisConfigured()) {
+          const lead = await getLead(leadId)
+          if (lead) {
+            await updateLeadStatus(leadId, lead.status, {
+              timerExpiresAt: Date.now() + minutes * 60 * 1000,
+            })
+          }
+        }
+
+        await answerCallback(botToken, callbackQuery.id, `⏰ Таймер продлён на ${minutes} минут`, true)
+      }
+
+      // ========== ЗАВЕРШИТЬ ==========
+      if (data.startsWith('complete:')) {
+        const leadId = data.replace('complete:', '')
+
+        if (isRedisConfigured()) {
+          await updateLeadStatus(leadId, 'completed', {
+            completedAt: Date.now(),
+            comment: `Завершено: ${managerName}`,
+          })
+        }
+
+        const updatedText = originalText
+          .replace(/🟢 В работе|🔄 Повторный звонок|📵 Не дозвонился/, '✅ Завершена')
+          .replace(/\n🔄 \*Повторный звонок[\s\S]*$/, '')
+          + `\n\n🏁 *Завершено:* ${managerName}\n🕐 *Когда:* ${timestamp}`
+
+        await fetch(`https://api.telegram.org/bot${botToken}/editMessageText`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: chatId,
+            message_id: messageId,
+            text: updatedText,
+            parse_mode: 'Markdown',
+          }),
+        })
+
+        await answerCallback(botToken, callbackQuery.id, `✅ Заявка ${leadId} завершена!`, true)
+      }
+
+      // ========== ОТКЛОНИТЬ ==========
+      if (data.startsWith('reject:')) {
+        const leadId = data.replace('reject:', '')
+
+        if (isRedisConfigured()) {
+          await updateLeadStatus(leadId, 'rejected', {
+            completedAt: Date.now(),
+            comment: `Отклонено: ${managerName}`,
+          })
+        }
+
+        const updatedText = originalText
+          .replace(/🟢 В работе|🔄 Повторный звонок|📵 Не дозвонился|⏳ Выбор времени/, '❌ Отклонена')
+          .replace(/\n🔄 \*Повторный звонок[\s\S]*$/, '')
+          .replace(/\n📵 \*Не дозвонился:[\s\S]*$/, '')
+          .replace(/\n👤 \*Принимает:[\s\S]*$/, '')
+          + `\n\n🚫 *Отклонено:* ${managerName}\n🕐 *Когда:* ${timestamp}`
+
+        await fetch(`https://api.telegram.org/bot${botToken}/editMessageText`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: chatId,
+            message_id: messageId,
+            text: updatedText,
+            parse_mode: 'Markdown',
+          }),
+        })
+
+        await answerCallback(botToken, callbackQuery.id, `❌ Заявка ${leadId} отклонена`, true)
+      }
+
+      // ========== Старые callback для обратной совместимости ==========
       if (data.startsWith('complete_lead:')) {
         const leadId = data.replace('complete_lead:', '')
-        const timestamp = new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Tashkent' })
-        const managerName = user.first_name + (user.last_name ? ` ${user.last_name}` : '')
-
-        const updatedText = originalText
-          .replace('🟢 В работе', '✅ Завершена')
-          + `\n🏁 *Завершено:* ${managerName}\n🕐 *Когда:* ${timestamp}`
-
-        // Убираем кнопки
-        await fetch(`https://api.telegram.org/bot${botToken}/editMessageText`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: chatId,
-            message_id: messageId,
-            text: updatedText,
-            parse_mode: 'Markdown',
-          }),
-        })
-
-        await fetch(`https://api.telegram.org/bot${botToken}/answerCallbackQuery`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            callback_query_id: callbackQuery.id,
-            text: `✅ Заявка ${leadId} успешно завершена!`,
-            show_alert: true,
-          }),
-        })
+        // Перенаправляем на новый формат
+        if (isRedisConfigured()) {
+          await updateLeadStatus(leadId, 'completed', { completedAt: Date.now() })
+        }
+        await answerCallback(botToken, callbackQuery.id, `✅ Заявка завершена!`, true)
       }
 
-      // Обработка "Отклонить"
       if (data.startsWith('reject_lead:')) {
         const leadId = data.replace('reject_lead:', '')
-        const timestamp = new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Tashkent' })
-        const managerName = user.first_name + (user.last_name ? ` ${user.last_name}` : '')
-
-        const updatedText = originalText
-          .replace('🟢 В работе', '❌ Отклонена')
-          + `\n🚫 *Отклонено:* ${managerName}\n🕐 *Когда:* ${timestamp}`
-
-        await fetch(`https://api.telegram.org/bot${botToken}/editMessageText`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: chatId,
-            message_id: messageId,
-            text: updatedText,
-            parse_mode: 'Markdown',
-          }),
-        })
-
-        await fetch(`https://api.telegram.org/bot${botToken}/answerCallbackQuery`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            callback_query_id: callbackQuery.id,
-            text: `❌ Заявка ${leadId} отклонена`,
-            show_alert: true,
-          }),
-        })
+        if (isRedisConfigured()) {
+          await updateLeadStatus(leadId, 'rejected', { completedAt: Date.now() })
+        }
+        await answerCallback(botToken, callbackQuery.id, `❌ Заявка отклонена`, true)
       }
     }
 
@@ -465,6 +663,19 @@ export default async function handler(req: Request): Promise<Response> {
 function extractPhone(text: string): string {
   const phoneMatch = text.match(/📞\s*\*?Телефон:\*?\s*([+\d\s\-()]+)/i)
   return phoneMatch ? phoneMatch[1].trim() : ''
+}
+
+// Ответ на callback query
+async function answerCallback(token: string, callbackId: string, text: string, showAlert = false) {
+  await fetch(`https://api.telegram.org/bot${token}/answerCallbackQuery`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      callback_query_id: callbackId,
+      text,
+      show_alert: showAlert,
+    }),
+  })
 }
 
 // Отправка сообщения в Telegram
