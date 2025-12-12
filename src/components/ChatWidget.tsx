@@ -273,6 +273,221 @@ function ChatIconScene() {
   )
 }
 
+// Повар готовит
+function ChefScene() {
+  return (
+    <svg viewBox="0 0 40 40" className="w-8 h-8">
+      {/* Шапка повара */}
+      <ellipse cx="20" cy="10" rx="8" ry="4" fill="#fff" />
+      <rect x="12" y="10" width="16" height="6" fill="#fff" />
+      {/* Лицо */}
+      <circle cx="20" cy="20" r="7" fill="#FBBF24" />
+      <circle cx="17" cy="19" r="1" fill="#1E3A5F" />
+      <circle cx="23" cy="19" r="1" fill="#1E3A5F" />
+      <path d="M17 23 Q20 25 23 23" stroke="#1E3A5F" strokeWidth="1" fill="none" />
+      {/* Рука с лопаткой */}
+      <motion.g
+        animate={{ rotate: [-20, 20, -20] }}
+        transition={{ duration: 0.5, repeat: Infinity }}
+        style={{ transformOrigin: "28px 24px" }}
+      >
+        <rect x="26" y="24" width="8" height="2" rx="1" fill="#9CA3AF" />
+        <rect x="32" y="22" width="4" height="6" rx="1" fill="#9CA3AF" />
+      </motion.g>
+      {/* Пар от еды */}
+      <motion.path
+        d="M8 30 Q10 28 8 26"
+        stroke="#fff"
+        strokeWidth="1"
+        fill="none"
+        animate={{ y: [0, -4], opacity: [0.8, 0] }}
+        transition={{ duration: 1, repeat: Infinity }}
+      />
+      <motion.path
+        d="M12 32 Q14 30 12 28"
+        stroke="#fff"
+        strokeWidth="1"
+        fill="none"
+        animate={{ y: [0, -4], opacity: [0.8, 0] }}
+        transition={{ duration: 1, repeat: Infinity, delay: 0.3 }}
+      />
+    </svg>
+  )
+}
+
+// Гость/клиент машет
+function GuestScene() {
+  return (
+    <svg viewBox="0 0 40 40" className="w-8 h-8">
+      {/* Голова */}
+      <circle cx="20" cy="14" r="7" fill="#FBBF24" />
+      <circle cx="17" cy="13" r="1" fill="#1E3A5F" />
+      <circle cx="23" cy="13" r="1" fill="#1E3A5F" />
+      <path d="M17 17 Q20 19 23 17" stroke="#1E3A5F" strokeWidth="1" fill="none" />
+      {/* Тело */}
+      <path d="M14 21 L14 32 M26 21 L26 32 M14 21 Q20 24 26 21" fill="#10B981" stroke="#10B981" strokeWidth="3" />
+      {/* Машущая рука */}
+      <motion.g
+        animate={{ rotate: [-30, 30, -30] }}
+        transition={{ duration: 0.4, repeat: Infinity }}
+        style={{ transformOrigin: "28px 24px" }}
+      >
+        <line x1="26" y1="24" x2="34" y2="16" stroke="#FBBF24" strokeWidth="3" strokeLinecap="round" />
+        {/* Ладошка */}
+        <circle cx="34" cy="14" r="3" fill="#FBBF24" />
+      </motion.g>
+      {/* Левая рука */}
+      <line x1="14" y1="24" x2="8" y2="30" stroke="#FBBF24" strokeWidth="3" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+// Телефон звонит
+function PhoneScene() {
+  return (
+    <svg viewBox="0 0 40 40" className="w-8 h-8">
+      <motion.g
+        animate={{ rotate: [-10, 10, -10] }}
+        transition={{ duration: 0.15, repeat: Infinity }}
+        style={{ transformOrigin: "20px 20px" }}
+      >
+        {/* Телефон */}
+        <rect x="12" y="6" width="16" height="28" rx="3" fill="#fff" />
+        <rect x="14" y="10" width="12" height="18" rx="1" fill="#60A5FA" />
+        <circle cx="20" cy="31" r="2" fill="#E5E7EB" />
+        {/* Экран - иконка звонка */}
+        <circle cx="20" cy="19" r="4" fill="#10B981" />
+        <path d="M17 17 Q17 21 20 21 Q23 21 23 17" stroke="#fff" strokeWidth="1.5" fill="none" />
+      </motion.g>
+      {/* Звуковые волны */}
+      <motion.path
+        d="M6 16 Q3 20 6 24"
+        stroke="#fff"
+        strokeWidth="1.5"
+        fill="none"
+        animate={{ opacity: [0, 1, 0], scale: [0.8, 1.2, 0.8] }}
+        transition={{ duration: 0.5, repeat: Infinity }}
+      />
+      <motion.path
+        d="M34 16 Q37 20 34 24"
+        stroke="#fff"
+        strokeWidth="1.5"
+        fill="none"
+        animate={{ opacity: [0, 1, 0], scale: [0.8, 1.2, 0.8] }}
+        transition={{ duration: 0.5, repeat: Infinity, delay: 0.25 }}
+      />
+    </svg>
+  )
+}
+
+// Таймер/часы
+function TimerScene() {
+  return (
+    <svg viewBox="0 0 40 40" className="w-8 h-8">
+      {/* Корпус часов */}
+      <circle cx="20" cy="22" r="14" fill="#fff" />
+      <circle cx="20" cy="22" r="12" fill="#1E3A5F" />
+      <circle cx="20" cy="22" r="10" fill="#fff" />
+      {/* Метки */}
+      <circle cx="20" cy="14" r="1" fill="#1E3A5F" />
+      <circle cx="28" cy="22" r="1" fill="#1E3A5F" />
+      <circle cx="20" cy="30" r="1" fill="#1E3A5F" />
+      <circle cx="12" cy="22" r="1" fill="#1E3A5F" />
+      {/* Минутная стрелка */}
+      <motion.line
+        x1="20" y1="22" x2="20" y2="15"
+        stroke="#1E3A5F"
+        strokeWidth="2"
+        strokeLinecap="round"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+        style={{ transformOrigin: "20px 22px" }}
+      />
+      {/* Секундная стрелка */}
+      <motion.line
+        x1="20" y1="22" x2="20" y2="13"
+        stroke="#DC2626"
+        strokeWidth="1"
+        strokeLinecap="round"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+        style={{ transformOrigin: "20px 22px" }}
+      />
+      {/* Центр */}
+      <circle cx="20" cy="22" r="2" fill="#10B981" />
+      {/* Кнопка сверху */}
+      <rect x="18" y="4" width="4" height="4" rx="1" fill="#FBBF24" />
+    </svg>
+  )
+}
+
+// Быстрая доставка - секундомер
+function FastDeliveryScene() {
+  return (
+    <svg viewBox="0 0 40 40" className="w-8 h-8">
+      {/* Коробка летит */}
+      <motion.g
+        animate={{ x: [-5, 5, -5], y: [-2, 2, -2] }}
+        transition={{ duration: 0.5, repeat: Infinity }}
+      >
+        <rect x="14" y="12" width="16" height="14" rx="2" fill="#10B981" />
+        <text x="18" y="22" fontSize="8" fill="#fff" fontWeight="bold">D</text>
+        <path d="M14 16 L22 12 L30 16" stroke="#0D9488" strokeWidth="1" fill="none" />
+      </motion.g>
+      {/* Линии скорости */}
+      <motion.line x1="4" y1="16" x2="12" y2="16" stroke="#fff" strokeWidth="2" strokeLinecap="round"
+        animate={{ opacity: [0, 1, 0], x: [-4, 0, -4] }}
+        transition={{ duration: 0.3, repeat: Infinity }}
+      />
+      <motion.line x1="6" y1="20" x2="12" y2="20" stroke="#fff" strokeWidth="2" strokeLinecap="round"
+        animate={{ opacity: [0, 1, 0], x: [-4, 0, -4] }}
+        transition={{ duration: 0.3, repeat: Infinity, delay: 0.1 }}
+      />
+      <motion.line x1="4" y1="24" x2="12" y2="24" stroke="#fff" strokeWidth="2" strokeLinecap="round"
+        animate={{ opacity: [0, 1, 0], x: [-4, 0, -4] }}
+        transition={{ duration: 0.3, repeat: Infinity, delay: 0.2 }}
+      />
+      {/* Текст 30 мин */}
+      <text x="12" y="36" fontSize="6" fill="#fff" fontWeight="bold">30'</text>
+    </svg>
+  )
+}
+
+// Текстовая сцена с переводами
+function TextScene({ language }: { language: string }) {
+  const texts = language === 'uz' 
+    ? ['Salom!', 'Yordam?', 'Tayyor!', '🍕🍔🍜']
+    : language === 'en'
+    ? ['Hello!', 'Help?', 'Ready!', '🍕🍔🍜']
+    : ['Привет!', 'Помочь?', 'Готово!', '🍕🍔🍜']
+  
+  const [textIndex, setTextIndex] = useState(0)
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTextIndex(i => (i + 1) % texts.length)
+    }, 800)
+    return () => clearInterval(interval)
+  }, [language])
+  
+  return (
+    <div className="w-8 h-8 flex items-center justify-center">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={textIndex}
+          initial={{ opacity: 0, y: 8, scale: 0.8 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -8, scale: 0.8 }}
+          transition={{ duration: 0.2 }}
+          className="text-white text-xs font-bold text-center"
+        >
+          {texts[textIndex]}
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  )
+}
+
 // Компонент анимированной кнопки
 function AnimatedChatButton({ onClick, language }: { onClick: () => void; language: string }) {
   const [sceneIndex, setSceneIndex] = useState(0)
@@ -280,10 +495,16 @@ function AnimatedChatButton({ onClick, language }: { onClick: () => void; langua
   
   const scenes = [
     <ChatIconScene key="chat" />,
+    <TextScene key="text" language={language} />,
     <DeliveryCarScene key="car" />,
+    <ChefScene key="chef" />,
     <BurgerScene key="burger" />,
+    <PhoneScene key="phone" />,
     <BikeScene key="bike" />,
+    <GuestScene key="guest" />,
     <PizzaScene key="pizza" />,
+    <TimerScene key="timer" />,
+    <FastDeliveryScene key="fast" />,
     <BellScene key="bell" />,
   ]
   
