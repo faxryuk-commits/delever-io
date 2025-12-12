@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import { Toaster } from 'sonner'
 import * as Tooltip from '@radix-ui/react-tooltip'
 import { LocaleProvider } from './i18n/LocaleContext'
@@ -42,6 +43,7 @@ import { DynamicGeoPage } from './pages/geo/[slug]'
 
 function App() {
   return (
+    <HelmetProvider>
     <LocaleProvider>
       <Tooltip.Provider>
         <BrowserRouter>
@@ -107,6 +109,7 @@ function App() {
         </BrowserRouter>
       </Tooltip.Provider>
     </LocaleProvider>
+    </HelmetProvider>
   )
 }
 

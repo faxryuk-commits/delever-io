@@ -13,6 +13,7 @@ import {
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
 import { SEO } from '@/components/SEO'
+import { ArticleSchema, FAQSchema, LocalBusinessSchema, BreadcrumbSchema } from '@/components/seo/SchemaOrg'
 import { useLocale } from '@/i18n/LocaleContext'
 import { trackEvents } from '@/components/Analytics'
 import { knowledgeHubs } from '@/data/knowledge-hub'
@@ -99,6 +100,39 @@ export function GeoArticlePage({ article }: Props) {
         title={title}
         description={description}
         keywords={keywords}
+      />
+
+      {/* Schema.org разметка */}
+      <ArticleSchema
+        title={title}
+        description={description}
+        url={`/geo/${article.slug}`}
+      />
+      
+      <LocalBusinessSchema
+        name={`${article.city.name[lang] || article.city.name.ru} - Delever`}
+        description={description}
+        city={article.city.name[lang] || article.city.name.ru}
+        country={article.city.country}
+        url={`/geo/${article.slug}`}
+      />
+      
+      {article.faq.length > 0 && (
+        <FAQSchema
+          items={article.faq.map(f => ({
+            question: f.q[lang] || f.q.ru,
+            answer: f.a[lang] || f.a.ru
+          }))}
+        />
+      )}
+      
+      <BreadcrumbSchema
+        items={[
+          { name: 'Delever', url: '/' },
+          { name: 'Guides', url: '/guides' },
+          { name: article.city.country, url: `/geo/${article.city.country.toLowerCase()}` },
+          { name: article.city.name[lang] || article.city.name.ru, url: `/geo/${article.slug}` }
+        ]}
       />
 
       <div className="min-h-screen pt-28 pb-16 bg-gradient-to-b from-white to-gray-50">

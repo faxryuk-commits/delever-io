@@ -887,18 +887,410 @@ export const hrArticles: KnowledgeArticle[] = [
 ]
 
 // ============================================
+// ДОПОЛНИТЕЛЬНЫЕ СТАТЬИ — ОТКРЫТИЕ РЕСТОРАНА
+// ============================================
+export const moreOpenRestaurantArticles: KnowledgeArticle[] = [
+  {
+    slug: 'restaurant-business-plan',
+    hub: 'open-restaurant',
+    title: { ru: 'Бизнес-план ресторана — шаблон и пример 2025', en: 'Restaurant Business Plan — Template & Example 2025', uz: 'Restoran biznes-rejasi — shablon va misol 2025' },
+    h1: { ru: 'Как составить бизнес-план ресторана', en: 'How to Write a Restaurant Business Plan', uz: 'Restoran biznes-rejasini qanday tuzish' },
+    description: { ru: 'Готовый шаблон бизнес-плана ресторана. Финансовая модель, расчёт окупаемости, анализ рынка.', en: 'Ready restaurant business plan template. Financial model, ROI calculation, market analysis.', uz: 'Tayyor restoran biznes-reja shabloni. Moliyaviy model, rentabellik hisobi.' },
+    keywords: { ru: 'бизнес план ресторана, шаблон бизнес плана, финансовая модель ресторана', en: 'restaurant business plan, business plan template, restaurant financial model', uz: 'restoran biznes rejasi, shablon' },
+    intro: { ru: 'Бизнес-план — фундамент успешного ресторана. Он помогает привлечь инвестиции, получить кредит и системно подойти к запуску. В этом гайде — готовый шаблон с примерами.', en: 'A business plan is the foundation of a successful restaurant. It helps attract investments, get loans, and systematically approach the launch.', uz: 'Biznes-reja — muvaffaqiyatli restoranning asosi.' },
+    sections: [
+      { title: { ru: 'Структура бизнес-плана', en: 'Business Plan Structure', uz: 'Biznes-reja tuzilishi' }, content: { ru: '1) Резюме проекта, 2) Анализ рынка, 3) Маркетинговая стратегия, 4) Операционный план, 5) Финансовый план, 6) Анализ рисков.', en: '1) Executive summary, 2) Market analysis, 3) Marketing strategy, 4) Operations plan, 5) Financial plan, 6) Risk analysis.', uz: '1) Loyiha rezyumesi, 2) Bozor tahlili, 3) Marketing strategiyasi, 4) Operatsion reja, 5) Moliyaviy reja.' } },
+      { title: { ru: 'Финансовая модель', en: 'Financial Model', uz: 'Moliyaviy model' }, content: { ru: 'Включите: стартовые инвестиции, операционные расходы, прогноз выручки на 3 года, точку безубыточности, ROI. Средняя окупаемость ресторана: 18-36 месяцев.', en: 'Include: startup investments, operating costs, 3-year revenue forecast, break-even point, ROI. Average restaurant payback: 18-36 months.', uz: 'Kiritish kerak: boshlang\'ich investitsiyalar, operatsion xarajatlar, 3 yillik daromad prognozi.' } }
+    ],
+    cta: { text: { ru: 'Рассчитать окупаемость с Delever', en: 'Calculate ROI with Delever', uz: 'Delever bilan rentabellikni hisoblash' }, link: '/pricing' },
+    faq: [{ q: { ru: 'Сколько денег нужно для открытия ресторана?', en: 'How much money do you need to open a restaurant?', uz: 'Restoran ochish uchun qancha pul kerak?' }, a: { ru: 'Минимум $30,000-50,000 для небольшого кафе, $100,000-300,000 для полноценного ресторана в Ташкенте.', en: 'Minimum $30,000-50,000 for a small cafe, $100,000-300,000 for a full restaurant in Tashkent.', uz: 'Kichik kafe uchun kamida $30,000-50,000.' } }],
+    relatedArticles: ['how-to-open-restaurant', 'how-to-choose-location'],
+    relatedProducts: ['products/analytics']
+  },
+  {
+    slug: 'restaurant-concept-development',
+    hub: 'open-restaurant',
+    title: { ru: 'Как разработать концепцию ресторана — от идеи до меню', en: 'How to Develop a Restaurant Concept — From Idea to Menu', uz: 'Restoran kontseptsiyasini qanday ishlab chiqish' },
+    h1: { ru: 'Разработка концепции ресторана: полный гайд', en: 'Restaurant Concept Development: Complete Guide', uz: 'Restoran kontseptsiyasini ishlab chiqish' },
+    description: { ru: 'Как создать уникальную концепцию ресторана: позиционирование, целевая аудитория, меню, дизайн, название.', en: 'How to create a unique restaurant concept: positioning, target audience, menu, design, name.', uz: 'Noyob restoran kontseptsiyasini qanday yaratish.' },
+    keywords: { ru: 'концепция ресторана, позиционирование ресторана, целевая аудитория ресторана', en: 'restaurant concept, restaurant positioning, restaurant target audience', uz: 'restoran kontseptsiyasi' },
+    intro: { ru: 'Концепция — это ДНК вашего ресторана. Она определяет всё: от дизайна до цен. Без чёткой концепции ресторан теряется среди конкурентов.', en: 'Concept is the DNA of your restaurant. It defines everything: from design to prices.', uz: 'Kontseptsiya — bu restoraningizning DNKsi.' },
+    sections: [
+      { title: { ru: 'Определите целевую аудиторию', en: 'Define Target Audience', uz: 'Maqsadli auditoriyani aniqlang' }, content: { ru: 'Кто ваш гость? Студенты, семьи, бизнесмены? Их доход, привычки, что они ищут. Пример: "Работающие мамы 28-40 лет, которые хотят быструю здоровую еду для семьи".', en: 'Who is your guest? Students, families, businesspeople? Their income, habits, what they seek.', uz: 'Mehmoningiz kim? Talabalar, oilalar, biznesmenlar?' } },
+      { title: { ru: 'Уникальное торговое предложение', en: 'Unique Selling Proposition', uz: 'Noyob savdo taklifi' }, content: { ru: 'Почему клиент выберет вас, а не конкурента? Цена, скорость, качество, атмосфера, доставка? Найдите свою "фишку" и стройте всё вокруг неё.', en: 'Why will the customer choose you over competitors? Price, speed, quality, atmosphere, delivery?', uz: 'Mijoz sizni nega raqibdan emas tanlaydi?' } }
+    ],
+    cta: { text: { ru: 'Запустить доставку для вашей концепции', en: 'Launch Delivery for Your Concept', uz: 'Kontseptsiyangiz uchun yetkazib berishni ishga tushiring' }, link: '/products/channels' },
+    faq: [],
+    relatedArticles: ['how-to-open-restaurant', 'restaurant-business-plan'],
+    relatedProducts: ['products/channels']
+  },
+  {
+    slug: 'restaurant-equipment-guide',
+    hub: 'open-restaurant',
+    title: { ru: 'Оборудование для ресторана — полный список 2025', en: 'Restaurant Equipment — Complete List 2025', uz: 'Restoran uchun uskunalar — to\'liq ro\'yxat 2025' },
+    h1: { ru: 'Какое оборудование нужно для ресторана', en: 'What Equipment Do You Need for a Restaurant', uz: 'Restoran uchun qanday uskunalar kerak' },
+    description: { ru: 'Полный чек-лист оборудования для ресторана: кухня, зал, бар, доставка. Где покупать, сколько стоит.', en: 'Complete restaurant equipment checklist: kitchen, dining, bar, delivery. Where to buy, how much it costs.', uz: 'Restoran uskunalarining to\'liq nazorat ro\'yxati.' },
+    keywords: { ru: 'оборудование для ресторана, кухонное оборудование, оборудование для кафе', en: 'restaurant equipment, kitchen equipment, cafe equipment', uz: 'restoran uskunalari' },
+    intro: { ru: 'Оборудование — одна из главных статей расходов при открытии. Правильный выбор экономит деньги и нервы. Вот полный чек-лист.', en: 'Equipment is one of the main expenses when opening. The right choice saves money and nerves.', uz: 'Uskunalar — ochilishda asosiy xarajat moddalaridan biri.' },
+    sections: [
+      { title: { ru: 'Кухонное оборудование', en: 'Kitchen Equipment', uz: 'Oshxona uskunalari' }, content: { ru: 'Обязательно: плита, духовка, холодильники, морозильники, рабочие столы, вытяжка, мойки. Для пиццерии: печь для пиццы, тестомес. Для фастфуда: фритюрницы, грили.', en: 'Essential: stove, oven, refrigerators, freezers, work tables, hood, sinks. For pizzeria: pizza oven, dough mixer.', uz: 'Majburiy: plita, pech, muzlatgichlar, ish stollari, so\'rg\'ich, yuvish joylari.' } },
+      { title: { ru: 'Оборудование для доставки', en: 'Delivery Equipment', uz: 'Yetkazib berish uskunalari' }, content: { ru: 'Термосумки, термобоксы для мотоциклов, упаковка (контейнеры, пакеты, наклейки), принтер для чеков/наклеек. Delever автоматически печатает наклейки с адресом.', en: 'Thermal bags, thermal boxes for motorcycles, packaging (containers, bags, stickers), receipt/label printer.', uz: 'Termo sumkalar, mototsikllar uchun termo qutilari, qadoqlash.' } }
+    ],
+    cta: { text: { ru: 'Автоматизировать печать заказов', en: 'Automate Order Printing', uz: 'Buyurtmalarni chop etishni avtomatlashtirish' }, link: '/integrations' },
+    faq: [],
+    relatedArticles: ['how-to-open-restaurant', 'dark-kitchen-guide'],
+    relatedProducts: ['products/operations']
+  }
+]
+
+// ============================================
+// ДОПОЛНИТЕЛЬНЫЕ СТАТЬИ — ЗАПУСК ДОСТАВКИ
+// ============================================
+export const moreLaunchDeliveryArticles: KnowledgeArticle[] = [
+  {
+    slug: 'delivery-zones-setup',
+    hub: 'launch-delivery',
+    title: { ru: 'Как настроить зоны доставки — радиус, тарифы, время', en: 'How to Set Up Delivery Zones — Radius, Rates, Time', uz: 'Yetkazib berish zonalarini qanday sozlash' },
+    h1: { ru: 'Настройка зон доставки для ресторана', en: 'Setting Up Delivery Zones for Restaurant', uz: 'Restoran uchun yetkazib berish zonalarini sozlash' },
+    description: { ru: 'Как правильно настроить зоны доставки: радиус, минимальный заказ, стоимость доставки, время. Примеры для Ташкента.', en: 'How to properly set up delivery zones: radius, minimum order, delivery cost, time.', uz: 'Yetkazib berish zonalarini to\'g\'ri sozlash.' },
+    keywords: { ru: 'зоны доставки, радиус доставки, стоимость доставки ресторан', en: 'delivery zones, delivery radius, restaurant delivery cost', uz: 'yetkazib berish zonalari' },
+    intro: { ru: 'Зоны доставки влияют на скорость, стоимость и удовлетворённость клиентов. Неправильные зоны = убытки или потеря клиентов.', en: 'Delivery zones affect speed, cost, and customer satisfaction. Wrong zones = losses or customer loss.', uz: 'Yetkazib berish zonalari tezlik, narx va mijozlar mamnuniyatiga ta\'sir qiladi.' },
+    sections: [
+      { title: { ru: 'Принципы зонирования', en: 'Zoning Principles', uz: 'Zonalash tamoyillari' }, content: { ru: 'Зона 1 (0-3 км): бесплатная доставка или минимум, время 20-30 мин. Зона 2 (3-7 км): платная доставка 10-20k сум, время 30-45 мин. Зона 3 (7-15 км): высокая плата или минимальный заказ.', en: 'Zone 1 (0-3 km): free delivery or minimum, 20-30 min. Zone 2 (3-7 km): paid delivery, 30-45 min. Zone 3 (7-15 km): high fee or minimum order.', uz: '1-zona (0-3 km): bepul yetkazish, 20-30 daqiqa. 2-zona (3-7 km): pullik yetkazish, 30-45 daqiqa.' } },
+      { title: { ru: 'Динамическое ценообразование', en: 'Dynamic Pricing', uz: 'Dinamik narxlash' }, content: { ru: 'В час-пик или плохую погоду можно увеличивать стоимость доставки на 20-50%. Delever позволяет настроить это автоматически.', en: 'During rush hour or bad weather, you can increase delivery cost by 20-50%. Delever allows automatic setup.', uz: 'Pik soatlarda yoki yomon ob-havoda yetkazish narxini 20-50% ga oshirish mumkin.' } }
+    ],
+    cta: { text: { ru: 'Настроить зоны в Delever', en: 'Set Up Zones in Delever', uz: 'Deleverda zonalarni sozlash' }, link: '/products/operations' },
+    faq: [],
+    relatedArticles: ['how-to-launch-delivery', 'how-to-hire-couriers'],
+    relatedProducts: ['products/operations']
+  },
+  {
+    slug: 'delivery-packaging-guide',
+    hub: 'launch-delivery',
+    title: { ru: 'Упаковка для доставки еды — как выбрать и брендировать', en: 'Food Delivery Packaging — How to Choose and Brand', uz: 'Ovqat yetkazish uchun qadoqlash' },
+    h1: { ru: 'Упаковка для доставки: гайд по выбору', en: 'Delivery Packaging: Selection Guide', uz: 'Yetkazib berish uchun qadoqlash' },
+    description: { ru: 'Какую упаковку выбрать для доставки еды: материалы, размеры, брендирование. Эко-упаковка vs пластик.', en: 'What packaging to choose for food delivery: materials, sizes, branding. Eco-packaging vs plastic.', uz: 'Ovqat yetkazish uchun qanday qadoqlash tanlash.' },
+    keywords: { ru: 'упаковка для доставки, контейнеры для еды, эко упаковка ресторан', en: 'delivery packaging, food containers, eco packaging restaurant', uz: 'yetkazish uchun qadoqlash' },
+    intro: { ru: 'Упаковка — это первое, что видит клиент. Она влияет на восприятие качества, сохранность еды и экологичность бренда.', en: 'Packaging is the first thing the customer sees. It affects quality perception, food safety, and brand eco-friendliness.', uz: 'Qadoqlash — mijoz ko\'radigan birinchi narsa.' },
+    sections: [
+      { title: { ru: 'Виды упаковки', en: 'Types of Packaging', uz: 'Qadoqlash turlari' }, content: { ru: 'Пластик PP5: дешёвый, для горячего. Крафт-бумага: эко, для сухих блюд. Алюминий: сохраняет тепло, для hot-блюд. Вакуум: для премиум-доставки.', en: 'PP5 plastic: cheap, for hot food. Kraft paper: eco, for dry dishes. Aluminum: retains heat. Vacuum: for premium delivery.', uz: 'PP5 plastik: arzon, issiq ovqat uchun. Kraft qog\'oz: eko, quruq taomlar uchun.' } },
+      { title: { ru: 'Брендирование упаковки', en: 'Packaging Branding', uz: 'Qadoqlashni brendlash' }, content: { ru: 'Логотип на контейнере, наклейки, брендированные пакеты. Стоимость: +5-15% к упаковке, но увеличивает узнаваемость и повторные заказы на 20%.', en: 'Logo on container, stickers, branded bags. Cost: +5-15% to packaging, but increases recognition and repeat orders by 20%.', uz: 'Konteynerda logotip, stikerlar, brendli paketlar.' } }
+    ],
+    cta: { text: { ru: 'Печатать брендированные наклейки', en: 'Print Branded Stickers', uz: 'Brendli stikerlarni chop etish' }, link: '/products/operations' },
+    faq: [],
+    relatedArticles: ['how-to-launch-delivery', 'delivery-zones-setup'],
+    relatedProducts: ['products/channels']
+  },
+  {
+    slug: 'telegram-bot-for-restaurant',
+    hub: 'launch-delivery',
+    title: { ru: 'Telegram-бот для ресторана — как создать и продвигать', en: 'Telegram Bot for Restaurant — How to Create and Promote', uz: 'Restoran uchun Telegram-bot' },
+    h1: { ru: 'Telegram-бот для заказов: полный гайд', en: 'Telegram Order Bot: Complete Guide', uz: 'Buyurtmalar uchun Telegram-bot' },
+    description: { ru: 'Как создать Telegram-бот для приёма заказов в ресторане. Функции, интеграции, продвижение.', en: 'How to create a Telegram bot for restaurant orders. Features, integrations, promotion.', uz: 'Restoranda buyurtmalar qabul qilish uchun Telegram-bot yaratish.' },
+    keywords: { ru: 'telegram бот ресторан, бот для заказов, telegram доставка еды', en: 'telegram bot restaurant, order bot, telegram food delivery', uz: 'telegram bot restoran' },
+    intro: { ru: 'Telegram — самый популярный мессенджер в Узбекистане (20+ млн пользователей). Бот для заказов — обязательный канал продаж.', en: 'Telegram is the most popular messenger in Uzbekistan (20M+ users). An order bot is an essential sales channel.', uz: 'Telegram — O\'zbekistondagi eng mashhur messenjer (20+ mln foydalanuvchi).' },
+    sections: [
+      { title: { ru: 'Функции Telegram-бота', en: 'Telegram Bot Features', uz: 'Telegram-bot funksiyalari' }, content: { ru: 'Меню с фото и ценами, корзина, оформление заказа, онлайн-оплата (Payme, Click), отслеживание статуса, история заказов, акции и push-уведомления.', en: 'Menu with photos and prices, cart, order placement, online payment, status tracking, order history, promotions and push notifications.', uz: 'Foto va narxlar bilan menyu, savat, buyurtma berish, onlayn to\'lov, status kuzatuv.' } },
+      { title: { ru: 'Как продвигать бот', en: 'How to Promote Bot', uz: 'Botni qanday targ\'ib qilish' }, content: { ru: 'QR-код на упаковке и в зале, ссылка в Instagram bio, реклама в Telegram-каналах, бонус за первый заказ через бот (скидка 10%).', en: 'QR code on packaging and in hall, link in Instagram bio, ads in Telegram channels, bonus for first bot order (10% discount).', uz: 'Qadoqlash va zalda QR-kod, Instagram bio da havola, Telegram kanallarda reklama.' } }
+    ],
+    cta: { text: { ru: 'Создать Telegram-бот с Delever', en: 'Create Telegram Bot with Delever', uz: 'Delever bilan Telegram-bot yaratish' }, link: '/products/channels' },
+    faq: [{ q: { ru: 'Сколько стоит Telegram-бот?', en: 'How much does a Telegram bot cost?', uz: 'Telegram-bot qancha turadi?' }, a: { ru: 'С Delever бот включён в тариф. Отдельная разработка: $500-2000.', en: 'With Delever, the bot is included. Separate development: $500-2000.', uz: 'Delever bilan bot tarifga kiritilgan. Alohida ishlab chiqish: $500-2000.' } }],
+    relatedArticles: ['how-to-launch-delivery', 'how-to-increase-restaurant-sales'],
+    relatedProducts: ['products/channels']
+  },
+  {
+    slug: 'restaurant-website-guide',
+    hub: 'launch-delivery',
+    title: { ru: 'Сайт для ресторана — как создать продающий сайт', en: 'Restaurant Website — How to Create a Converting Site', uz: 'Restoran uchun sayt' },
+    h1: { ru: 'Создание сайта для ресторана с онлайн-заказами', en: 'Creating a Restaurant Website with Online Orders', uz: 'Onlayn buyurtmalar bilan restoran sayti yaratish' },
+    description: { ru: 'Как создать сайт для ресторана с онлайн-заказами: структура, дизайн, SEO, интеграции с оплатой и доставкой.', en: 'How to create a restaurant website with online orders: structure, design, SEO, payment and delivery integrations.', uz: 'Onlayn buyurtmalar bilan restoran saytini qanday yaratish.' },
+    keywords: { ru: 'сайт для ресторана, создать сайт ресторана, онлайн заказы ресторан', en: 'restaurant website, create restaurant site, online orders restaurant', uz: 'restoran sayti' },
+    intro: { ru: 'Собственный сайт — это 0% комиссии и полный контроль над клиентской базой. В отличие от агрегаторов, клиенты становятся вашими навсегда.', en: 'Your own website means 0% commission and full control over customer base. Unlike aggregators, customers become yours forever.', uz: 'O\'z saytingiz — 0% komissiya va mijozlar bazasi ustidan to\'liq nazorat.' },
+    sections: [
+      { title: { ru: 'Структура сайта', en: 'Site Structure', uz: 'Sayt tuzilishi' }, content: { ru: 'Главная (hero + акции), Меню (категории, фото, цены), Доставка (зоны, условия), О нас, Контакты. Корзина и оформление заказа — на каждой странице.', en: 'Home (hero + promotions), Menu (categories, photos, prices), Delivery (zones, terms), About, Contacts. Cart and checkout on every page.', uz: 'Bosh sahifa, Menyu, Yetkazib berish, Biz haqimizda, Kontaktlar.' } },
+      { title: { ru: 'Интеграции', en: 'Integrations', uz: 'Integratsiyalar' }, content: { ru: 'Оплата: Payme, Click, карты. Доставка: своя логистика или Yandex Delivery. POS: iiko, R-Keeper для автоматической передачи заказов. Delever объединяет всё в одном.', en: 'Payment: Payme, Click, cards. Delivery: own logistics or Yandex Delivery. POS: iiko, R-Keeper for automatic order transfer.', uz: 'To\'lov: Payme, Click, kartalar. Yetkazib berish: o\'z logistikasi yoki Yandex Delivery.' } }
+    ],
+    cta: { text: { ru: 'Запустить сайт за 1 день', en: 'Launch Site in 1 Day', uz: '1 kunda saytni ishga tushirish' }, link: '/products/channels' },
+    faq: [],
+    relatedArticles: ['telegram-bot-for-restaurant', 'how-to-launch-delivery'],
+    relatedProducts: ['products/channels']
+  }
+]
+
+// ============================================
+// ДОПОЛНИТЕЛЬНЫЕ СТАТЬИ — РОСТ ПРОДАЖ
+// ============================================
+export const moreGrowSalesArticles: KnowledgeArticle[] = [
+  {
+    slug: 'restaurant-loyalty-program',
+    hub: 'grow-sales',
+    title: { ru: 'Программа лояльности для ресторана — как увеличить повторные заказы', en: 'Restaurant Loyalty Program — How to Increase Repeat Orders', uz: 'Restoran uchun sodiqlik dasturi' },
+    h1: { ru: 'Программа лояльности: возвращаем клиентов', en: 'Loyalty Program: Bringing Customers Back', uz: 'Sodiqlik dasturi: mijozlarni qaytarish' },
+    description: { ru: 'Как создать программу лояльности для ресторана: кэшбэк, баллы, скидки для постоянных клиентов.', en: 'How to create a restaurant loyalty program: cashback, points, discounts for regular customers.', uz: 'Restoran uchun sodiqlik dasturini qanday yaratish.' },
+    keywords: { ru: 'программа лояльности ресторан, кэшбэк ресторан, бонусы клиентам', en: 'restaurant loyalty program, restaurant cashback, customer bonuses', uz: 'restoran sodiqlik dasturi' },
+    intro: { ru: 'Привлечь нового клиента стоит в 5-7 раз дороже, чем удержать существующего. Программа лояльности увеличивает повторные заказы на 30-50%.', en: 'Acquiring a new customer costs 5-7x more than retaining an existing one. Loyalty programs increase repeat orders by 30-50%.', uz: 'Yangi mijozni jalb qilish mavjud mijozni ushlab turishdan 5-7 marta qimmat.' },
+    sections: [
+      { title: { ru: 'Виды программ лояльности', en: 'Types of Loyalty Programs', uz: 'Sodiqlik dasturlari turlari' }, content: { ru: 'Кэшбэк (5-10% на баланс), накопительные баллы (1 сум = 1 балл), уровни (бронза/серебро/золото), бесплатная доставка после N заказов.', en: 'Cashback (5-10% to balance), accumulative points (1 currency = 1 point), tiers (bronze/silver/gold), free delivery after N orders.', uz: 'Keshbek (5-10% balansga), to\'plangan ballar, darajalar (bronza/kumush/oltin).' } },
+      { title: { ru: 'Как запустить', en: 'How to Launch', uz: 'Qanday ishga tushirish' }, content: { ru: 'В Delever CRM уже встроена программа лояльности: автоматическое начисление баллов, push-уведомления о бонусах, аналитика по клиентам.', en: 'Delever CRM has a built-in loyalty program: automatic point accrual, push notifications about bonuses, customer analytics.', uz: 'Delever CRM da o\'rnatilgan sodiqlik dasturi bor.' } }
+    ],
+    cta: { text: { ru: 'Запустить программу лояльности', en: 'Launch Loyalty Program', uz: 'Sodiqlik dasturini ishga tushirish' }, link: '/products/marketing' },
+    faq: [],
+    relatedArticles: ['how-to-increase-restaurant-sales', 'restaurant-promotions-guide'],
+    relatedProducts: ['products/marketing']
+  },
+  {
+    slug: 'restaurant-promotions-guide',
+    hub: 'grow-sales',
+    title: { ru: 'Акции для ресторана — 20 идей для роста продаж', en: 'Restaurant Promotions — 20 Ideas for Sales Growth', uz: 'Restoran uchun aksiyalar' },
+    h1: { ru: '20 работающих акций для ресторана', en: '20 Working Promotions for Restaurant', uz: 'Restoran uchun 20 ta ishlaydigan aksiya' },
+    description: { ru: 'Лучшие идеи акций для ресторана: happy hour, комбо, бесплатная доставка, дни рождения, сезонные предложения.', en: 'Best restaurant promotion ideas: happy hour, combos, free delivery, birthdays, seasonal offers.', uz: 'Restoran uchun eng yaxshi aksiya g\'oyalari.' },
+    keywords: { ru: 'акции для ресторана, промо ресторан, скидки ресторан', en: 'restaurant promotions, restaurant promo, restaurant discounts', uz: 'restoran aksiyalari' },
+    intro: { ru: 'Правильные акции увеличивают средний чек на 15-30% и привлекают новых клиентов. Неправильные — съедают маржу. Вот проверенные идеи.', en: 'Right promotions increase average check by 15-30% and attract new customers. Wrong ones eat into margin.', uz: 'To\'g\'ri aksiyalar o\'rtacha chekni 15-30% ga oshiradi.' },
+    sections: [
+      { title: { ru: 'Акции для привлечения', en: 'Acquisition Promotions', uz: 'Jalb qilish aksiyalari' }, content: { ru: '1) Первый заказ -20%, 2) Приведи друга — оба получают бонус, 3) Бесплатная доставка на первый заказ, 4) Подарок при заказе от X сум.', en: '1) First order -20%, 2) Refer a friend — both get bonus, 3) Free delivery on first order, 4) Gift with order over X.', uz: '1) Birinchi buyurtma -20%, 2) Do\'stingizni olib keling, 3) Birinchi buyurtmada bepul yetkazish.' } },
+      { title: { ru: 'Акции для удержания', en: 'Retention Promotions', uz: 'Ushlab turish aksiyalari' }, content: { ru: '5) Happy Hour 14:00-17:00 -15%, 6) Комбо дешевле на 20%, 7) День рождения — десерт в подарок, 8) 10-й заказ бесплатно, 9) Кэшбэк на баланс.', en: '5) Happy Hour 14:00-17:00 -15%, 6) Combo 20% cheaper, 7) Birthday — free dessert, 8) 10th order free, 9) Cashback to balance.', uz: '5) Happy Hour 14:00-17:00 -15%, 6) Kombo 20% arzonroq, 7) Tug\'ilgan kun — sovg\'a desert.' } }
+    ],
+    cta: { text: { ru: 'Настроить акции в Delever', en: 'Set Up Promotions in Delever', uz: 'Deleverda aksiyalarni sozlash' }, link: '/products/marketing' },
+    faq: [],
+    relatedArticles: ['restaurant-loyalty-program', 'how-to-increase-restaurant-sales'],
+    relatedProducts: ['products/marketing']
+  },
+  {
+    slug: 'upselling-cross-selling-restaurant',
+    hub: 'grow-sales',
+    title: { ru: 'Апселл и кросс-селл в ресторане — как увеличить чек', en: 'Upselling and Cross-selling in Restaurant — How to Increase Check', uz: 'Restoranda upsell va cross-sell' },
+    h1: { ru: 'Апселл и кросс-селл: увеличиваем средний чек', en: 'Upselling and Cross-selling: Increasing Average Check', uz: 'Upsell va cross-sell: o\'rtacha chekni oshirish' },
+    description: { ru: 'Как увеличить средний чек в ресторане с помощью апселла и кросс-селла. Примеры и скрипты.', en: 'How to increase restaurant average check with upselling and cross-selling. Examples and scripts.', uz: 'Upsell va cross-sell yordamida restoranda o\'rtacha chekni qanday oshirish.' },
+    keywords: { ru: 'апселл ресторан, кросс селл ресторан, увеличить средний чек', en: 'restaurant upselling, restaurant cross-selling, increase average check', uz: 'restoran upsell' },
+    intro: { ru: 'Апселл (предложить дороже) и кросс-селл (предложить дополнительно) увеличивают средний чек на 20-40% без дополнительных расходов на маркетинг.', en: 'Upselling (offer more expensive) and cross-selling (offer additional) increase average check by 20-40% without extra marketing costs.', uz: 'Upsell va cross-sell o\'rtacha chekni 20-40% ga oshiradi.' },
+    sections: [
+      { title: { ru: 'Примеры апселла', en: 'Upselling Examples', uz: 'Upsell misollari' }, content: { ru: '"Хотите большую порцию за +30%?", "Возьмите сет вместо одного блюда", "Добавить двойной сыр?". В онлайн-заказах: показывать рекомендации при добавлении в корзину.', en: '"Want a large portion for +30%?", "Take a set instead of one dish", "Add double cheese?". Online: show recommendations when adding to cart.', uz: '"Katta porsiya olasizmi +30%?", "Bitta taom o\'rniga set oling".' } },
+      { title: { ru: 'Автоматизация в Delever', en: 'Automation in Delever', uz: 'Deleverda avtomatlashtirish' }, content: { ru: 'Delever автоматически показывает "С этим блюдом заказывают" и "Добавьте к заказу" на сайте и в Telegram-боте. Увеличение среднего чека: +18% в среднем.', en: 'Delever automatically shows "Ordered with this dish" and "Add to order" on website and Telegram bot. Average check increase: +18% on average.', uz: 'Delever avtomatik "Bu taom bilan buyurtma beriladi" va "Buyurtmaga qo\'shing" ni ko\'rsatadi.' } }
+    ],
+    cta: { text: { ru: 'Включить рекомендации', en: 'Enable Recommendations', uz: 'Tavsiyalarni yoqish' }, link: '/products/channels' },
+    faq: [],
+    relatedArticles: ['how-to-increase-restaurant-sales', 'restaurant-promotions-guide'],
+    relatedProducts: ['products/channels', 'products/marketing']
+  },
+  {
+    slug: 'restaurant-marketing-channels',
+    hub: 'grow-sales',
+    title: { ru: 'Каналы маркетинга для ресторана — где рекламировать в 2025', en: 'Restaurant Marketing Channels — Where to Advertise in 2025', uz: 'Restoran uchun marketing kanallari' },
+    h1: { ru: 'Маркетинг ресторана: какие каналы работают', en: 'Restaurant Marketing: Which Channels Work', uz: 'Restoran marketingi: qaysi kanallar ishlaydi' },
+    description: { ru: 'Эффективные каналы маркетинга для ресторана: Instagram, Telegram, Google, агрегаторы. ROI каждого канала.', en: 'Effective restaurant marketing channels: Instagram, Telegram, Google, aggregators. ROI of each channel.', uz: 'Restoran uchun samarali marketing kanallari.' },
+    keywords: { ru: 'маркетинг ресторана, реклама ресторана, продвижение ресторана', en: 'restaurant marketing, restaurant advertising, restaurant promotion', uz: 'restoran marketingi' },
+    intro: { ru: 'Не все каналы одинаково эффективны. В Узбекистане лучше работают Telegram и Instagram, в Казахстане — Instagram и Google. Разберём ROI каждого.', en: 'Not all channels are equally effective. In Uzbekistan, Telegram and Instagram work better, in Kazakhstan — Instagram and Google.', uz: 'Barcha kanallar bir xil samarali emas.' },
+    sections: [
+      { title: { ru: 'Telegram-маркетинг', en: 'Telegram Marketing', uz: 'Telegram marketing' }, content: { ru: 'Свой канал с акциями, реклама в городских каналах, рассылка в боте. CAC: $0.5-2 за клиента. Лучший канал для Узбекистана.', en: 'Your own channel with promotions, ads in city channels, bot mailing. CAC: $0.5-2 per customer. Best channel for Uzbekistan.', uz: 'Aksiyalar bilan o\'z kanalingiz, shahar kanallarida reklama, bot orqali jo\'natmalar.' } },
+      { title: { ru: 'Instagram', en: 'Instagram', uz: 'Instagram' }, content: { ru: 'Красивые фото блюд, Stories с закулисьем, Reels, таргетированная реклама. CAC: $1-5 за клиента. Хорошо работает для премиум-сегмента.', en: 'Beautiful food photos, behind-the-scenes Stories, Reels, targeted ads. CAC: $1-5 per customer. Works well for premium segment.', uz: 'Taomlarning chiroyli suratlari, Stories, Reels, maqsadli reklama.' } },
+      { title: { ru: 'Google и SEO', en: 'Google and SEO', uz: 'Google va SEO' }, content: { ru: 'Google Maps (обязательно!), SEO по запросам "доставка пиццы Ташкент", контекстная реклама. CAC: $2-7. Долгосрочные инвестиции.', en: 'Google Maps (must have!), SEO for queries "pizza delivery Tashkent", contextual ads. CAC: $2-7. Long-term investments.', uz: 'Google Maps (majburiy!), SEO, kontekstli reklama.' } }
+    ],
+    cta: { text: { ru: 'AI-маркетинг от Delever', en: 'AI Marketing from Delever', uz: 'Delever dan AI-marketing' }, link: '/ai-marketing' },
+    faq: [],
+    relatedArticles: ['how-to-increase-restaurant-sales', 'restaurant-promotions-guide'],
+    relatedProducts: ['ai-marketing', 'products/marketing']
+  }
+]
+
+// ============================================
+// ДОПОЛНИТЕЛЬНЫЕ СТАТЬИ — АГРЕГАТОРЫ
+// ============================================
+export const moreAggregatorArticles: KnowledgeArticle[] = [
+  {
+    slug: 'glovo-for-restaurants',
+    hub: 'aggregators',
+    title: { ru: 'Подключение к Glovo — как начать работать с агрегатором', en: 'Connecting to Glovo — How to Start Working with Aggregator', uz: 'Glovo ga ulanish' },
+    h1: { ru: 'Glovo для ресторанов: как подключиться и зарабатывать', en: 'Glovo for Restaurants: How to Connect and Earn', uz: 'Restoranlar uchun Glovo' },
+    description: { ru: 'Как подключить ресторан к Glovo: условия, комиссия, требования. Плюсы и минусы работы с Glovo.', en: 'How to connect restaurant to Glovo: terms, commission, requirements. Pros and cons of working with Glovo.', uz: 'Restoranni Glovo ga qanday ulash.' },
+    keywords: { ru: 'glovo для ресторанов, подключить glovo, комиссия glovo', en: 'glovo for restaurants, connect glovo, glovo commission', uz: 'restoranlar uchun glovo' },
+    intro: { ru: 'Glovo — крупнейший агрегатор доставки в Узбекистане. Подключение даёт доступ к миллионам клиентов, но комиссия 25-30% съедает прибыль.', en: 'Glovo is the largest delivery aggregator in Uzbekistan. Connection gives access to millions of customers, but 25-30% commission eats into profit.', uz: 'Glovo — O\'zbekistondagi eng yirik yetkazib berish agregatori.' },
+    sections: [
+      { title: { ru: 'Условия подключения', en: 'Connection Terms', uz: 'Ulanish shartlari' }, content: { ru: 'Комиссия: 25-30% от заказа. Требования: юрлицо, санитарные документы, фото меню. Срок подключения: 1-2 недели. Выплаты: еженедельно.', en: 'Commission: 25-30% of order. Requirements: legal entity, sanitary documents, menu photos. Connection time: 1-2 weeks. Payouts: weekly.', uz: 'Komissiya: buyurtmadan 25-30%. Talablar: yuridik shaxs, sanitariya hujjatlari.' } },
+      { title: { ru: 'Как снизить комиссию', en: 'How to Reduce Commission', uz: 'Komissiyani qanday kamaytirish' }, content: { ru: 'Гибридная модель: Glovo для привлечения + свои каналы для удержания. При заказе через Glovo — вкладывайте визитку со скидкой на прямой заказ.', en: 'Hybrid model: Glovo for acquisition + own channels for retention. With Glovo order — include a card with discount for direct order.', uz: 'Gibrid model: Glovo jalb qilish uchun + o\'z kanallari ushlab turish uchun.' } }
+    ],
+    cta: { text: { ru: 'Интегрировать Glovo с Delever', en: 'Integrate Glovo with Delever', uz: 'Glovo ni Delever bilan integratsiyalash' }, link: '/aggregators/glovo' },
+    faq: [],
+    relatedArticles: ['reduce-aggregator-commissions', 'wolt-for-restaurants'],
+    relatedProducts: ['aggregators/glovo']
+  },
+  {
+    slug: 'wolt-for-restaurants',
+    hub: 'aggregators',
+    title: { ru: 'Работа с Wolt — подключение и оптимизация', en: 'Working with Wolt — Connection and Optimization', uz: 'Wolt bilan ishlash' },
+    h1: { ru: 'Wolt для ресторанов: полный гайд', en: 'Wolt for Restaurants: Complete Guide', uz: 'Restoranlar uchun Wolt' },
+    description: { ru: 'Как подключиться к Wolt, оптимизировать меню и увеличить продажи на платформе.', en: 'How to connect to Wolt, optimize menu and increase sales on the platform.', uz: 'Wolt ga qanday ulanish va menyuni optimallashtirish.' },
+    keywords: { ru: 'wolt ресторан, подключить wolt, wolt комиссия', en: 'wolt restaurant, connect wolt, wolt commission', uz: 'wolt restoran' },
+    intro: { ru: 'Wolt — премиум-агрегатор с высоким средним чеком. Комиссия 20-30%, но аудитория более платёжеспособная.', en: 'Wolt is a premium aggregator with high average check. Commission 20-30%, but audience is more solvent.', uz: 'Wolt — yuqori o\'rtacha chekka ega premium agregator.' },
+    sections: [
+      { title: { ru: 'Особенности Wolt', en: 'Wolt Features', uz: 'Wolt xususiyatlari' }, content: { ru: 'Премиум аудитория, красивое приложение, быстрая доставка (своя логистика). Средний чек на 20-30% выше Glovo. Строгие требования к качеству фото.', en: 'Premium audience, beautiful app, fast delivery (own logistics). Average check 20-30% higher than Glovo. Strict photo quality requirements.', uz: 'Premium auditoriya, chiroyli ilova, tez yetkazib berish. O\'rtacha chek Glovo dan 20-30% yuqori.' } },
+      { title: { ru: 'Оптимизация меню', en: 'Menu Optimization', uz: 'Menyuni optimallashtirish' }, content: { ru: 'Профессиональные фото (Wolt помогает бесплатно), хорошие описания, правильные категории, комбо-предложения. Рейтинг влияет на позицию в выдаче.', en: 'Professional photos (Wolt helps for free), good descriptions, correct categories, combo offers. Rating affects position in search.', uz: 'Professional suratlar, yaxshi tavsiflar, to\'g\'ri kategoriyalar, kombo takliflar.' } }
+    ],
+    cta: { text: { ru: 'Интегрировать Wolt с Delever', en: 'Integrate Wolt with Delever', uz: 'Wolt ni Delever bilan integratsiyalash' }, link: '/aggregators/wolt' },
+    faq: [],
+    relatedArticles: ['reduce-aggregator-commissions', 'glovo-for-restaurants'],
+    relatedProducts: ['aggregators/wolt']
+  },
+  {
+    slug: 'own-delivery-vs-aggregators',
+    hub: 'aggregators',
+    title: { ru: 'Своя доставка vs агрегаторы — что выгоднее', en: 'Own Delivery vs Aggregators — What\'s More Profitable', uz: 'O\'z yetkazish vs agregatorlar' },
+    h1: { ru: 'Своя доставка или агрегаторы: сравнение', en: 'Own Delivery or Aggregators: Comparison', uz: 'O\'z yetkazish yoki agregatorlar' },
+    description: { ru: 'Сравнение своей доставки и работы через агрегаторы: расходы, прибыль, контроль, масштабирование.', en: 'Comparison of own delivery and aggregators: costs, profit, control, scaling.', uz: 'O\'z yetkazish va agregatorlarni taqqoslash.' },
+    keywords: { ru: 'своя доставка или агрегаторы, glovo vs своя доставка, выгода своей доставки', en: 'own delivery vs aggregators, glovo vs own delivery, own delivery benefits', uz: 'o\'z yetkazish yoki agregatorlar' },
+    intro: { ru: 'Главный вопрос ресторатора: строить свою доставку или отдать всё агрегаторам? Правильный ответ — гибридная модель.', en: 'Main restaurateur question: build own delivery or give everything to aggregators? Right answer — hybrid model.', uz: 'Restoratorning asosiy savoli: o\'z yetkazishni qurish yoki hamma narsani agregatorlarga berish?' },
+    sections: [
+      { title: { ru: 'Агрегаторы: плюсы и минусы', en: 'Aggregators: Pros and Cons', uz: 'Agregatorlar: afzalliklari va kamchiliklari' }, content: { ru: 'Плюсы: готовая аудитория, быстрый старт, своя логистика (Wolt). Минусы: комиссия 20-35%, клиенты — не ваши, нет данных о клиентах.', en: 'Pros: ready audience, quick start, own logistics (Wolt). Cons: 20-35% commission, customers not yours, no customer data.', uz: 'Afzalliklari: tayyor auditoriya, tez boshlash. Kamchiliklari: 20-35% komissiya, mijozlar sizniki emas.' } },
+      { title: { ru: 'Своя доставка: плюсы и минусы', en: 'Own Delivery: Pros and Cons', uz: 'O\'z yetkazish: afzalliklari va kamchiliklari' }, content: { ru: 'Плюсы: 0% комиссии, клиентская база ваша, полный контроль. Минусы: нужен маркетинг, курьеры, технологии. С Delever — всё уже есть.', en: 'Pros: 0% commission, customer base is yours, full control. Cons: need marketing, couriers, technology. With Delever — everything is ready.', uz: 'Afzalliklari: 0% komissiya, mijozlar bazasi sizniki. Kamchiliklari: marketing, kuryerlar, texnologiyalar kerak.' } },
+      { title: { ru: 'Гибридная модель', en: 'Hybrid Model', uz: 'Gibrid model' }, content: { ru: 'Агрегаторы — для привлечения новых клиентов. Свои каналы — для удержания и повторных заказов. Delever объединяет все заказы в одном окне.', en: 'Aggregators — for attracting new customers. Own channels — for retention and repeat orders. Delever combines all orders in one window.', uz: 'Agregatorlar — yangi mijozlarni jalb qilish uchun. O\'z kanallari — ushlab turish uchun.' } }
+    ],
+    cta: { text: { ru: 'Запустить гибридную модель', en: 'Launch Hybrid Model', uz: 'Gibrid modelni ishga tushirish' }, link: '/aggregators' },
+    faq: [],
+    relatedArticles: ['reduce-aggregator-commissions', 'glovo-for-restaurants'],
+    relatedProducts: ['products/channels', 'aggregators/glovo']
+  }
+]
+
+// ============================================
+// ДОПОЛНИТЕЛЬНЫЕ СТАТЬИ — КУРЬЕРЫ
+// ============================================
+export const moreCourierArticles: KnowledgeArticle[] = [
+  {
+    slug: 'courier-salary-models',
+    hub: 'courier-logistics',
+    title: { ru: 'Модели оплаты курьеров — фикс, сделка или гибрид', en: 'Courier Payment Models — Fixed, Per-delivery or Hybrid', uz: 'Kuryerlar to\'lov modellari' },
+    h1: { ru: 'Как платить курьерам: сравнение моделей', en: 'How to Pay Couriers: Model Comparison', uz: 'Kuryerlarga qanday to\'lash' },
+    description: { ru: 'Сравнение моделей оплаты курьеров: фиксированная зарплата, оплата за доставку, гибридная модель. Что выгоднее.', en: 'Comparison of courier payment models: fixed salary, per-delivery payment, hybrid model. What\'s more profitable.', uz: 'Kuryer to\'lov modellarini taqqoslash.' },
+    keywords: { ru: 'зарплата курьера, оплата курьеров, сколько платить курьеру', en: 'courier salary, courier payment, how much to pay courier', uz: 'kuryer maoshi' },
+    intro: { ru: 'Правильная модель оплаты мотивирует курьеров работать быстрее и снижает текучку. Неправильная — увеличивает расходы или теряет людей.', en: 'Right payment model motivates couriers to work faster and reduces turnover. Wrong one increases costs or loses people.', uz: 'To\'g\'ri to\'lov modeli kuryerlarni tezroq ishlashga rag\'batlantiradi.' },
+    sections: [
+      { title: { ru: 'Фиксированная зарплата', en: 'Fixed Salary', uz: 'Qat\'iy maosh' }, content: { ru: 'Плюсы: стабильность, лояльность курьеров. Минусы: нет мотивации работать быстрее. Подходит для небольших объёмов (до 30 заказов/день).', en: 'Pros: stability, courier loyalty. Cons: no motivation to work faster. Suitable for small volumes (up to 30 orders/day).', uz: 'Afzalliklari: barqarorlik, kuryer sodiqligi. Kamchiliklari: tezroq ishlashga motivatsiya yo\'q.' } },
+      { title: { ru: 'Оплата за доставку', en: 'Per-delivery Payment', uz: 'Yetkazish uchun to\'lov' }, content: { ru: 'Плюсы: курьеры мотивированы, расходы = доходам. Минусы: текучка выше, качество может страдать. Ставки: 15-25k сум/доставка.', en: 'Pros: couriers motivated, costs = revenue. Cons: higher turnover, quality may suffer. Rates: 15-25k UZS/delivery.', uz: 'Afzalliklari: kuryerlar motivatsiyalangan. Kamchiliklari: yuqori kadrlar almashinuvi.' } },
+      { title: { ru: 'Гибридная модель', en: 'Hybrid Model', uz: 'Gibrid model' }, content: { ru: 'Минимальный оклад + бонус за каждую доставку. Пример: 2.5 млн/мес + 10k/доставка. Баланс стабильности и мотивации. Рекомендуем.', en: 'Minimum salary + bonus per delivery. Example: 2.5M/month + 10k/delivery. Balance of stability and motivation. Recommended.', uz: 'Minimal maosh + har bir yetkazish uchun bonus. Misol: 2.5 mln/oy + 10k/yetkazish.' } }
+    ],
+    cta: { text: { ru: 'Управление курьерами в Delever', en: 'Courier Management in Delever', uz: 'Deleverda kuryerlarni boshqarish' }, link: '/products/operations' },
+    faq: [],
+    relatedArticles: ['how-to-hire-couriers', 'delivery-zones-setup'],
+    relatedProducts: ['products/operations']
+  },
+  {
+    slug: 'courier-app-features',
+    hub: 'courier-logistics',
+    title: { ru: 'Приложение для курьеров — какие функции нужны', en: 'Courier App — What Features Are Needed', uz: 'Kuryerlar uchun ilova' },
+    h1: { ru: 'Функции приложения для курьеров', en: 'Courier App Features', uz: 'Kuryer ilovasi funksiyalari' },
+    description: { ru: 'Какие функции должны быть в приложении для курьеров: заказы, навигация, статусы, заработок.', en: 'What features should be in courier app: orders, navigation, statuses, earnings.', uz: 'Kuryer ilovasida qanday funksiyalar bo\'lishi kerak.' },
+    keywords: { ru: 'приложение для курьеров, курьерское приложение, управление курьерами', en: 'courier app, courier application, courier management', uz: 'kuryerlar uchun ilova' },
+    intro: { ru: 'Хорошее приложение для курьеров = быстрая доставка + довольные курьеры + меньше ошибок. Вот что должно быть обязательно.', en: 'Good courier app = fast delivery + happy couriers + fewer errors. Here\'s what must be included.', uz: 'Yaxshi kuryer ilovasi = tez yetkazish + xursand kuryerlar + kamroq xatolar.' },
+    sections: [
+      { title: { ru: 'Базовые функции', en: 'Basic Features', uz: 'Asosiy funksiyalar' }, content: { ru: 'Список заказов, детали заказа (адрес, телефон, комментарий), навигация (встроенная или ссылка на карты), смена статусов (принял, забрал, доставил).', en: 'Order list, order details (address, phone, comment), navigation (built-in or link to maps), status changes (accepted, picked up, delivered).', uz: 'Buyurtmalar ro\'yxati, buyurtma tafsilotlari, navigatsiya, statuslarni o\'zgartirish.' } },
+      { title: { ru: 'Продвинутые функции', en: 'Advanced Features', uz: 'Ilg\'or funksiyalar' }, content: { ru: 'Статистика заработка в реальном времени, оптимизация маршрута (несколько заказов), чат с оператором/клиентом, фото подтверждение доставки.', en: 'Real-time earnings stats, route optimization (multiple orders), chat with operator/customer, delivery photo confirmation.', uz: 'Real vaqtda daromad statistikasi, marshrutni optimallashtirish, operator/mijoz bilan chat.' } }
+    ],
+    cta: { text: { ru: 'Приложение Delever для курьеров', en: 'Delever Courier App', uz: 'Kuryerlar uchun Delever ilovasi' }, link: '/products/operations' },
+    faq: [],
+    relatedArticles: ['how-to-hire-couriers', 'courier-salary-models'],
+    relatedProducts: ['products/operations']
+  }
+]
+
+// ============================================
+// ДОПОЛНИТЕЛЬНЫЕ СТАТЬИ — ФИНАНСЫ
+// ============================================
+export const moreFinanceArticles: KnowledgeArticle[] = [
+  {
+    slug: 'restaurant-profit-margins',
+    hub: 'restaurant-finance',
+    title: { ru: 'Маржинальность ресторана — какая норма и как увеличить', en: 'Restaurant Profit Margins — What\'s Normal and How to Increase', uz: 'Restoran marjinalligi' },
+    h1: { ru: 'Маржинальность ресторана: нормы и оптимизация', en: 'Restaurant Margins: Norms and Optimization', uz: 'Restoran marjinalligi: me\'yorlar va optimallashtirish' },
+    description: { ru: 'Какая маржинальность считается нормальной для ресторана и как её увеличить. Gross margin, net margin, EBITDA.', en: 'What profit margin is normal for restaurants and how to increase it. Gross margin, net margin, EBITDA.', uz: 'Restoran uchun qanday marjinallik normal hisoblanadi.' },
+    keywords: { ru: 'маржинальность ресторана, прибыль ресторана, рентабельность ресторана', en: 'restaurant profit margin, restaurant profit, restaurant profitability', uz: 'restoran marjinalligi' },
+    intro: { ru: 'Средняя чистая маржа ресторана: 3-9%. Кажется мало, но при правильном управлении можно достичь 15-20%. Разберём все метрики.', en: 'Average restaurant net margin: 3-9%. Seems low, but with proper management you can reach 15-20%.', uz: 'Restoranning o\'rtacha sof marjasi: 3-9%.' },
+    sections: [
+      { title: { ru: 'Типы маржинальности', en: 'Types of Margins', uz: 'Marjinallik turlari' }, content: { ru: 'Валовая (Gross): выручка - себестоимость продуктов = 65-75%. Операционная: после зарплат и аренды = 10-20%. Чистая: после всех расходов = 3-9%.', en: 'Gross: revenue - product cost = 65-75%. Operating: after salaries and rent = 10-20%. Net: after all expenses = 3-9%.', uz: 'Yalpi: daromad - mahsulot tannarxi = 65-75%. Operatsion: maosh va ijaradan keyin = 10-20%.' } },
+      { title: { ru: 'Как увеличить маржу', en: 'How to Increase Margin', uz: 'Marjani qanday oshirish' }, content: { ru: '1) Оптимизировать фудкост (до 25-30%), 2) Увеличить средний чек (апселл), 3) Снизить потери (списания, воровство), 4) Автоматизация = экономия на персонале.', en: '1) Optimize food cost (to 25-30%), 2) Increase average check (upselling), 3) Reduce losses (waste, theft), 4) Automation = staff savings.', uz: '1) Food cost ni optimallashtirish, 2) O\'rtacha chekni oshirish, 3) Yo\'qotishlarni kamaytirish.' } }
+    ],
+    cta: { text: { ru: 'Аналитика прибыльности в Delever', en: 'Profitability Analytics in Delever', uz: 'Deleverda rentabellik analitikasi' }, link: '/products/analytics' },
+    faq: [],
+    relatedArticles: ['food-cost-calculation', 'restaurant-unit-economics'],
+    relatedProducts: ['products/analytics']
+  },
+  {
+    slug: 'restaurant-kpis',
+    hub: 'restaurant-finance',
+    title: { ru: 'KPI ресторана — какие метрики отслеживать', en: 'Restaurant KPIs — What Metrics to Track', uz: 'Restoran KPI lari' },
+    h1: { ru: 'KPI ресторана: главные метрики успеха', en: 'Restaurant KPIs: Key Success Metrics', uz: 'Restoran KPI lari: muvaffaqiyatning asosiy metrikalari' },
+    description: { ru: 'Ключевые KPI для ресторана: выручка, средний чек, конверсия, LTV, NPS. Как измерять и улучшать.', en: 'Key restaurant KPIs: revenue, average check, conversion, LTV, NPS. How to measure and improve.', uz: 'Restoran uchun asosiy KPI lar.' },
+    keywords: { ru: 'kpi ресторана, метрики ресторана, аналитика ресторана', en: 'restaurant kpis, restaurant metrics, restaurant analytics', uz: 'restoran kpi' },
+    intro: { ru: 'Что измеряем — тем управляем. Без KPI невозможно понять, растёт бизнес или падает. Вот главные метрики для ресторана.', en: 'What we measure — we manage. Without KPIs, it\'s impossible to understand if business is growing or falling.', uz: 'Nimani o\'lchaymiz — shuni boshqaramiz.' },
+    sections: [
+      { title: { ru: 'Финансовые KPI', en: 'Financial KPIs', uz: 'Moliyaviy KPI lar' }, content: { ru: 'Выручка (дневная/недельная/месячная), средний чек, food cost %, labor cost %, чистая прибыль. Норма food cost: 25-35%, labor cost: 25-35%.', en: 'Revenue (daily/weekly/monthly), average check, food cost %, labor cost %, net profit. Food cost norm: 25-35%, labor cost: 25-35%.', uz: 'Daromad, o\'rtacha chek, food cost %, labor cost %, sof foyda.' } },
+      { title: { ru: 'Клиентские KPI', en: 'Customer KPIs', uz: 'Mijoz KPI lari' }, content: { ru: 'LTV (пожизненная ценность), CAC (стоимость привлечения), Retention Rate (% повторных), NPS (готовность рекомендовать), конверсия сайта/бота.', en: 'LTV (lifetime value), CAC (acquisition cost), Retention Rate, NPS (willingness to recommend), site/bot conversion.', uz: 'LTV, CAC, Retention Rate, NPS, sayt/bot konversiyasi.' } }
+    ],
+    cta: { text: { ru: 'Дашборд KPI в Delever', en: 'KPI Dashboard in Delever', uz: 'Deleverda KPI dashboard' }, link: '/products/analytics' },
+    faq: [],
+    relatedArticles: ['restaurant-profit-margins', 'restaurant-unit-economics'],
+    relatedProducts: ['products/analytics']
+  }
+]
+
+// ============================================
+// ДОПОЛНИТЕЛЬНЫЕ СТАТЬИ — ОПЕРАЦИИ
+// ============================================
+export const moreOperationsArticles: KnowledgeArticle[] = [
+  {
+    slug: 'kitchen-display-system',
+    hub: 'operations',
+    title: { ru: 'KDS (Kitchen Display System) — экран для кухни', en: 'KDS (Kitchen Display System) — Kitchen Screen', uz: 'KDS — oshxona uchun ekran' },
+    h1: { ru: 'KDS: как работает экран заказов на кухне', en: 'KDS: How Kitchen Order Screen Works', uz: 'KDS: oshxonada buyurtmalar ekrani qanday ishlaydi' },
+    description: { ru: 'Что такое KDS, как он ускоряет работу кухни и снижает ошибки. Выбор и внедрение KDS в ресторане.', en: 'What is KDS, how it speeds up kitchen work and reduces errors. Choosing and implementing KDS.', uz: 'KDS nima, u oshxona ishini qanday tezlashtiradi.' },
+    keywords: { ru: 'kds ресторан, экран для кухни, kitchen display system', en: 'kds restaurant, kitchen screen, kitchen display system', uz: 'kds restoran' },
+    intro: { ru: 'KDS заменяет бумажные чеки на кухне. Заказы отображаются на экране, повара отмечают готовность. Ускоряет работу на 20-30% и убирает ошибки.', en: 'KDS replaces paper receipts in kitchen. Orders display on screen, cooks mark readiness. Speeds up work by 20-30% and eliminates errors.', uz: 'KDS oshxonada qog\'oz cheklarni almashtiradi.' },
+    sections: [
+      { title: { ru: 'Как работает KDS', en: 'How KDS Works', uz: 'KDS qanday ishlaydi' }, content: { ru: 'Заказ поступает → появляется на экране → повар нажимает "Готово" → заказ уходит курьеру/официанту. Цветовая кодировка: новый (синий), в работе (жёлтый), просрочен (красный).', en: 'Order comes in → appears on screen → cook clicks "Ready" → order goes to courier/waiter. Color coding: new (blue), in progress (yellow), overdue (red).', uz: 'Buyurtma keladi → ekranda paydo bo\'ladi → oshpaz "Tayyor" bosadi.' } },
+      { title: { ru: 'Интеграция с Delever', en: 'Integration with Delever', uz: 'Delever bilan integratsiya' }, content: { ru: 'Delever передаёт заказы с сайта, Telegram, агрегаторов сразу на KDS (через iiko/R-Keeper или напрямую). Без ручного ввода.', en: 'Delever sends orders from website, Telegram, aggregators directly to KDS (via iiko/R-Keeper or directly). No manual entry.', uz: 'Delever sayt, Telegram, agregatorlardan buyurtmalarni to\'g\'ridan-to\'g\'ri KDS ga yuboradi.' } }
+    ],
+    cta: { text: { ru: 'Настроить KDS с Delever', en: 'Set Up KDS with Delever', uz: 'Delever bilan KDS sozlash' }, link: '/integrations' },
+    faq: [],
+    relatedArticles: ['restaurant-automation-guide', 'choose-pos-system'],
+    relatedProducts: ['products/operations', 'integrations/iiko']
+  },
+  {
+    slug: 'inventory-management-restaurant',
+    hub: 'operations',
+    title: { ru: 'Управление складом ресторана — контроль продуктов', en: 'Restaurant Inventory Management — Product Control', uz: 'Restoran omborini boshqarish' },
+    h1: { ru: 'Управление складом: контролируйте запасы', en: 'Inventory Management: Control Your Stock', uz: 'Ombor boshqaruvi: zaxiralarni nazorat qiling' },
+    description: { ru: 'Как управлять складом ресторана: учёт продуктов, списания, инвентаризация. Снижение потерь.', en: 'How to manage restaurant inventory: product accounting, write-offs, inventory. Reducing losses.', uz: 'Restoran omborini qanday boshqarish.' },
+    keywords: { ru: 'склад ресторана, учёт продуктов, инвентаризация ресторан', en: 'restaurant inventory, product accounting, restaurant stocktaking', uz: 'restoran ombori' },
+    intro: { ru: 'Потери на складе съедают 2-5% выручки. Правильный учёт и автоматизация снижают потери до 0.5-1%.', en: 'Inventory losses eat 2-5% of revenue. Proper accounting and automation reduce losses to 0.5-1%.', uz: 'Ombordagi yo\'qotishlar daromadning 2-5% ini yeydi.' },
+    sections: [
+      { title: { ru: 'Виды потерь', en: 'Types of Losses', uz: 'Yo\'qotish turlari' }, content: { ru: 'Порча (неправильное хранение), воровство (персонал), ошибки учёта (не списали), пересортица. Регулярная инвентаризация выявляет проблемы.', en: 'Spoilage (improper storage), theft (staff), accounting errors (not written off), grading issues. Regular inventory reveals problems.', uz: 'Buzilish, o\'g\'irlik, hisobdagi xatolar.' } },
+      { title: { ru: 'Автоматизация учёта', en: 'Accounting Automation', uz: 'Hisobni avtomatlashtirish' }, content: { ru: 'POS-система (iiko, R-Keeper) автоматически списывает продукты при продаже. Интеграция с Delever = списание по всем каналам. Отчёты по остаткам и расходу.', en: 'POS system (iiko, R-Keeper) automatically writes off products on sale. Delever integration = write-off across all channels.', uz: 'POS-sistema sotishda mahsulotlarni avtomatik hisobdan chiqaradi.' } }
+    ],
+    cta: { text: { ru: 'Синхронизировать склад с Delever', en: 'Sync Inventory with Delever', uz: 'Delever bilan omborni sinxronlashtirish' }, link: '/integrations' },
+    faq: [],
+    relatedArticles: ['restaurant-automation-guide', 'food-cost-calculation'],
+    relatedProducts: ['integrations/iiko', 'integrations/rkeeper']
+  }
+]
+
+// ============================================
 // ВСЕ СТАТЬИ
 // ============================================
 export const allKnowledgeArticles: KnowledgeArticle[] = [
   ...openRestaurantArticles,
+  ...moreOpenRestaurantArticles,
   ...launchDeliveryArticles,
+  ...moreLaunchDeliveryArticles,
   ...growSalesArticles,
+  ...moreGrowSalesArticles,
   ...aggregatorArticles,
+  ...moreAggregatorArticles,
   ...financeArticles,
+  ...moreFinanceArticles,
   ...operationsArticles,
+  ...moreOperationsArticles,
   ...posArticles,
   ...darkKitchenArticles,
-  ...hrArticles
+  ...hrArticles,
+  ...moreCourierArticles
 ]
 
 // Получить статью по slug

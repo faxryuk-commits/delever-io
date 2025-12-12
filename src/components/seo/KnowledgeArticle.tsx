@@ -13,6 +13,7 @@ import {
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
 import { SEO } from '@/components/SEO'
+import { ArticleSchema, FAQSchema, HowToSchema, BreadcrumbSchema } from '@/components/seo/SchemaOrg'
 import { useLocale } from '@/i18n/LocaleContext'
 import { trackEvents } from '@/components/Analytics'
 import { knowledgeHubs, type KnowledgeArticle as KnowledgeArticleType } from '@/data/knowledge-hub'
@@ -99,6 +100,40 @@ export function KnowledgeArticlePage({ article }: Props) {
         title={title}
         description={description}
         keywords={keywords}
+      />
+
+      {/* Schema.org разметка */}
+      <ArticleSchema
+        title={title}
+        description={description}
+        url={`/guides/${article.slug}`}
+      />
+      
+      {article.faq.length > 0 && (
+        <FAQSchema
+          items={article.faq.map(f => ({
+            question: f.q[lang] || f.q.ru,
+            answer: f.a[lang] || f.a.ru
+          }))}
+        />
+      )}
+      
+      <HowToSchema
+        name={title}
+        description={description}
+        steps={article.sections.map(s => ({
+          name: s.title[lang] || s.title.ru,
+          text: s.content[lang] || s.content.ru
+        }))}
+      />
+      
+      <BreadcrumbSchema
+        items={[
+          { name: 'Delever', url: '/' },
+          { name: 'Guides', url: '/guides' },
+          { name: hub?.title[lang] || hub?.title.ru || '', url: `/guides/${hub?.slug}` },
+          { name: title, url: `/guides/${article.slug}` }
+        ]}
       />
 
       <div className="min-h-screen pt-28 pb-16 bg-gradient-to-b from-white to-gray-50">

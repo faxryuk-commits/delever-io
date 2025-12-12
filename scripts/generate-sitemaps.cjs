@@ -107,7 +107,7 @@ const comparisons = [
   { path: '/compare/delever-vs-rkeeper', priority: '0.7', changefreq: 'monthly' },
 ];
 
-// Knowledge Hub (Guides)
+// Knowledge Hub (Guides) - Hubs
 const guideHubs = [
   { path: '/guides', priority: '0.9', changefreq: 'weekly' },
   { path: '/guides/open-restaurant', priority: '0.8', changefreq: 'weekly' },
@@ -122,62 +122,86 @@ const guideHubs = [
   { path: '/guides/hr-restaurant', priority: '0.8', changefreq: 'weekly' },
 ];
 
+// Knowledge Hub - Все 32 статьи
 const guideArticles = [
-  // Открытие ресторана
+  // Открытие ресторана (5)
   { path: '/guides/how-to-open-restaurant', priority: '0.85', changefreq: 'monthly' },
   { path: '/guides/how-to-choose-location', priority: '0.8', changefreq: 'monthly' },
-  // Запуск доставки
+  { path: '/guides/restaurant-business-plan', priority: '0.85', changefreq: 'monthly' },
+  { path: '/guides/restaurant-concept-development', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guides/restaurant-equipment-guide', priority: '0.8', changefreq: 'monthly' },
+  // Запуск доставки (5)
   { path: '/guides/how-to-launch-delivery', priority: '0.85', changefreq: 'monthly' },
   { path: '/guides/how-to-hire-couriers', priority: '0.8', changefreq: 'monthly' },
-  // Рост продаж
+  { path: '/guides/delivery-zones-setup', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guides/delivery-packaging-guide', priority: '0.75', changefreq: 'monthly' },
+  { path: '/guides/telegram-bot-for-restaurant', priority: '0.85', changefreq: 'monthly' },
+  { path: '/guides/restaurant-website-guide', priority: '0.85', changefreq: 'monthly' },
+  // Рост продаж (5)
   { path: '/guides/how-to-increase-restaurant-sales', priority: '0.85', changefreq: 'monthly' },
-  // Агрегаторы
+  { path: '/guides/restaurant-loyalty-program', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guides/restaurant-promotions-guide', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guides/upselling-cross-selling-restaurant', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guides/restaurant-marketing-channels', priority: '0.8', changefreq: 'monthly' },
+  // Агрегаторы (4)
   { path: '/guides/reduce-aggregator-commissions', priority: '0.8', changefreq: 'monthly' },
-  // Финансы
-  { path: '/guides/food-cost-calculation', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guides/glovo-for-restaurants', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guides/wolt-for-restaurants', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guides/own-delivery-vs-aggregators', priority: '0.85', changefreq: 'monthly' },
+  // Финансы (4)
+  { path: '/guides/food-cost-calculation', priority: '0.85', changefreq: 'monthly' },
   { path: '/guides/restaurant-unit-economics', priority: '0.8', changefreq: 'monthly' },
-  // Операции
-  { path: '/guides/restaurant-automation-guide', priority: '0.8', changefreq: 'monthly' },
-  // POS
+  { path: '/guides/restaurant-profit-margins', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guides/restaurant-kpis', priority: '0.8', changefreq: 'monthly' },
+  // Операции (3)
+  { path: '/guides/restaurant-automation-guide', priority: '0.85', changefreq: 'monthly' },
+  { path: '/guides/kitchen-display-system', priority: '0.75', changefreq: 'monthly' },
+  { path: '/guides/inventory-management-restaurant', priority: '0.75', changefreq: 'monthly' },
+  // Курьеры (3)
+  { path: '/guides/courier-salary-models', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guides/courier-app-features', priority: '0.75', changefreq: 'monthly' },
+  // POS (1)
   { path: '/guides/choose-pos-system', priority: '0.85', changefreq: 'monthly' },
-  // Dark Kitchen
+  // Dark Kitchen (1)
   { path: '/guides/dark-kitchen-guide', priority: '0.85', changefreq: 'monthly' },
-  // HR
+  // HR (1)
   { path: '/guides/hire-restaurant-staff', priority: '0.8', changefreq: 'monthly' },
 ];
 
-// GEO страницы
-const geoPages = [
-  // Uzbekistan
-  { path: '/geo/open-restaurant-in-tashkent', priority: '0.8', changefreq: 'monthly' },
-  { path: '/geo/launch-delivery-in-tashkent', priority: '0.8', changefreq: 'monthly' },
-  { path: '/geo/open-restaurant-in-samarkand', priority: '0.7', changefreq: 'monthly' },
-  { path: '/geo/open-restaurant-in-bukhara', priority: '0.7', changefreq: 'monthly' },
-  { path: '/geo/open-restaurant-in-namangan', priority: '0.7', changefreq: 'monthly' },
-  { path: '/geo/open-restaurant-in-andijan', priority: '0.7', changefreq: 'monthly' },
-  { path: '/geo/open-restaurant-in-fergana', priority: '0.7', changefreq: 'monthly' },
-  // Kazakhstan
-  { path: '/geo/open-restaurant-in-almaty', priority: '0.8', changefreq: 'monthly' },
-  { path: '/geo/launch-delivery-in-almaty', priority: '0.8', changefreq: 'monthly' },
-  { path: '/geo/open-restaurant-in-astana', priority: '0.8', changefreq: 'monthly' },
-  { path: '/geo/launch-delivery-in-astana', priority: '0.8', changefreq: 'monthly' },
-  { path: '/geo/open-restaurant-in-shymkent', priority: '0.7', changefreq: 'monthly' },
-  // UAE
-  { path: '/geo/open-restaurant-in-dubai', priority: '0.8', changefreq: 'monthly' },
-  { path: '/geo/launch-delivery-in-dubai', priority: '0.8', changefreq: 'monthly' },
-  { path: '/geo/open-restaurant-in-abu-dhabi', priority: '0.7', changefreq: 'monthly' },
-  // Qatar
-  { path: '/geo/open-restaurant-in-doha', priority: '0.7', changefreq: 'monthly' },
-  // Azerbaijan
-  { path: '/geo/open-restaurant-in-baku', priority: '0.7', changefreq: 'monthly' },
-  { path: '/geo/launch-delivery-in-baku', priority: '0.7', changefreq: 'monthly' },
-  // Georgia
-  { path: '/geo/open-restaurant-in-tbilisi', priority: '0.7', changefreq: 'monthly' },
-  // Kyrgyzstan
-  { path: '/geo/open-restaurant-in-bishkek', priority: '0.7', changefreq: 'monthly' },
-  // Tajikistan
-  { path: '/geo/open-restaurant-in-dushanbe', priority: '0.7', changefreq: 'monthly' },
-];
+// GEO страницы — все города × все шаблоны
+// Шаблоны: open-restaurant, launch-delivery, dark-kitchen, increase-sales, pizza-delivery, sushi-delivery
+const geoTemplates = ['open-restaurant-in', 'launch-delivery-in', 'dark-kitchen-in', 'increase-sales-in', 'pizza-delivery-in', 'sushi-delivery-in'];
+
+// Города по странам
+const cities = {
+  uzbekistan: ['tashkent', 'samarkand', 'bukhara', 'fergana', 'namangan', 'andijan', 'nukus', 'karshi', 'jizzakh', 'navoi', 'termez', 'urgench', 'khiva'],
+  kazakhstan: ['almaty', 'astana', 'shymkent', 'karaganda', 'aktobe', 'atyrau', 'pavlodar', 'semey', 'taraz', 'kostanay'],
+  uae: ['dubai', 'abu-dhabi', 'sharjah'],
+  qatar: ['doha'],
+  azerbaijan: ['baku', 'ganja'],
+  kyrgyzstan: ['bishkek', 'osh'],
+  tajikistan: ['dushanbe'],
+  georgia: ['tbilisi']
+};
+
+// Приоритеты для городов
+const cityPriority = {
+  'tashkent': '0.85', 'almaty': '0.85', 'dubai': '0.85', 'astana': '0.8',
+  'samarkand': '0.75', 'bukhara': '0.75', 'shymkent': '0.75', 'baku': '0.75',
+  'doha': '0.75', 'bishkek': '0.75', 'tbilisi': '0.75', 'dushanbe': '0.7'
+};
+
+// Генерация GEO страниц
+const geoPages = [];
+Object.values(cities).flat().forEach(city => {
+  geoTemplates.forEach(template => {
+    geoPages.push({
+      path: `/geo/${template}-${city}`,
+      priority: cityPriority[city] || '0.7',
+      changefreq: 'monthly'
+    });
+  });
+});
 
 // ============================================
 // ГЕНЕРАЦИЯ SITEMAP
