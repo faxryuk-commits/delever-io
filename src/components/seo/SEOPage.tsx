@@ -99,8 +99,16 @@ export function SEOPage({ data }: SEOPageProps) {
   }
   const texts = ctaTexts[language as keyof typeof ctaTexts] || ctaTexts.ru
 
-  // Clients logos
-  const clients = ['EVOS', 'Yaponamama', 'Maxway', 'Les Ailes', 'Brasserie', 'Pizza Hut']
+  // Клиенты с логотипами (как на главной)
+  const clientLogos = [
+    { name: 'Yaponamama', logo: '/logos/Yaponamama.webp' },
+    { name: 'Pizza Hut', logo: '/logos/pizza-hut-logo-png_seeklogo-257097.png' },
+    { name: 'Hardees', logo: '/logos/hardees.jpg' },
+    { name: 'Pinkberry', logo: '/logos/pinkberry.png' },
+    { name: 'Dodo Pizza', logo: '/logos/dodo.png' },
+    { name: 'EVOS', logo: '/logos/evos.png' },
+    { name: 'MAXWAY', logo: '/logos/maxway.png' },
+  ]
 
   // Track CTA click
   const handleCTAClick = (action: string) => {
@@ -309,18 +317,48 @@ export function SEOPage({ data }: SEOPageProps) {
           </div>
         </section>
 
-        {/* Trusted By */}
+        {/* Trusted By - с логотипами как на главной */}
         <section className="container mx-auto px-4 sm:px-6 lg:px-8 mb-16">
           <div className="max-w-4xl mx-auto text-center">
-            <h3 className="text-lg font-medium text-brand-darkBlue/60 mb-6">{texts.trustedBy}</h3>
-            <div className="flex flex-wrap justify-center gap-8">
-              {clients.map((client, idx) => (
-                <div 
+            <h3 className="text-sm text-brand-darkBlue/50 uppercase tracking-widest font-medium mb-8">
+              {texts.trustedBy}
+            </h3>
+            <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-6 lg:gap-x-12">
+              {clientLogos.map((client, idx) => (
+                <motion.div
                   key={idx}
-                  className="text-xl font-bold text-brand-darkBlue/40"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.05 }}
+                  className="relative flex items-center justify-center"
                 >
-                  {client}
-                </div>
+                  <img
+                    src={client.logo}
+                    alt={client.name}
+                    className="h-8 lg:h-10 w-auto max-w-[100px] lg:max-w-[120px] object-contain opacity-50 hover:opacity-100 transition-all duration-300"
+                    style={{ filter: 'grayscale(100%)' }}
+                    onMouseEnter={(e) => {
+                      const target = e.target as HTMLImageElement
+                      target.style.filter = 'grayscale(0%)'
+                    }}
+                    onMouseLeave={(e) => {
+                      const target = e.target as HTMLImageElement
+                      target.style.filter = 'grayscale(100%)'
+                    }}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement
+                      target.style.display = 'none'
+                      const parent = target.parentElement
+                      if (parent && !parent.querySelector('span')) {
+                        const span = document.createElement('span')
+                        span.className = 'text-lg font-bold text-brand-darkBlue/30'
+                        span.textContent = client.name
+                        parent.appendChild(span)
+                      }
+                    }}
+                  />
+                </motion.div>
               ))}
             </div>
           </div>

@@ -37,6 +37,8 @@ const pages = [
   { path: '/integrations/paloma', priority: '0.7', changefreq: 'monthly' },
   { path: '/integrations/clopos', priority: '0.7', changefreq: 'monthly' },
   { path: '/integrations/loook', priority: '0.7', changefreq: 'monthly' },
+  { path: '/integrations/alipos', priority: '0.7', changefreq: 'monthly' },
+  { path: '/integrations/neon-alisa', priority: '0.7', changefreq: 'monthly' },
   
   // Агрегаторы (SEO)
   { path: '/aggregators/glovo', priority: '0.8', changefreq: 'monthly' },
@@ -64,6 +66,10 @@ const pages = [
   { path: '/solutions/confectionery', priority: '0.7', changefreq: 'monthly' },
   { path: '/solutions/coffee-shop', priority: '0.7', changefreq: 'monthly' },
   { path: '/solutions/grocery', priority: '0.7', changefreq: 'monthly' },
+  
+  // Страницы сравнения (SEO)
+  { path: '/compare/delever-vs-pos', priority: '0.8', changefreq: 'monthly' },
+  { path: '/compare/own-delivery-vs-aggregators', priority: '0.8', changefreq: 'monthly' },
   
   // Гео-страницы (SEO) - страны
   { path: '/geo/uzbekistan', priority: '0.8', changefreq: 'monthly' },

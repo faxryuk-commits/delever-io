@@ -74,6 +74,8 @@ const pageGroups = [
       { path: '/integrations/paloma', title: 'Paloma', priority: 'medium' },
       { path: '/integrations/clopos', title: 'Clopos', priority: 'medium' },
       { path: '/integrations/loook', title: 'LOOOK', priority: 'medium' },
+      { path: '/integrations/alipos', title: 'AliPos', priority: 'medium' },
+      { path: '/integrations/neon-alisa', title: 'Neon Alisa (голосовой бот)', priority: 'medium' },
     ]
   },
   {
@@ -121,6 +123,15 @@ const pageGroups = [
       { path: '/solutions/confectionery', title: 'Кондитерская', priority: 'medium' },
       { path: '/solutions/coffee-shop', title: 'Кофейня', priority: 'medium' },
       { path: '/solutions/grocery', title: 'Продуктовый магазин', priority: 'medium' },
+    ]
+  },
+  {
+    title: 'Страницы сравнения',
+    icon: FileText,
+    color: 'from-violet-500 to-violet-600',
+    pages: [
+      { path: '/compare/delever-vs-pos', title: 'Delever vs POS-системы', priority: 'high' },
+      { path: '/compare/own-delivery-vs-aggregators', title: 'Своя доставка vs агрегаторы', priority: 'high' },
     ]
   },
   {

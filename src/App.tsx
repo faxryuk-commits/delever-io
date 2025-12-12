@@ -36,6 +36,7 @@ import { AggregatorPage } from './pages/aggregators/[slug]'
 import { DeliveryPage } from './pages/delivery/[slug]'
 import { SolutionPage } from './pages/solutions/[slug]'
 import { GeoPage } from './pages/geo/[slug]'
+import { ComparePage } from './pages/compare/[slug]'
 
 function App() {
   return (
@@ -83,6 +84,9 @@ function App() {
                 
                 {/* SEO Pages - Geo */}
                 <Route path="/geo/:slug" element={<GeoPage />} />
+                
+                {/* SEO Pages - Comparison */}
+                <Route path="/compare/:slug" element={<ComparePage />} />
                 
                 <Route path="*" element={<NotFound />} />
               </Routes>

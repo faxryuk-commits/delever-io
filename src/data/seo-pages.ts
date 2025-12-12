@@ -1448,6 +1448,285 @@ export const morePosIntegrations: SEOPageData[] = [
     color: 'from-amber-500 to-amber-600',
     relatedPages: ['integrations/iiko', 'solutions/food-chain'],
     schemaType: 'SoftwareApplication'
+  },
+  {
+    slug: 'integrations/alipos',
+    category: 'integration',
+    subcategory: 'pos',
+    title: {
+      ru: 'Интеграция с AliPos — автоматизация ресторана',
+      en: 'AliPos Integration — Restaurant Automation',
+      uz: 'AliPos integratsiyasi — restoran avtomatizatsiyasi'
+    },
+    description: {
+      ru: 'AliPos интеграция с Delever: автоматический приём заказов, синхронизация меню. Популярно в Узбекистане.',
+      en: 'AliPos integration with Delever: automatic order intake, menu sync. Popular in Uzbekistan.',
+      uz: 'AliPos Delever bilan integratsiyasi: avtomatik buyurtma qabul qilish, menyu sinxronizatsiyasi. O\'zbekistonda mashhur.'
+    },
+    keywords: {
+      ru: 'AliPos интеграция, AliPos POS, AliPos доставка',
+      en: 'AliPos integration, AliPos POS',
+      uz: 'AliPos integratsiya'
+    },
+    h1: {
+      ru: 'Интеграция AliPos с Delever',
+      en: 'AliPos Integration with Delever',
+      uz: 'AliPos Delever bilan integratsiyasi'
+    },
+    intro: {
+      ru: 'AliPos — популярная POS-система в Узбекистане. Delever обеспечивает полную интеграцию для автоматизации доставки.',
+      en: 'AliPos is a popular POS system in Uzbekistan. Delever provides full integration for delivery automation.',
+      uz: 'AliPos — O\'zbekistonda mashhur POS tizimi. Delever yetkazib berishni avtomatlashtirish uchun to\'liq integratsiyani ta\'minlaydi.'
+    },
+    features: {
+      ru: ['Синхронизация меню', 'Автопередача заказов', 'Стоп-листы', 'Локальная поддержка'],
+      en: ['Menu sync', 'Auto order transfer', 'Stop-lists', 'Local support'],
+      uz: ['Menyu sinxronizatsiyasi', 'Avtomatik buyurtma uzatish', 'Stop-listlar', 'Mahalliy qo\'llab-quvvatlash']
+    },
+    benefits: {
+      ru: ['Популярно в Узбекистане', 'Доступная цена', 'Быстрая настройка'],
+      en: ['Popular in Uzbekistan', 'Affordable price', 'Quick setup'],
+      uz: ['O\'zbekistonda mashhur', 'Qulay narx', 'Tez sozlash']
+    },
+    faq: [],
+    color: 'from-blue-500 to-blue-600',
+    relatedPages: ['integrations/jowi', 'integrations/poster'],
+    schemaType: 'SoftwareApplication'
+  },
+  {
+    slug: 'integrations/neon-alisa',
+    category: 'integration',
+    subcategory: 'pos',
+    title: {
+      ru: 'Интеграция с Neon Alisa — автоматизация ресторана',
+      en: 'Neon Alisa Integration — Restaurant Automation',
+      uz: 'Neon Alisa integratsiyasi — restoran avtomatizatsiyasi'
+    },
+    description: {
+      ru: 'Neon Alisa интеграция с Delever: голосовой помощник для приёма заказов, автоматизация колл-центра.',
+      en: 'Neon Alisa integration with Delever: voice assistant for order intake, call center automation.',
+      uz: 'Neon Alisa Delever bilan integratsiyasi: buyurtma qabul qilish uchun ovozli yordamchi, call-center avtomatizatsiyasi.'
+    },
+    keywords: {
+      ru: 'Neon Alisa интеграция, голосовой бот ресторан, автоматизация колл-центра',
+      en: 'Neon Alisa integration, voice bot restaurant, call center automation',
+      uz: 'Neon Alisa integratsiya, ovozli bot restoran'
+    },
+    h1: {
+      ru: 'Интеграция Neon Alisa с Delever',
+      en: 'Neon Alisa Integration with Delever',
+      uz: 'Neon Alisa Delever bilan integratsiyasi'
+    },
+    intro: {
+      ru: 'Neon Alisa — голосовой помощник для ресторанов. Автоматически принимает заказы по телефону и передаёт в Delever.',
+      en: 'Neon Alisa is a voice assistant for restaurants. Automatically takes phone orders and transfers to Delever.',
+      uz: 'Neon Alisa — restoranlar uchun ovozli yordamchi. Avtomatik telefon orqali buyurtmalarni qabul qiladi va Delever ga uzatadi.'
+    },
+    features: {
+      ru: ['Голосовой бот', 'Приём заказов 24/7', 'Интеграция с POS', 'Снижение нагрузки на колл-центр'],
+      en: ['Voice bot', '24/7 order intake', 'POS integration', 'Reduce call center load'],
+      uz: ['Ovozli bot', '24/7 buyurtma qabul qilish', 'POS integratsiyasi', 'Call-center yukini kamaytirish']
+    },
+    benefits: {
+      ru: ['Экономия на операторах', 'Работает 24/7', 'Без ошибок в заказах'],
+      en: ['Save on operators', 'Works 24/7', 'No order errors'],
+      uz: ['Operatorlarda tejash', '24/7 ishlaydi', 'Buyurtmalarda xatolar yo\'q']
+    },
+    faq: [],
+    color: 'from-purple-500 to-purple-600',
+    relatedPages: ['integrations/iiko', 'products/channels'],
+    schemaType: 'SoftwareApplication'
+  }
+]
+
+// ============================================
+// СТРАНИЦЫ СРАВНЕНИЯ
+// ============================================
+export const comparisonPages: SEOPageData[] = [
+  {
+    slug: 'compare/delever-vs-pos',
+    category: 'comparison',
+    title: {
+      ru: 'Delever и POS-системы — в чём разница?',
+      en: 'Delever and POS Systems — What\'s the Difference?',
+      uz: 'Delever va POS tizimlar — farqi nimada?'
+    },
+    description: {
+      ru: 'Delever — это не конкурент iiko или R-Keeper. Это платформа поверх POS, которая добавляет онлайн-каналы продаж: сайт, Telegram, агрегаторы.',
+      en: 'Delever is not a competitor to iiko or R-Keeper. It\'s a platform on top of POS that adds online sales channels: website, Telegram, aggregators.',
+      uz: 'Delever iiko yoki R-Keeper ga raqobatchi emas. Bu POS ustiga platforma bo\'lib, onlayn savdo kanallarini qo\'shadi: sayt, Telegram, agregatorlar.'
+    },
+    keywords: {
+      ru: 'Delever vs iiko, Delever vs R-Keeper, разница POS и Delever, что выбрать iiko или Delever',
+      en: 'Delever vs iiko, Delever vs R-Keeper, difference POS and Delever',
+      uz: 'Delever vs iiko, Delever vs R-Keeper, POS va Delever farqi'
+    },
+    h1: {
+      ru: 'Delever и POS-системы: не конкуренты, а партнёры',
+      en: 'Delever and POS Systems: Not Competitors, But Partners',
+      uz: 'Delever va POS tizimlar: raqobatchilar emas, hamkorlar'
+    },
+    intro: {
+      ru: 'Часто спрашивают: "Зачем Delever, если есть iiko?" Ответ: это разные инструменты для разных задач. iiko — учётная система (склад, касса, отчёты). Delever — платформа онлайн-продаж (сайт, Telegram, агрегаторы). Они работают вместе.',
+      en: 'Often asked: "Why Delever if there\'s iiko?" Answer: these are different tools for different tasks. iiko is an accounting system (inventory, POS, reports). Delever is an online sales platform (website, Telegram, aggregators). They work together.',
+      uz: 'Ko\'p so\'rashadi: "Agar iiko bo\'lsa, nega Delever kerak?" Javob: bu turli vazifalar uchun turli vositalar. iiko — hisobchilik tizimi (ombor, kassa, hisobotlar). Delever — onlayn savdo platformasi (sayt, Telegram, agregatorlar). Ular birgalikda ishlaydi.'
+    },
+    features: {
+      ru: [
+        'POS (iiko, R-Keeper): учёт, склад, касса, фискализация',
+        'Delever: сайт, Telegram-бот, мобильное приложение',
+        'Delever: интеграция с агрегаторами (Glovo, Wolt, Uzum)',
+        'Delever: курьерское приложение и отслеживание',
+        'Delever: маркетинг и CRM для доставки',
+        'Вместе: POS получает заказы из всех каналов автоматически'
+      ],
+      en: [
+        'POS (iiko, R-Keeper): accounting, inventory, cashier, fiscalization',
+        'Delever: website, Telegram bot, mobile app',
+        'Delever: aggregator integration (Glovo, Wolt, Uzum)',
+        'Delever: courier app and tracking',
+        'Delever: marketing and CRM for delivery',
+        'Together: POS receives orders from all channels automatically'
+      ],
+      uz: [
+        'POS (iiko, R-Keeper): hisobchilik, ombor, kassa, fiskalizatsiya',
+        'Delever: sayt, Telegram-bot, mobil ilova',
+        'Delever: agregatorlar bilan integratsiya (Glovo, Wolt, Uzum)',
+        'Delever: kuryer ilovasi va kuzatuv',
+        'Delever: yetkazib berish uchun marketing va CRM',
+        'Birgalikda: POS barcha kanallardan buyurtmalarni avtomatik qabul qiladi'
+      ]
+    },
+    benefits: {
+      ru: [
+        'Не нужно выбирать — используйте оба',
+        'POS для учёта, Delever для продаж',
+        '500+ ресторанов используют связку iiko + Delever',
+        'Автоматическая передача заказов в кассу'
+      ],
+      en: [
+        'No need to choose — use both',
+        'POS for accounting, Delever for sales',
+        '500+ restaurants use iiko + Delever bundle',
+        'Automatic order transfer to POS'
+      ],
+      uz: [
+        'Tanlash kerak emas — ikkalasini ishlating',
+        'POS hisobchilik uchun, Delever sotuvlar uchun',
+        '500+ restoran iiko + Delever to\'plamidan foydalanadi',
+        'Buyurtmalarni kassaga avtomatik uzatish'
+      ]
+    },
+    faq: [
+      {
+        question: {
+          ru: 'Можно ли использовать Delever без POS-системы?',
+          en: 'Can I use Delever without a POS system?',
+          uz: 'Delever ni POS tizimsiz ishlatish mumkinmi?'
+        },
+        answer: {
+          ru: 'Да! Delever работает и без POS — заказы будут приходить в админ-панель и Telegram. Но с интеграцией удобнее: заказы сразу в кассе.',
+          en: 'Yes! Delever works without POS — orders will come to admin panel and Telegram. But integration is more convenient: orders directly in POS.',
+          uz: 'Ha! Delever POS siz ham ishlaydi — buyurtmalar admin-panel va Telegram ga keladi. Lekin integratsiya bilan qulayroq: buyurtmalar to\'g\'ridan-to\'g\'ri kassada.'
+        }
+      },
+      {
+        question: {
+          ru: 'Delever заменяет iiko?',
+          en: 'Does Delever replace iiko?',
+          uz: 'Delever iiko ni almashtiradimi?'
+        },
+        answer: {
+          ru: 'Нет. Delever не заменяет iiko, а дополняет. iiko — это касса и учёт. Delever — это онлайн-каналы продаж. Вместе они дают полную автоматизацию.',
+          en: 'No. Delever doesn\'t replace iiko, it complements it. iiko is POS and accounting. Delever is online sales channels. Together they provide full automation.',
+          uz: 'Yo\'q. Delever iiko ni almashtirmaydi, to\'ldiradi. iiko — bu kassa va hisobchilik. Delever — bu onlayn savdo kanallari. Birgalikda ular to\'liq avtomatlashtirishni ta\'minlaydi.'
+        }
+      }
+    ],
+    icon: '⚡',
+    color: 'from-brand-blue to-brand-darkBlue',
+    relatedPages: ['integrations/iiko', 'integrations/rkeeper', 'products/channels'],
+    schemaType: 'FAQPage'
+  },
+  {
+    slug: 'compare/own-delivery-vs-aggregators',
+    category: 'comparison',
+    title: {
+      ru: 'Своя доставка vs агрегаторы — что выгоднее?',
+      en: 'Own Delivery vs Aggregators — What\'s More Profitable?',
+      uz: 'O\'z yetkazib berish vs agregatorlar — nimasi foydali?'
+    },
+    description: {
+      ru: 'Сравнение своих каналов продаж (сайт, Telegram) с агрегаторами (Glovo, Wolt). Комиссии, контроль клиентов, маржинальность.',
+      en: 'Comparison of own sales channels (website, Telegram) with aggregators (Glovo, Wolt). Commissions, customer control, margins.',
+      uz: 'O\'z savdo kanallari (sayt, Telegram) ni agregatorlar (Glovo, Wolt) bilan solishtirish. Komissiyalar, mijozlarni nazorat qilish, foyda.'
+    },
+    keywords: {
+      ru: 'своя доставка vs Glovo, комиссия агрегаторов, свой сайт доставки, выгода своей доставки',
+      en: 'own delivery vs Glovo, aggregator commission, own delivery website',
+      uz: 'o\'z yetkazib berish vs Glovo, agregator komissiyasi, o\'z yetkazib berish sayti'
+    },
+    h1: {
+      ru: 'Своя доставка vs агрегаторы',
+      en: 'Own Delivery vs Aggregators',
+      uz: 'O\'z yetkazib berish vs agregatorlar'
+    },
+    intro: {
+      ru: 'Агрегаторы (Glovo, Wolt, Uzum) берут 15-35% комиссию. Свой сайт и Telegram-бот — 0% комиссии. Но агрегаторы дают трафик. Оптимально: использовать оба канала и переводить клиентов на свои.',
+      en: 'Aggregators (Glovo, Wolt, Uzum) charge 15-35% commission. Own website and Telegram bot — 0% commission. But aggregators provide traffic. Optimal: use both channels and convert customers to your own.',
+      uz: 'Agregatorlar (Glovo, Wolt, Uzum) 15-35% komissiya oladi. O\'z sayt va Telegram-bot — 0% komissiya. Lekin agregatorlar trafik beradi. Optimal: ikkala kanalni ishlating va mijozlarni o\'zingiznikiga o\'tkazing.'
+    },
+    features: {
+      ru: [
+        'Агрегаторы: 15-35% комиссия с каждого заказа',
+        'Свои каналы: 0% комиссия, только подписка Delever',
+        'Агрегаторы: дают новых клиентов',
+        'Свои каналы: клиент ваш навсегда',
+        'Свои каналы: программа лояльности, акции',
+        'Рекомендация: используйте оба, переводите на свои'
+      ],
+      en: [
+        'Aggregators: 15-35% commission per order',
+        'Own channels: 0% commission, only Delever subscription',
+        'Aggregators: bring new customers',
+        'Own channels: customer is yours forever',
+        'Own channels: loyalty program, promotions',
+        'Recommendation: use both, convert to your own'
+      ],
+      uz: [
+        'Agregatorlar: har bir buyurtmadan 15-35% komissiya',
+        'O\'z kanallar: 0% komissiya, faqat Delever obunasi',
+        'Agregatorlar: yangi mijozlarni keltiradi',
+        'O\'z kanallar: mijoz sizniki abadiy',
+        'O\'z kanallar: sodiqlik dasturi, aksiyalar',
+        'Tavsiya: ikkalasini ishlating, o\'zingiznikiga o\'tkazing'
+      ]
+    },
+    benefits: {
+      ru: [
+        'Экономия до 30% на комиссиях',
+        'Контроль базы клиентов',
+        'Прямой маркетинг (push, SMS)',
+        'Выше маржа на своих каналах'
+      ],
+      en: [
+        'Save up to 30% on commissions',
+        'Control customer database',
+        'Direct marketing (push, SMS)',
+        'Higher margin on own channels'
+      ],
+      uz: [
+        'Komissiyalarda 30% gacha tejash',
+        'Mijozlar bazasini nazorat qilish',
+        'To\'g\'ridan-to\'g\'ri marketing (push, SMS)',
+        'O\'z kanallarda yuqori foyda'
+      ]
+    },
+    faq: [],
+    icon: '💰',
+    color: 'from-green-500 to-emerald-600',
+    relatedPages: ['aggregators/glovo', 'products/channels', 'products/marketing'],
+    schemaType: 'FAQPage'
   }
 ]
 
@@ -1842,6 +2121,7 @@ export const allSEOPages: SEOPageData[] = [
   ...deliveryIntegrations,
   ...businessSolutions,
   ...moreSolutions,
+  ...comparisonPages,
   ...geoPages,
   ...cityPages
 ]
