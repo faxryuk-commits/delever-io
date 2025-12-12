@@ -1,7 +1,331 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { MessageCircle, X, Send, User, Bot, Phone } from 'lucide-react'
+import { X, Send, User, Bot, Phone } from 'lucide-react'
 import { useLocale } from '@/i18n/LocaleContext'
+
+// Анимированные сцены для кнопки
+function DeliveryCarScene() {
+  return (
+    <svg viewBox="0 0 40 40" className="w-8 h-8">
+      {/* Машинка */}
+      <motion.g
+        animate={{ x: [-2, 2, -2] }}
+        transition={{ duration: 0.5, repeat: Infinity, ease: "easeInOut" }}
+      >
+        {/* Кузов */}
+        <rect x="6" y="16" width="20" height="10" rx="2" fill="#fff" />
+        <rect x="22" y="12" width="10" height="14" rx="2" fill="#fff" />
+        {/* Окно */}
+        <rect x="24" y="14" width="6" height="5" rx="1" fill="#60A5FA" />
+        {/* Колёса */}
+        <motion.g
+          animate={{ rotate: 360 }}
+          transition={{ duration: 0.3, repeat: Infinity, ease: "linear" }}
+          style={{ transformOrigin: "12px 28px" }}
+        >
+          <circle cx="12" cy="28" r="4" fill="#1E3A5F" />
+          <circle cx="12" cy="28" r="1.5" fill="#fff" />
+        </motion.g>
+        <motion.g
+          animate={{ rotate: 360 }}
+          transition={{ duration: 0.3, repeat: Infinity, ease: "linear" }}
+          style={{ transformOrigin: "28px 28px" }}
+        >
+          <circle cx="28" cy="28" r="4" fill="#1E3A5F" />
+          <circle cx="28" cy="28" r="1.5" fill="#fff" />
+        </motion.g>
+        {/* Delever лого */}
+        <text x="10" y="23" fontSize="5" fill="#10B981" fontWeight="bold">D</text>
+      </motion.g>
+      {/* Дорога */}
+      <rect x="0" y="32" width="40" height="2" fill="rgba(255,255,255,0.3)" />
+    </svg>
+  )
+}
+
+function BurgerScene() {
+  return (
+    <svg viewBox="0 0 40 40" className="w-8 h-8">
+      {/* Нижняя булка */}
+      <ellipse cx="20" cy="30" rx="12" ry="4" fill="#F59E0B" />
+      {/* Котлета */}
+      <motion.ellipse
+        cx="20" cy="26"
+        rx="10" ry="3"
+        fill="#7C3AED"
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0, repeat: Infinity, repeatDelay: 2 }}
+      />
+      {/* Сыр */}
+      <motion.path
+        d="M10 24 Q15 26 20 23 Q25 26 30 24 L28 22 Q20 25 12 22 Z"
+        fill="#FBBF24"
+        initial={{ y: -25, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.3, repeat: Infinity, repeatDelay: 2 }}
+      />
+      {/* Салат */}
+      <motion.path
+        d="M8 22 Q14 24 20 21 Q26 24 32 22 Q28 20 20 22 Q12 20 8 22"
+        fill="#10B981"
+        initial={{ y: -30, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.6, repeat: Infinity, repeatDelay: 2 }}
+      />
+      {/* Верхняя булка */}
+      <motion.ellipse
+        cx="20" cy="16"
+        rx="12" ry="6"
+        fill="#F59E0B"
+        initial={{ y: -35, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.9, repeat: Infinity, repeatDelay: 2 }}
+      />
+      {/* Кунжут */}
+      <motion.g
+        initial={{ y: -35, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.9, repeat: Infinity, repeatDelay: 2 }}
+      >
+        <ellipse cx="16" cy="13" rx="1" ry="0.5" fill="#fff" />
+        <ellipse cx="20" cy="11" rx="1" ry="0.5" fill="#fff" />
+        <ellipse cx="24" cy="13" rx="1" ry="0.5" fill="#fff" />
+      </motion.g>
+    </svg>
+  )
+}
+
+function BikeScene() {
+  return (
+    <svg viewBox="0 0 40 40" className="w-8 h-8">
+      {/* Рама */}
+      <path d="M12 28 L20 20 L28 28 M20 20 L20 28 M12 28 L20 28" stroke="#fff" strokeWidth="2" fill="none" />
+      {/* Руль */}
+      <path d="M18 18 L22 18" stroke="#fff" strokeWidth="2" />
+      {/* Сиденье */}
+      <rect x="18" y="18" width="4" height="2" rx="1" fill="#fff" />
+      {/* Заднее колесо */}
+      <motion.g
+        animate={{ rotate: 360 }}
+        transition={{ duration: 0.4, repeat: Infinity, ease: "linear" }}
+        style={{ transformOrigin: "12px 28px" }}
+      >
+        <circle cx="12" cy="28" r="6" stroke="#fff" strokeWidth="2" fill="none" />
+        <line x1="12" y1="22" x2="12" y2="34" stroke="#fff" strokeWidth="1" />
+        <line x1="6" y1="28" x2="18" y2="28" stroke="#fff" strokeWidth="1" />
+      </motion.g>
+      {/* Переднее колесо */}
+      <motion.g
+        animate={{ rotate: 360 }}
+        transition={{ duration: 0.4, repeat: Infinity, ease: "linear" }}
+        style={{ transformOrigin: "28px 28px" }}
+      >
+        <circle cx="28" cy="28" r="6" stroke="#fff" strokeWidth="2" fill="none" />
+        <line x1="28" y1="22" x2="28" y2="34" stroke="#fff" strokeWidth="1" />
+        <line x1="22" y1="28" x2="34" y2="28" stroke="#fff" strokeWidth="1" />
+      </motion.g>
+      {/* Коробка доставки */}
+      <motion.g
+        animate={{ y: [-1, 1, -1] }}
+        transition={{ duration: 0.3, repeat: Infinity }}
+      >
+        <rect x="6" y="10" width="8" height="8" rx="1" fill="#10B981" />
+        <text x="8" y="16" fontSize="5" fill="#fff" fontWeight="bold">D</text>
+      </motion.g>
+      {/* Звоночек */}
+      <motion.circle
+        cx="22" cy="16"
+        r="2"
+        fill="#FBBF24"
+        animate={{ scale: [1, 1.2, 1] }}
+        transition={{ duration: 0.3, repeat: Infinity, repeatDelay: 1 }}
+      />
+    </svg>
+  )
+}
+
+function TypingScene() {
+  const texts = ['Привет!', 'Заказ?', 'Готово!', '🍕🍔🍜']
+  const [textIndex, setTextIndex] = useState(0)
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTextIndex(i => (i + 1) % texts.length)
+    }, 1500)
+    return () => clearInterval(interval)
+  }, [])
+  
+  return (
+    <div className="w-8 h-8 flex items-center justify-center">
+      <motion.div
+        key={textIndex}
+        initial={{ opacity: 0, y: 5 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -5 }}
+        className="text-white text-xs font-bold text-center"
+      >
+        {texts[textIndex]}
+      </motion.div>
+    </div>
+  )
+}
+
+function BellScene() {
+  return (
+    <svg viewBox="0 0 40 40" className="w-8 h-8">
+      <motion.g
+        animate={{ rotate: [-15, 15, -15] }}
+        transition={{ duration: 0.3, repeat: Infinity }}
+        style={{ transformOrigin: "20px 8px" }}
+      >
+        {/* Колокольчик */}
+        <path
+          d="M20 8 L20 12 M14 18 Q14 12 20 12 Q26 12 26 18 L28 26 L12 26 L14 18"
+          stroke="#fff"
+          strokeWidth="2"
+          fill="#FBBF24"
+        />
+        <circle cx="20" cy="28" r="2" fill="#fff" />
+      </motion.g>
+      {/* Звуковые волны */}
+      <motion.path
+        d="M8 18 Q6 20 8 22"
+        stroke="#fff"
+        strokeWidth="1.5"
+        fill="none"
+        animate={{ opacity: [0, 1, 0] }}
+        transition={{ duration: 0.5, repeat: Infinity }}
+      />
+      <motion.path
+        d="M32 18 Q34 20 32 22"
+        stroke="#fff"
+        strokeWidth="1.5"
+        fill="none"
+        animate={{ opacity: [0, 1, 0] }}
+        transition={{ duration: 0.5, repeat: Infinity, delay: 0.25 }}
+      />
+      <motion.path
+        d="M5 16 Q2 20 5 24"
+        stroke="#fff"
+        strokeWidth="1"
+        fill="none"
+        animate={{ opacity: [0, 0.7, 0] }}
+        transition={{ duration: 0.5, repeat: Infinity, delay: 0.1 }}
+      />
+      <motion.path
+        d="M35 16 Q38 20 35 24"
+        stroke="#fff"
+        strokeWidth="1"
+        fill="none"
+        animate={{ opacity: [0, 0.7, 0] }}
+        transition={{ duration: 0.5, repeat: Infinity, delay: 0.35 }}
+      />
+    </svg>
+  )
+}
+
+function PizzaScene() {
+  return (
+    <svg viewBox="0 0 40 40" className="w-8 h-8">
+      {/* Пицца крутится */}
+      <motion.g
+        animate={{ rotate: 360 }}
+        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+        style={{ transformOrigin: "20px 20px" }}
+      >
+        <circle cx="20" cy="20" r="14" fill="#F59E0B" />
+        <circle cx="20" cy="20" r="12" fill="#FBBF24" />
+        {/* Пепперони */}
+        <circle cx="15" cy="16" r="2.5" fill="#DC2626" />
+        <circle cx="24" cy="14" r="2" fill="#DC2626" />
+        <circle cx="26" cy="22" r="2.5" fill="#DC2626" />
+        <circle cx="18" cy="25" r="2" fill="#DC2626" />
+        <circle cx="14" cy="22" r="1.5" fill="#DC2626" />
+        {/* Зелень */}
+        <circle cx="20" cy="18" r="1" fill="#10B981" />
+        <circle cx="22" cy="24" r="1" fill="#10B981" />
+      </motion.g>
+      {/* Пар */}
+      <motion.path
+        d="M16 6 Q18 4 16 2"
+        stroke="#fff"
+        strokeWidth="1"
+        fill="none"
+        animate={{ y: [0, -3], opacity: [0.8, 0] }}
+        transition={{ duration: 1, repeat: Infinity }}
+      />
+      <motion.path
+        d="M24 6 Q26 4 24 2"
+        stroke="#fff"
+        strokeWidth="1"
+        fill="none"
+        animate={{ y: [0, -3], opacity: [0.8, 0] }}
+        transition={{ duration: 1, repeat: Infinity, delay: 0.5 }}
+      />
+    </svg>
+  )
+}
+
+// Компонент анимированной кнопки
+function AnimatedChatButton({ onClick }: { onClick: () => void }) {
+  const [sceneIndex, setSceneIndex] = useState(0)
+  const scenes = [
+    <DeliveryCarScene key="car" />,
+    <BurgerScene key="burger" />,
+    <BikeScene key="bike" />,
+    <BellScene key="bell" />,
+    <PizzaScene key="pizza" />,
+    <TypingScene key="typing" />,
+  ]
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSceneIndex(i => (i + 1) % scenes.length)
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [])
+  
+  return (
+    <motion.button
+      onClick={onClick}
+      className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-gradient-to-br from-brand-blue via-brand-green to-brand-blue shadow-xl flex items-center justify-center overflow-hidden"
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.95 }}
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
+      transition={{ type: 'spring', stiffness: 300 }}
+    >
+      {/* Фоновое свечение */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-r from-brand-yellow/30 to-transparent"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+      />
+      
+      {/* Сцена */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={sceneIndex}
+          initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          exit={{ opacity: 0, scale: 0.5, rotate: 10 }}
+          transition={{ duration: 0.3 }}
+          className="relative z-10"
+        >
+          {scenes[sceneIndex]}
+        </motion.div>
+      </AnimatePresence>
+      
+      {/* Пульсирующий индикатор */}
+      <motion.span 
+        className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full"
+        animate={{ scale: [1, 1.2, 1] }}
+        transition={{ duration: 1, repeat: Infinity }}
+      />
+    </motion.button>
+  )
+}
 
 interface Message {
   id: string
@@ -135,20 +459,8 @@ export function ChatWidget() {
 
   return (
     <>
-      {/* Кнопка открытия чата */}
-      <motion.button
-        onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-r from-brand-blue to-brand-green text-white shadow-lg flex items-center justify-center ${isOpen ? 'hidden' : ''}`}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ type: 'spring', stiffness: 300 }}
-      >
-        <MessageCircle className="w-6 h-6" />
-        {/* Пульсирующий индикатор */}
-        <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full animate-pulse" />
-      </motion.button>
+      {/* Анимированная кнопка чата */}
+      {!isOpen && <AnimatedChatButton onClick={() => setIsOpen(true)} />}
 
       {/* Окно чата */}
       <AnimatePresence>
