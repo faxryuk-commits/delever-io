@@ -98,19 +98,39 @@ export const trackEvent = (
   eventName: string,
   eventParams?: Record<string, unknown>
 ) => {
-  // Google Analytics
+  console.log('📊 Track Event:', eventName, eventParams)
+  
+  // Google Analytics - используем beacon для гарантированной отправки
   if (window.gtag) {
-    window.gtag('event', eventName, eventParams)
+    window.gtag('event', eventName, {
+      ...eventParams,
+      send_to: 'G-CWX242TQDH',
+      transport_type: 'beacon', // Гарантирует отправку даже при закрытии страницы
+    })
+    console.log('✅ GA4 event sent:', eventName)
+  } else {
+    console.warn('⚠️ gtag not available')
   }
   
   // Yandex Metrika - reachGoal для целей
   if (window.ym) {
     window.ym(YM_ID, 'reachGoal', eventName, eventParams)
+    console.log('✅ Yandex goal sent:', eventName)
+  } else {
+    console.warn('⚠️ ym not available')
   }
 }
 
 // Pre-defined events for common actions
 export const trackEvents = {
+  // CTA button clicks (open form)
+  ctaClick: (buttonLocation: string) =>
+    trackEvent('cta_click', { button_location: buttonLocation }),
+  
+  // Form opens
+  formOpen: (formLocation: string) =>
+    trackEvent('form_open', { form_location: formLocation }),
+  
   // Form submissions
   contactFormSubmit: (formLocation: string) => 
     trackEvent('generate_lead', { form_location: formLocation }),

@@ -141,6 +141,9 @@ export function ContactForm({ open, onOpenChange, tag }: ContactFormProps) {
       setTouched({})
       setPhoneValid(false)
       
+      // Отслеживаем открытие формы
+      trackEvents.formOpen(tag || 'general')
+      
       // Определяем страну
       detectCountryByIP().then(country => {
         setDefaultCountry(country)
