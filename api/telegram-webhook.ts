@@ -286,10 +286,35 @@ export default async function handler(req: Request): Promise<Response> {
     if (update.callback_query) {
       const callbackQuery = update.callback_query
       const data = callbackQuery.data
-      const messageId = callbackQuery.message.message_id
-      const chatId = callbackQuery.message.chat.id
-      const originalText = callbackQuery.message.text
+      const messageId = callbackQuery.message?.message_id
+      const chatId = callbackQuery.message?.chat?.id
+      const originalText = callbackQuery.message?.text || ''
       const user = callbackQuery.from
+
+      // Логирование для отладки
+      console.log('Callback query received:', {
+        data,
+        userId: user.id,
+        userName: user.first_name,
+        chatId,
+        messageId,
+        chatType: callbackQuery.message?.chat?.type
+      })
+
+      // Проверяем что есть все нужные данные
+      if (!messageId || !chatId) {
+        console.error('Missing messageId or chatId in callback_query')
+        await fetch(`https://api.telegram.org/bot${botToken}/answerCallbackQuery`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            callback_query_id: callbackQuery.id,
+            text: '❌ Ошибка: сообщение недоступно',
+            show_alert: true,
+          }),
+        })
+        return new Response('OK', { status: 200 })
+      }
 
       // Обработка нажатия "Принять заявку"
       if (data.startsWith('accept_lead:')) {
