@@ -140,7 +140,7 @@ export const posIntegrations: SEOPageData[] = [
         }
       }
     ],
-    icon: '🍊',
+    icon: '🍊', // TODO: добавить logo: '/logos/iiko.png'
     color: 'from-orange-500 to-orange-600',
     relatedPages: ['integrations/rkeeper', 'integrations/poster', 'aggregators/glovo', 'products/channels'],
     schemaType: 'SoftwareApplication'
