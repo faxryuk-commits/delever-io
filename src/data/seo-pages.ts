@@ -2164,74 +2164,74 @@ export const comparisonPages: SEOPageData[] = [
     slug: 'compare/own-delivery-vs-aggregators',
     category: 'comparison',
     title: {
-      ru: 'Своя доставка vs агрегаторы — что выгоднее?',
-      en: 'Own Delivery vs Aggregators — What\'s More Profitable?',
-      uz: 'O\'z yetkazib berish vs agregatorlar — nimasi foydali?'
+      ru: 'Агрегаторы + свои каналы = максимум продаж',
+      en: 'Aggregators + Own Channels = Maximum Sales',
+      uz: 'Agregatorlar + o\'z kanallar = maksimal savdo'
     },
     description: {
-      ru: 'Сравнение своих каналов продаж (сайт, Telegram) с агрегаторами (Glovo, Wolt). Комиссии, контроль клиентов, маржинальность.',
-      en: 'Comparison of own sales channels (website, Telegram) with aggregators (Glovo, Wolt). Commissions, customer control, margins.',
-      uz: 'O\'z savdo kanallari (sayt, Telegram) ni agregatorlar (Glovo, Wolt) bilan solishtirish. Komissiyalar, mijozlarni nazorat qilish, foyda.'
+      ru: 'Как использовать Glovo, Wolt, Uzum вместе со своим сайтом и Telegram-ботом. Delever объединяет все каналы в одной системе.',
+      en: 'How to use Glovo, Wolt, Uzum together with your own website and Telegram bot. Delever unifies all channels in one system.',
+      uz: 'Glovo, Wolt, Uzum dan o\'z sayt va Telegram-bot bilan birga qanday foydalanish. Delever barcha kanallarni bitta tizimda birlashtiradi.'
     },
     keywords: {
-      ru: 'своя доставка vs Glovo, комиссия агрегаторов, свой сайт доставки, выгода своей доставки',
-      en: 'own delivery vs Glovo, aggregator commission, own delivery website',
-      uz: 'o\'z yetkazib berish vs Glovo, agregator komissiyasi, o\'z yetkazib berish sayti'
+      ru: 'агрегаторы и свой сайт, Glovo интеграция, омниканальность ресторана, все каналы доставки',
+      en: 'aggregators and own website, Glovo integration, restaurant omnichannel, all delivery channels',
+      uz: 'agregatorlar va o\'z sayt, Glovo integratsiya, restoran omnikanallik'
     },
     h1: {
-      ru: 'Своя доставка vs агрегаторы',
-      en: 'Own Delivery vs Aggregators',
-      uz: 'O\'z yetkazib berish vs agregatorlar'
+      ru: 'Агрегаторы + свои каналы',
+      en: 'Aggregators + Own Channels',
+      uz: 'Agregatorlar + o\'z kanallar'
     },
     intro: {
-      ru: 'Агрегаторы (Glovo, Wolt, Uzum) берут 15-35% комиссию. Свой сайт и Telegram-бот — 0% комиссии. Но агрегаторы дают трафик. Оптимально: использовать оба канала и переводить клиентов на свои.',
-      en: 'Aggregators (Glovo, Wolt, Uzum) charge 15-35% commission. Own website and Telegram bot — 0% commission. But aggregators provide traffic. Optimal: use both channels and convert customers to your own.',
-      uz: 'Agregatorlar (Glovo, Wolt, Uzum) 15-35% komissiya oladi. O\'z sayt va Telegram-bot — 0% komissiya. Lekin agregatorlar trafik beradi. Optimal: ikkala kanalni ishlating va mijozlarni o\'zingiznikiga o\'tkazing.'
+      ru: 'Агрегаторы — отличный источник новых клиентов. Свои каналы — способ сохранить их навсегда. Delever помогает управлять всеми каналами из одного места: заказы с Glovo, Wolt, Uzum, сайта и Telegram приходят в единую систему.',
+      en: 'Aggregators are a great source of new customers. Own channels help keep them forever. Delever helps manage all channels from one place: orders from Glovo, Wolt, Uzum, website and Telegram come to unified system.',
+      uz: 'Agregatorlar — yangi mijozlarning ajoyib manbai. O\'z kanallar — ularni abadiy saqlash usuli. Delever barcha kanallarni bitta joydan boshqarishga yordam beradi.'
     },
     features: {
       ru: [
-        'Агрегаторы: 15-35% комиссия с каждого заказа',
-        'Свои каналы: 0% комиссия, только подписка Delever',
-        'Агрегаторы: дают новых клиентов',
-        'Свои каналы: клиент ваш навсегда',
-        'Свои каналы: программа лояльности, акции',
-        'Рекомендация: используйте оба, переводите на свои'
+        'Агрегаторы приводят новых клиентов — это ценно!',
+        'Свои каналы помогают строить лояльность',
+        'Delever объединяет ВСЕ заказы в одном окне',
+        'Автоматическая синхронизация меню со всеми агрегаторами',
+        'Программа лояльности переводит клиентов на свои каналы',
+        'Единая аналитика по всем источникам заказов'
       ],
       en: [
-        'Aggregators: 15-35% commission per order',
-        'Own channels: 0% commission, only Delever subscription',
-        'Aggregators: bring new customers',
-        'Own channels: customer is yours forever',
-        'Own channels: loyalty program, promotions',
-        'Recommendation: use both, convert to your own'
+        'Aggregators bring new customers — that\'s valuable!',
+        'Own channels help build loyalty',
+        'Delever unifies ALL orders in one window',
+        'Automatic menu sync with all aggregators',
+        'Loyalty program converts customers to own channels',
+        'Unified analytics across all order sources'
       ],
       uz: [
-        'Agregatorlar: har bir buyurtmadan 15-35% komissiya',
-        'O\'z kanallar: 0% komissiya, faqat Delever obunasi',
-        'Agregatorlar: yangi mijozlarni keltiradi',
-        'O\'z kanallar: mijoz sizniki abadiy',
-        'O\'z kanallar: sodiqlik dasturi, aksiyalar',
-        'Tavsiya: ikkalasini ishlating, o\'zingiznikiga o\'tkazing'
+        'Agregatorlar yangi mijozlarni keltiradi — bu qimmatli!',
+        'O\'z kanallar sodiqlik qurishga yordam beradi',
+        'Delever BARCHA buyurtmalarni bitta oynada birlashtiradi',
+        'Barcha agregatorlar bilan menyuni avtomatik sinxronlash',
+        'Sodiqlik dasturi mijozlarni o\'z kanallarga o\'tkazadi',
+        'Barcha buyurtma manbalari bo\'yicha yagona tahlil'
       ]
     },
     benefits: {
       ru: [
-        'Экономия до 30% на комиссиях',
-        'Контроль базы клиентов',
-        'Прямой маркетинг (push, SMS)',
-        'Выше маржа на своих каналах'
+        'Больше заказов из всех источников',
+        'Единое управление всеми каналами',
+        'Рост лояльной базы клиентов',
+        'Полная картина бизнеса в аналитике'
       ],
       en: [
-        'Save up to 30% on commissions',
-        'Control customer database',
-        'Direct marketing (push, SMS)',
-        'Higher margin on own channels'
+        'More orders from all sources',
+        'Unified management of all channels',
+        'Growing loyal customer base',
+        'Complete business picture in analytics'
       ],
       uz: [
-        'Komissiyalarda 30% gacha tejash',
-        'Mijozlar bazasini nazorat qilish',
-        'To\'g\'ridan-to\'g\'ri marketing (push, SMS)',
-        'O\'z kanallarda yuqori foyda'
+        'Barcha manbalardan ko\'proq buyurtmalar',
+        'Barcha kanallarni yagona boshqarish',
+        'Sodiq mijozlar bazasining o\'sishi',
+        'Tahlilda biznesning to\'liq tasviri'
       ]
     },
     faq: [],

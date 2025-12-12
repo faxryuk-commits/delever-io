@@ -226,7 +226,7 @@ const pageGroups = [
     color: 'from-violet-500 to-violet-600',
     pages: [
       { path: '/compare/delever-vs-pos', title: 'Delever vs POS-системы', priority: 'high' },
-      { path: '/compare/own-delivery-vs-aggregators', title: 'Своя доставка vs агрегаторы', priority: 'high' },
+      { path: '/compare/own-delivery-vs-aggregators', title: 'Агрегаторы + свои каналы', priority: 'high' },
     ]
   },
   {
