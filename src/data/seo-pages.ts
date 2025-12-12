@@ -140,7 +140,7 @@ export const posIntegrations: SEOPageData[] = [
         }
       }
     ],
-    logo: '/logos/iiko.png',
+    icon: '🍊',
     color: 'from-orange-500 to-orange-600',
     relatedPages: ['integrations/rkeeper', 'integrations/poster', 'aggregators/glovo', 'products/channels'],
     schemaType: 'SoftwareApplication'
@@ -234,7 +234,7 @@ export const posIntegrations: SEOPageData[] = [
         }
       }
     ],
-    logo: '/logos/rkeeper.png',
+    icon: '🔵',
     color: 'from-blue-500 to-blue-600',
     relatedPages: ['integrations/iiko', 'integrations/poster', 'aggregators/wolt'],
     schemaType: 'SoftwareApplication'
@@ -315,7 +315,7 @@ export const posIntegrations: SEOPageData[] = [
       ]
     },
     faq: [],
-    logo: '/logos/poster.png',
+    icon: '💚',
     color: 'from-green-500 to-green-600',
     relatedPages: ['integrations/iiko', 'integrations/jowi', 'products/channels'],
     schemaType: 'SoftwareApplication'
@@ -360,7 +360,7 @@ export const posIntegrations: SEOPageData[] = [
       uz: ['O\'zbekistonda mashhur', 'Tez sozlash', 'Mahalliy qo\'llab-quvvatlash']
     },
     faq: [],
-    logo: '/logos/jowi.png',
+    icon: '🩵',
     color: 'from-cyan-500 to-cyan-600',
     relatedPages: ['integrations/iiko', 'integrations/poster'],
     schemaType: 'SoftwareApplication'
@@ -405,7 +405,7 @@ export const posIntegrations: SEOPageData[] = [
       uz: ['Istalgan joydan ishlaydi', 'Avtomatik yangilanishlar', 'Kengayuvchanlik']
     },
     faq: [],
-    logo: '/logos/syrve.png',
+    icon: '☁️',
     color: 'from-violet-500 to-violet-600',
     relatedPages: ['integrations/iiko', 'integrations/rkeeper'],
     schemaType: 'SoftwareApplication'
@@ -736,7 +736,7 @@ export const paymentIntegrations: SEOPageData[] = [
       uz: ['O\'zbekistonda #1 to\'lov tizimi', 'Bir zumda hisobga o\'tkazish']
     },
     faq: [],
-    logo: '/logos/payme.png',
+    icon: '💳',
     color: 'from-cyan-500 to-cyan-600',
     relatedPages: ['integrations/click', 'integrations/uzum-bank'],
     schemaType: 'SoftwareApplication'
@@ -781,7 +781,7 @@ export const paymentIntegrations: SEOPageData[] = [
       uz: ['Keng qamrov', 'Tez integratsiya']
     },
     faq: [],
-    logo: '/logos/click.png',
+    icon: '🔵',
     color: 'from-blue-500 to-blue-600',
     relatedPages: ['integrations/payme', 'integrations/uzum-bank'],
     schemaType: 'SoftwareApplication'
@@ -1356,7 +1356,7 @@ export const morePosIntegrations: SEOPageData[] = [
       uz: ['Zamonaviy interfeys', 'Bulutli tizim', 'Tez sozlash']
     },
     faq: [],
-    logo: '/logos/paloma.png',
+    icon: '🩷',
     color: 'from-pink-500 to-pink-600',
     relatedPages: ['integrations/iiko', 'integrations/poster'],
     schemaType: 'SoftwareApplication'

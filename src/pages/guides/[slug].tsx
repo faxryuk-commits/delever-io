@@ -6,8 +6,8 @@ import { NotFound } from '@/pages/NotFound'
 export function GuidePage() {
   const { '*': fullSlug } = useParams()
   
-  // Пробуем найти статью по полному пути
-  const article = getKnowledgeArticle(`guides/${fullSlug}`)
+  // Ищем статью по slug (без префикса guides/)
+  const article = getKnowledgeArticle(fullSlug || '')
 
   if (!article) {
     return <NotFound />

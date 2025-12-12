@@ -119,7 +119,7 @@ export const knowledgeHubs = {
 // ============================================
 export const openRestaurantArticles: KnowledgeArticle[] = [
   {
-    slug: 'guides/how-to-open-restaurant',
+    slug: 'how-to-open-restaurant',
     hub: 'open-restaurant',
     title: {
       ru: 'Как открыть ресторан в 2025 году — пошаговый гайд',
@@ -194,11 +194,11 @@ export const openRestaurantArticles: KnowledgeArticle[] = [
         a: { ru: 'Регистрация юрлица, санитарное разрешение СЭС, заключение пожарной инспекции, лицензия на общепит (для алкоголя — дополнительная).', en: 'Legal entity registration, sanitary permit, fire inspection certificate, public catering license (additional for alcohol).', uz: 'Yuridik shaxsni ro\'yxatdan o\'tkazish, sanitariya ruxsatnomasi, yong\'in inspeksiyasi xulosasi, ommaviy ovqatlanish litsenziyasi (alkogol uchun — qo\'shimcha).' }
       }
     ],
-    relatedArticles: ['guides/how-to-choose-location', 'guides/how-to-launch-delivery', 'guides/restaurant-business-plan'],
+    relatedArticles: ['how-to-choose-location', 'how-to-launch-delivery'],
     relatedProducts: ['products/channels', 'solutions/cafe', 'solutions/pizzeria']
   },
   {
-    slug: 'guides/how-to-choose-location',
+    slug: 'how-to-choose-location',
     hub: 'open-restaurant',
     title: {
       ru: 'Как выбрать локацию для ресторана — 7 критериев',
@@ -248,7 +248,7 @@ export const openRestaurantArticles: KnowledgeArticle[] = [
       link: '/solutions/dark-kitchen'
     },
     faq: [],
-    relatedArticles: ['guides/how-to-open-restaurant', 'guides/dark-kitchen-guide'],
+    relatedArticles: ['how-to-open-restaurant'],
     relatedProducts: ['solutions/dark-kitchen', 'products/channels']
   }
 ]
@@ -258,7 +258,7 @@ export const openRestaurantArticles: KnowledgeArticle[] = [
 // ============================================
 export const launchDeliveryArticles: KnowledgeArticle[] = [
   {
-    slug: 'guides/how-to-launch-delivery',
+    slug: 'how-to-launch-delivery',
     hub: 'launch-delivery',
     title: {
       ru: 'Как запустить доставку в ресторане — полный гайд 2025',
@@ -329,7 +329,7 @@ export const launchDeliveryArticles: KnowledgeArticle[] = [
     relatedProducts: ['products/channels', 'products/operations', 'delivery/yandex-delivery']
   },
   {
-    slug: 'guides/how-to-hire-couriers',
+    slug: 'how-to-hire-couriers',
     hub: 'courier-logistics',
     title: {
       ru: 'Как нанять курьеров для доставки еды — гайд для ресторанов',
@@ -379,7 +379,7 @@ export const launchDeliveryArticles: KnowledgeArticle[] = [
       link: '/delivery/yandex-delivery'
     },
     faq: [],
-    relatedArticles: ['guides/how-to-launch-delivery', 'guides/courier-salary-models'],
+    relatedArticles: ['how-to-launch-delivery'],
     relatedProducts: ['products/operations', 'delivery/yandex-delivery', 'delivery/wolt-drive']
   }
 ]
@@ -389,7 +389,7 @@ export const launchDeliveryArticles: KnowledgeArticle[] = [
 // ============================================
 export const growSalesArticles: KnowledgeArticle[] = [
   {
-    slug: 'guides/how-to-increase-restaurant-sales',
+    slug: 'how-to-increase-restaurant-sales',
     hub: 'grow-sales',
     title: {
       ru: 'Как увеличить продажи ресторана — 15 проверенных способов',
@@ -447,7 +447,7 @@ export const growSalesArticles: KnowledgeArticle[] = [
       link: '/products/marketing'
     },
     faq: [],
-    relatedArticles: ['guides/how-to-create-loyalty-program', 'guides/restaurant-promotions'],
+    relatedArticles: ['how-to-launch-delivery'],
     relatedProducts: ['products/marketing', 'products/channels']
   }
 ]
@@ -457,7 +457,7 @@ export const growSalesArticles: KnowledgeArticle[] = [
 // ============================================
 export const aggregatorArticles: KnowledgeArticle[] = [
   {
-    slug: 'guides/reduce-aggregator-commissions',
+    slug: 'reduce-aggregator-commissions',
     hub: 'aggregators',
     title: {
       ru: 'Как снизить комиссию агрегаторов — стратегия для ресторанов',
@@ -512,7 +512,7 @@ export const aggregatorArticles: KnowledgeArticle[] = [
         a: { ru: 'Glovo: 25-30%, Wolt: 20-30%, Uzum Tezkor: 15-25%, Yandex Еда: 20-35%. Зависит от объёмов и договорённостей.', en: 'Glovo: 25-30%, Wolt: 20-30%, Uzum Tezkor: 15-25%, Yandex Eats: 20-35%. Depends on volumes and agreements.', uz: 'Glovo: 25-30%, Wolt: 20-30%, Uzum Tezkor: 15-25%, Yandex Eda: 20-35%. Hajmlar va kelishuvlarga bog\'liq.' }
       }
     ],
-    relatedArticles: ['guides/how-to-launch-delivery', 'compare/own-delivery-vs-aggregators'],
+    relatedArticles: ['how-to-launch-delivery'],
     relatedProducts: ['products/channels', 'aggregators/glovo', 'aggregators/wolt']
   }
 ]
