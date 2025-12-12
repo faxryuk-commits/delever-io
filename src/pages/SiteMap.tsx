@@ -71,6 +71,7 @@ const pageGroups = [
       { path: '/case-studies/yaponamama', title: '🍣 Yaponamama: +60% LTV', priority: 'high' },
       { path: '/case-studies/maxway', title: '🚀 MAXWAY: -35% время доставки', priority: 'high' },
       { path: '/case-studies/gippo', title: '🛒 Gippo: -92% ошибок', priority: 'high' },
+      { path: '/case-studies/okadzaki', title: '🍣 Okadzaki: 0% ошибок скидок', priority: 'high' },
     ]
   },
   {

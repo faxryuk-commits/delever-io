@@ -307,6 +307,12 @@ export function Clients() {
                   metric: '-92%', 
                   label: language === 'ru' ? 'ошибок' : 'errors',
                   slug: 'gippo'
+                },
+                { 
+                  company: 'Okadzaki', 
+                  metric: '0%', 
+                  label: language === 'ru' ? 'ошибок скидок' : 'discount errors',
+                  slug: 'okadzaki'
                 }
               ].map((cs, idx) => (
                 <Link 

@@ -405,6 +405,97 @@ export const caseStudies: CaseStudy[] = [
       { date: '2024-04', event: { ru: 'Запуск умной очереди сборки', en: 'Smart assembly queue launch', uz: 'Aqlli yig\'ish navbatini ishga tushirish' } },
       { date: '2024-06', event: { ru: 'Оптимизация процессов', en: 'Process optimization', uz: 'Jarayonlarni optimallashtirish' } }
     ]
+  },
+  
+  // ============================================
+  // OKADZAKI
+  // ============================================
+  {
+    slug: 'okadzaki',
+    company: 'Okadzaki',
+    logo: '/logos/okadzaki.png',
+    industry: 'Japanese & Sushi',
+    country: 'Uzbekistan',
+    city: 'Tashkent',
+    
+    title: {
+      ru: 'Okadzaki: интеграция 3 агрегаторов — ноль ошибок со скидками',
+      en: 'Okadzaki: 3 Aggregator Integration — Zero Discount Errors',
+      uz: 'Okadzaki: 3 agregator integratsiyasi — chegirmalar bilan xatolar nol'
+    },
+    description: {
+      ru: 'Как сеть японской кухни Okadzaki интегрировала Glovo, Yandex Eats и Wolt: ускорение обработки, устранение ошибок со скидками.',
+      en: 'How Okadzaki Japanese cuisine chain integrated Glovo, Yandex Eats and Wolt: faster processing, eliminated discount errors.',
+      uz: 'Okadzaki yapon oshxonasi tarmog\'i Glovo, Yandex Eats va Woltni qanday birlashtirdi.'
+    },
+    
+    tagline: {
+      ru: '3 агрегатора в одном окне — скидки применяются автоматически',
+      en: '3 Aggregators in One Window — Discounts Applied Automatically',
+      uz: '3 agregator bitta oynada — chegirmalar avtomatik qo\'llaniladi'
+    },
+    
+    challenge: {
+      ru: 'Okadzaki — популярная сеть японской кухни, работающая с Glovo, Yandex Eats и Wolt. До Delever операторы вручную переносили заказы с 3 планшетов в POS-систему. Главная проблема — ошибки со скидками: акции агрегаторов не синхронизировались с кассой, клиенты получали неверные чеки. Время обработки заказа — 5+ минут.',
+      en: 'Okadzaki is a popular Japanese cuisine chain working with Glovo, Yandex Eats and Wolt. Before Delever, operators manually transferred orders from 3 tablets to POS. Main problem — discount errors: aggregator promotions didn\'t sync with cash register, customers received incorrect receipts. Order processing time — 5+ minutes.',
+      uz: 'Okadzaki — Glovo, Yandex Eats va Wolt bilan ishlaydigan mashhur yapon oshxonasi tarmog\'i. Deleverdan oldin operatorlar 3 ta planshetdan buyurtmalarni qo\'lda POS ga o\'tkazishardi.'
+    },
+    
+    solution: {
+      ru: 'Внедрили Delever с интеграцией всех агрегаторов: 1) Glovo, Yandex Eats, Wolt — все заказы в одном интерфейсе. 2) Автоматическая синхронизация скидок и акций с POS. 3) Заказы мгновенно попадают на кухню без ручного ввода. 4) Единый учёт выручки по всем каналам.',
+      en: 'Implemented Delever with all aggregator integrations: 1) Glovo, Yandex Eats, Wolt — all orders in one interface. 2) Automatic discount and promotion sync with POS. 3) Orders instantly go to kitchen without manual entry. 4) Unified revenue tracking across all channels.',
+      uz: 'Barcha agregator integratsiyalari bilan Delever joriy qilindi: 1) Glovo, Yandex Eats, Wolt — barcha buyurtmalar bitta interfeysda. 2) Chegirmalar va aksiyalarni POS bilan avtomatik sinxronlash.'
+    },
+    
+    results: [
+      {
+        metric: 'discount_errors',
+        before: '15%',
+        after: '0%',
+        improvement: '-100%',
+        label: { ru: 'Ошибки со скидками', en: 'Discount Errors', uz: 'Chegirmalar bilan xatolar' }
+      },
+      {
+        metric: 'processing_time',
+        before: '5 мин',
+        after: '30 сек',
+        improvement: '-90%',
+        label: { ru: 'Время обработки заказа', en: 'Order Processing Time', uz: 'Buyurtmani qayta ishlash vaqti' }
+      },
+      {
+        metric: 'order_errors',
+        before: '8%',
+        after: '<1%',
+        improvement: '-88%',
+        label: { ru: 'Ошибки в заказах', en: 'Order Errors', uz: 'Buyurtmalardagi xatolar' }
+      },
+      {
+        metric: 'operator_load',
+        before: '3 планшета',
+        after: '1 экран',
+        improvement: '-67%',
+        label: { ru: 'Нагрузка оператора', en: 'Operator Load', uz: 'Operator yuklamasi' }
+      }
+    ],
+    
+    quote: {
+      text: {
+        ru: 'Раньше каждый день были проблемы со скидками — клиент видит одну цену в приложении, а в чеке другая. Теперь Delever автоматически синхронизирует все акции. За 3 месяца ни одной жалобы на скидки.',
+        en: 'Every day we had discount problems — customer sees one price in app, different in receipt. Now Delever automatically syncs all promotions. Not a single discount complaint in 3 months.',
+        uz: 'Har kuni chegirmalar bilan muammolar bor edi — mijoz ilovada bitta narxni ko\'radi, chekda boshqasi. Endi Delever barcha aksiyalarni avtomatik sinxronlaydi.'
+      },
+      author: 'Дмитрий Пак',
+      role: { ru: 'Управляющий сетью Okadzaki', en: 'Okadzaki Chain Manager', uz: 'Okadzaki tarmog\'i boshqaruvchisi' }
+    },
+    
+    products: ['products/channels', 'products/operations', 'aggregators/glovo', 'aggregators/yandex-eats', 'aggregators/wolt'],
+    
+    timeline: [
+      { date: '2024-03', event: { ru: 'Аудит проблем с агрегаторами', en: 'Aggregator issues audit', uz: 'Agregatorlar bilan muammolar auditi' } },
+      { date: '2024-04', event: { ru: 'Интеграция Glovo, Yandex Eats, Wolt', en: 'Glovo, Yandex Eats, Wolt integration', uz: 'Glovo, Yandex Eats, Wolt integratsiyasi' } },
+      { date: '2024-05', event: { ru: 'Настройка синхронизации скидок', en: 'Discount sync setup', uz: 'Chegirmalar sinxronizatsiyasini sozlash' } },
+      { date: '2024-07', event: { ru: 'Полная автоматизация', en: 'Full automation', uz: 'To\'liq avtomatlashtirish' } }
+    ]
   }
 ]
 
