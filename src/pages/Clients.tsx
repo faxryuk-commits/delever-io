@@ -285,10 +285,10 @@ export function Clients() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 { 
-                  company: 'EVOS', 
+                  company: 'Grand Lavash', 
                   metric: '+45%', 
                   label: language === 'ru' ? 'выручка' : 'revenue',
-                  slug: 'evos'
+                  slug: 'grand-lavash'
                 },
                 { 
                   company: 'Yaponamama', 

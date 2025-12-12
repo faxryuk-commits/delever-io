@@ -67,7 +67,7 @@ const pageGroups = [
     color: 'from-emerald-500 to-emerald-600',
     pages: [
       { path: '/case-studies', title: '📊 Все кейсы', priority: 'high' },
-      { path: '/case-studies/evos', title: '🍔 EVOS: +45% выручка', priority: 'high' },
+      { path: '/case-studies/grand-lavash', title: '🌯 Grand Lavash: +45% выручка', priority: 'high' },
       { path: '/case-studies/yaponamama', title: '🍣 Yaponamama: +60% LTV', priority: 'high' },
       { path: '/case-studies/maxway', title: '🚀 MAXWAY: -35% время доставки', priority: 'high' },
     ]

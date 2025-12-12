@@ -51,25 +51,25 @@ export interface CaseStudy {
 
 export const caseStudies: CaseStudy[] = [
   // ============================================
-  // EVOS
+  // Grand Lavash
   // ============================================
   {
-    slug: 'evos',
-    company: 'EVOS',
-    logo: '/logos/evos.png',
-    industry: 'Fast Food',
+    slug: 'grand-lavash',
+    company: 'Grand Lavash',
+    logo: '/logos/grand-lavash.png',
+    industry: 'Lavash & Kebab',
     country: 'Uzbekistan',
-    city: 'Tashkent',
+    city: 'Nukus',
     
     title: {
-      ru: 'Как EVOS увеличил выручку с доставки на 45% за 6 месяцев',
-      en: 'How EVOS Increased Delivery Revenue by 45% in 6 Months',
-      uz: 'EVOS 6 oyda yetkazib berish daromadini qanday 45% ga oshirdi'
+      ru: 'Как Grand Lavash увеличил выручку с доставки на 45% за 6 месяцев',
+      en: 'How Grand Lavash Increased Delivery Revenue by 45% in 6 Months',
+      uz: 'Grand Lavash 6 oyda yetkazib berish daromadini qanday 45% ga oshirdi'
     },
     description: {
-      ru: 'Кейс внедрения Delever в крупнейшей сети фастфуда Узбекистана. Интеграция с iiko, запуск Telegram-бота, оптимизация доставки.',
-      en: 'Delever implementation case study in Uzbekistan\'s largest fast food chain. iiko integration, Telegram bot launch, delivery optimization.',
-      uz: 'O\'zbekistondagi eng yirik fast food tarmog\'ida Delever joriy etish keysi.'
+      ru: 'Кейс внедрения Delever в популярной сети лаваша в Нукусе. Интеграция с iiko, запуск Telegram-бота, оптимизация доставки.',
+      en: 'Delever implementation case study in popular lavash chain in Nukus. iiko integration, Telegram bot launch, delivery optimization.',
+      uz: 'Nukusdagi mashhur lavash tarmog\'ida Delever joriy etish keysi.'
     },
     
     tagline: {
@@ -79,9 +79,9 @@ export const caseStudies: CaseStudy[] = [
     },
     
     challenge: {
-      ru: 'EVOS — крупнейшая сеть фастфуда в Узбекистане с 50+ точками. До Delever 80% доставки шло через агрегаторы с комиссией 25-30%. Заказы с сайта и Telegram вводились вручную в iiko, что приводило к ошибкам и задержкам. Не было единой базы клиентов и аналитики по каналам.',
-      en: 'EVOS is Uzbekistan\'s largest fast food chain with 50+ locations. Before Delever, 80% of delivery was through aggregators with 25-30% commission. Website and Telegram orders were manually entered into iiko, causing errors and delays. No unified customer database or channel analytics.',
-      uz: 'EVOS — O\'zbekistondagi eng yirik fast food tarmog\'i, 50+ filial. Deleverdan oldin yetkazib berishning 80% 25-30% komissiya bilan agregatorlar orqali o\'tardi.'
+      ru: 'Grand Lavash — популярная сеть лаваша в Нукусе с 5+ точками. До Delever 80% доставки шло через агрегаторы с комиссией 25-30%. Заказы с сайта и Telegram вводились вручную в iiko, что приводило к ошибкам и задержкам. Не было единой базы клиентов и аналитики по каналам.',
+      en: 'Grand Lavash is a popular lavash chain in Nukus with 5+ locations. Before Delever, 80% of delivery was through aggregators with 25-30% commission. Website and Telegram orders were manually entered into iiko, causing errors and delays. No unified customer database or channel analytics.',
+      uz: 'Grand Lavash — Nukusdagi mashhur lavash tarmog\'i, 5+ filial. Deleverdan oldin yetkazib berishning 80% 25-30% komissiya bilan agregatorlar orqali o\'tardi.'
     },
     
     solution: {
@@ -93,8 +93,8 @@ export const caseStudies: CaseStudy[] = [
     results: [
       {
         metric: 'revenue',
-        before: '$180K',
-        after: '$261K',
+        before: '$15K',
+        after: '$21.7K',
         improvement: '+45%',
         label: { ru: 'Выручка с доставки/мес', en: 'Monthly Delivery Revenue', uz: 'Oylik yetkazib berish daromadi' }
       },
@@ -107,8 +107,8 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         metric: 'avg_check',
-        before: '$8.50',
-        after: '$11.20',
+        before: '$6.50',
+        after: '$8.60',
         improvement: '+32%',
         label: { ru: 'Средний чек', en: 'Average Check', uz: 'O\'rtacha chek' }
       },
@@ -127,17 +127,17 @@ export const caseStudies: CaseStudy[] = [
         en: 'Delever helped us regain control of delivery. We used to pay millions to aggregators, now that money stays with us. Most importantly — we know our customers and can work with them directly.',
         uz: 'Delever bizga yetkazib berish ustidan nazoratni qaytarishga yordam berdi. Ilgari agregatorlarga millionlar to\'lardik, endi bu pullar bizda qoladi.'
       },
-      author: 'Азиз Каримов',
-      role: { ru: 'Директор по операциям EVOS', en: 'EVOS Operations Director', uz: 'EVOS Operatsiyalar direktori' }
+      author: 'Бахтияр Утемуратов',
+      role: { ru: 'Директор Grand Lavash', en: 'Grand Lavash Director', uz: 'Grand Lavash direktori' }
     },
     
     products: ['products/channels', 'products/operations', 'integrations/iiko', 'products/marketing'],
     
     timeline: [
-      { date: '2023-01', event: { ru: 'Старт проекта, аудит текущих процессов', en: 'Project start, current process audit', uz: 'Loyiha boshlanishi' } },
-      { date: '2023-02', event: { ru: 'Интеграция с iiko, запуск Telegram-бота', en: 'iiko integration, Telegram bot launch', uz: 'iiko integratsiyasi, Telegram-bot ishga tushirildi' } },
-      { date: '2023-03', event: { ru: 'Запуск программы лояльности', en: 'Loyalty program launch', uz: 'Sodiqlik dasturi ishga tushirildi' } },
-      { date: '2023-06', event: { ru: 'Достигнуты целевые показатели', en: 'Target metrics achieved', uz: 'Maqsadli ko\'rsatkichlarga erishildi' } }
+      { date: '2024-01', event: { ru: 'Старт проекта, аудит текущих процессов', en: 'Project start, current process audit', uz: 'Loyiha boshlanishi' } },
+      { date: '2024-02', event: { ru: 'Интеграция с iiko, запуск Telegram-бота', en: 'iiko integration, Telegram bot launch', uz: 'iiko integratsiyasi, Telegram-bot ishga tushirildi' } },
+      { date: '2024-03', event: { ru: 'Запуск программы лояльности', en: 'Loyalty program launch', uz: 'Sodiqlik dasturi ishga tushirildi' } },
+      { date: '2024-06', event: { ru: 'Достигнуты целевые показатели', en: 'Target metrics achieved', uz: 'Maqsadli ko\'rsatkichlarga erishildi' } }
     ]
   },
   

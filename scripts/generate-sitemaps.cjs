@@ -110,7 +110,7 @@ const comparisons = [
 // Case Studies
 const caseStudies = [
   { path: '/case-studies', priority: '0.8', changefreq: 'weekly' },
-  { path: '/case-studies/evos', priority: '0.85', changefreq: 'monthly' },
+  { path: '/case-studies/grand-lavash', priority: '0.85', changefreq: 'monthly' },
   { path: '/case-studies/yaponamama', priority: '0.85', changefreq: 'monthly' },
   { path: '/case-studies/maxway', priority: '0.85', changefreq: 'monthly' },
 ];
