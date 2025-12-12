@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, ShoppingCart, Truck, BarChart3, Megaphone, Plug, ChevronDown, Layers, Sparkles, Stethoscope } from 'lucide-react'
+import { Menu, X, ShoppingCart, Truck, BarChart3, Megaphone, Plug, ChevronDown, Layers, Sparkles, Stethoscope, BookOpen, TrendingUp, Users, Building2 } from 'lucide-react'
 import { Button } from './ui/Button'
 import { ContactForm } from './ContactForm'
 import { Logo } from './Logo'
@@ -17,6 +17,7 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const [productsMenuOpen, setProductsMenuOpen] = useState(false)
+  const [aboutMenuOpen, setAboutMenuOpen] = useState(false)
   const location = useLocation()
   const { t } = useLocale()
 
@@ -69,7 +70,13 @@ export function Header() {
     { path: '/aggregators', labelKey: 'nav.aggregators' },
     { path: '/pricing', labelKey: 'nav.pricing' },
     { path: '/partners', labelKey: 'nav.partners' },
-    { path: '/about', labelKey: 'nav.about' },
+  ]
+
+  const aboutItems = [
+    { path: '/about', label: 'О компании', icon: <Building2 className="h-5 w-5" />, desc: 'Наша история и миссия' },
+    { path: '/clients', label: 'Клиенты', icon: <Users className="h-5 w-5" />, desc: '500+ ресторанов' },
+    { path: '/guides', label: 'Гайды', icon: <BookOpen className="h-5 w-5" />, desc: 'Статьи для бизнеса' },
+    { path: '/case-studies', label: 'Кейсы', icon: <TrendingUp className="h-5 w-5" />, desc: 'Истории успеха' },
   ]
 
   const isProductActive = () => {
@@ -192,18 +199,41 @@ export function Header() {
                 </Link>
               ))}
 
-              {/* Guides Link */}
-              <Link
-                to="/guides"
-                className={cn(
-                  'px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200',
-                  isActive('/guides')
-                    ? 'bg-brand-lightBlue/60 text-brand-darkBlue font-semibold'
-                    : 'text-brand-darkBlue/70 hover:text-brand-darkBlue hover:bg-brand-lightBlue/40'
-                )}
-              >
-                Гайды
-              </Link>
+              {/* About Dropdown */}
+              <DropdownMenu open={aboutMenuOpen} onOpenChange={setAboutMenuOpen}>
+                <DropdownMenuTrigger asChild>
+                  <button
+                    className={cn(
+                      'px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1.5',
+                      (isActive('/about') || isActive('/guides') || isActive('/case-studies') || isActive('/clients'))
+                        ? 'bg-brand-lightBlue/60 text-brand-darkBlue font-semibold'
+                        : 'text-brand-darkBlue/70 hover:text-brand-darkBlue hover:bg-brand-lightBlue/40'
+                    )}
+                  >
+                    {t('nav.about')}
+                    <ChevronDown className={cn('h-4 w-4 transition-transform duration-200', aboutMenuOpen && 'rotate-180')} />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-64 p-2 bg-white rounded-xl shadow-xl border border-brand-lightTeal/20">
+                  {aboutItems.map((item) => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      onClick={() => setAboutMenuOpen(false)}
+                      className={cn(
+                        'flex items-start gap-3 p-3 rounded-lg hover:bg-brand-lightBlue/30 transition-colors',
+                        isActive(item.path) && 'bg-brand-lightBlue/20'
+                      )}
+                    >
+                      <div className="text-brand-darkBlue/70 mt-0.5">{item.icon}</div>
+                      <div>
+                        <div className="text-sm font-medium text-brand-darkBlue">{item.label}</div>
+                        <div className="text-xs text-brand-darkBlue/50">{item.desc}</div>
+                      </div>
+                    </Link>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
             </nav>
 
             {/* Right side controls */}
