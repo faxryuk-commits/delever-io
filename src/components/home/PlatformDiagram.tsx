@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   ShoppingCart, 
@@ -19,6 +20,7 @@ const steps = [
     color: 'from-blue-500 to-cyan-500',
     bgColor: 'bg-blue-500/10',
     iconBg: 'bg-gradient-to-br from-blue-500 to-cyan-500',
+    link: '/products/channels',
   },
   { 
     id: 'operations', 
@@ -28,6 +30,7 @@ const steps = [
     color: 'from-violet-500 to-purple-500',
     bgColor: 'bg-violet-500/10',
     iconBg: 'bg-gradient-to-br from-violet-500 to-purple-500',
+    link: '/products/operations',
   },
   { 
     id: 'delivery', 
@@ -37,6 +40,7 @@ const steps = [
     color: 'from-emerald-500 to-teal-500',
     bgColor: 'bg-emerald-500/10',
     iconBg: 'bg-gradient-to-br from-emerald-500 to-teal-500',
+    link: '/aggregators',
   },
   { 
     id: 'customers', 
@@ -46,6 +50,7 @@ const steps = [
     color: 'from-orange-500 to-amber-500',
     bgColor: 'bg-orange-500/10',
     iconBg: 'bg-gradient-to-br from-orange-500 to-amber-500',
+    link: '/products/marketing',
   },
   { 
     id: 'analytics', 
@@ -55,6 +60,7 @@ const steps = [
     color: 'from-pink-500 to-rose-500',
     bgColor: 'bg-pink-500/10',
     iconBg: 'bg-gradient-to-br from-pink-500 to-rose-500',
+    link: '/products/analytics',
   },
 ]
 
@@ -105,68 +111,70 @@ export function PlatformDiagram() {
                   transition={{ delay: idx * 0.1, duration: 0.5 }}
                 >
                   {/* Карточка шага */}
-                  <motion.div 
-                    className="relative cursor-pointer"
-                    onMouseEnter={() => setHoveredStep(step.id)}
-                    onMouseLeave={() => setHoveredStep(null)}
-                    whileHover={{ y: -8 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                  >
-                    {/* Свечение под карточкой */}
+                  <Link to={step.link}>
                     <motion.div 
-                      className={`absolute -inset-2 rounded-3xl bg-gradient-to-r ${step.color} blur-xl`}
-                      animate={{ opacity: isHovered ? 0.4 : 0 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                    
-                    <div className={`relative w-44 rounded-2xl bg-white border-2 transition-all duration-300 overflow-hidden ${
-                      isHovered ? 'border-transparent shadow-2xl' : 'border-gray-100 shadow-lg'
-                    }`}>
-                      {/* Градиентная полоска сверху */}
-                      <div className={`h-1 bg-gradient-to-r ${step.color}`} />
+                      className="relative cursor-pointer"
+                      onMouseEnter={() => setHoveredStep(step.id)}
+                      onMouseLeave={() => setHoveredStep(null)}
+                      whileHover={{ y: -8 }}
+                      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                    >
+                      {/* Свечение под карточкой */}
+                      <motion.div 
+                        className={`absolute -inset-2 rounded-3xl bg-gradient-to-r ${step.color} blur-xl`}
+                        animate={{ opacity: isHovered ? 0.4 : 0 }}
+                        transition={{ duration: 0.3 }}
+                      />
                       
-                      <div className="p-5">
-                        {/* Иконка */}
-                        <motion.div 
-                          className={`w-14 h-14 rounded-xl ${step.iconBg} flex items-center justify-center mb-4 mx-auto shadow-lg`}
-                          animate={{ 
-                            scale: isHovered ? 1.1 : 1,
-                            rotate: isHovered ? [0, -5, 5, 0] : 0
-                          }}
-                          transition={{ duration: 0.4 }}
-                        >
-                          <Icon className="h-7 w-7 text-white" />
-                        </motion.div>
+                      <div className={`relative w-44 rounded-2xl bg-white border-2 transition-all duration-300 overflow-hidden ${
+                        isHovered ? 'border-transparent shadow-2xl' : 'border-gray-100 shadow-lg'
+                      }`}>
+                        {/* Градиентная полоска сверху */}
+                        <div className={`h-1 bg-gradient-to-r ${step.color}`} />
                         
-                        {/* Название */}
-                        <h3 className="font-bold text-brand-darkBlue text-center mb-2">
-                          {t(step.labelKey)}
-                        </h3>
-                        
-                        {/* Описание - всегда видно */}
-                        <AnimatePresence>
-                          {isHovered ? (
-                            <motion.p 
-                              className="text-xs text-brand-darkBlue/60 text-center leading-relaxed"
-                              initial={{ opacity: 0, height: 0 }}
-                              animate={{ opacity: 1, height: 'auto' }}
-                              exit={{ opacity: 0, height: 0 }}
-                              transition={{ duration: 0.3 }}
-                            >
-                              {t(step.descKey)}
-                            </motion.p>
-                          ) : (
-                            <motion.div 
-                              className="h-1 w-12 mx-auto bg-gray-200 rounded-full"
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              exit={{ opacity: 0 }}
-                            />
-                          )}
-                        </AnimatePresence>
+                        <div className="p-5">
+                          {/* Иконка */}
+                          <motion.div 
+                            className={`w-14 h-14 rounded-xl ${step.iconBg} flex items-center justify-center mb-4 mx-auto shadow-lg`}
+                            animate={{ 
+                              scale: isHovered ? 1.1 : 1,
+                              rotate: isHovered ? [0, -5, 5, 0] : 0
+                            }}
+                            transition={{ duration: 0.4 }}
+                          >
+                            <Icon className="h-7 w-7 text-white" />
+                          </motion.div>
+                          
+                          {/* Название */}
+                          <h3 className="font-bold text-brand-darkBlue text-center mb-2">
+                            {t(step.labelKey)}
+                          </h3>
+                          
+                          {/* Описание - всегда видно */}
+                          <AnimatePresence>
+                            {isHovered ? (
+                              <motion.p 
+                                className="text-xs text-brand-darkBlue/60 text-center leading-relaxed"
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.3 }}
+                              >
+                                {t(step.descKey)}
+                              </motion.p>
+                            ) : (
+                              <motion.div 
+                                className="h-1 w-12 mx-auto bg-gray-200 rounded-full"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                              />
+                            )}
+                          </AnimatePresence>
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
+                    </motion.div>
+                  </Link>
 
                   {/* Анимированная линия между шагами */}
                   {idx < steps.length - 1 && (
@@ -236,19 +244,21 @@ export function PlatformDiagram() {
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.08 }}
                 >
-                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-white border border-gray-100 shadow-md">
-                    <div className={`w-12 h-12 rounded-xl ${step.iconBg} flex items-center justify-center flex-shrink-0 shadow-lg`}>
-                      <Icon className="h-6 w-6 text-white" />
+                  <Link to={step.link} className="block">
+                    <div className="flex items-center gap-4 p-4 rounded-2xl bg-white border border-gray-100 shadow-md hover:shadow-lg hover:border-gray-200 transition-all">
+                      <div className={`w-12 h-12 rounded-xl ${step.iconBg} flex items-center justify-center flex-shrink-0 shadow-lg`}>
+                        <Icon className="h-6 w-6 text-white" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-bold text-brand-darkBlue">
+                          {t(step.labelKey)}
+                        </h3>
+                        <p className="text-sm text-brand-darkBlue/60 truncate">
+                          {t(step.descKey)}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-bold text-brand-darkBlue">
-                        {t(step.labelKey)}
-                      </h3>
-                      <p className="text-sm text-brand-darkBlue/60 truncate">
-                        {t(step.descKey)}
-                      </p>
-                    </div>
-                  </div>
+                  </Link>
                   
                   {/* Вертикальная линия */}
                   {idx < steps.length - 1 && (

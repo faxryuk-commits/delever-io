@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { Button } from '../ui/Button'
 import { ContactForm } from '../ContactForm'
 import { PresentationDownload } from '../PresentationDownload'
@@ -46,10 +47,10 @@ export function Hero() {
   }
 
   const stats = [
-    { value: '13M+', labelKey: 'stats.orders' },
-    { value: '1000+', labelKey: 'stats.businesses' },
-    { value: '7', labelKey: 'stats.countries' },
-    { value: '40+', labelKey: 'stats.integrations' },
+    { value: '13M+', labelKey: 'stats.orders', link: '/case-studies' },
+    { value: '1000+', labelKey: 'stats.businesses', link: '/clients' },
+    { value: '7', labelKey: 'stats.countries', link: '/about' },
+    { value: '40+', labelKey: 'stats.integrations', link: '/integrations' },
   ]
 
   return (
@@ -174,14 +175,18 @@ export function Hero() {
             className="flex flex-wrap justify-center gap-8 lg:gap-16"
           >
             {stats.map((stat, idx) => (
-              <div key={idx} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-brand-darkBlue tracking-tight">
+              <Link 
+                key={idx} 
+                to={stat.link}
+                className="text-center group cursor-pointer transition-transform hover:scale-105"
+              >
+                <div className="text-3xl md:text-4xl font-bold text-brand-darkBlue tracking-tight group-hover:text-brand-blue transition-colors">
                   {stat.value}
                 </div>
-                <div className="text-sm text-brand-darkBlue/60 mt-1">
+                <div className="text-sm text-brand-darkBlue/60 mt-1 group-hover:text-brand-blue/80 transition-colors underline-offset-2 group-hover:underline">
                   {t(stat.labelKey)}
                 </div>
-              </div>
+              </Link>
             ))}
           </motion.div>
         </div>
