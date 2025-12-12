@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, ShoppingCart, Truck, BarChart3, Megaphone, Plug, ChevronDown, Layers, Sparkles, Stethoscope, BookOpen, TrendingUp, Users, Building2 } from 'lucide-react'
+import { Menu, X, ShoppingCart, Truck, BarChart3, Megaphone, Plug, ChevronDown, Layers, Sparkles, Stethoscope, BookOpen, TrendingUp, Building2, Leaf } from 'lucide-react'
 import { Button } from './ui/Button'
 import { ContactForm } from './ContactForm'
 import { Logo } from './Logo'
@@ -74,9 +74,10 @@ export function Header() {
 
   const aboutItems = [
     { path: '/about', label: 'О компании', icon: <Building2 className="h-5 w-5" />, desc: 'Наша история и миссия' },
-    { path: '/clients', label: 'Клиенты', icon: <Users className="h-5 w-5" />, desc: '500+ ресторанов' },
     { path: '/guides', label: 'Гайды', icon: <BookOpen className="h-5 w-5" />, desc: 'Статьи для бизнеса' },
     { path: '/case-studies', label: 'Кейсы', icon: <TrendingUp className="h-5 w-5" />, desc: 'Истории успеха' },
+    { path: '/investors', label: 'Инвесторам', icon: <TrendingUp className="h-5 w-5" />, desc: 'Отношения с инвесторами' },
+    { path: '/esg', label: 'ESG', icon: <Leaf className="h-5 w-5" />, desc: 'Устойчивое развитие' },
   ]
 
   const isProductActive = () => {

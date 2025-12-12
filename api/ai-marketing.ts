@@ -509,7 +509,7 @@ export default async function handler(request: Request) {
   }
 
   let body: MarketingRequest | undefined
-  
+
   try {
     body = await request.json()
 
@@ -830,7 +830,7 @@ export default async function handler(request: Request) {
       : defaultBody
     
     const fallbackResponse = getFallbackMarketingResponse(fallbackBody, undefined)
-    return new Response(JSON.stringify({
+    return new Response(JSON.stringify({ 
       ...fallbackResponse,
       fallback: true,
       note: 'Произошла ошибка при генерации, используется базовый шаблон'

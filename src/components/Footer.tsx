@@ -31,7 +31,7 @@ export function Footer() {
     <footer className="bg-brand-darkBlue text-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         {/* Main Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-10 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-10 mb-12">
           {/* Brand Section */}
           <div className="col-span-2 md:col-span-3 lg:col-span-1">
             <Link to="/" className="inline-block mb-4">
@@ -62,7 +62,7 @@ export function Footer() {
                 className="flex items-center gap-1.5 px-2.5 py-1.5 bg-white/10 rounded-lg hover:bg-white/20 transition-colors text-white/70 hover:text-white"
               >
                 <Map className="h-3.5 w-3.5 text-amber-400" />
-                Карта
+                Карта сайта
               </Link>
             </div>
 
