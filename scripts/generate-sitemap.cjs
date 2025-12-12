@@ -24,9 +24,44 @@ const pages = [
   { path: '/products/analytics', priority: '0.8', changefreq: 'monthly' },
   { path: '/products/marketing', priority: '0.8', changefreq: 'monthly' },
   
-  // Интеграции
+  // Интеграции (общие)
   { path: '/aggregators', priority: '0.8', changefreq: 'monthly' },
   { path: '/integrations', priority: '0.8', changefreq: 'monthly' },
+  
+  // POS Интеграции (SEO)
+  { path: '/integrations/iiko', priority: '0.8', changefreq: 'monthly' },
+  { path: '/integrations/rkeeper', priority: '0.8', changefreq: 'monthly' },
+  { path: '/integrations/poster', priority: '0.8', changefreq: 'monthly' },
+  { path: '/integrations/jowi', priority: '0.8', changefreq: 'monthly' },
+  { path: '/integrations/syrve', priority: '0.8', changefreq: 'monthly' },
+  
+  // Агрегаторы (SEO)
+  { path: '/aggregators/glovo', priority: '0.8', changefreq: 'monthly' },
+  { path: '/aggregators/wolt', priority: '0.8', changefreq: 'monthly' },
+  { path: '/aggregators/yandex-eats', priority: '0.8', changefreq: 'monthly' },
+  { path: '/aggregators/uzum-tezkor', priority: '0.8', changefreq: 'monthly' },
+  { path: '/aggregators/bolt-food', priority: '0.8', changefreq: 'monthly' },
+  
+  // Платежные системы (SEO)
+  { path: '/integrations/payme', priority: '0.7', changefreq: 'monthly' },
+  { path: '/integrations/click', priority: '0.7', changefreq: 'monthly' },
+  
+  // Службы доставки (SEO)
+  { path: '/delivery/yandex-delivery', priority: '0.7', changefreq: 'monthly' },
+  { path: '/delivery/wolt-drive', priority: '0.7', changefreq: 'monthly' },
+  { path: '/delivery/millennium', priority: '0.7', changefreq: 'monthly' },
+  
+  // Решения по типу бизнеса (SEO)
+  { path: '/solutions/pizzeria', priority: '0.8', changefreq: 'monthly' },
+  { path: '/solutions/sushi', priority: '0.8', changefreq: 'monthly' },
+  { path: '/solutions/burger', priority: '0.8', changefreq: 'monthly' },
+  { path: '/solutions/cafe', priority: '0.8', changefreq: 'monthly' },
+  { path: '/solutions/dark-kitchen', priority: '0.8', changefreq: 'monthly' },
+  { path: '/solutions/food-chain', priority: '0.8', changefreq: 'monthly' },
+  
+  // Гео-страницы (SEO)
+  { path: '/geo/uzbekistan', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/kazakhstan', priority: '0.8', changefreq: 'monthly' },
   
   // Тарифы и калькулятор
   { path: '/pricing', priority: '0.9', changefreq: 'weekly' },

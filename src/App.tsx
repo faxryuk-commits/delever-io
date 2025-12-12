@@ -28,6 +28,13 @@ import { MenuDoctor } from './pages/MenuDoctor'
 import { NotFound } from './pages/NotFound'
 import { AnnouncementBar } from './components/AnnouncementBar'
 
+// SEO Pages (dynamic)
+import { IntegrationPage } from './pages/integrations/[slug]'
+import { AggregatorPage } from './pages/aggregators/[slug]'
+import { DeliveryPage } from './pages/delivery/[slug]'
+import { SolutionPage } from './pages/solutions/[slug]'
+import { GeoPage } from './pages/geo/[slug]'
+
 function App() {
   return (
     <LocaleProvider>
@@ -57,6 +64,22 @@ function App() {
                 <Route path="/investors" element={<Investors />} />
                 <Route path="/ai-marketing" element={<AIMarketing />} />
                 <Route path="/menu-doctor" element={<MenuDoctor />} />
+                
+                {/* SEO Pages - Integrations */}
+                <Route path="/integrations/:slug" element={<IntegrationPage />} />
+                
+                {/* SEO Pages - Aggregators */}
+                <Route path="/aggregators/:slug" element={<AggregatorPage />} />
+                
+                {/* SEO Pages - Delivery Services */}
+                <Route path="/delivery/:slug" element={<DeliveryPage />} />
+                
+                {/* SEO Pages - Business Solutions */}
+                <Route path="/solutions/:slug" element={<SolutionPage />} />
+                
+                {/* SEO Pages - Geo */}
+                <Route path="/geo/:slug" element={<GeoPage />} />
+                
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
