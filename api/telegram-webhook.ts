@@ -1,4 +1,4 @@
-import { getLead, updateLeadStatus, isRedisConfigured, type Lead } from './lib/redis'
+import { getLead, updateLeadStatus, isRedisConfigured } from './lib/redis'
 
 export const config = {
   runtime: 'edge',

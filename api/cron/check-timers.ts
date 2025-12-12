@@ -4,13 +4,8 @@ export const config = {
   runtime: 'edge',
 }
 
-export default async function handler(req: Request): Promise<Response> {
-  // Проверяем авторизацию Vercel Cron
-  const authHeader = req.headers.get('authorization')
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    // Разрешаем также без авторизации для тестирования
-    console.log('Cron: Running timer check...')
-  }
+export default async function handler(_req: Request): Promise<Response> {
+  console.log('Cron: Running timer check...')
 
   const botToken = process.env.TELEGRAM_BOT_TOKEN
   const chatId = process.env.TELEGRAM_CHAT_ID
@@ -67,7 +62,6 @@ export default async function handler(req: Request): Promise<Response> {
 
 // Отправка напоминания менеджеру
 async function sendReminder(botToken: string, chatId: string, lead: Lead) {
-  const timestamp = new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Tashkent' })
   const phoneDigits = lead.phone.replace(/\D/g, '')
   
   const statusEmoji: Record<string, string> = {

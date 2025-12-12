@@ -16,6 +16,9 @@ declare global {
       AMOCRM_REFRESH_TOKEN?: string
       GROQ_API_KEY?: string
       OPENROUTER_API_KEY?: string
+      UPSTASH_REDIS_REST_URL?: string
+      UPSTASH_REDIS_REST_TOKEN?: string
+      CRON_SECRET?: string
     }
   }
   

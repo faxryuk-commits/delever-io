@@ -1,10 +1,10 @@
-import { getLeadsByDateRange, getLeadStats, getExpiredLeads, type Lead } from '../lib/redis'
+import { getLeadsByDateRange, getLeadStats, getExpiredLeads } from '../lib/redis'
 
 export const config = {
   runtime: 'edge',
 }
 
-export default async function handler(req: Request): Promise<Response> {
+export default async function handler(_req: Request): Promise<Response> {
   const botToken = process.env.TELEGRAM_BOT_TOKEN
   const chatId = process.env.TELEGRAM_CHAT_ID
 
