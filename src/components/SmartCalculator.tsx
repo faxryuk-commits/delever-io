@@ -27,7 +27,8 @@ import {
   X,
   BadgePercent,
   FileText,
-  Smartphone
+  Smartphone,
+  Coins
 } from 'lucide-react'
 import { Button } from './ui/Button'
 import { ContactForm } from './ContactForm'
@@ -38,6 +39,15 @@ import { trackEvents } from './Analytics'
 // Типы ситуаций
 type Situation = 'commissions' | 'manual' | 'fragmented' | 'migrate' | 'scratch'
 type ROIScenario = 'own' | 'integrate' | 'switch'
+type Currency = 'UZS' | 'USD' | 'KZT' | 'GEL'
+
+// Курсы конвертации (базовая валюта - UZS)
+const currencyRates: Record<Currency, { rate: number; symbol: string; name: string; flag: string }> = {
+  UZS: { rate: 1, symbol: "so'm", name: "O'zbek so'mi", flag: '🇺🇿' },
+  USD: { rate: 12800, symbol: '$', name: 'US Dollar', flag: '🇺🇸' },
+  KZT: { rate: 28, symbol: '₸', name: 'Qazaq tengesi', flag: '🇰🇿' },
+  GEL: { rate: 4700, symbol: '₾', name: 'Gruzin lari', flag: '🇬🇪' },
+}
 
 // Тип модуля
 interface Module {
@@ -156,6 +166,9 @@ export function SmartCalculator() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const [presentationOpen, setPresentationOpen] = useState(false)
   
+  // Выбор валюты
+  const [currency, setCurrency] = useState<Currency>('UZS')
+  
   // Состояние (без wizard - всё на одной странице)
   const [situation, setSituation] = useState<Situation | null>(null)
   
@@ -183,13 +196,35 @@ export function SmartCalculator() {
   const [courierSalary, setCourierSalary] = useState(4000000)
   const [couriersCount, setCouriersCount] = useState(1)
   
-  // Получить цену в правильной валюте
-  const getPrice = (priceUZS: number, priceUSD: number) => {
-    return language === 'en' ? priceUSD : priceUZS
+  // Конвертация цены из UZS в выбранную валюту
+  const convertPrice = (priceUZS: number): number => {
+    if (currency === 'UZS') return priceUZS
+    const converted = priceUZS / currencyRates[currency].rate
+    // Округляем до целых десятков
+    return Math.round(converted / 10) * 10
   }
   
-  // Форматирование цены (уже в правильной валюте)
-  const formatPriceConverted = (price: number) => formatPrice(price, language === 'en')
+  // Получить цену в выбранной валюте (базовая цена в UZS)
+  const getPrice = (priceUZS: number, _priceUSD: number) => {
+    return convertPrice(priceUZS)
+  }
+  
+  // Форматирование цены с символом валюты
+  const formatPriceConverted = (price: number): string => {
+    const { symbol } = currencyRates[currency]
+    if (currency === 'UZS') {
+      return `${price.toLocaleString('ru-RU')} ${symbol}`
+    }
+    if (currency === 'USD') {
+      return `${symbol}${price.toLocaleString('en-US')}`
+    }
+    return `${price.toLocaleString('ru-RU')} ${symbol}`
+  }
+  
+  // Форматирование ROI сумм (конвертация + символ)
+  const formatROI = (priceUZS: number): string => {
+    return formatPriceConverted(convertPrice(priceUZS))
+  }
   
   // Текущий тариф
   const selectedPlan = basePlans.find(p => p.id === selectedPlanId) || basePlans[1]
@@ -599,7 +634,7 @@ export function SmartCalculator() {
       </div>
       <div class="roi-box">
         <div class="roi-box-title">${kpText.withDelever}</div>
-        <div class="roi-box-value">-${formatPrice(roi.totalOwnDeliveryCost)}${kpText.perMonth}</div>
+        <div class="roi-box-value">-${formatROI(roi.totalOwnDeliveryCost)}${kpText.perMonth}</div>
       </div>
       <div class="roi-box">
         <div class="roi-box-title">${kpText.yearlySavings}</div>
@@ -657,15 +692,44 @@ export function SmartCalculator() {
   
   // ============ РЕНДЕР ============
   
+  // Выбор валюты
+  const renderCurrencySelector = () => (
+    <div className="flex items-center justify-center gap-2 mb-6">
+      <Coins className="h-4 w-4 text-brand-darkBlue/60" />
+      <span className="text-sm text-brand-darkBlue/60 mr-2">
+        {language === 'ru' ? 'Валюта:' : language === 'uz' ? 'Valyuta:' : 'Currency:'}
+      </span>
+      <div className="flex bg-white rounded-xl border border-brand-lightTeal/30 p-1 shadow-sm">
+        {(Object.keys(currencyRates) as Currency[]).map((cur) => (
+          <button
+            key={cur}
+            onClick={() => setCurrency(cur)}
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
+              currency === cur
+                ? 'bg-brand-darkBlue text-white shadow-md'
+                : 'text-brand-darkBlue/70 hover:bg-brand-lightBlue/30'
+            }`}
+          >
+            <span>{currencyRates[cur].flag}</span>
+            <span>{cur}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+  
   // Секция выбора ситуации (горизонтальные фильтры)
   const renderSituationSelector = () => (
     <div id="situation" className="mb-8">
       <h2 className="text-2xl md:text-3xl font-bold text-brand-darkBlue mb-2 text-center">
         {t('calc2.step1.title')}
       </h2>
-      <p className="text-brand-darkBlue/60 mb-6 text-center">
+      <p className="text-brand-darkBlue/60 mb-4 text-center">
         {t('calc2.step1.subtitle')}
       </p>
+      
+      {/* Выбор валюты */}
+      {renderCurrencySelector()}
       
       {/* Горизонтальные фильтры ситуаций */}
       <div className="flex flex-wrap justify-center gap-3 mb-4">
@@ -1278,7 +1342,7 @@ export function SmartCalculator() {
               >
                 <Minus className="h-3 w-3" />
               </button>
-              <span className="text-sm font-bold flex-1 text-center">{formatPrice(avgCheck)}</span>
+              <span className="text-sm font-bold flex-1 text-center">{formatPriceConverted(convertPrice(avgCheck))}</span>
               <button 
                 onClick={() => setAvgCheck(avgCheck + 10000)}
                 className="w-6 h-6 rounded bg-white/20 flex items-center justify-center hover:bg-white/30"
@@ -1292,7 +1356,7 @@ export function SmartCalculator() {
           <div className="bg-white/20 rounded-xl p-3">
             <div className="text-xs text-white/70 mb-2">{t('calc2.monthlyRevenue')}</div>
             <div className="text-lg font-bold text-center text-brand-yellow">
-              {formatPrice(monthlyOrders * avgCheck)}
+              {formatROI(monthlyOrders * avgCheck)}
             </div>
           </div>
         </div>
@@ -1375,7 +1439,7 @@ export function SmartCalculator() {
                   >
                     <Minus className="h-3 w-3" />
                   </button>
-                  <span className="text-sm font-bold flex-1 text-center">{formatPrice(operatorSalary)}</span>
+                  <span className="text-sm font-bold flex-1 text-center">{formatROI(operatorSalary)}</span>
                   <button 
                     onClick={() => setOperatorSalary(operatorSalary + 500000)}
                     className="w-6 h-6 rounded bg-white/20 flex items-center justify-center hover:bg-white/30"
@@ -1399,7 +1463,7 @@ export function SmartCalculator() {
                   >
                     <Minus className="h-3 w-3" />
                   </button>
-                  <span className="text-sm font-bold flex-1 text-center">{formatPrice(marketingBudget)}</span>
+                  <span className="text-sm font-bold flex-1 text-center">{formatROI(marketingBudget)}</span>
                   <button 
                     onClick={() => setMarketingBudget(marketingBudget + 1000000)}
                     className="w-6 h-6 rounded bg-white/20 flex items-center justify-center hover:bg-white/30"
@@ -1435,7 +1499,7 @@ export function SmartCalculator() {
                   >
                     <Minus className="h-3 w-3" />
                   </button>
-                  <span className="text-sm font-bold flex-1 text-center">{formatPrice(courierSalary)}</span>
+                  <span className="text-sm font-bold flex-1 text-center">{formatROI(courierSalary)}</span>
                   <button 
                     onClick={() => setCourierSalary(courierSalary + 500000)}
                     className="w-6 h-6 rounded bg-white/20 flex items-center justify-center hover:bg-white/30"
@@ -1453,7 +1517,7 @@ export function SmartCalculator() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-white/10 rounded-xl p-4 text-center">
               <div className="text-xs text-white/70 mb-1">{t('calc2.monthlyRevenue')}</div>
-              <div className="text-lg font-bold">{formatPrice(roi.monthlyRevenue)}</div>
+              <div className="text-lg font-bold">{formatROI(roi.monthlyRevenue)}</div>
             </div>
             <div className="bg-white/10 rounded-xl p-4 text-center">
               <div className="text-xs text-white/70 mb-1">{t('calc2.deleverCost')}</div>
@@ -1461,11 +1525,11 @@ export function SmartCalculator() {
             </div>
             <div className="bg-white/20 rounded-xl p-4 text-center">
               <div className="text-xs text-white/70 mb-1">{t('calc2.netProfit')}</div>
-              <div className="text-xl font-bold text-brand-green">{formatPrice(roi.ownDeliveryProfit)}</div>
+              <div className="text-xl font-bold text-brand-green">{formatROI(roi.ownDeliveryProfit)}</div>
             </div>
             <div className="bg-white/20 rounded-xl p-4 text-center">
               <div className="text-xs text-white/70 mb-1">{t('calc2.savedFromAggregators')}</div>
-              <div className="text-xl font-bold text-brand-green">+{formatPrice(roi.potentialAggregatorLoss)}</div>
+              <div className="text-xl font-bold text-brand-green">+{formatROI(roi.potentialAggregatorLoss)}</div>
             </div>
           </div>
         )}
@@ -1474,7 +1538,7 @@ export function SmartCalculator() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-white/10 rounded-xl p-4 text-center">
               <div className="text-xs text-white/70 mb-1">{t('calc2.operatorsSaved')}</div>
-              <div className="text-lg font-bold text-brand-green">+{formatPrice(roi.operatorsCostSaved)}</div>
+              <div className="text-lg font-bold text-brand-green">+{formatROI(roi.operatorsCostSaved)}</div>
             </div>
             <div className="bg-white/10 rounded-xl p-4 text-center">
               <div className="text-xs text-white/70 mb-1">{t('calc2.hoursSaved')}</div>
@@ -1482,11 +1546,11 @@ export function SmartCalculator() {
             </div>
             <div className="bg-white/10 rounded-xl p-4 text-center">
               <div className="text-xs text-white/70 mb-1">{t('calc2.errorsSaved')}</div>
-              <div className="text-lg font-bold text-brand-green">+{formatPrice(roi.errorsSaved)}</div>
+              <div className="text-lg font-bold text-brand-green">+{formatROI(roi.errorsSaved)}</div>
             </div>
             <div className="bg-white/20 rounded-xl p-4 text-center">
               <div className="text-xs text-white/70 mb-1">{t('calc2.totalSavings')}</div>
-              <div className="text-xl font-bold text-brand-green">+{formatPrice(roi.integrationSavings)}</div>
+              <div className="text-xl font-bold text-brand-green">+{formatROI(roi.integrationSavings)}</div>
             </div>
           </div>
         )}
@@ -1496,7 +1560,7 @@ export function SmartCalculator() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div className="bg-red-500/20 rounded-xl p-4">
                 <div className="text-sm text-white/80 mb-2">{t('calc2.withAggregators')}</div>
-                <div className="text-2xl font-bold text-red-300">-{formatPrice(roi.aggregatorCost)}/{t('calc2.month')}</div>
+                <div className="text-2xl font-bold text-red-300">-{formatROI(roi.aggregatorCost)}/{t('calc2.month')}</div>
                 <div className="text-xs text-white/60">{aggregatorFee}% {t('calc2.fromRevenue')}</div>
               </div>
               <div className="bg-white/10 rounded-xl p-4">
@@ -1508,15 +1572,15 @@ export function SmartCalculator() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-white/60">{t('calc2.marketing')}:</span>
-                    <span>{formatPrice(marketingBudget)}</span>
+                    <span>{formatROI(marketingBudget)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-white/60">{t('calc2.couriers')}:</span>
-                    <span>{formatPrice(roi.couriersCost)}</span>
+                    <span>{formatROI(roi.couriersCost)}</span>
                   </div>
                   <div className="flex justify-between pt-2 border-t border-white/20 font-bold">
                     <span>{t('calc2.total')}:</span>
-                    <span>{formatPrice(roi.totalOwnDeliveryCost)}</span>
+                    <span>{formatROI(roi.totalOwnDeliveryCost)}</span>
                   </div>
                 </div>
               </div>
@@ -1528,10 +1592,10 @@ export function SmartCalculator() {
                   {t('calc2.yourSavings')}
                 </div>
                 <div className="text-3xl font-bold text-emerald-200">
-                  +{formatPrice(roi.switchSavings)}/{t('calc2.month')}
+                  +{formatROI(roi.switchSavings)}/{t('calc2.month')}
                 </div>
                 <div className="text-sm text-white/60 mt-2">
-                  {t('calc2.yearSavings')}: {formatPrice(roi.switchSavings * 12)}
+                  {t('calc2.yearSavings')}: {formatROI(roi.switchSavings * 12)}
                 </div>
               </div>
             )}
@@ -1590,14 +1654,14 @@ export function SmartCalculator() {
                 <div className="mt-4 p-4 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl border border-emerald-200">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-emerald-800 font-bold">{t('calc2.totalSavingsLabel')}</span>
-                    <span className="text-2xl font-bold text-emerald-600">+{formatPrice(totalSavings)}/{t('calc2.month')}</span>
+                    <span className="text-2xl font-bold text-emerald-600">+{formatROI(totalSavings)}/{t('calc2.month')}</span>
                   </div>
                   <div className="text-xs text-emerald-600/70">
                     {t('calc2.totalSavingsHint')}
                   </div>
                   {totalSavings > 0 && (
                     <div className="mt-2 pt-2 border-t border-emerald-200/50 text-sm text-emerald-700">
-                      {t('calc2.yearSavings')}: <span className="font-bold">{formatPrice(totalSavings * 12)}</span>
+                      {t('calc2.yearSavings')}: <span className="font-bold">{formatROI(totalSavings * 12)}</span>
                     </div>
                   )}
                 </div>
