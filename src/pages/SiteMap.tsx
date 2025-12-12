@@ -403,7 +403,12 @@ export function SiteMap() {
                                 >
                                   {page.title}
                                 </Link>
-                                <p className="text-xs text-gray-400 font-mono">{page.path}</p>
+                                <Link 
+                                  to={page.path}
+                                  className="block text-xs text-gray-400 font-mono hover:text-brand-blue transition-colors"
+                                >
+                                  {page.path}
+                                </Link>
                               </div>
                             </div>
                             <div className="flex items-center gap-2">
