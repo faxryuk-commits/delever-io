@@ -17,9 +17,9 @@ export function AnnouncementBar() {
       { icon: Users, text: '1000+ businesses trust us' },
     ],
     uz: [
-      { icon: Rocket, text: "O'z yetkazish. O'z mijozlar. O'z daromad." },
+      { icon: Rocket, text: "O'z yetkazib berishingiz. O'z mijozlaringiz. O'z daromadingiz." },
       { icon: TrendingUp, text: "+45% daromad o'sishi" },
-      { icon: Users, text: "1000+ biznes bizga ishonadi" },
+      { icon: Users, text: "1000+ dan ortiq biznes bizga ishonadi" },
     ],
   }
   
