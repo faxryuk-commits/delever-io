@@ -1,0 +1,369 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { 
+  ExternalLink, 
+  Copy, 
+  Check, 
+  ChevronDown, 
+  ChevronRight,
+  Globe,
+  Layers,
+  Building2,
+  CreditCard,
+  Truck,
+  Briefcase,
+  MapPin,
+  Home,
+  Package,
+  FileText
+} from 'lucide-react'
+import { SEO } from '@/components/SEO'
+import { allSEOPages } from '@/data/seo-pages'
+
+// Группируем страницы по категориям
+const pageGroups = [
+  {
+    title: 'Основные страницы',
+    icon: Home,
+    color: 'from-blue-500 to-blue-600',
+    pages: [
+      { path: '/', title: 'Главная', priority: 'high' },
+      { path: '/products', title: 'Продукты', priority: 'high' },
+      { path: '/pricing', title: 'Тарифы и калькулятор', priority: 'high' },
+      { path: '/clients', title: 'Клиенты', priority: 'high' },
+      { path: '/integrations', title: 'Все интеграции', priority: 'high' },
+      { path: '/aggregators', title: 'Агрегаторы', priority: 'high' },
+      { path: '/about', title: 'О компании', priority: 'medium' },
+      { path: '/partners', title: 'Партнёрам', priority: 'medium' },
+      { path: '/investors', title: 'Инвесторам', priority: 'medium' },
+      { path: '/esg', title: 'ESG', priority: 'low' },
+      { path: '/white-label', title: 'White Label', priority: 'medium' },
+    ]
+  },
+  {
+    title: 'Продукты',
+    icon: Package,
+    color: 'from-purple-500 to-purple-600',
+    pages: [
+      { path: '/products/channels', title: 'Каналы продаж', priority: 'high' },
+      { path: '/products/operations', title: 'Операции доставки', priority: 'high' },
+      { path: '/products/analytics', title: 'Аналитика', priority: 'high' },
+      { path: '/products/marketing', title: 'Маркетинг и CRM', priority: 'high' },
+    ]
+  },
+  {
+    title: 'Инструменты',
+    icon: FileText,
+    color: 'from-green-500 to-green-600',
+    pages: [
+      { path: '/ai-marketing', title: 'AI Маркетинг', priority: 'medium' },
+      { path: '/menu-doctor', title: 'Menu Doctor', priority: 'medium' },
+    ]
+  },
+  {
+    title: 'POS Интеграции',
+    icon: Layers,
+    color: 'from-orange-500 to-orange-600',
+    pages: [
+      { path: '/integrations/iiko', title: 'iiko', priority: 'high' },
+      { path: '/integrations/rkeeper', title: 'R-Keeper', priority: 'high' },
+      { path: '/integrations/poster', title: 'Poster', priority: 'high' },
+      { path: '/integrations/jowi', title: 'Jowi', priority: 'medium' },
+      { path: '/integrations/syrve', title: 'Syrve (iiko Cloud)', priority: 'medium' },
+      { path: '/integrations/paloma', title: 'Paloma', priority: 'medium' },
+      { path: '/integrations/clopos', title: 'Clopos', priority: 'medium' },
+      { path: '/integrations/loook', title: 'LOOOK', priority: 'medium' },
+    ]
+  },
+  {
+    title: 'Агрегаторы',
+    icon: Building2,
+    color: 'from-yellow-500 to-yellow-600',
+    pages: [
+      { path: '/aggregators/glovo', title: 'Glovo', priority: 'high' },
+      { path: '/aggregators/wolt', title: 'Wolt', priority: 'high' },
+      { path: '/aggregators/yandex-eats', title: 'Яндекс Еда', priority: 'high' },
+      { path: '/aggregators/uzum-tezkor', title: 'Uzum Tezkor', priority: 'high' },
+      { path: '/aggregators/bolt-food', title: 'Bolt Food', priority: 'medium' },
+    ]
+  },
+  {
+    title: 'Платежные системы',
+    icon: CreditCard,
+    color: 'from-cyan-500 to-cyan-600',
+    pages: [
+      { path: '/integrations/payme', title: 'Payme', priority: 'high' },
+      { path: '/integrations/click', title: 'Click', priority: 'high' },
+    ]
+  },
+  {
+    title: 'Службы доставки',
+    icon: Truck,
+    color: 'from-rose-500 to-rose-600',
+    pages: [
+      { path: '/delivery/yandex-delivery', title: 'Яндекс Доставка', priority: 'high' },
+      { path: '/delivery/wolt-drive', title: 'Wolt Drive', priority: 'medium' },
+      { path: '/delivery/millennium', title: 'Taxi Millennium', priority: 'medium' },
+    ]
+  },
+  {
+    title: 'Решения по типу бизнеса',
+    icon: Briefcase,
+    color: 'from-indigo-500 to-indigo-600',
+    pages: [
+      { path: '/solutions/pizzeria', title: 'Пиццерия', priority: 'high' },
+      { path: '/solutions/sushi', title: 'Суши-бар', priority: 'high' },
+      { path: '/solutions/burger', title: 'Бургерная', priority: 'high' },
+      { path: '/solutions/cafe', title: 'Кафе', priority: 'medium' },
+      { path: '/solutions/dark-kitchen', title: 'Dark Kitchen', priority: 'high' },
+      { path: '/solutions/food-chain', title: 'Сеть ресторанов', priority: 'high' },
+      { path: '/solutions/confectionery', title: 'Кондитерская', priority: 'medium' },
+      { path: '/solutions/coffee-shop', title: 'Кофейня', priority: 'medium' },
+      { path: '/solutions/grocery', title: 'Продуктовый магазин', priority: 'medium' },
+    ]
+  },
+  {
+    title: 'Гео-страницы (Страны)',
+    icon: Globe,
+    color: 'from-emerald-500 to-emerald-600',
+    pages: [
+      { path: '/geo/uzbekistan', title: 'Узбекистан', priority: 'high' },
+      { path: '/geo/kazakhstan', title: 'Казахстан', priority: 'high' },
+    ]
+  },
+  {
+    title: 'Гео-страницы (Города)',
+    icon: MapPin,
+    color: 'from-teal-500 to-teal-600',
+    pages: [
+      { path: '/geo/tashkent', title: 'Ташкент', priority: 'high' },
+      { path: '/geo/samarkand', title: 'Самарканд', priority: 'medium' },
+      { path: '/geo/bukhara', title: 'Бухара', priority: 'medium' },
+      { path: '/geo/almaty', title: 'Алматы', priority: 'high' },
+      { path: '/geo/astana', title: 'Астана', priority: 'high' },
+    ]
+  },
+]
+
+const baseUrl = 'https://delever.io'
+
+export function SiteMap() {
+  const [copiedUrl, setCopiedUrl] = useState<string | null>(null)
+  const [expandedGroups, setExpandedGroups] = useState<string[]>(pageGroups.map(g => g.title))
+
+  const copyUrl = (path: string) => {
+    const fullUrl = `${baseUrl}${path}`
+    navigator.clipboard.writeText(fullUrl)
+    setCopiedUrl(path)
+    setTimeout(() => setCopiedUrl(null), 2000)
+  }
+
+  const toggleGroup = (title: string) => {
+    setExpandedGroups(prev => 
+      prev.includes(title) 
+        ? prev.filter(t => t !== title)
+        : [...prev, title]
+    )
+  }
+
+  const totalPages = pageGroups.reduce((sum, g) => sum + g.pages.length, 0)
+  const seoPages = allSEOPages.length
+
+  return (
+    <>
+      <SEO 
+        title="Карта сайта — все страницы Delever"
+        description="Полная карта сайта Delever для SEO аудита"
+      />
+
+      <div className="min-h-screen pt-28 pb-16 bg-gray-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            {/* Header */}
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-brand-darkBlue mb-2">
+                🗺️ Карта сайта для SEO
+              </h1>
+              <p className="text-brand-darkBlue/60">
+                Все страницы для быстрого просмотра и аудита
+              </p>
+              
+              {/* Stats */}
+              <div className="flex gap-4 mt-4">
+                <div className="px-4 py-2 bg-white rounded-lg border border-gray-200">
+                  <span className="text-2xl font-bold text-brand-blue">{totalPages}</span>
+                  <span className="text-sm text-gray-500 ml-2">страниц</span>
+                </div>
+                <div className="px-4 py-2 bg-white rounded-lg border border-gray-200">
+                  <span className="text-2xl font-bold text-green-600">{seoPages}</span>
+                  <span className="text-sm text-gray-500 ml-2">SEO страниц</span>
+                </div>
+                <div className="px-4 py-2 bg-white rounded-lg border border-gray-200">
+                  <span className="text-2xl font-bold text-purple-600">{pageGroups.length}</span>
+                  <span className="text-sm text-gray-500 ml-2">категорий</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="mb-8 p-4 bg-white rounded-xl border border-gray-200">
+              <h3 className="font-medium text-brand-darkBlue mb-3">Быстрые действия</h3>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => setExpandedGroups(pageGroups.map(g => g.title))}
+                  className="px-3 py-1.5 text-sm bg-brand-lightBlue/20 text-brand-darkBlue rounded-lg hover:bg-brand-lightBlue/40"
+                >
+                  Развернуть всё
+                </button>
+                <button
+                  onClick={() => setExpandedGroups([])}
+                  className="px-3 py-1.5 text-sm bg-brand-lightBlue/20 text-brand-darkBlue rounded-lg hover:bg-brand-lightBlue/40"
+                >
+                  Свернуть всё
+                </button>
+                <a
+                  href="/sitemap.xml"
+                  target="_blank"
+                  className="px-3 py-1.5 text-sm bg-green-100 text-green-700 rounded-lg hover:bg-green-200 flex items-center gap-1"
+                >
+                  <Globe className="h-4 w-4" />
+                  sitemap.xml
+                </a>
+                <a
+                  href="/robots.txt"
+                  target="_blank"
+                  className="px-3 py-1.5 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 flex items-center gap-1"
+                >
+                  robots.txt
+                </a>
+              </div>
+            </div>
+
+            {/* Page Groups */}
+            <div className="space-y-4">
+              {pageGroups.map((group, idx) => {
+                const isExpanded = expandedGroups.includes(group.title)
+                const Icon = group.icon
+
+                return (
+                  <motion.div
+                    key={group.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.05 }}
+                    className="bg-white rounded-xl border border-gray-200 overflow-hidden"
+                  >
+                    {/* Group Header */}
+                    <button
+                      onClick={() => toggleGroup(group.title)}
+                      className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${group.color} flex items-center justify-center`}>
+                          <Icon className="h-5 w-5 text-white" />
+                        </div>
+                        <div className="text-left">
+                          <h2 className="font-semibold text-brand-darkBlue">{group.title}</h2>
+                          <p className="text-sm text-gray-500">{group.pages.length} страниц</p>
+                        </div>
+                      </div>
+                      {isExpanded ? (
+                        <ChevronDown className="h-5 w-5 text-gray-400" />
+                      ) : (
+                        <ChevronRight className="h-5 w-5 text-gray-400" />
+                      )}
+                    </button>
+
+                    {/* Pages List */}
+                    {isExpanded && (
+                      <div className="border-t border-gray-100">
+                        {group.pages.map((page, pageIdx) => (
+                          <div
+                            key={page.path}
+                            className={`flex items-center justify-between px-4 py-3 hover:bg-gray-50 ${
+                              pageIdx !== group.pages.length - 1 ? 'border-b border-gray-100' : ''
+                            }`}
+                          >
+                            <div className="flex items-center gap-3">
+                              <span className={`w-2 h-2 rounded-full ${
+                                page.priority === 'high' ? 'bg-green-500' :
+                                page.priority === 'medium' ? 'bg-yellow-500' : 'bg-gray-300'
+                              }`} />
+                              <div>
+                                <Link 
+                                  to={page.path}
+                                  className="font-medium text-brand-darkBlue hover:text-brand-blue transition-colors"
+                                >
+                                  {page.title}
+                                </Link>
+                                <p className="text-xs text-gray-400 font-mono">{page.path}</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <button
+                                onClick={() => copyUrl(page.path)}
+                                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                                title="Копировать URL"
+                              >
+                                {copiedUrl === page.path ? (
+                                  <Check className="h-4 w-4 text-green-500" />
+                                ) : (
+                                  <Copy className="h-4 w-4 text-gray-400" />
+                                )}
+                              </button>
+                              <a
+                                href={`${baseUrl}${page.path}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                                title="Открыть в новой вкладке"
+                              >
+                                <ExternalLink className="h-4 w-4 text-gray-400" />
+                              </a>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </motion.div>
+                )
+              })}
+            </div>
+
+            {/* Legend */}
+            <div className="mt-8 p-4 bg-white rounded-xl border border-gray-200">
+              <h3 className="font-medium text-brand-darkBlue mb-3">Приоритеты</h3>
+              <div className="flex gap-6">
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-green-500" />
+                  <span className="text-sm text-gray-600">Высокий</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-yellow-500" />
+                  <span className="text-sm text-gray-600">Средний</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-gray-300" />
+                  <span className="text-sm text-gray-600">Низкий</span>
+                </div>
+              </div>
+            </div>
+
+            {/* TODO Section */}
+            <div className="mt-8 p-4 bg-amber-50 rounded-xl border border-amber-200">
+              <h3 className="font-medium text-amber-800 mb-3">📋 Что ещё добавить</h3>
+              <ul className="text-sm text-amber-700 space-y-1">
+                <li>• Больше POS интеграций (Paloma, Clopos, AliPos, Loook, Neon Alisa)</li>
+                <li>• Города (Ташкент, Алматы, Астана, Самарканд, Бухара)</li>
+                <li>• Case Studies для топ клиентов (EVOS, Yaponamama, Maxway)</li>
+                <li>• Страницы сравнения (Delever vs iiko vs R-Keeper)</li>
+                <li>• Больше решений (Кондитерская, Кофейня, Продукты)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}

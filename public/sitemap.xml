@@ -149,6 +149,39 @@
   </url>
 
   <url>
+    <loc>https://delever.io/integrations/paloma</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/integrations/paloma?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/integrations/paloma?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/integrations/paloma?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/integrations/paloma"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/integrations/clopos</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/integrations/clopos?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/integrations/clopos?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/integrations/clopos?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/integrations/clopos"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/integrations/loook</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/integrations/loook?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/integrations/loook?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/integrations/loook?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/integrations/loook"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://delever.io/aggregators/glovo</loc>
     <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/aggregators/glovo?lang=ru"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/aggregators/glovo?lang=en"/>
@@ -325,6 +358,39 @@
   </url>
 
   <url>
+    <loc>https://delever.io/solutions/confectionery</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/solutions/confectionery?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/solutions/confectionery?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/solutions/confectionery?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/solutions/confectionery"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/solutions/coffee-shop</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/solutions/coffee-shop?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/solutions/coffee-shop?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/solutions/coffee-shop?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/solutions/coffee-shop"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/solutions/grocery</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/solutions/grocery?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/solutions/grocery?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/solutions/grocery?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/solutions/grocery"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://delever.io/geo/uzbekistan</loc>
     <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/uzbekistan?lang=ru"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/uzbekistan?lang=en"/>
@@ -341,6 +407,61 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/kazakhstan?lang=en"/>
     <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/kazakhstan?lang=uz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/kazakhstan"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/tashkent</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/tashkent?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/tashkent?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/tashkent?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/tashkent"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/samarkand</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/samarkand?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/samarkand?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/samarkand?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/samarkand"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/bukhara</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/bukhara?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/bukhara?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/bukhara?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/bukhara"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/almaty</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/almaty?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/almaty?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/almaty?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/almaty"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/astana</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/astana?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/astana?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/astana?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/astana"/>
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

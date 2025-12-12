@@ -1313,15 +1313,537 @@ export const geoPages: SEOPageData[] = [
 ]
 
 // ============================================
+// ДОПОЛНИТЕЛЬНЫЕ POS ИНТЕГРАЦИИ
+// ============================================
+export const morePosIntegrations: SEOPageData[] = [
+  {
+    slug: 'integrations/paloma',
+    category: 'integration',
+    subcategory: 'pos',
+    title: {
+      ru: 'Интеграция с Paloma POS — автоматизация ресторана',
+      en: 'Paloma POS Integration — Restaurant Automation',
+      uz: 'Paloma POS integratsiyasi — restoran avtomatizatsiyasi'
+    },
+    description: {
+      ru: 'Интеграция Paloma POS с Delever для автоматизации онлайн-заказов. Синхронизация меню, стоп-листы, отчёты.',
+      en: 'Paloma POS integration with Delever for online order automation. Menu sync, stop-lists, reports.',
+      uz: 'Paloma POS Delever bilan integratsiyasi onlayn buyurtmalarni avtomatlashtirish uchun. Menyu sinxronizatsiyasi, stop-listlar, hisobotlar.'
+    },
+    keywords: {
+      ru: 'Paloma интеграция, Paloma POS, Paloma доставка',
+      en: 'Paloma integration, Paloma POS, Paloma delivery',
+      uz: 'Paloma integratsiya, Paloma POS'
+    },
+    h1: {
+      ru: 'Интеграция Paloma с Delever',
+      en: 'Paloma Integration with Delever',
+      uz: 'Paloma Delever bilan integratsiyasi'
+    },
+    intro: {
+      ru: 'Paloma — современная POS-система для ресторанов. Delever обеспечивает полную интеграцию для автоматизации доставки.',
+      en: 'Paloma is a modern POS system for restaurants. Delever provides full integration for delivery automation.',
+      uz: 'Paloma — restoranlar uchun zamonaviy POS tizimi. Delever yetkazib berishni avtomatlashtirish uchun to\'liq integratsiyani ta\'minlaydi.'
+    },
+    features: {
+      ru: ['Синхронизация меню', 'Автопередача заказов', 'Стоп-листы', 'Отчёты'],
+      en: ['Menu sync', 'Auto order transfer', 'Stop-lists', 'Reports'],
+      uz: ['Menyu sinxronizatsiyasi', 'Avtomatik buyurtma uzatish', 'Stop-listlar', 'Hisobotlar']
+    },
+    benefits: {
+      ru: ['Современный интерфейс', 'Облачная система', 'Быстрая настройка'],
+      en: ['Modern interface', 'Cloud system', 'Quick setup'],
+      uz: ['Zamonaviy interfeys', 'Bulutli tizim', 'Tez sozlash']
+    },
+    faq: [],
+    logo: '/logos/paloma.png',
+    color: 'from-pink-500 to-pink-600',
+    relatedPages: ['integrations/iiko', 'integrations/poster'],
+    schemaType: 'SoftwareApplication'
+  },
+  {
+    slug: 'integrations/clopos',
+    category: 'integration',
+    subcategory: 'pos',
+    title: {
+      ru: 'Интеграция с Clopos — автоматизация доставки',
+      en: 'Clopos Integration — Delivery Automation',
+      uz: 'Clopos integratsiyasi — yetkazib berish avtomatizatsiyasi'
+    },
+    description: {
+      ru: 'Clopos интеграция с Delever: автоматический приём заказов с сайта и агрегаторов. Синхронизация меню.',
+      en: 'Clopos integration with Delever: automatic order intake from website and aggregators. Menu sync.',
+      uz: 'Clopos Delever bilan integratsiyasi: sayt va agregatorlardan avtomatik buyurtma qabul qilish. Menyu sinxronizatsiyasi.'
+    },
+    keywords: {
+      ru: 'Clopos интеграция, Clopos POS, Clopos доставка',
+      en: 'Clopos integration, Clopos POS',
+      uz: 'Clopos integratsiya'
+    },
+    h1: {
+      ru: 'Интеграция Clopos с Delever',
+      en: 'Clopos Integration with Delever',
+      uz: 'Clopos Delever bilan integratsiyasi'
+    },
+    intro: {
+      ru: 'Clopos — POS-система нового поколения. Полная интеграция с Delever для управления доставкой.',
+      en: 'Clopos is a next-generation POS system. Full integration with Delever for delivery management.',
+      uz: 'Clopos — yangi avlod POS tizimi. Yetkazib berishni boshqarish uchun Delever bilan to\'liq integratsiya.'
+    },
+    features: {
+      ru: ['Облачная система', 'Мобильное приложение', 'Синхронизация меню'],
+      en: ['Cloud system', 'Mobile app', 'Menu sync'],
+      uz: ['Bulutli tizim', 'Mobil ilova', 'Menyu sinxronizatsiyasi']
+    },
+    benefits: {
+      ru: ['Доступная цена', 'Простой интерфейс'],
+      en: ['Affordable price', 'Simple interface'],
+      uz: ['Qulay narx', 'Oddiy interfeys']
+    },
+    faq: [],
+    color: 'from-teal-500 to-teal-600',
+    relatedPages: ['integrations/poster', 'integrations/jowi'],
+    schemaType: 'SoftwareApplication'
+  },
+  {
+    slug: 'integrations/loook',
+    category: 'integration',
+    subcategory: 'pos',
+    title: {
+      ru: 'Интеграция с LOOOK — POS для сетей ресторанов',
+      en: 'LOOOK Integration — POS for Restaurant Chains',
+      uz: 'LOOOK integratsiyasi — restoran tarmoqlari uchun POS'
+    },
+    description: {
+      ru: 'LOOOK POS интеграция с Delever. Единая система для сети ресторанов. Автоматизация заказов.',
+      en: 'LOOOK POS integration with Delever. Unified system for restaurant chains. Order automation.',
+      uz: 'LOOOK POS Delever bilan integratsiyasi. Restoran tarmoqlari uchun yagona tizim. Buyurtmalarni avtomatlashtirish.'
+    },
+    keywords: {
+      ru: 'LOOOK интеграция, LOOOK POS, LOOOK сеть ресторанов',
+      en: 'LOOOK integration, LOOOK POS',
+      uz: 'LOOOK integratsiya'
+    },
+    h1: {
+      ru: 'Интеграция LOOOK с Delever',
+      en: 'LOOOK Integration with Delever',
+      uz: 'LOOOK Delever bilan integratsiyasi'
+    },
+    intro: {
+      ru: 'LOOOK — специализированная POS-система для сетей ресторанов. Delever обеспечивает централизованную интеграцию.',
+      en: 'LOOOK is a specialized POS system for restaurant chains. Delever provides centralized integration.',
+      uz: 'LOOOK — restoran tarmoqlari uchun maxsus POS tizimi. Delever markazlashtirilgan integratsiyani ta\'minlaydi.'
+    },
+    features: {
+      ru: ['Мультифилиальность', 'Единое меню', 'Централизованные отчёты'],
+      en: ['Multi-location', 'Unified menu', 'Centralized reports'],
+      uz: ['Ko\'p filiallilik', 'Yagona menyu', 'Markazlashtirilgan hisobotlar']
+    },
+    benefits: {
+      ru: ['Для крупных сетей', 'Масштабируемость'],
+      en: ['For large chains', 'Scalability'],
+      uz: ['Yirik tarmoqlar uchun', 'Kengayuvchanlik']
+    },
+    faq: [],
+    color: 'from-amber-500 to-amber-600',
+    relatedPages: ['integrations/iiko', 'solutions/food-chain'],
+    schemaType: 'SoftwareApplication'
+  }
+]
+
+// ============================================
+// ГОРОДА
+// ============================================
+export const cityPages: SEOPageData[] = [
+  {
+    slug: 'geo/tashkent',
+    category: 'geo',
+    title: {
+      ru: 'Delever в Ташкенте — система доставки для ресторанов',
+      en: 'Delever in Tashkent — Restaurant Delivery System',
+      uz: 'Delever Toshkentda — restoranlar uchun yetkazib berish tizimi'
+    },
+    description: {
+      ru: 'Delever — #1 платформа доставки в Ташкенте. 300+ ресторанов: EVOS, Yaponamama, Maxway, Bellissimo. Интеграция с Uzum, Payme.',
+      en: 'Delever — #1 delivery platform in Tashkent. 300+ restaurants: EVOS, Yaponamama, Maxway, Bellissimo. Integration with Uzum, Payme.',
+      uz: 'Delever — Toshkentda #1 yetkazib berish platformasi. 300+ restoran: EVOS, Yaponamama, Maxway, Bellissimo. Uzum, Payme bilan integratsiya.'
+    },
+    keywords: {
+      ru: 'доставка Ташкент, ресторан доставка Ташкент, система доставки Ташкент, Delever Ташкент',
+      en: 'delivery Tashkent, restaurant delivery Tashkent, delivery system Tashkent',
+      uz: 'yetkazib berish Toshkent, restoran yetkazib berish Toshkent'
+    },
+    h1: {
+      ru: 'Delever в Ташкенте',
+      en: 'Delever in Tashkent',
+      uz: 'Delever Toshkentda'
+    },
+    intro: {
+      ru: 'Ташкент — столица Узбекистана и крупнейший рынок доставки в регионе. Более 300 ресторанов Ташкента используют Delever.',
+      en: 'Tashkent is the capital of Uzbekistan and the largest delivery market in the region. Over 300 Tashkent restaurants use Delever.',
+      uz: 'Toshkent — O\'zbekiston poytaxti va mintaqadagi eng yirik yetkazib berish bozori. 300 dan ortiq Toshkent restorani Delever dan foydalanadi.'
+    },
+    features: {
+      ru: ['300+ ресторанов', 'Все агрегаторы', 'Локальная поддержка', 'Офис в Ташкенте'],
+      en: ['300+ restaurants', 'All aggregators', 'Local support', 'Office in Tashkent'],
+      uz: ['300+ restoran', 'Barcha agregatorlar', 'Mahalliy qo\'llab-quvvatlash', 'Toshkentda ofis']
+    },
+    benefits: {
+      ru: ['#1 в Ташкенте', 'Быстрая поддержка', 'Знание локального рынка'],
+      en: ['#1 in Tashkent', 'Fast support', 'Local market knowledge'],
+      uz: ['Toshkentda #1', 'Tez qo\'llab-quvvatlash', 'Mahalliy bozorni bilish']
+    },
+    faq: [
+      {
+        question: {
+          ru: 'Сколько ресторанов в Ташкенте используют Delever?',
+          en: 'How many restaurants in Tashkent use Delever?',
+          uz: 'Toshkentda nechta restoran Delever dan foydalanadi?'
+        },
+        answer: {
+          ru: 'Более 300 ресторанов Ташкента используют Delever, включая крупнейшие сети: EVOS, Yaponamama, Maxway, Bellissimo, Oqtepa Lavash.',
+          en: 'Over 300 Tashkent restaurants use Delever, including major chains: EVOS, Yaponamama, Maxway, Bellissimo, Oqtepa Lavash.',
+          uz: '300 dan ortiq Toshkent restorani Delever dan foydalanadi, shu jumladan yirik tarmoqlar: EVOS, Yaponamama, Maxway, Bellissimo, Oqtepa Lavash.'
+        }
+      }
+    ],
+    icon: '🏙️',
+    color: 'from-blue-500 to-cyan-500',
+    relatedPages: ['geo/uzbekistan', 'geo/samarkand', 'aggregators/uzum-tezkor'],
+    schemaType: 'Organization'
+  },
+  {
+    slug: 'geo/samarkand',
+    category: 'geo',
+    title: {
+      ru: 'Delever в Самарканде — доставка для ресторанов',
+      en: 'Delever in Samarkand — Restaurant Delivery',
+      uz: 'Delever Samarqandda — restoranlar uchun yetkazib berish'
+    },
+    description: {
+      ru: 'Delever в Самарканде: система доставки для ресторанов. Интеграция с POS, агрегаторами, платежами.',
+      en: 'Delever in Samarkand: delivery system for restaurants. Integration with POS, aggregators, payments.',
+      uz: 'Delever Samarqandda: restoranlar uchun yetkazib berish tizimi. POS, agregatorlar, to\'lovlar bilan integratsiya.'
+    },
+    keywords: {
+      ru: 'доставка Самарканд, ресторан Самарканд, Delever Самарканд',
+      en: 'delivery Samarkand, restaurant Samarkand',
+      uz: 'yetkazib berish Samarqand, restoran Samarqand'
+    },
+    h1: {
+      ru: 'Delever в Самарканде',
+      en: 'Delever in Samarkand',
+      uz: 'Delever Samarqandda'
+    },
+    intro: {
+      ru: 'Самарканд — второй по величине город Узбекистана. Delever помогает ресторанам Самарканда запустить доставку.',
+      en: 'Samarkand is the second largest city in Uzbekistan. Delever helps Samarkand restaurants launch delivery.',
+      uz: 'Samarqand — O\'zbekistonning ikkinchi eng katta shahri. Delever Samarqand restoranlariga yetkazib berishni ishga tushirishga yordam beradi.'
+    },
+    features: {
+      ru: ['Работаем в Самарканде', 'Локальные агрегаторы', 'Интеграция с POS'],
+      en: ['Working in Samarkand', 'Local aggregators', 'POS integration'],
+      uz: ['Samarqandda ishlaymiz', 'Mahalliy agregatorlar', 'POS integratsiyasi']
+    },
+    benefits: {
+      ru: ['Растущий рынок', 'Меньше конкуренции'],
+      en: ['Growing market', 'Less competition'],
+      uz: ['O\'sib borayotgan bozor', 'Kamroq raqobat']
+    },
+    faq: [],
+    icon: '🕌',
+    color: 'from-amber-500 to-orange-500',
+    relatedPages: ['geo/uzbekistan', 'geo/tashkent', 'geo/bukhara'],
+    schemaType: 'Organization'
+  },
+  {
+    slug: 'geo/bukhara',
+    category: 'geo',
+    title: {
+      ru: 'Delever в Бухаре — доставка для ресторанов',
+      en: 'Delever in Bukhara — Restaurant Delivery',
+      uz: 'Delever Buxoroda — restoranlar uchun yetkazib berish'
+    },
+    description: {
+      ru: 'Delever в Бухаре: запустите доставку для вашего ресторана. Интеграция с POS, онлайн-оплата.',
+      en: 'Delever in Bukhara: launch delivery for your restaurant. POS integration, online payment.',
+      uz: 'Delever Buxoroda: restoraningiz uchun yetkazib berishni ishga tushiring. POS integratsiyasi, onlayn to\'lov.'
+    },
+    keywords: {
+      ru: 'доставка Бухара, ресторан Бухара, Delever Бухара',
+      en: 'delivery Bukhara, restaurant Bukhara',
+      uz: 'yetkazib berish Buxoro, restoran Buxoro'
+    },
+    h1: {
+      ru: 'Delever в Бухаре',
+      en: 'Delever in Bukhara',
+      uz: 'Delever Buxoroda'
+    },
+    intro: {
+      ru: 'Бухара — исторический город с растущим рынком доставки. Delever помогает местным ресторанам выйти онлайн.',
+      en: 'Bukhara is a historic city with a growing delivery market. Delever helps local restaurants go online.',
+      uz: 'Buxoro — yetkazib berish bozori o\'sib borayotgan tarixiy shahar. Delever mahalliy restoranlarga onlaynga chiqishga yordam beradi.'
+    },
+    features: {
+      ru: ['Работаем в Бухаре', 'Интеграция с Jowi', 'Онлайн-оплата'],
+      en: ['Working in Bukhara', 'Jowi integration', 'Online payment'],
+      uz: ['Buxoroda ishlaymiz', 'Jowi integratsiyasi', 'Onlayn to\'lov']
+    },
+    benefits: {
+      ru: ['Туристический город', 'Растущий спрос'],
+      en: ['Tourist city', 'Growing demand'],
+      uz: ['Turistik shahar', 'O\'sib borayotgan talab']
+    },
+    faq: [],
+    icon: '🏛️',
+    color: 'from-yellow-500 to-amber-500',
+    relatedPages: ['geo/uzbekistan', 'geo/samarkand'],
+    schemaType: 'Organization'
+  },
+  {
+    slug: 'geo/almaty',
+    category: 'geo',
+    title: {
+      ru: 'Delever в Алматы — система доставки для ресторанов',
+      en: 'Delever in Almaty — Restaurant Delivery System',
+      uz: 'Delever Olma-otada — restoranlar uchun yetkazib berish tizimi'
+    },
+    description: {
+      ru: 'Delever в Алматы: интеграция с Glovo, Wolt, Kaspi. Автоматизация доставки для ресторанов Алматы.',
+      en: 'Delever in Almaty: integration with Glovo, Wolt, Kaspi. Delivery automation for Almaty restaurants.',
+      uz: 'Delever Olma-otada: Glovo, Wolt, Kaspi bilan integratsiya. Olma-ota restoranlar uchun yetkazib berishni avtomatlashtirish.'
+    },
+    keywords: {
+      ru: 'доставка Алматы, ресторан доставка Алматы, Delever Алматы, Glovo Алматы',
+      en: 'delivery Almaty, restaurant delivery Almaty, Delever Almaty',
+      uz: 'yetkazib berish Olma-ota'
+    },
+    h1: {
+      ru: 'Delever в Алматы',
+      en: 'Delever in Almaty',
+      uz: 'Delever Olma-otada'
+    },
+    intro: {
+      ru: 'Алматы — крупнейший город Казахстана и главный рынок доставки. Delever работает со всеми агрегаторами Алматы.',
+      en: 'Almaty is the largest city in Kazakhstan and the main delivery market. Delever works with all Almaty aggregators.',
+      uz: 'Olma-ota — Qozog\'istonning eng katta shahri va asosiy yetkazib berish bozori. Delever barcha Olma-ota agregatorlari bilan ishlaydi.'
+    },
+    features: {
+      ru: ['Glovo, Wolt интеграция', 'Kaspi оплата', 'iiko, R-Keeper'],
+      en: ['Glovo, Wolt integration', 'Kaspi payment', 'iiko, R-Keeper'],
+      uz: ['Glovo, Wolt integratsiyasi', 'Kaspi to\'lov', 'iiko, R-Keeper']
+    },
+    benefits: {
+      ru: ['Крупнейший рынок КЗ', 'Все агрегаторы'],
+      en: ['Largest KZ market', 'All aggregators'],
+      uz: ['Eng katta QZ bozori', 'Barcha agregatorlar']
+    },
+    faq: [],
+    icon: '🏔️',
+    color: 'from-cyan-500 to-blue-500',
+    relatedPages: ['geo/kazakhstan', 'geo/astana', 'aggregators/glovo'],
+    schemaType: 'Organization'
+  },
+  {
+    slug: 'geo/astana',
+    category: 'geo',
+    title: {
+      ru: 'Delever в Астане — система доставки для ресторанов',
+      en: 'Delever in Astana — Restaurant Delivery System',
+      uz: 'Delever Ostonada — restoranlar uchun yetkazib berish tizimi'
+    },
+    description: {
+      ru: 'Delever в Астане: интеграция с Glovo, Wolt, Kaspi. Автоматизация доставки для ресторанов столицы.',
+      en: 'Delever in Astana: integration with Glovo, Wolt, Kaspi. Delivery automation for capital restaurants.',
+      uz: 'Delever Ostonada: Glovo, Wolt, Kaspi bilan integratsiya. Poytaxt restoranlar uchun yetkazib berishni avtomatlashtirish.'
+    },
+    keywords: {
+      ru: 'доставка Астана, ресторан доставка Астана, Delever Астана',
+      en: 'delivery Astana, restaurant delivery Astana',
+      uz: 'yetkazib berish Ostona'
+    },
+    h1: {
+      ru: 'Delever в Астане',
+      en: 'Delever in Astana',
+      uz: 'Delever Ostonada'
+    },
+    intro: {
+      ru: 'Астана — столица Казахстана с быстрорастущим рынком доставки. Delever помогает ресторанам Астаны автоматизировать процессы.',
+      en: 'Astana is the capital of Kazakhstan with a fast-growing delivery market. Delever helps Astana restaurants automate processes.',
+      uz: 'Ostona — tez rivojlanayotgan yetkazib berish bozoriga ega Qozog\'iston poytaxti. Delever Ostona restoranlariga jarayonlarni avtomatlashtirishga yordam beradi.'
+    },
+    features: {
+      ru: ['Glovo, Wolt', 'Kaspi Pay', 'Поддержка 24/7'],
+      en: ['Glovo, Wolt', 'Kaspi Pay', '24/7 support'],
+      uz: ['Glovo, Wolt', 'Kaspi Pay', '24/7 qo\'llab-quvvatlash']
+    },
+    benefits: {
+      ru: ['Столица КЗ', 'Высокий средний чек'],
+      en: ['KZ capital', 'High average check'],
+      uz: ['QZ poytaxti', 'Yuqori o\'rtacha chek']
+    },
+    faq: [],
+    icon: '🏛️',
+    color: 'from-blue-500 to-indigo-500',
+    relatedPages: ['geo/kazakhstan', 'geo/almaty'],
+    schemaType: 'Organization'
+  }
+]
+
+// ============================================
+// ДОПОЛНИТЕЛЬНЫЕ РЕШЕНИЯ
+// ============================================
+export const moreSolutions: SEOPageData[] = [
+  {
+    slug: 'solutions/confectionery',
+    category: 'solution',
+    subcategory: 'business-type',
+    title: {
+      ru: 'Система доставки для кондитерской — онлайн-заказы тортов',
+      en: 'Delivery System for Confectionery — Online Cake Orders',
+      uz: 'Qandolatchilik uchun yetkazib berish tizimi — onlayn tort buyurtmalari'
+    },
+    description: {
+      ru: 'Решение для кондитерской: сайт с каталогом тортов, предзаказ, Telegram-бот. Интеграция с POS.',
+      en: 'Confectionery solution: website with cake catalog, pre-order, Telegram bot. POS integration.',
+      uz: 'Qandolatchilik uchun yechim: tortlar katalogi bilan sayt, oldindan buyurtma, Telegram-bot. POS integratsiyasi.'
+    },
+    keywords: {
+      ru: 'доставка тортов, кондитерская онлайн, заказ торта онлайн',
+      en: 'cake delivery, confectionery online, order cake online',
+      uz: 'tort yetkazib berish, qandolatchilik onlayn'
+    },
+    h1: {
+      ru: 'Система доставки для кондитерской',
+      en: 'Delivery System for Confectionery',
+      uz: 'Qandolatchilik uchun yetkazib berish tizimi'
+    },
+    intro: {
+      ru: 'Кондитерские требуют особого подхода: предзаказ, выбор размера, надписи на торте. Delever поддерживает все эти функции.',
+      en: 'Confectioneries require a special approach: pre-order, size selection, cake inscriptions. Delever supports all these features.',
+      uz: 'Qandolatchiliklar alohida yondashuvni talab qiladi: oldindan buyurtma, o\'lcham tanlash, tortdagi yozuvlar. Delever bu barcha funksiyalarni qo\'llab-quvvatlaydi.'
+    },
+    features: {
+      ru: ['Каталог тортов', 'Предзаказ на дату', 'Конструктор торта', 'Надписи'],
+      en: ['Cake catalog', 'Pre-order for date', 'Cake constructor', 'Inscriptions'],
+      uz: ['Tortlar katalogi', 'Sanaga oldindan buyurtma', 'Tort konstruktori', 'Yozuvlar']
+    },
+    benefits: {
+      ru: ['Высокий средний чек', 'Предоплата'],
+      en: ['High average check', 'Prepayment'],
+      uz: ['Yuqori o\'rtacha chek', 'Oldindan to\'lov']
+    },
+    faq: [],
+    icon: '🎂',
+    color: 'from-pink-500 to-rose-500',
+    relatedPages: ['solutions/cafe', 'dessert'],
+    schemaType: 'Product'
+  },
+  {
+    slug: 'solutions/coffee-shop',
+    category: 'solution',
+    subcategory: 'business-type',
+    title: {
+      ru: 'Система доставки для кофейни — онлайн-заказы кофе',
+      en: 'Delivery System for Coffee Shop — Online Coffee Orders',
+      uz: 'Qahvaxona uchun yetkazib berish tizimi — onlayn qahva buyurtmalari'
+    },
+    description: {
+      ru: 'Решение для кофейни: сайт, Telegram-бот, QR-меню. Программа лояльности, предзаказ.',
+      en: 'Coffee shop solution: website, Telegram bot, QR menu. Loyalty program, pre-order.',
+      uz: 'Qahvaxona uchun yechim: sayt, Telegram-bot, QR-menyu. Sodiqlik dasturi, oldindan buyurtma.'
+    },
+    keywords: {
+      ru: 'доставка кофе, кофейня онлайн заказ, кофе на вынос',
+      en: 'coffee delivery, coffee shop online order, takeaway coffee',
+      uz: 'qahva yetkazib berish, qahvaxona onlayn buyurtma'
+    },
+    h1: {
+      ru: 'Система доставки для кофейни',
+      en: 'Delivery System for Coffee Shop',
+      uz: 'Qahvaxona uchun yetkazib berish tizimi'
+    },
+    intro: {
+      ru: 'Кофейни активно осваивают доставку и самовывоз. Delever предлагает QR-меню, предзаказ и программу лояльности.',
+      en: 'Coffee shops are actively adopting delivery and takeaway. Delever offers QR menu, pre-order, and loyalty program.',
+      uz: 'Qahvaxonalar yetkazib berish va olib ketishni faol o\'zlashtiryapti. Delever QR-menyu, oldindan buyurtma va sodiqlik dasturini taklif etadi.'
+    },
+    features: {
+      ru: ['QR-меню', 'Предзаказ', 'Программа лояльности', 'Быстрый checkout'],
+      en: ['QR menu', 'Pre-order', 'Loyalty program', 'Quick checkout'],
+      uz: ['QR-menyu', 'Oldindan buyurtma', 'Sodiqlik dasturi', 'Tez checkout']
+    },
+    benefits: {
+      ru: ['Быстрые заказы', 'Повторные покупки'],
+      en: ['Quick orders', 'Repeat purchases'],
+      uz: ['Tez buyurtmalar', 'Takroriy xaridlar']
+    },
+    faq: [],
+    icon: '☕',
+    color: 'from-amber-600 to-amber-700',
+    relatedPages: ['solutions/cafe', 'solutions/confectionery'],
+    schemaType: 'Product'
+  },
+  {
+    slug: 'solutions/grocery',
+    category: 'solution',
+    subcategory: 'business-type',
+    title: {
+      ru: 'Система доставки для продуктового магазина',
+      en: 'Delivery System for Grocery Store',
+      uz: 'Oziq-ovqat do\'koni uchun yetkazib berish tizimi'
+    },
+    description: {
+      ru: 'Решение для продуктового магазина: сайт с каталогом, Telegram-бот, курьерское приложение.',
+      en: 'Grocery store solution: website with catalog, Telegram bot, courier app.',
+      uz: 'Oziq-ovqat do\'koni uchun yechim: katalog bilan sayt, Telegram-bot, kuryer ilovasi.'
+    },
+    keywords: {
+      ru: 'доставка продуктов, продуктовый магазин доставка, grocery delivery',
+      en: 'grocery delivery, food delivery, supermarket delivery',
+      uz: 'oziq-ovqat yetkazib berish, do\'kon yetkazib berish'
+    },
+    h1: {
+      ru: 'Система доставки для продуктового магазина',
+      en: 'Delivery System for Grocery Store',
+      uz: 'Oziq-ovqat do\'koni uchun yetkazib berish tizimi'
+    },
+    intro: {
+      ru: 'Продуктовые магазины всё чаще запускают доставку. Delever поддерживает большие каталоги, весовой товар, слоты доставки.',
+      en: 'Grocery stores are increasingly launching delivery. Delever supports large catalogs, weighted products, delivery slots.',
+      uz: 'Oziq-ovqat do\'konlari tobora ko\'proq yetkazib berishni ishga tushirmoqda. Delever katta kataloglar, tortilgan mahsulotlar, yetkazib berish slotlarini qo\'llab-quvvatlaydi.'
+    },
+    features: {
+      ru: ['Большой каталог', 'Весовой товар', 'Слоты доставки', 'Минимальный заказ'],
+      en: ['Large catalog', 'Weighted products', 'Delivery slots', 'Minimum order'],
+      uz: ['Katta katalog', 'Tortilgan mahsulotlar', 'Yetkazib berish slotlari', 'Minimal buyurtma']
+    },
+    benefits: {
+      ru: ['Высокая частота заказов', 'Большие корзины'],
+      en: ['High order frequency', 'Large baskets'],
+      uz: ['Yuqori buyurtma chastotasi', 'Katta savatlar']
+    },
+    faq: [],
+    icon: '🛒',
+    color: 'from-green-500 to-emerald-500',
+    relatedPages: ['delivery/yandex-delivery', 'solutions/dark-kitchen'],
+    schemaType: 'Product'
+  }
+]
+
+// ============================================
 // ЭКСПОРТ ВСЕХ СТРАНИЦ
 // ============================================
 export const allSEOPages: SEOPageData[] = [
   ...posIntegrations,
+  ...morePosIntegrations,
   ...aggregatorIntegrations,
   ...paymentIntegrations,
   ...deliveryIntegrations,
   ...businessSolutions,
-  ...geoPages
+  ...moreSolutions,
+  ...geoPages,
+  ...cityPages
 ]
 
 // Получить страницу по slug

@@ -34,6 +34,9 @@ const pages = [
   { path: '/integrations/poster', priority: '0.8', changefreq: 'monthly' },
   { path: '/integrations/jowi', priority: '0.8', changefreq: 'monthly' },
   { path: '/integrations/syrve', priority: '0.8', changefreq: 'monthly' },
+  { path: '/integrations/paloma', priority: '0.7', changefreq: 'monthly' },
+  { path: '/integrations/clopos', priority: '0.7', changefreq: 'monthly' },
+  { path: '/integrations/loook', priority: '0.7', changefreq: 'monthly' },
   
   // Агрегаторы (SEO)
   { path: '/aggregators/glovo', priority: '0.8', changefreq: 'monthly' },
@@ -58,10 +61,20 @@ const pages = [
   { path: '/solutions/cafe', priority: '0.8', changefreq: 'monthly' },
   { path: '/solutions/dark-kitchen', priority: '0.8', changefreq: 'monthly' },
   { path: '/solutions/food-chain', priority: '0.8', changefreq: 'monthly' },
+  { path: '/solutions/confectionery', priority: '0.7', changefreq: 'monthly' },
+  { path: '/solutions/coffee-shop', priority: '0.7', changefreq: 'monthly' },
+  { path: '/solutions/grocery', priority: '0.7', changefreq: 'monthly' },
   
-  // Гео-страницы (SEO)
+  // Гео-страницы (SEO) - страны
   { path: '/geo/uzbekistan', priority: '0.8', changefreq: 'monthly' },
   { path: '/geo/kazakhstan', priority: '0.8', changefreq: 'monthly' },
+  
+  // Гео-страницы (SEO) - города
+  { path: '/geo/tashkent', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/samarkand', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/bukhara', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/almaty', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/astana', priority: '0.8', changefreq: 'monthly' },
   
   // Тарифы и калькулятор
   { path: '/pricing', priority: '0.9', changefreq: 'weekly' },

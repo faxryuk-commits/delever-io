@@ -26,6 +26,7 @@ import { Investors } from './pages/Investors'
 import { AIMarketing } from './pages/AIMarketing'
 import { MenuDoctor } from './pages/MenuDoctor'
 import { Clients } from './pages/Clients'
+import { SiteMap } from './pages/SiteMap'
 import { NotFound } from './pages/NotFound'
 import { AnnouncementBar } from './components/AnnouncementBar'
 
@@ -66,6 +67,7 @@ function App() {
                 <Route path="/ai-marketing" element={<AIMarketing />} />
                 <Route path="/menu-doctor" element={<MenuDoctor />} />
                 <Route path="/clients" element={<Clients />} />
+                <Route path="/sitemap-preview" element={<SiteMap />} />
                 
                 {/* SEO Pages - Integrations */}
                 <Route path="/integrations/:slug" element={<IntegrationPage />} />
