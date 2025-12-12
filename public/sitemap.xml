@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   
-  <!-- Auto-generated sitemap - Last updated: 2025-12-07 -->
+  <!-- Auto-generated sitemap - Last updated: 2025-12-12 -->
   
   <url>
     <loc>https://delever.io/</loc>
@@ -11,7 +11,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/?lang=uz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/"/>
-    <lastmod>2025-12-07</lastmod>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -22,7 +22,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/products?lang=en"/>
     <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/products?lang=uz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/products"/>
-    <lastmod>2025-12-07</lastmod>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -33,7 +33,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/products/channels?lang=en"/>
     <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/products/channels?lang=uz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/products/channels"/>
-    <lastmod>2025-12-07</lastmod>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -44,7 +44,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/products/operations?lang=en"/>
     <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/products/operations?lang=uz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/products/operations"/>
-    <lastmod>2025-12-07</lastmod>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -55,7 +55,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/products/analytics?lang=en"/>
     <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/products/analytics?lang=uz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/products/analytics"/>
-    <lastmod>2025-12-07</lastmod>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -66,7 +66,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/products/marketing?lang=en"/>
     <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/products/marketing?lang=uz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/products/marketing"/>
-    <lastmod>2025-12-07</lastmod>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -77,7 +77,18 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/aggregators?lang=en"/>
     <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/aggregators?lang=uz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/aggregators"/>
-    <lastmod>2025-12-07</lastmod>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/integrations</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/integrations?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/integrations?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/integrations?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/integrations"/>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -88,19 +99,30 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/pricing?lang=en"/>
     <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/pricing?lang=uz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/pricing"/>
-    <lastmod>2025-12-07</lastmod>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://delever.io/integrations</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/integrations?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/integrations?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/integrations?lang=uz"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/integrations"/>
-    <lastmod>2025-12-07</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://delever.io/ai-marketing</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/ai-marketing?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/ai-marketing?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/ai-marketing?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/ai-marketing"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/menu-doctor</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/menu-doctor?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/menu-doctor?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/menu-doctor?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/menu-doctor"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
@@ -110,7 +132,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/partners?lang=en"/>
     <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/partners?lang=uz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/partners"/>
-    <lastmod>2025-12-07</lastmod>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -121,7 +143,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/about?lang=en"/>
     <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/about?lang=uz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/about"/>
-    <lastmod>2025-12-07</lastmod>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -132,7 +154,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/white-label?lang=en"/>
     <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/white-label?lang=uz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/white-label"/>
-    <lastmod>2025-12-07</lastmod>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -143,7 +165,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/esg?lang=en"/>
     <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/esg?lang=uz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/esg"/>
-    <lastmod>2025-12-07</lastmod>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -154,19 +176,8 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/investors?lang=en"/>
     <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/investors?lang=uz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/investors"/>
-    <lastmod>2025-12-07</lastmod>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://delever.io/ai-marketing</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/ai-marketing?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/ai-marketing?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/ai-marketing?lang=uz"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/ai-marketing"/>
-    <lastmod>2025-12-07</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 

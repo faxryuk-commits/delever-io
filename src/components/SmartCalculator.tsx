@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { 
   DollarSign,
   Keyboard,
@@ -10,8 +10,6 @@ import {
   Plus,
   Minus,
   Download,
-  ArrowRight,
-  ArrowLeft,
   Package,
   Store,
   Layers,
@@ -158,8 +156,7 @@ export function SmartCalculator() {
   const [contactFormOpen, setContactFormOpen] = useState(false)
   const [presentationOpen, setPresentationOpen] = useState(false)
   
-  // Состояние
-  const [step, setStep] = useState(1)
+  // Состояние (без wizard - всё на одной странице)
   const [situation, setSituation] = useState<Situation | null>(null)
   
   // Параметры бизнеса
@@ -660,80 +657,60 @@ export function SmartCalculator() {
   
   // ============ РЕНДЕР ============
   
-  // Шаг 1: Выбор ситуации
-  const renderStep1 = () => (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-    >
+  // Секция выбора ситуации (горизонтальные фильтры)
+  const renderSituationSelector = () => (
+    <div id="situation" className="mb-8">
       <h2 className="text-2xl md:text-3xl font-bold text-brand-darkBlue mb-2 text-center">
         {t('calc2.step1.title')}
       </h2>
-      <p className="text-brand-darkBlue/60 mb-8 text-center">
+      <p className="text-brand-darkBlue/60 mb-6 text-center">
         {t('calc2.step1.subtitle')}
       </p>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+      {/* Горизонтальные фильтры ситуаций */}
+      <div className="flex flex-wrap justify-center gap-3 mb-4">
         {situations.map((sit) => {
           const Icon = sit.icon
+          const isSelected = situation === sit.id
           return (
             <button
               key={sit.id}
-              onClick={() => {
-                setSituation(sit.id)
-                // Автопереход на шаг 2
-                setTimeout(() => setStep(2), 150)
-              }}
-              className="p-5 rounded-2xl border-2 text-left transition-all border-brand-lightTeal/30 hover:border-brand-darkBlue/30 bg-white hover:shadow-md hover:scale-[1.02] group"
+              onClick={() => setSituation(isSelected ? null : sit.id)}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 transition-all ${
+                isSelected 
+                  ? 'border-brand-darkBlue bg-brand-darkBlue text-white shadow-lg scale-105' 
+                  : 'border-brand-lightTeal/30 hover:border-brand-darkBlue/30 bg-white hover:shadow-md'
+              }`}
             >
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 bg-gradient-to-r ${sit.color}`}>
-                <Icon className="h-5 w-5 text-white" />
+              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isSelected ? 'bg-white/20' : `bg-gradient-to-r ${sit.color}`}`}>
+                <Icon className={`h-4 w-4 ${isSelected ? 'text-white' : 'text-white'}`} />
               </div>
-              <h3 className="font-bold mb-1 text-brand-darkBlue group-hover:text-brand-blue transition-colors">
+              <span className={`font-medium text-sm ${isSelected ? 'text-white' : 'text-brand-darkBlue'}`}>
                 {t(`calc2.situation.${sit.id}`)}
-              </h3>
-              <p className="text-sm text-brand-darkBlue/60">
-                {t(`calc2.situation.${sit.id}.desc`)}
-              </p>
+              </span>
             </button>
           )
         })}
       </div>
       
-      <div className="flex justify-center">
-        <Button 
-          variant="outline"
-          onClick={() => {
-            setSituation(null)
-            setStep(2)
-          }}
-          className="border-brand-darkBlue/30"
+      {/* Описание выбранной ситуации */}
+      {situation && (
+        <motion.div 
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          className="text-center"
         >
-          {t('calc2.skipToCalculator')}
-          <ArrowRight className="ml-2 h-4 w-4" />
-        </Button>
-      </div>
-    </motion.div>
+          <p className="text-sm text-brand-darkBlue/60 max-w-2xl mx-auto">
+            {t(`calc2.situation.${situation}.desc`)}
+          </p>
+        </motion.div>
+      )}
+    </div>
   )
   
-  // Шаг 2: Параметры + Тарифы + Модули + ROI
-  const renderStep2 = () => (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      className="space-y-8"
-    >
-      {/* Кнопка назад */}
-      <button 
-        onClick={() => setStep(1)}
-        className="flex items-center gap-2 text-brand-darkBlue/60 hover:text-brand-darkBlue transition-colors"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        {t('calc2.back')}
-      </button>
-      
+  // Калькулятор: Параметры + Тарифы + Модули + ROI
+  const renderCalculator = () => (
+    <div id="calculator" className="space-y-8">
       {/* Тарифы */}
       <div className="bg-white rounded-2xl shadow-sm border border-brand-lightTeal/20 overflow-hidden">
         {/* Контекст ситуации - компактный хедер */}
@@ -1659,39 +1636,17 @@ export function SmartCalculator() {
           </Button>
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 
   return (
     <section className="py-8 md:py-12 bg-gradient-to-b from-brand-lightBeige/50 to-white">
       <div className="container mx-auto px-4 max-w-6xl">
-        {/* Индикатор шагов */}
-        <div className="flex items-center justify-center gap-4 mb-8">
-          <button 
-            onClick={() => setStep(1)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-              step === 1 ? 'bg-brand-darkBlue text-white' : 'bg-brand-lightTeal/30 text-brand-darkBlue/60'
-            }`}
-          >
-            <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-sm font-bold">1</span>
-            <span className="hidden sm:inline">{t('calc2.stepSituation')}</span>
-          </button>
-          <div className="w-8 h-0.5 bg-brand-lightTeal/30" />
-          <button 
-            onClick={() => step > 1 && setStep(2)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-              step === 2 ? 'bg-brand-darkBlue text-white' : 'bg-brand-lightTeal/30 text-brand-darkBlue/60'
-            }`}
-          >
-            <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-sm font-bold">2</span>
-            <span className="hidden sm:inline">{t('calc2.stepCalculator')}</span>
-          </button>
-        </div>
+        {/* Выбор ситуации - горизонтальные фильтры */}
+        {renderSituationSelector()}
         
-        <AnimatePresence mode="wait">
-          {step === 1 && renderStep1()}
-          {step === 2 && renderStep2()}
-        </AnimatePresence>
+        {/* Калькулятор - сразу виден */}
+        {renderCalculator()}
         
         {/* Функционал платформы - в конце страницы */}
         <motion.div 

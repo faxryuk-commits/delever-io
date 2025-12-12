@@ -518,12 +518,12 @@ export default async function handler(request: Request) {
     let usedJina = false
 
     // Сначала пробуем Jina AI Reader (рендерит JavaScript)
+    console.log('Menu Doctor: Trying Jina AI Reader for JS rendering...')
+    const jinaUrl = `https://r.jina.ai/${menuUrl}`
+    
+    const jinaController = new AbortController()
+    const jinaTimeout = setTimeout(() => jinaController.abort(), 4000) // 4 сек на Jina
     try {
-      console.log('Menu Doctor: Trying Jina AI Reader for JS rendering...')
-      const jinaUrl = `https://r.jina.ai/${menuUrl}`
-      
-      const jinaController = new AbortController()
-      const jinaTimeout = setTimeout(() => jinaController.abort(), 4000) // 4 сек на Jina
       
       const jinaResponse = await fetch(jinaUrl, {
         method: 'GET',

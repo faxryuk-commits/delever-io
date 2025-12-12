@@ -14,21 +14,33 @@ const baseUrl = 'https://delever.io';
 
 // Страницы сайта с приоритетами
 const pages = [
+  // Главная
   { path: '/', priority: '1.0', changefreq: 'weekly' },
+  
+  // Продукты
   { path: '/products', priority: '0.9', changefreq: 'weekly' },
   { path: '/products/channels', priority: '0.8', changefreq: 'monthly' },
   { path: '/products/operations', priority: '0.8', changefreq: 'monthly' },
   { path: '/products/analytics', priority: '0.8', changefreq: 'monthly' },
   { path: '/products/marketing', priority: '0.8', changefreq: 'monthly' },
+  
+  // Интеграции
   { path: '/aggregators', priority: '0.8', changefreq: 'monthly' },
-  { path: '/pricing', priority: '0.9', changefreq: 'weekly' },
   { path: '/integrations', priority: '0.8', changefreq: 'monthly' },
+  
+  // Тарифы и калькулятор
+  { path: '/pricing', priority: '0.9', changefreq: 'weekly' },
+  
+  // Инструменты
+  { path: '/ai-marketing', priority: '0.8', changefreq: 'weekly' },
+  { path: '/menu-doctor', priority: '0.8', changefreq: 'weekly' },
+  
+  // Партнёры и компания
   { path: '/partners', priority: '0.7', changefreq: 'monthly' },
   { path: '/about', priority: '0.7', changefreq: 'monthly' },
   { path: '/white-label', priority: '0.8', changefreq: 'monthly' },
   { path: '/esg', priority: '0.7', changefreq: 'monthly' },
   { path: '/investors', priority: '0.8', changefreq: 'monthly' },
-  { path: '/ai-marketing', priority: '0.8', changefreq: 'weekly' },
 ];
 
 // Генерация URL записи

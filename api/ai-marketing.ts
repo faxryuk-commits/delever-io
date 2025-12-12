@@ -702,10 +702,10 @@ export default async function handler(request: Request) {
         
         for (const model of modelsToTry) {
           console.log(`AI Marketing: Trying OpenRouter with ${model}...`)
+          // Таймаут 18 секунд - даём модели завершить генерацию
+          const controller = new AbortController()
+          const timeout = setTimeout(() => controller.abort(), 18000)
           try {
-            // Таймаут 18 секунд - даём модели завершить генерацию
-            const controller = new AbortController()
-            const timeout = setTimeout(() => controller.abort(), 18000)
             
             const openrouterResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
               method: 'POST',

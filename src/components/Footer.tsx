@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { MapPin, Linkedin, Send, Instagram, Phone, Mail, BookOpen, Code, Bell, Activity, Users, Leaf, TrendingUp } from 'lucide-react'
+import { MapPin, Linkedin, Send, Instagram, Phone, Mail, BookOpen, Code, Bell, Activity, Users, Leaf, TrendingUp, Sparkles, Stethoscope, Calculator } from 'lucide-react'
 import { Logo } from './Logo'
 import { LocaleSwitcher } from './LocaleSwitcher'
 import { useLocale } from '@/i18n/LocaleContext'
@@ -31,7 +31,7 @@ export function Footer() {
     <footer className="bg-brand-darkBlue text-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         {/* Main Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-12 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-10 mb-12">
           {/* Brand Section */}
           <div className="col-span-2 md:col-span-3 lg:col-span-1">
             <Link to="/" className="inline-block mb-4">
@@ -142,6 +142,36 @@ export function Footer() {
               <li>
                 <Link to="/integrations#delivery" className="text-white/60 hover:text-white transition-colors">
                   {t('footer.deliveryServices')}
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Tools */}
+          <div>
+            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">{t('footer.tools') || 'Инструменты'}</h3>
+            <ul className="space-y-2.5 text-sm">
+              <li>
+                <Link to="/pricing" className="text-white/60 hover:text-white transition-colors flex items-center gap-2">
+                  <Calculator className="h-3.5 w-3.5" />
+                  {t('footer.calculator') || 'Калькулятор тарифов'}
+                </Link>
+              </li>
+              <li>
+                <Link to="/ai-marketing" className="text-white/60 hover:text-white transition-colors flex items-center gap-2">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  AI Marketing
+                </Link>
+              </li>
+              <li>
+                <Link to="/menu-doctor" className="text-white/60 hover:text-white transition-colors flex items-center gap-2">
+                  <Stethoscope className="h-3.5 w-3.5" />
+                  Menu Doctor
+                </Link>
+              </li>
+              <li>
+                <Link to="/aggregators" className="text-white/60 hover:text-white transition-colors flex items-center gap-2">
+                  {t('footer.aggregatorsPage') || 'Работа с агрегаторами'}
                 </Link>
               </li>
             </ul>
