@@ -7,7 +7,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://delever.io/case-studies/evos</loc>
+    <loc>https://delever.io/case-studies/grand-lavash</loc>
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -20,6 +20,12 @@
   </url>
   <url>
     <loc>https://delever.io/case-studies/maxway</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://delever.io/case-studies/gippo</loc>
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>

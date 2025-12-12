@@ -301,6 +301,12 @@ export function Clients() {
                   metric: '-35%', 
                   label: language === 'ru' ? 'время доставки' : 'delivery time',
                   slug: 'maxway'
+                },
+                { 
+                  company: 'Gippo', 
+                  metric: '-85%', 
+                  label: language === 'ru' ? 'ошибок' : 'errors',
+                  slug: 'gippo'
                 }
               ].map((cs, idx) => (
                 <Link 
