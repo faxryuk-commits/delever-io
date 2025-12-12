@@ -47,6 +47,22 @@ const validatePhone = (phone: string | undefined): string | undefined => {
   // Проверка на последовательные цифры
   if (/^(0123456789|1234567890|9876543210|0987654321)/.test(digitsOnly)) return 'invalid'
   
+  // Строгая проверка для узбекских номеров
+  if (digitsOnly.startsWith('998')) {
+    // Валидные коды операторов Узбекистана
+    const validUzOperators = ['90', '91', '93', '94', '95', '97', '99', '33', '55', '77', '88', '89', '98', '71', '78']
+    const operatorCode = digitsOnly.substring(3, 5)
+    
+    if (!validUzOperators.includes(operatorCode)) {
+      return 'invalidOperator'
+    }
+    
+    // Проверка длины (998 + 9 цифр = 12)
+    if (digitsOnly.length !== 12) {
+      return 'invalidLength'
+    }
+  }
+  
   // Валидация с помощью libphonenumber
   if (!isValidPhoneNumber(phone)) return 'invalid'
   
