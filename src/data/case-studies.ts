@@ -321,6 +321,97 @@ export const caseStudies: CaseStudy[] = [
       { date: '2023-05', event: { ru: 'Запуск курьерского приложения', en: 'Courier app launch', uz: 'Kuryer ilovasi ishga tushirildi' } },
       { date: '2023-08', event: { ru: 'Оптимизация зон доставки', en: 'Delivery zone optimization', uz: 'Yetkazib berish zonalarini optimallashtirish' } }
     ]
+  },
+  
+  // ============================================
+  // GIPPO
+  // ============================================
+  {
+    slug: 'gippo',
+    company: 'Gippo',
+    logo: '/logos/gippo.png',
+    industry: 'Hypermarket',
+    country: 'Uzbekistan',
+    city: 'Tashkent',
+    
+    title: {
+      ru: 'Gippo: интеграция агрегаторов сократила ошибки на 85%',
+      en: 'Gippo: Aggregator Integration Reduced Errors by 85%',
+      uz: 'Gippo: Agregator integratsiyasi xatolarni 85% ga kamaytirdi'
+    },
+    description: {
+      ru: 'Как гипермаркет Gippo интегрировал все агрегаторы в единую систему: снижение ошибок, рост прибыли, автоматизация процессов.',
+      en: 'How Gippo hypermarket integrated all aggregators into one system: error reduction, profit growth, process automation.',
+      uz: 'Gippo gipermarketi barcha agregatorlarni yagona tizimga qanday birlashtirdi: xatolarni kamaytirish, foyda o\'sishi.'
+    },
+    
+    tagline: {
+      ru: 'Все агрегаторы в одном окне — ноль потерянных заказов',
+      en: 'All Aggregators in One Window — Zero Lost Orders',
+      uz: 'Barcha agregatorlar bitta oynada — yo\'qolgan buyurtmalar nol'
+    },
+    
+    challenge: {
+      ru: 'Gippo — крупный гипермаркет с доставкой продуктов. До Delever операторы работали с 4 планшетами от разных агрегаторов (Uzum, Glovo, Wolt, Yandex). Заказы терялись, время сборки было непредсказуемым, ручной ввод приводил к ошибкам в 12% заказов. Аналитика по каналам отсутствовала.',
+      en: 'Gippo is a major hypermarket with grocery delivery. Before Delever, operators worked with 4 tablets from different aggregators (Uzum, Glovo, Wolt, Yandex). Orders were lost, assembly time was unpredictable, manual entry led to errors in 12% of orders. No channel analytics.',
+      uz: 'Gippo — oziq-ovqat yetkazib berish bilan shug\'ullanuvchi yirik gipermarket. Deleverdan oldin operatorlar 4 ta turli agregator planshetlari bilan ishlashardi.'
+    },
+    
+    solution: {
+      ru: 'Внедрили Delever с интеграцией всех агрегаторов: 1) Единый интерфейс для всех заказов — Uzum, Glovo, Wolt, Yandex в одном окне. 2) Автоматическая синхронизация меню и остатков со всеми агрегаторами. 3) Умная очередь сборки с приоритизацией по времени. 4) Аналитика по каждому каналу: выручка, маржа, популярные товары.',
+      en: 'Implemented Delever with all aggregator integrations: 1) Single interface for all orders — Uzum, Glovo, Wolt, Yandex in one window. 2) Automatic menu and inventory sync with all aggregators. 3) Smart assembly queue with time-based prioritization. 4) Analytics per channel: revenue, margin, popular items.',
+      uz: 'Barcha agregator integratsiyalari bilan Delever joriy qilindi: 1) Barcha buyurtmalar uchun yagona interfeys. 2) Barcha agregatorlar bilan menyu va qoldiqlarni avtomatik sinxronlash.'
+    },
+    
+    results: [
+      {
+        metric: 'errors',
+        before: '12%',
+        after: '1.8%',
+        improvement: '-85%',
+        label: { ru: 'Ошибки в заказах', en: 'Order Errors', uz: 'Buyurtmalardagi xatolar' }
+      },
+      {
+        metric: 'revenue',
+        before: '$85K',
+        after: '$127K',
+        improvement: '+49%',
+        label: { ru: 'Выручка с доставки/мес', en: 'Monthly Delivery Revenue', uz: 'Oylik yetkazib berish daromadi' }
+      },
+      {
+        metric: 'assembly_time',
+        before: '25 мин',
+        after: '14 мин',
+        improvement: '-44%',
+        label: { ru: 'Время сборки', en: 'Assembly Time', uz: 'Yig\'ish vaqti' }
+      },
+      {
+        metric: 'lost_orders',
+        before: '8%',
+        after: '0.5%',
+        improvement: '-94%',
+        label: { ru: 'Потерянные заказы', en: 'Lost Orders', uz: 'Yo\'qolgan buyurtmalar' }
+      }
+    ],
+    
+    quote: {
+      text: {
+        ru: 'Раньше у нас было 4 планшета и постоянный хаос. Заказы терялись, клиенты жаловались, операторы путались. Теперь всё в одном экране — Uzum, Glovo, Wolt, собственный сайт. Ошибки практически исчезли.',
+        en: 'We used to have 4 tablets and constant chaos. Orders were lost, customers complained, operators confused. Now everything is on one screen — Uzum, Glovo, Wolt, own website. Errors have virtually disappeared.',
+        uz: 'Ilgari bizda 4 ta planshet va doimiy tartibsizlik bor edi. Buyurtmalar yo\'qolar, mijozlar shikoyat qilardi. Endi hammasi bitta ekranda.'
+      },
+      author: 'Алишер Норматов',
+      role: { ru: 'Директор по e-commerce Gippo', en: 'Gippo E-commerce Director', uz: 'Gippo E-commerce direktori' }
+    },
+    
+    products: ['products/channels', 'products/operations', 'aggregators/uzum-tezkor', 'aggregators/glovo'],
+    
+    timeline: [
+      { date: '2024-02', event: { ru: 'Аудит текущих процессов и интеграций', en: 'Current process and integration audit', uz: 'Joriy jarayonlar va integratsiyalar auditi' } },
+      { date: '2024-03', event: { ru: 'Подключение всех агрегаторов к Delever', en: 'Connecting all aggregators to Delever', uz: 'Barcha agregatorlarni Deleverga ulash' } },
+      { date: '2024-04', event: { ru: 'Запуск умной очереди сборки', en: 'Smart assembly queue launch', uz: 'Aqlli yig\'ish navbatini ishga tushirish' } },
+      { date: '2024-06', event: { ru: 'Оптимизация и масштабирование', en: 'Optimization and scaling', uz: 'Optimallashtirish va kengaytirish' } }
+    ]
   }
 ]
 

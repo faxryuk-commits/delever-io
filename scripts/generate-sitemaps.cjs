@@ -113,6 +113,7 @@ const caseStudies = [
   { path: '/case-studies/grand-lavash', priority: '0.85', changefreq: 'monthly' },
   { path: '/case-studies/yaponamama', priority: '0.85', changefreq: 'monthly' },
   { path: '/case-studies/maxway', priority: '0.85', changefreq: 'monthly' },
+  { path: '/case-studies/gippo', priority: '0.85', changefreq: 'monthly' },
 ];
 
 // Knowledge Hub (Guides) - Hubs
