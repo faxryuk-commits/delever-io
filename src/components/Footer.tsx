@@ -177,6 +177,45 @@ export function Footer() {
             </ul>
           </div>
 
+          {/* Guides & Cases */}
+          <div>
+            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Гайды и кейсы</h3>
+            <ul className="space-y-2.5 text-sm">
+              <li>
+                <Link to="/guides" className="text-white/60 hover:text-white transition-colors flex items-center gap-2">
+                  <BookOpen className="h-3.5 w-3.5" />
+                  Все гайды
+                </Link>
+              </li>
+              <li>
+                <Link to="/guides/how-to-launch-delivery" className="text-white/60 hover:text-white transition-colors">
+                  Запуск доставки
+                </Link>
+              </li>
+              <li>
+                <Link to="/guides/how-to-open-restaurant" className="text-white/60 hover:text-white transition-colors">
+                  Открытие ресторана
+                </Link>
+              </li>
+              <li>
+                <Link to="/case-studies" className="text-white/60 hover:text-white transition-colors flex items-center gap-2">
+                  <TrendingUp className="h-3.5 w-3.5" />
+                  Истории успеха
+                </Link>
+              </li>
+              <li>
+                <Link to="/case-studies/grand-lavash" className="text-white/60 hover:text-white transition-colors">
+                  Grand Lavash: +45%
+                </Link>
+              </li>
+              <li>
+                <Link to="/case-studies/okadzaki" className="text-white/60 hover:text-white transition-colors">
+                  Okadzaki: 0% ошибок
+                </Link>
+              </li>
+            </ul>
+          </div>
+
           {/* Resources */}
           <div>
             <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">{t('footer.resources')}</h3>

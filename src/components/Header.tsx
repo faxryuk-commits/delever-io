@@ -191,6 +191,19 @@ export function Header() {
                   {t(item.labelKey)}
                 </Link>
               ))}
+
+              {/* Guides Link */}
+              <Link
+                to="/guides"
+                className={cn(
+                  'px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200',
+                  isActive('/guides')
+                    ? 'bg-brand-lightBlue/60 text-brand-darkBlue font-semibold'
+                    : 'text-brand-darkBlue/70 hover:text-brand-darkBlue hover:bg-brand-lightBlue/40'
+                )}
+              >
+                Гайды
+              </Link>
             </nav>
 
             {/* Right side controls */}
