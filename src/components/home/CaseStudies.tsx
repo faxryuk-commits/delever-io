@@ -6,35 +6,39 @@ import { useLocale } from '@/i18n/LocaleContext'
 export function CaseStudies() {
   const { t } = useLocale()
 
+  // Данные синхронизированы с case-studies.ts
   const cases = [
     {
       company: 'Yaponamama',
       segmentKey: 'cases.restaurant',
       link: '/case-studies/yaponamama',
+      logo: '/logos/Yaponamama.webp',
       results: [
-        { icon: <TrendingUp className="h-4 w-4" />, metric: '+45%', labelKey: 'cases.ordersGrowth' },
-        { icon: <Clock className="h-4 w-4" />, metric: '-30%', labelKey: 'cases.deliveryTime' },
-        { icon: <DollarSign className="h-4 w-4" />, metric: '+28%', labelKey: 'cases.avgCheck' },
+        { icon: <TrendingUp className="h-4 w-4" />, metric: '+60%', labelKey: 'cases.repeatOrders' },
+        { icon: <DollarSign className="h-4 w-4" />, metric: '+104%', labelKey: 'cases.ltv' },
+        { icon: <Users className="h-4 w-4" />, metric: '+25', labelKey: 'cases.nps' },
       ],
     },
     {
-      company: 'GIPPO',
-      segmentKey: 'cases.storeChain',
+      company: 'Gippo',
+      segmentKey: 'cases.hypermarket',
       link: '/case-studies/gippo',
+      logo: '/logos/gippo.png',
       results: [
-        { icon: <Users className="h-4 w-4" />, metric: '+60%', labelKey: 'cases.onlineOrders' },
-        { icon: <TrendingUp className="h-4 w-4" />, metric: '<1%', labelKey: 'cases.errors' },
-        { icon: <Clock className="h-4 w-4" />, metric: '-25%', labelKey: 'cases.deliveryTime' },
+        { icon: <TrendingUp className="h-4 w-4" />, metric: '-92%', labelKey: 'cases.errors' },
+        { icon: <Clock className="h-4 w-4" />, metric: '-44%', labelKey: 'cases.assemblyTime' },
+        { icon: <Users className="h-4 w-4" />, metric: '-94%', labelKey: 'cases.lostOrders' },
       ],
     },
     {
       company: 'MAXWAY',
       segmentKey: 'cases.fastFood',
       link: '/case-studies/maxway',
+      logo: '/logos/maxway.png',
       results: [
-        { icon: <DollarSign className="h-4 w-4" />, metric: '+40%', labelKey: 'cases.gmv' },
-        { icon: <Users className="h-4 w-4" />, metric: '+50%', labelKey: 'cases.customers' },
-        { icon: <TrendingUp className="h-4 w-4" />, metric: '+32%', labelKey: 'cases.conversion' },
+        { icon: <Clock className="h-4 w-4" />, metric: '-35%', labelKey: 'cases.deliveryTime' },
+        { icon: <TrendingUp className="h-4 w-4" />, metric: '-78%', labelKey: 'cases.lateDeliveries' },
+        { icon: <Users className="h-4 w-4" />, metric: '+50%', labelKey: 'cases.ordersPerCourier' },
       ],
     },
   ]
