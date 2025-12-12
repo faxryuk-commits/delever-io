@@ -16,7 +16,7 @@ import { SEO } from '@/components/SEO'
 import { ArticleSchema, FAQSchema, HowToSchema, BreadcrumbSchema } from '@/components/seo/SchemaOrg'
 import { useLocale } from '@/i18n/LocaleContext'
 import { trackEvents } from '@/components/Analytics'
-import { knowledgeHubs, type KnowledgeArticle as KnowledgeArticleType } from '@/data/knowledge-hub'
+import { knowledgeHubs, allKnowledgeArticles, type KnowledgeArticle as KnowledgeArticleType } from '@/data/knowledge-hub'
 
 interface Props {
   article: KnowledgeArticleType
@@ -83,6 +83,35 @@ export function KnowledgeArticlePage({ article }: Props) {
     }
   }
   const t = texts[lang] || texts.ru
+
+  // Названия продуктов
+  const productNames: Record<string, { ru: string; en: string; uz: string }> = {
+    'products/channels': { ru: 'Каналы продаж', en: 'Sales Channels', uz: 'Sotish kanallari' },
+    'products/operations': { ru: 'Операции', en: 'Operations', uz: 'Operatsiyalar' },
+    'products/analytics': { ru: 'Аналитика', en: 'Analytics', uz: 'Analitika' },
+    'products/marketing': { ru: 'Маркетинг', en: 'Marketing', uz: 'Marketing' },
+    'aggregators': { ru: 'Агрегаторы', en: 'Aggregators', uz: 'Agregatorlar' },
+    'integrations': { ru: 'Интеграции', en: 'Integrations', uz: 'Integratsiyalar' },
+  }
+
+  // Получить название статьи по slug
+  const getArticleTitle = (slug: string): string => {
+    const found = allKnowledgeArticles.find(a => a.slug === slug)
+    if (found) {
+      return found.title[lang] || found.title.ru
+    }
+    return slug.replace(/-/g, ' ')
+  }
+
+  // Получить название продукта по slug
+  const getProductTitle = (slug: string): string => {
+    const product = productNames[slug]
+    if (product) {
+      return product[lang] || product.ru
+    }
+    // Fallback
+    return slug.split('/').pop()?.replace(/-/g, ' ') || slug
+  }
 
   const handleCTAClick = () => {
     trackEvents.ctaClick(`knowledge_${article.slug.replace(/\//g, '_')}`)
@@ -368,7 +397,7 @@ export function KnowledgeArticlePage({ article }: Props) {
                       to={`/guides/${slug}`}
                       className="px-4 py-2 bg-brand-lightBlue/20 text-brand-darkBlue rounded-full hover:bg-brand-lightBlue/40 transition-colors text-sm"
                     >
-                      {slug.replace(/-/g, ' ')}
+                      {getArticleTitle(slug)}
                     </Link>
                   ))}
                 </div>
@@ -386,7 +415,7 @@ export function KnowledgeArticlePage({ article }: Props) {
                       to={`/${slug}`}
                       className="px-4 py-2 bg-brand-blue/10 text-brand-blue rounded-full hover:bg-brand-blue/20 transition-colors text-sm font-medium"
                     >
-                      {slug.split('/').pop()?.replace(/-/g, ' ')}
+                      {getProductTitle(slug)}
                     </Link>
                   ))}
                 </div>
