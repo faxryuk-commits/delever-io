@@ -203,12 +203,27 @@ const pages = [
   
   // Knowledge Hub - Guides (6 статей)
   { path: '/guides', priority: '0.9', changefreq: 'weekly' },
+  // Открытие ресторана
   { path: '/guides/how-to-open-restaurant', priority: '0.85', changefreq: 'monthly' },
   { path: '/guides/how-to-choose-location', priority: '0.8', changefreq: 'monthly' },
+  // Запуск доставки
   { path: '/guides/how-to-launch-delivery', priority: '0.85', changefreq: 'monthly' },
   { path: '/guides/how-to-hire-couriers', priority: '0.8', changefreq: 'monthly' },
+  // Рост продаж
   { path: '/guides/how-to-increase-restaurant-sales', priority: '0.85', changefreq: 'monthly' },
+  // Работа с агрегаторами
   { path: '/guides/reduce-aggregator-commissions', priority: '0.8', changefreq: 'monthly' },
+  // Финансы ресторана
+  { path: '/guides/food-cost-calculation', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guides/restaurant-unit-economics', priority: '0.8', changefreq: 'monthly' },
+  // Операции и автоматизация
+  { path: '/guides/restaurant-automation-guide', priority: '0.8', changefreq: 'monthly' },
+  // POS интеграции
+  { path: '/guides/choose-pos-system', priority: '0.85', changefreq: 'monthly' },
+  // Dark Kitchen
+  { path: '/guides/dark-kitchen-guide', priority: '0.85', changefreq: 'monthly' },
+  // HR для ресторанов
+  { path: '/guides/hire-restaurant-staff', priority: '0.8', changefreq: 'monthly' },
   
   // Партнёры и компания
   { path: '/clients', priority: '0.8', changefreq: 'weekly' },

@@ -518,13 +518,387 @@ export const aggregatorArticles: KnowledgeArticle[] = [
 ]
 
 // ============================================
+// СТАТЬИ — ФИНАНСЫ РЕСТОРАНА
+// ============================================
+export const financeArticles: KnowledgeArticle[] = [
+  {
+    slug: 'food-cost-calculation',
+    hub: 'restaurant-finance',
+    title: {
+      ru: 'Как рассчитать фудкост ресторана — формулы и примеры',
+      en: 'How to Calculate Restaurant Food Cost — Formulas & Examples',
+      uz: 'Restoran food cost qanday hisoblash — formulalar va misollar'
+    },
+    h1: {
+      ru: 'Расчёт фудкоста: контролируйте себестоимость блюд',
+      en: 'Food Cost Calculation: Control Your Dish Costs',
+      uz: 'Food cost hisobi: taomlar tannarxini nazorat qiling'
+    },
+    description: {
+      ru: 'Пошаговый гайд по расчёту фудкоста ресторана. Формулы, нормы, примеры. Как снизить себестоимость без потери качества.',
+      en: 'Step-by-step guide to restaurant food cost calculation. Formulas, norms, examples. How to reduce costs without losing quality.',
+      uz: 'Restoran food cost hisoblash bo\'yicha bosqichma-bosqich qo\'llanma. Formulalar, me\'yorlar, misollar.'
+    },
+    keywords: {
+      ru: 'фудкост ресторана, себестоимость блюд, расчёт food cost, маржинальность меню',
+      en: 'restaurant food cost, dish cost, food cost calculation, menu margin',
+      uz: 'restoran food cost, taom tannarxi, food cost hisoblash'
+    },
+    intro: {
+      ru: 'Фудкост (Food Cost) — это процент себестоимости продуктов от цены продажи блюда. Оптимальный показатель: 25-35%. Если выше — ресторан теряет деньги. В этом гайде разберём, как считать и контролировать фудкост.',
+      en: 'Food Cost is the percentage of ingredient costs relative to the dish selling price. Optimal range: 25-35%. Higher means losing money. This guide covers how to calculate and control food cost.',
+      uz: 'Food Cost — bu taom sotish narxiga nisbatan mahsulotlar tannarxining foizi. Optimal ko\'rsatkich: 25-35%. Yuqori bo\'lsa — restoran pul yo\'qotadi.'
+    },
+    sections: [
+      {
+        title: { ru: 'Формула фудкоста', en: 'Food Cost Formula', uz: 'Food cost formulasi' },
+        content: {
+          ru: 'Food Cost (%) = (Себестоимость ингредиентов / Цена продажи) × 100. Например: блюдо стоит 50,000 сум, ингредиенты — 15,000 сум. Фудкост = 30%.',
+          en: 'Food Cost (%) = (Ingredient Cost / Selling Price) × 100. Example: dish costs $5, ingredients cost $1.50. Food cost = 30%.',
+          uz: 'Food Cost (%) = (Ingredientlar tannarxi / Sotish narxi) × 100. Masalan: taom 50,000 so\'m, ingredientlar — 15,000 so\'m. Food cost = 30%.'
+        }
+      },
+      {
+        title: { ru: 'Как снизить фудкост', en: 'How to Reduce Food Cost', uz: 'Food cost qanday kamaytirish' },
+        content: {
+          ru: 'Способы снижения: 1) Оптимизация порций, 2) Работа с поставщиками, 3) Контроль списаний, 4) Сезонное меню, 5) Использование полуфабрикатов. С Delever Analytics вы видите фудкост в реальном времени.',
+          en: 'Ways to reduce: 1) Portion optimization, 2) Supplier negotiations, 3) Waste control, 4) Seasonal menu, 5) Using semi-finished products. With Delever Analytics you see food cost in real-time.',
+          uz: 'Kamaytirish usullari: 1) Porsiyalarni optimallashtirish, 2) Yetkazib beruvchilar bilan ishlash, 3) Chiqindilarni nazorat qilish, 4) Mavsumiy menyu.'
+        }
+      }
+    ],
+    cta: { text: { ru: 'Контролировать фудкост с Delever', en: 'Control Food Cost with Delever', uz: 'Delever bilan food cost nazorati' }, link: '/products/analytics' },
+    faq: [
+      {
+        q: { ru: 'Какой фудкост считается нормальным?', en: 'What food cost is considered normal?', uz: 'Qanday food cost normal hisoblanadi?' },
+        a: { ru: '25-35% — норма для большинства ресторанов. Fast food: 25-30%, Fine dining: 30-40%.', en: '25-35% is normal for most restaurants. Fast food: 25-30%, Fine dining: 30-40%.', uz: '25-35% — ko\'pchilik restoranlar uchun norma.' }
+      }
+    ],
+    relatedArticles: ['how-to-open-restaurant'],
+    relatedProducts: ['products/analytics']
+  },
+  {
+    slug: 'restaurant-unit-economics',
+    hub: 'restaurant-finance',
+    title: {
+      ru: 'Unit-экономика ресторана — как считать и улучшать',
+      en: 'Restaurant Unit Economics — How to Calculate and Improve',
+      uz: 'Restoran unit-ekonomikasi — qanday hisoblash va yaxshilash'
+    },
+    h1: {
+      ru: 'Unit-экономика ресторана: считаем прибыль правильно',
+      en: 'Restaurant Unit Economics: Calculate Profit Correctly',
+      uz: 'Restoran unit-ekonomikasi: foydani to\'g\'ri hisoblash'
+    },
+    description: {
+      ru: 'Как рассчитать unit-экономику ресторана: LTV, CAC, средний чек, маржинальность. Примеры и формулы.',
+      en: 'How to calculate restaurant unit economics: LTV, CAC, average check, margin. Examples and formulas.',
+      uz: 'Restoran unit-ekonomikasini qanday hisoblash: LTV, CAC, o\'rtacha chek, marjinallik.'
+    },
+    keywords: {
+      ru: 'unit экономика ресторана, LTV ресторан, CAC ресторан, средний чек',
+      en: 'restaurant unit economics, restaurant LTV, restaurant CAC, average check',
+      uz: 'restoran unit ekonomikasi, LTV, CAC, o\'rtacha chek'
+    },
+    intro: {
+      ru: 'Unit-экономика показывает, сколько вы зарабатываете на одном клиенте. Ключевые метрики: LTV (пожизненная ценность клиента), CAC (стоимость привлечения), средний чек, частота заказов.',
+      en: 'Unit economics shows how much you earn per customer. Key metrics: LTV (lifetime value), CAC (acquisition cost), average check, order frequency.',
+      uz: 'Unit-ekonomika bitta mijozdan qancha topishingizni ko\'rsatadi. Asosiy metrikalar: LTV, CAC, o\'rtacha chek, buyurtma chastotasi.'
+    },
+    sections: [
+      {
+        title: { ru: 'LTV — пожизненная ценность клиента', en: 'LTV — Customer Lifetime Value', uz: 'LTV — mijozning umrbod qiymati' },
+        content: {
+          ru: 'LTV = Средний чек × Частота заказов × Срок жизни клиента. Пример: чек 100,000 сум × 2 заказа/месяц × 12 месяцев = 2,400,000 сум LTV.',
+          en: 'LTV = Average Check × Order Frequency × Customer Lifespan. Example: $10 check × 2 orders/month × 12 months = $240 LTV.',
+          uz: 'LTV = O\'rtacha chek × Buyurtma chastotasi × Mijoz umri. Misol: 100,000 so\'m × 2 buyurtma/oy × 12 oy = 2,400,000 so\'m LTV.'
+        }
+      },
+      {
+        title: { ru: 'CAC и окупаемость', en: 'CAC and Payback', uz: 'CAC va o\'zini oqlash' },
+        content: {
+          ru: 'CAC = Затраты на маркетинг / Количество новых клиентов. Здоровое соотношение: LTV/CAC > 3. То есть на 1 сум привлечения вы зарабатываете минимум 3 сум.',
+          en: 'CAC = Marketing Costs / New Customers. Healthy ratio: LTV/CAC > 3. Meaning for every $1 spent on acquisition, you earn at least $3.',
+          uz: 'CAC = Marketing xarajatlari / Yangi mijozlar soni. Sog\'lom nisbat: LTV/CAC > 3.'
+        }
+      }
+    ],
+    cta: { text: { ru: 'Отслеживать метрики в Delever', en: 'Track Metrics in Delever', uz: 'Deleverda metrikalarni kuzatish' }, link: '/products/analytics' },
+    faq: [],
+    relatedArticles: ['food-cost-calculation'],
+    relatedProducts: ['products/analytics', 'products/marketing']
+  }
+]
+
+// ============================================
+// СТАТЬИ — ОПЕРАЦИИ И АВТОМАТИЗАЦИЯ
+// ============================================
+export const operationsArticles: KnowledgeArticle[] = [
+  {
+    slug: 'restaurant-automation-guide',
+    hub: 'operations',
+    title: {
+      ru: 'Автоматизация ресторана — с чего начать в 2025',
+      en: 'Restaurant Automation — Where to Start in 2025',
+      uz: 'Restoran avtomatizatsiyasi — 2025 da nimadan boshlash'
+    },
+    h1: {
+      ru: 'Автоматизация ресторана: полный гайд',
+      en: 'Restaurant Automation: Complete Guide',
+      uz: 'Restoran avtomatizatsiyasi: to\'liq qo\'llanma'
+    },
+    description: {
+      ru: 'Как автоматизировать ресторан: приём заказов, кухня, склад, доставка. Какие системы выбрать и как интегрировать.',
+      en: 'How to automate a restaurant: order taking, kitchen, inventory, delivery. Which systems to choose and how to integrate.',
+      uz: 'Restoranni qanday avtomatlashtirish: buyurtmalar, oshxona, ombor, yetkazib berish.'
+    },
+    keywords: {
+      ru: 'автоматизация ресторана, POS система ресторан, автоматизация кухни, автоматизация доставки',
+      en: 'restaurant automation, restaurant POS system, kitchen automation, delivery automation',
+      uz: 'restoran avtomatizatsiyasi, POS sistema, oshxona avtomatizatsiyasi'
+    },
+    intro: {
+      ru: 'Автоматизация ресторана — это не просто касса. Это экосистема: POS-система, управление кухней, склад, доставка, CRM, аналитика. Правильная автоматизация экономит 20-30% операционных расходов.',
+      en: 'Restaurant automation is not just a cash register. It\'s an ecosystem: POS system, kitchen management, inventory, delivery, CRM, analytics. Proper automation saves 20-30% of operational costs.',
+      uz: 'Restoran avtomatizatsiyasi — bu shunchaki kassa emas. Bu ekotizim: POS-sistema, oshxona boshqaruvi, ombor, yetkazib berish, CRM, analitika.'
+    },
+    sections: [
+      {
+        title: { ru: 'Уровни автоматизации', en: 'Automation Levels', uz: 'Avtomatizatsiya darajalari' },
+        content: {
+          ru: 'Базовый: POS + принтеры. Средний: + управление складом + онлайн-заказы. Продвинутый: + CRM + аналитика + автоматический маркетинг. Delever закрывает все уровни.',
+          en: 'Basic: POS + printers. Medium: + inventory management + online orders. Advanced: + CRM + analytics + automated marketing. Delever covers all levels.',
+          uz: 'Asosiy: POS + printerlar. O\'rta: + ombor boshqaruvi + onlayn buyurtmalar. Ilg\'or: + CRM + analitika + avtomatik marketing.'
+        }
+      },
+      {
+        title: { ru: 'Интеграция систем', en: 'System Integration', uz: 'Tizimlar integratsiyasi' },
+        content: {
+          ru: 'Главная ошибка — разрозненные системы. Когда POS не связан с доставкой, данные теряются. Delever интегрируется с iiko, R-Keeper, Poster, Jowi — все данные в одном месте.',
+          en: 'The main mistake is disconnected systems. When POS isn\'t linked to delivery, data is lost. Delever integrates with iiko, R-Keeper, Poster, Jowi — all data in one place.',
+          uz: 'Asosiy xato — bog\'lanmagan tizimlar. POS yetkazib berish bilan bog\'lanmaganda, ma\'lumotlar yo\'qoladi. Delever iiko, R-Keeper, Poster, Jowi bilan integratsiyalanadi.'
+        }
+      }
+    ],
+    cta: { text: { ru: 'Автоматизировать ресторан', en: 'Automate Your Restaurant', uz: 'Restoranni avtomatlashtirish' }, link: '/integrations' },
+    faq: [
+      {
+        q: { ru: 'Сколько стоит автоматизация ресторана?', en: 'How much does restaurant automation cost?', uz: 'Restoran avtomatizatsiyasi qancha turadi?' },
+        a: { ru: 'Базовая: $500-2000 единоразово + $50-200/мес. С Delever: от $99/мес включая все модули.', en: 'Basic: $500-2000 one-time + $50-200/month. With Delever: from $99/month including all modules.', uz: 'Asosiy: $500-2000 bir martalik + $50-200/oy. Delever bilan: $99/oy dan barcha modullar bilan.' }
+      }
+    ],
+    relatedArticles: ['how-to-launch-delivery'],
+    relatedProducts: ['integrations/iiko', 'integrations/rkeeper', 'products/operations']
+  }
+]
+
+// ============================================
+// СТАТЬИ — POS ИНТЕГРАЦИИ
+// ============================================
+export const posArticles: KnowledgeArticle[] = [
+  {
+    slug: 'choose-pos-system',
+    hub: 'pos-integrations',
+    title: {
+      ru: 'Как выбрать POS-систему для ресторана — сравнение 2025',
+      en: 'How to Choose a POS System for Restaurant — 2025 Comparison',
+      uz: 'Restoran uchun POS-sistemani qanday tanlash — 2025 taqqoslash'
+    },
+    h1: {
+      ru: 'Выбор POS-системы для ресторана: полное сравнение',
+      en: 'Choosing a POS System for Restaurant: Complete Comparison',
+      uz: 'Restoran uchun POS-sistema tanlash: to\'liq taqqoslash'
+    },
+    description: {
+      ru: 'Сравнение POS-систем для ресторанов: iiko, R-Keeper, Poster, Jowi, Syrve. Функции, цены, плюсы и минусы.',
+      en: 'Comparison of restaurant POS systems: iiko, R-Keeper, Poster, Jowi, Syrve. Features, prices, pros and cons.',
+      uz: 'Restoran POS-sistemalarini taqqoslash: iiko, R-Keeper, Poster, Jowi, Syrve. Funksiyalar, narxlar, afzalliklar.'
+    },
+    keywords: {
+      ru: 'POS система ресторан, iiko vs R-Keeper, выбор кассы ресторан, сравнение POS',
+      en: 'restaurant POS system, iiko vs R-Keeper, choose restaurant cash register, POS comparison',
+      uz: 'restoran POS sistema, iiko vs R-Keeper, kassa tanlash'
+    },
+    intro: {
+      ru: 'POS-система — сердце ресторана. От выбора зависит скорость работы, аналитика, возможности роста. Разберём топ-5 систем на рынке СНГ.',
+      en: 'POS system is the heart of a restaurant. Your choice affects work speed, analytics, growth opportunities. Let\'s review top-5 systems in the CIS market.',
+      uz: 'POS-sistema — restoranning yuragi. Tanlovdan ish tezligi, analitika, o\'sish imkoniyatlari bog\'liq.'
+    },
+    sections: [
+      {
+        title: { ru: 'iiko — лидер рынка', en: 'iiko — Market Leader', uz: 'iiko — bozor yetakchisi' },
+        content: {
+          ru: 'Плюсы: мощная аналитика, много интеграций, надёжность. Минусы: высокая цена, сложное внедрение. Цена: от $150/мес. Идеально для сетей 5+ точек.',
+          en: 'Pros: powerful analytics, many integrations, reliability. Cons: high price, complex implementation. Price: from $150/month. Ideal for chains with 5+ locations.',
+          uz: 'Afzalliklari: kuchli analitika, ko\'p integratsiyalar, ishonchlilik. Kamchiliklari: yuqori narx, murakkab joriy qilish. Narx: $150/oy dan.'
+        }
+      },
+      {
+        title: { ru: 'Poster — для малого бизнеса', en: 'Poster — for Small Business', uz: 'Poster — kichik biznes uchun' },
+        content: {
+          ru: 'Плюсы: простой интерфейс, облачное решение, доступная цена. Минусы: меньше функций для сетей. Цена: от $50/мес. Идеально для 1-3 точек.',
+          en: 'Pros: simple interface, cloud solution, affordable price. Cons: fewer features for chains. Price: from $50/month. Ideal for 1-3 locations.',
+          uz: 'Afzalliklari: oddiy interfeys, bulutli yechim, arzon narx. Kamchiliklari: tarmoqlar uchun kam funksiyalar. Narx: $50/oy dan.'
+        }
+      },
+      {
+        title: { ru: 'Интеграция с доставкой', en: 'Delivery Integration', uz: 'Yetkazib berish integratsiyasi' },
+        content: {
+          ru: 'Любую POS можно связать с Delever: заказы с сайта, Telegram, агрегаторов автоматически попадают в кассу. Без ручного ввода.',
+          en: 'Any POS can be connected to Delever: orders from website, Telegram, aggregators automatically go to the cash register. No manual entry.',
+          uz: 'Har qanday POS Delever bilan bog\'lanishi mumkin: sayt, Telegram, agregatorlardan buyurtmalar avtomatik kassaga tushadi.'
+        }
+      }
+    ],
+    cta: { text: { ru: 'Интегрировать POS с Delever', en: 'Integrate POS with Delever', uz: 'POS ni Delever bilan integratsiyalash' }, link: '/integrations' },
+    faq: [
+      {
+        q: { ru: 'Какую POS выбрать для кафе?', en: 'Which POS to choose for a cafe?', uz: 'Kafe uchun qaysi POS tanlash kerak?' },
+        a: { ru: 'Для небольшого кафе: Poster или Jowi. Для сети: iiko или R-Keeper. Все интегрируются с Delever.', en: 'For a small cafe: Poster or Jowi. For a chain: iiko or R-Keeper. All integrate with Delever.', uz: 'Kichik kafe uchun: Poster yoki Jowi. Tarmoq uchun: iiko yoki R-Keeper.' }
+      }
+    ],
+    relatedArticles: ['restaurant-automation-guide'],
+    relatedProducts: ['integrations/iiko', 'integrations/rkeeper', 'integrations/poster']
+  }
+]
+
+// ============================================
+// СТАТЬИ — DARK KITCHEN
+// ============================================
+export const darkKitchenArticles: KnowledgeArticle[] = [
+  {
+    slug: 'dark-kitchen-guide',
+    hub: 'dark-kitchen',
+    title: {
+      ru: 'Как открыть Dark Kitchen — полный гайд 2025',
+      en: 'How to Open a Dark Kitchen — Complete Guide 2025',
+      uz: 'Dark Kitchen qanday ochish — 2025 to\'liq qo\'llanma'
+    },
+    h1: {
+      ru: 'Dark Kitchen: как открыть облачную кухню',
+      en: 'Dark Kitchen: How to Open a Ghost Kitchen',
+      uz: 'Dark Kitchen: bulutli oshxona qanday ochish'
+    },
+    description: {
+      ru: 'Пошаговый гайд по открытию dark kitchen: локация, оборудование, меню, доставка. Плюсы и минусы формата.',
+      en: 'Step-by-step guide to opening a dark kitchen: location, equipment, menu, delivery. Pros and cons of the format.',
+      uz: 'Dark kitchen ochish bo\'yicha bosqichma-bosqich qo\'llanma: joylashuv, uskunalar, menyu, yetkazib berish.'
+    },
+    keywords: {
+      ru: 'dark kitchen, облачная кухня, ghost kitchen, виртуальный ресторан, кухня на доставку',
+      en: 'dark kitchen, cloud kitchen, ghost kitchen, virtual restaurant, delivery kitchen',
+      uz: 'dark kitchen, bulutli oshxona, ghost kitchen, virtual restoran'
+    },
+    intro: {
+      ru: 'Dark Kitchen (облачная кухня) — это ресторан без зала, только на доставку. Экономия на аренде 50-70%, быстрый запуск, фокус на онлайн-продажах. Формат растёт на 25% ежегодно.',
+      en: 'Dark Kitchen (cloud kitchen) is a restaurant without a dining room, delivery only. 50-70% savings on rent, quick launch, focus on online sales. The format grows 25% annually.',
+      uz: 'Dark Kitchen (bulutli oshxona) — bu zalsiz restoran, faqat yetkazib berish uchun. Ijara bo\'yicha 50-70% tejash, tez ishga tushirish, onlayn sotuvlarga e\'tibor.'
+    },
+    sections: [
+      {
+        title: { ru: 'Преимущества Dark Kitchen', en: 'Dark Kitchen Advantages', uz: 'Dark Kitchen afzalliklari' },
+        content: {
+          ru: '1) Аренда дешевле в 3-5 раз (промзона вместо центра). 2) Нет расходов на зал, официантов. 3) Можно запустить несколько брендов с одной кухни. 4) Быстрый тест новых концепций.',
+          en: '1) Rent 3-5x cheaper (industrial area instead of center). 2) No dining room or waiter costs. 3) Can launch multiple brands from one kitchen. 4) Quick testing of new concepts.',
+          uz: '1) Ijara 3-5 marta arzonroq. 2) Zal va ofitsiant xarajatlari yo\'q. 3) Bitta oshxonadan bir nechta brend ishga tushirish mumkin. 4) Yangi konseptsiyalarni tez sinash.'
+        }
+      },
+      {
+        title: { ru: 'Как запустить за 2 недели', en: 'How to Launch in 2 Weeks', uz: '2 haftada qanday ishga tushirish' },
+        content: {
+          ru: 'Неделя 1: найти помещение, закупить оборудование, зарегистрировать бизнес. Неделя 2: создать меню, настроить Delever (сайт + Telegram + агрегаторы), запустить рекламу. Готово!',
+          en: 'Week 1: find location, buy equipment, register business. Week 2: create menu, set up Delever (website + Telegram + aggregators), launch ads. Done!',
+          uz: '1-hafta: joy topish, uskunalar sotib olish, biznesni ro\'yxatdan o\'tkazish. 2-hafta: menyu yaratish, Delever sozlash, reklama ishga tushirish. Tayyor!'
+        }
+      }
+    ],
+    cta: { text: { ru: 'Запустить Dark Kitchen с Delever', en: 'Launch Dark Kitchen with Delever', uz: 'Delever bilan Dark Kitchen ishga tushirish' }, link: '/solutions/dark-kitchen' },
+    faq: [
+      {
+        q: { ru: 'Сколько стоит открыть dark kitchen?', en: 'How much does it cost to open a dark kitchen?', uz: 'Dark kitchen ochish qancha turadi?' },
+        a: { ru: 'От $5,000-15,000: аренда, базовое оборудование, первая закупка. В 3-5 раз дешевле классического ресторана.', en: 'From $5,000-15,000: rent, basic equipment, first purchase. 3-5x cheaper than a classic restaurant.', uz: '$5,000-15,000 dan: ijara, asosiy uskunalar, birinchi xarid. Klassik restorandan 3-5 marta arzon.' }
+      }
+    ],
+    relatedArticles: ['how-to-launch-delivery', 'how-to-open-restaurant'],
+    relatedProducts: ['solutions/dark-kitchen', 'products/channels']
+  }
+]
+
+// ============================================
+// СТАТЬИ — HR ДЛЯ РЕСТОРАНОВ
+// ============================================
+export const hrArticles: KnowledgeArticle[] = [
+  {
+    slug: 'hire-restaurant-staff',
+    hub: 'hr-restaurant',
+    title: {
+      ru: 'Как нанять персонал в ресторан — гайд для владельцев',
+      en: 'How to Hire Restaurant Staff — Guide for Owners',
+      uz: 'Restoranga xodimlarni qanday yollash — egalar uchun qo\'llanma'
+    },
+    h1: {
+      ru: 'Найм персонала в ресторан: от поиска до адаптации',
+      en: 'Restaurant Staff Hiring: From Search to Onboarding',
+      uz: 'Restoranga xodimlar yollash: qidirishdan moslashishgacha'
+    },
+    description: {
+      ru: 'Как найти и нанять персонал в ресторан: повара, официанты, курьеры. Где искать, как собеседовать, как удержать.',
+      en: 'How to find and hire restaurant staff: chefs, waiters, couriers. Where to search, how to interview, how to retain.',
+      uz: 'Restoranga xodimlarni qanday topish va yollash: oshpazlar, ofitsiantlar, kuryerlar.'
+    },
+    keywords: {
+      ru: 'найм персонала ресторан, как найти повара, найти официанта, персонал доставки',
+      en: 'restaurant staff hiring, find chef, find waiter, delivery staff',
+      uz: 'restoran xodimlari yollash, oshpaz topish, ofitsiant topish'
+    },
+    intro: {
+      ru: 'Текучка в ресторанах — 60-100% в год. Это нормально для индустрии, но дорого. Правильный найм и адаптация снижают текучку до 30-40% и экономят сотни тысяч на обучении.',
+      en: 'Restaurant turnover is 60-100% per year. It\'s normal for the industry but expensive. Proper hiring and onboarding reduce turnover to 30-40% and save thousands on training.',
+      uz: 'Restoranlarda kadrlar almashinuvi — yiliga 60-100%. Bu sanoat uchun oddiy, lekin qimmat.'
+    },
+    sections: [
+      {
+        title: { ru: 'Где искать персонал', en: 'Where to Find Staff', uz: 'Xodimlarni qayerdan topish' },
+        content: {
+          ru: 'Каналы поиска: 1) OLX, HeadHunter — массовые позиции. 2) Telegram-группы рестораторов. 3) Рекомендации сотрудников (бонус за приведённого). 4) Кулинарные школы — для поваров.',
+          en: 'Search channels: 1) Job boards — mass positions. 2) Restaurateur Telegram groups. 3) Employee referrals (bonus for referral). 4) Culinary schools — for chefs.',
+          uz: 'Qidirish kanallari: 1) OLX, HeadHunter — ommaviy lavozimlar. 2) Restoratorlar Telegram guruhlari. 3) Xodimlar tavsiyalari. 4) Pazandachilik maktablari.'
+        }
+      },
+      {
+        title: { ru: 'Курьеры и доставка', en: 'Couriers and Delivery', uz: 'Kuryerlar va yetkazib berish' },
+        content: {
+          ru: 'Для курьеров важно: прозрачная оплата, удобный график, понятное приложение. С Delever курьеры видят заказы, маршруты, заработок в приложении. Это снижает текучку на 25%.',
+          en: 'For couriers important: transparent pay, flexible schedule, clear app. With Delever couriers see orders, routes, earnings in the app. This reduces turnover by 25%.',
+          uz: 'Kuryerlar uchun muhim: shaffof to\'lov, qulay jadval, tushunarli ilova. Delever bilan kuryerlar buyurtmalar, marshrutlar, daromadni ilovada ko\'radi.'
+        }
+      }
+    ],
+    cta: { text: { ru: 'Управление курьерами в Delever', en: 'Courier Management in Delever', uz: 'Deleverda kuryerlarni boshqarish' }, link: '/products/operations' },
+    faq: [
+      {
+        q: { ru: 'Сколько платить курьеру?', en: 'How much to pay a courier?', uz: 'Kuryerga qancha to\'lash kerak?' },
+        a: { ru: 'Узбекистан: 15,000-25,000 сум/доставка или 3-5 млн/мес фикс + бонусы. Казахстан: 500-1000 тенге/доставка.', en: 'Uzbekistan: 15,000-25,000 UZS/delivery or 3-5M/month fixed + bonuses. Kazakhstan: 500-1000 KZT/delivery.', uz: 'O\'zbekiston: 15,000-25,000 so\'m/yetkazish yoki 3-5 mln/oy + bonuslar.' }
+      }
+    ],
+    relatedArticles: ['how-to-hire-couriers'],
+    relatedProducts: ['products/operations']
+  }
+]
+
+// ============================================
 // ВСЕ СТАТЬИ
 // ============================================
 export const allKnowledgeArticles: KnowledgeArticle[] = [
   ...openRestaurantArticles,
   ...launchDeliveryArticles,
   ...growSalesArticles,
-  ...aggregatorArticles
+  ...aggregatorArticles,
+  ...financeArticles,
+  ...operationsArticles,
+  ...posArticles,
+  ...darkKitchenArticles,
+  ...hrArticles
 ]
 
 // Получить статью по slug
