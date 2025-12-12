@@ -1536,6 +1536,518 @@ export const morePosIntegrations: SEOPageData[] = [
     color: 'from-purple-500 to-purple-600',
     relatedPages: ['integrations/iiko', 'integrations/jowi', 'integrations/poster'],
     schemaType: 'SoftwareApplication'
+  },
+  {
+    slug: 'integrations/yaros',
+    category: 'integration',
+    subcategory: 'pos',
+    title: {
+      ru: 'Интеграция Yaros с Delever — автоматизация доставки',
+      en: 'Yaros Integration with Delever — Delivery Automation',
+      uz: 'Yaros Delever bilan integratsiyasi — yetkazib berish avtomatizatsiyasi'
+    },
+    description: {
+      ru: 'Подключите Yaros POS к Delever: автоматическая передача заказов, синхронизация меню, стоп-листы. Настройка за 1 день.',
+      en: 'Connect Yaros POS to Delever: automatic order transfer, menu sync, stop-lists. Setup in 1 day.',
+      uz: 'Yaros POS ni Delever ga ulang: avtomatik buyurtma uzatish, menyu sinxronizatsiyasi, stop-listlar. 1 kunda sozlash.'
+    },
+    keywords: {
+      ru: 'Yaros интеграция, Yaros POS, Yaros доставка',
+      en: 'Yaros integration, Yaros POS, Yaros delivery',
+      uz: 'Yaros integratsiya, Yaros POS'
+    },
+    h1: {
+      ru: 'Интеграция Yaros с Delever',
+      en: 'Yaros Integration with Delever',
+      uz: 'Yaros Delever bilan integratsiyasi'
+    },
+    intro: {
+      ru: 'Yaros — популярная POS-система в Центральной Азии. Delever обеспечивает бесшовную интеграцию для автоматизации онлайн-заказов.',
+      en: 'Yaros is a popular POS system in Central Asia. Delever provides seamless integration for online order automation.',
+      uz: 'Yaros — Markaziy Osiyoda mashhur POS tizimi. Delever onlayn buyurtmalarni avtomatlashtirish uchun uzluksiz integratsiyani ta\'minlaydi.'
+    },
+    features: {
+      ru: ['Синхронизация меню', 'Автопередача заказов', 'Стоп-листы', 'Отчёты по продажам'],
+      en: ['Menu sync', 'Auto order transfer', 'Stop-lists', 'Sales reports'],
+      uz: ['Menyu sinxronizatsiyasi', 'Avtomatik buyurtma uzatish', 'Stop-listlar', 'Savdo hisobotlari']
+    },
+    benefits: {
+      ru: ['Популярен в Узбекистане', 'Быстрая настройка', 'Локальная поддержка'],
+      en: ['Popular in Uzbekistan', 'Quick setup', 'Local support'],
+      uz: ['O\'zbekistonda mashhur', 'Tez sozlash', 'Mahalliy qo\'llab-quvvatlash']
+    },
+    faq: [],
+    color: 'from-teal-500 to-teal-600',
+    relatedPages: ['integrations/iiko', 'integrations/jowi', 'integrations/poster'],
+    schemaType: 'SoftwareApplication'
+  },
+  {
+    slug: 'integrations/dodo-pizza',
+    category: 'integration',
+    subcategory: 'pos',
+    title: {
+      ru: 'Интеграция Dodo IS с Delever — для франшиз Додо Пицца',
+      en: 'Dodo IS Integration with Delever — for Dodo Pizza Franchises',
+      uz: 'Dodo IS Delever bilan integratsiyasi — Dodo Pizza franchizalari uchun'
+    },
+    description: {
+      ru: 'Подключите Dodo IS к Delever: дополнительные каналы продаж, интеграция с агрегаторами, единое управление заказами.',
+      en: 'Connect Dodo IS to Delever: additional sales channels, aggregator integration, unified order management.',
+      uz: 'Dodo IS ni Delever ga ulang: qo\'shimcha savdo kanallari, agregatorlar bilan integratsiya, yagona buyurtma boshqaruvi.'
+    },
+    keywords: {
+      ru: 'Dodo IS интеграция, Dodo Pizza система, Додо Пицца доставка',
+      en: 'Dodo IS integration, Dodo Pizza system, Dodo Pizza delivery',
+      uz: 'Dodo IS integratsiya, Dodo Pizza tizimi'
+    },
+    h1: {
+      ru: 'Интеграция Dodo IS с Delever',
+      en: 'Dodo IS Integration with Delever',
+      uz: 'Dodo IS Delever bilan integratsiyasi'
+    },
+    intro: {
+      ru: 'Dodo IS — проприетарная система Додо Пиццы. Delever позволяет расширить каналы продаж и интегрировать дополнительных агрегаторов.',
+      en: 'Dodo IS is Dodo Pizza\'s proprietary system. Delever allows you to expand sales channels and integrate additional aggregators.',
+      uz: 'Dodo IS — Dodo Pizza ning o\'z tizimi. Delever savdo kanallarini kengaytirish va qo\'shimcha agregatorlarni integratsiya qilish imkonini beradi.'
+    },
+    features: {
+      ru: ['Дополнительные агрегаторы', 'Telegram-канал продаж', 'Собственный сайт заказов', 'Маркетинговые инструменты'],
+      en: ['Additional aggregators', 'Telegram sales channel', 'Own order website', 'Marketing tools'],
+      uz: ['Qo\'shimcha agregatorlar', 'Telegram savdo kanali', 'O\'z buyurtma sayti', 'Marketing vositalari']
+    },
+    benefits: {
+      ru: ['Расширение охвата', 'Больше каналов продаж', 'Единое управление'],
+      en: ['Extended reach', 'More sales channels', 'Unified management'],
+      uz: ['Kengaytirilgan qamrov', 'Ko\'proq savdo kanallari', 'Yagona boshqaruv']
+    },
+    faq: [],
+    logo: '/logos/dodo.png',
+    color: 'from-orange-400 to-orange-500',
+    relatedPages: ['integrations/iiko', 'solutions/pizzeria'],
+    schemaType: 'SoftwareApplication'
+  }
+]
+
+// ============================================
+// ДОПОЛНИТЕЛЬНЫЕ АГРЕГАТОРЫ
+// ============================================
+export const moreAggregators: SEOPageData[] = [
+  {
+    slug: 'aggregators/chocofood',
+    category: 'integration',
+    subcategory: 'aggregator',
+    title: {
+      ru: 'Интеграция Chocofood с Delever — автоматизация заказов',
+      en: 'Chocofood Integration with Delever — Order Automation',
+      uz: 'Chocofood Delever bilan integratsiyasi — buyurtmalarni avtomatlashtirish'
+    },
+    description: {
+      ru: 'Подключите Chocofood к Delever: заказы автоматически попадают в вашу систему. Без планшетов, без ручного ввода.',
+      en: 'Connect Chocofood to Delever: orders automatically enter your system. No tablets, no manual entry.',
+      uz: 'Chocofood ni Delever ga ulang: buyurtmalar avtomatik ravishda tizimingizga tushadi. Planshetlarsiz, qo\'lda kiritishsiz.'
+    },
+    keywords: {
+      ru: 'Chocofood интеграция, Chocofood API, Chocofood для ресторанов Казахстан',
+      en: 'Chocofood integration, Chocofood API, Chocofood for Kazakhstan restaurants',
+      uz: 'Chocofood integratsiya, Chocofood API'
+    },
+    h1: {
+      ru: 'Интеграция Chocofood с Delever',
+      en: 'Chocofood Integration with Delever',
+      uz: 'Chocofood Delever bilan integratsiyasi'
+    },
+    intro: {
+      ru: 'Chocofood — популярный агрегатор доставки в Казахстане. Интеграция с Delever позволяет автоматически принимать заказы и управлять всеми агрегаторами в одном окне.',
+      en: 'Chocofood is a popular delivery aggregator in Kazakhstan. Integration with Delever allows you to automatically accept orders and manage all aggregators in one window.',
+      uz: 'Chocofood — Qozog\'istonda mashhur yetkazib berish agregatori. Delever bilan integratsiya buyurtmalarni avtomatik qabul qilish va barcha agregatorlarni bitta oynada boshqarish imkonini beradi.'
+    },
+    features: {
+      ru: ['Автоприём заказов', 'Синхронизация меню', 'Управление стоп-листами', 'Статусы заказов'],
+      en: ['Auto order acceptance', 'Menu sync', 'Stop-list management', 'Order statuses'],
+      uz: ['Avtomatik buyurtma qabul qilish', 'Menyu sinxronizatsiyasi', 'Stop-listlarni boshqarish', 'Buyurtma holatlari']
+    },
+    benefits: {
+      ru: ['Без планшета Chocofood', 'Все агрегаторы в одном окне', 'Автоматическое обновление статусов'],
+      en: ['No Chocofood tablet', 'All aggregators in one window', 'Automatic status updates'],
+      uz: ['Chocofood planshetsiz', 'Barcha agregatorlar bitta oynada', 'Avtomatik holat yangilanishi']
+    },
+    faq: [],
+    icon: '🍫',
+    color: 'from-amber-500 to-amber-600',
+    relatedPages: ['aggregators/glovo', 'aggregators/wolt', 'products/operations'],
+    schemaType: 'SoftwareApplication'
+  },
+  {
+    slug: 'aggregators/foody',
+    category: 'integration',
+    subcategory: 'aggregator',
+    title: {
+      ru: 'Интеграция Foody с Delever — автоматизация заказов',
+      en: 'Foody Integration with Delever — Order Automation',
+      uz: 'Foody Delever bilan integratsiyasi — buyurtmalarni avtomatlashtirish'
+    },
+    description: {
+      ru: 'Подключите Foody к Delever: заказы автоматически попадают в вашу систему. Единое окно для всех агрегаторов.',
+      en: 'Connect Foody to Delever: orders automatically enter your system. Single window for all aggregators.',
+      uz: 'Foody ni Delever ga ulang: buyurtmalar avtomatik ravishda tizimingizga tushadi. Barcha agregatorlar uchun yagona oyna.'
+    },
+    keywords: {
+      ru: 'Foody интеграция, Foody API, Foody для ресторанов',
+      en: 'Foody integration, Foody API, Foody for restaurants',
+      uz: 'Foody integratsiya, Foody API'
+    },
+    h1: {
+      ru: 'Интеграция Foody с Delever',
+      en: 'Foody Integration with Delever',
+      uz: 'Foody Delever bilan integratsiyasi'
+    },
+    intro: {
+      ru: 'Foody — агрегатор доставки еды. Интеграция с Delever позволяет управлять заказами Foody вместе с другими агрегаторами в одном интерфейсе.',
+      en: 'Foody is a food delivery aggregator. Integration with Delever allows you to manage Foody orders along with other aggregators in one interface.',
+      uz: 'Foody — ovqat yetkazib berish agregatori. Delever bilan integratsiya Foody buyurtmalarini boshqa agregatorlar bilan birga bitta interfeysda boshqarish imkonini beradi.'
+    },
+    features: {
+      ru: ['Автоприём заказов', 'Единый интерфейс', 'Синхронизация меню', 'Аналитика'],
+      en: ['Auto order acceptance', 'Unified interface', 'Menu sync', 'Analytics'],
+      uz: ['Avtomatik buyurtma qabul qilish', 'Yagona interfeys', 'Menyu sinxronizatsiyasi', 'Analitika']
+    },
+    benefits: {
+      ru: ['Все заказы в одном месте', 'Автоматизация процессов', 'Меньше ошибок'],
+      en: ['All orders in one place', 'Process automation', 'Fewer errors'],
+      uz: ['Barcha buyurtmalar bir joyda', 'Jarayonlarni avtomatlashtirish', 'Kamroq xatolar']
+    },
+    faq: [],
+    icon: '🍽️',
+    color: 'from-red-500 to-red-600',
+    relatedPages: ['aggregators/glovo', 'aggregators/wolt', 'products/operations'],
+    schemaType: 'SoftwareApplication'
+  }
+]
+
+// ============================================
+// ДОПОЛНИТЕЛЬНЫЕ ПЛАТЁЖНЫЕ СИСТЕМЫ
+// ============================================
+export const morePayments: SEOPageData[] = [
+  {
+    slug: 'integrations/uzum-bank',
+    category: 'integration',
+    subcategory: 'payment',
+    title: {
+      ru: 'Интеграция Uzum Bank с Delever — онлайн оплата',
+      en: 'Uzum Bank Integration with Delever — Online Payment',
+      uz: 'Uzum Bank Delever bilan integratsiyasi — onlayn to\'lov'
+    },
+    description: {
+      ru: 'Принимайте оплату через Uzum Bank на сайте и в приложении. Моментальные переводы, низкие комиссии.',
+      en: 'Accept Uzum Bank payments on your website and app. Instant transfers, low fees.',
+      uz: 'Sayt va ilovada Uzum Bank orqali to\'lov qabul qiling. Tezkor o\'tkazmalar, past komissiyalar.'
+    },
+    keywords: {
+      ru: 'Uzum Bank интеграция, Uzum Bank оплата, Uzum Bank API',
+      en: 'Uzum Bank integration, Uzum Bank payment, Uzum Bank API',
+      uz: 'Uzum Bank integratsiya, Uzum Bank to\'lov'
+    },
+    h1: {
+      ru: 'Интеграция Uzum Bank с Delever',
+      en: 'Uzum Bank Integration with Delever',
+      uz: 'Uzum Bank Delever bilan integratsiyasi'
+    },
+    intro: {
+      ru: 'Uzum Bank — один из крупнейших банков Узбекистана. Интеграция позволяет принимать оплату картами Uzum напрямую на вашем сайте доставки.',
+      en: 'Uzum Bank is one of the largest banks in Uzbekistan. Integration allows you to accept Uzum card payments directly on your delivery website.',
+      uz: 'Uzum Bank — O\'zbekistondagi yirik banklardan biri. Integratsiya yetkazib berish saytingizda to\'g\'ridan-to\'g\'ri Uzum kartalaridan to\'lov qabul qilish imkonini beradi.'
+    },
+    features: {
+      ru: ['Оплата картами Uzum', 'Моментальные переводы', 'Отчёты по транзакциям', 'Безопасные платежи'],
+      en: ['Uzum card payments', 'Instant transfers', 'Transaction reports', 'Secure payments'],
+      uz: ['Uzum kartalaridan to\'lov', 'Tezkor o\'tkazmalar', 'Tranzaksiya hisobotlari', 'Xavfsiz to\'lovlar']
+    },
+    benefits: {
+      ru: ['Популярный банк в Узбекистане', 'Низкие комиссии', 'Быстрое подключение'],
+      en: ['Popular bank in Uzbekistan', 'Low fees', 'Quick setup'],
+      uz: ['O\'zbekistonda mashhur bank', 'Past komissiyalar', 'Tez ulash']
+    },
+    faq: [],
+    icon: '🏦',
+    color: 'from-purple-500 to-purple-600',
+    relatedPages: ['integrations/payme', 'integrations/click', 'products/channels'],
+    schemaType: 'SoftwareApplication'
+  },
+  {
+    slug: 'integrations/kaspi',
+    category: 'integration',
+    subcategory: 'payment',
+    title: {
+      ru: 'Интеграция Kaspi с Delever — оплата для Казахстана',
+      en: 'Kaspi Integration with Delever — Payment for Kazakhstan',
+      uz: 'Kaspi Delever bilan integratsiyasi — Qozog\'iston uchun to\'lov'
+    },
+    description: {
+      ru: 'Принимайте оплату через Kaspi Pay и Kaspi QR в Казахстане. Популярный способ оплаты для ваших клиентов.',
+      en: 'Accept Kaspi Pay and Kaspi QR payments in Kazakhstan. Popular payment method for your customers.',
+      uz: 'Qozog\'istonda Kaspi Pay va Kaspi QR orqali to\'lov qabul qiling. Mijozlaringiz uchun mashhur to\'lov usuli.'
+    },
+    keywords: {
+      ru: 'Kaspi интеграция, Kaspi Pay, Kaspi QR, оплата Казахстан',
+      en: 'Kaspi integration, Kaspi Pay, Kaspi QR, Kazakhstan payment',
+      uz: 'Kaspi integratsiya, Kaspi Pay, Kaspi QR'
+    },
+    h1: {
+      ru: 'Интеграция Kaspi с Delever',
+      en: 'Kaspi Integration with Delever',
+      uz: 'Kaspi Delever bilan integratsiyasi'
+    },
+    intro: {
+      ru: 'Kaspi — самый популярный банк в Казахстане. 90% населения используют Kaspi для платежей. Интеграция с Delever даёт вашим клиентам удобный способ оплаты.',
+      en: 'Kaspi is the most popular bank in Kazakhstan. 90% of the population uses Kaspi for payments. Integration with Delever gives your customers a convenient payment method.',
+      uz: 'Kaspi — Qozog\'istondagi eng mashhur bank. Aholining 90% to\'lovlar uchun Kaspi dan foydalanadi. Delever bilan integratsiya mijozlaringizga qulay to\'lov usulini beradi.'
+    },
+    features: {
+      ru: ['Kaspi Pay', 'Kaspi QR', 'Моментальные переводы', 'Автоматические уведомления'],
+      en: ['Kaspi Pay', 'Kaspi QR', 'Instant transfers', 'Automatic notifications'],
+      uz: ['Kaspi Pay', 'Kaspi QR', 'Tezkor o\'tkazmalar', 'Avtomatik bildirishnomalar']
+    },
+    benefits: {
+      ru: ['90% охват в Казахстане', 'Удобно для клиентов', 'Быстрые переводы'],
+      en: ['90% coverage in Kazakhstan', 'Convenient for customers', 'Fast transfers'],
+      uz: ['Qozog\'istonda 90% qamrov', 'Mijozlar uchun qulay', 'Tez o\'tkazmalar']
+    },
+    faq: [],
+    icon: '🔴',
+    color: 'from-red-500 to-red-600',
+    relatedPages: ['integrations/payme', 'geo/almaty', 'geo/astana'],
+    schemaType: 'SoftwareApplication'
+  },
+  {
+    slug: 'integrations/epay',
+    category: 'integration',
+    subcategory: 'payment',
+    title: {
+      ru: 'Интеграция Epay с Delever — онлайн оплата картами',
+      en: 'Epay Integration with Delever — Online Card Payment',
+      uz: 'Epay Delever bilan integratsiyasi — onlayn karta to\'lovi'
+    },
+    description: {
+      ru: 'Принимайте оплату международными картами Visa, MasterCard через Epay. Для ресторанов в Казахстане.',
+      en: 'Accept Visa, MasterCard international card payments via Epay. For restaurants in Kazakhstan.',
+      uz: 'Epay orqali Visa, MasterCard xalqaro kartalaridan to\'lov qabul qiling. Qozog\'istondagi restoranlar uchun.'
+    },
+    keywords: {
+      ru: 'Epay интеграция, Epay Казахстан, оплата картой онлайн',
+      en: 'Epay integration, Epay Kazakhstan, online card payment',
+      uz: 'Epay integratsiya, Epay Qozog\'iston'
+    },
+    h1: {
+      ru: 'Интеграция Epay с Delever',
+      en: 'Epay Integration with Delever',
+      uz: 'Epay Delever bilan integratsiyasi'
+    },
+    intro: {
+      ru: 'Epay — эквайринговый сервис для приёма карт Visa и MasterCard в Казахстане. Интеграция с Delever позволяет принимать оплату на сайте и в приложении.',
+      en: 'Epay is an acquiring service for accepting Visa and MasterCard in Kazakhstan. Integration with Delever allows you to accept payments on website and app.',
+      uz: 'Epay — Qozog\'istonda Visa va MasterCard kartalarini qabul qilish uchun ekvayring xizmati. Delever bilan integratsiya sayt va ilovada to\'lov qabul qilish imkonini beradi.'
+    },
+    features: {
+      ru: ['Visa и MasterCard', '3D Secure', 'Отчёты по транзакциям', 'Возвраты'],
+      en: ['Visa and MasterCard', '3D Secure', 'Transaction reports', 'Refunds'],
+      uz: ['Visa va MasterCard', '3D Secure', 'Tranzaksiya hisobotlari', 'Qaytarishlar']
+    },
+    benefits: {
+      ru: ['Международные карты', 'Безопасные платежи', 'Быстрое подключение'],
+      en: ['International cards', 'Secure payments', 'Quick setup'],
+      uz: ['Xalqaro kartalar', 'Xavfsiz to\'lovlar', 'Tez ulash']
+    },
+    faq: [],
+    icon: '💳',
+    color: 'from-blue-500 to-blue-600',
+    relatedPages: ['integrations/kaspi', 'integrations/payme'],
+    schemaType: 'SoftwareApplication'
+  },
+  {
+    slug: 'integrations/tiptop-pay',
+    category: 'integration',
+    subcategory: 'payment',
+    title: {
+      ru: 'Интеграция TipTop Pay с Delever — мультивалютные платежи',
+      en: 'TipTop Pay Integration with Delever — Multi-currency Payments',
+      uz: 'TipTop Pay Delever bilan integratsiyasi — ko\'p valyutali to\'lovlar'
+    },
+    description: {
+      ru: 'Принимайте платежи в разных валютах через TipTop Pay. Идеально для международных ресторанных сетей.',
+      en: 'Accept payments in different currencies via TipTop Pay. Perfect for international restaurant chains.',
+      uz: 'TipTop Pay orqali turli valyutalarda to\'lov qabul qiling. Xalqaro restoran tarmoqlari uchun ideal.'
+    },
+    keywords: {
+      ru: 'TipTop Pay интеграция, мультивалютные платежи, международная оплата',
+      en: 'TipTop Pay integration, multi-currency payments, international payment',
+      uz: 'TipTop Pay integratsiya, ko\'p valyutali to\'lovlar'
+    },
+    h1: {
+      ru: 'Интеграция TipTop Pay с Delever',
+      en: 'TipTop Pay Integration with Delever',
+      uz: 'TipTop Pay Delever bilan integratsiyasi'
+    },
+    intro: {
+      ru: 'TipTop Pay — мультивалютная платёжная система. Подходит для ресторанов, работающих в нескольких странах или принимающих оплату в разных валютах.',
+      en: 'TipTop Pay is a multi-currency payment system. Suitable for restaurants operating in multiple countries or accepting payments in different currencies.',
+      uz: 'TipTop Pay — ko\'p valyutali to\'lov tizimi. Bir nechta mamlakatlarda ishlaydigan yoki turli valyutalarda to\'lov qabul qiladigan restoranlar uchun mos.'
+    },
+    features: {
+      ru: ['Мультивалютность', 'Международные карты', 'Apple Pay, Google Pay', 'Отчёты'],
+      en: ['Multi-currency', 'International cards', 'Apple Pay, Google Pay', 'Reports'],
+      uz: ['Ko\'p valyutalik', 'Xalqaro kartalar', 'Apple Pay, Google Pay', 'Hisobotlar']
+    },
+    benefits: {
+      ru: ['Работа в разных странах', 'Все способы оплаты', 'Единый отчёт'],
+      en: ['Work in different countries', 'All payment methods', 'Unified report'],
+      uz: ['Turli mamlakatlarda ishlash', 'Barcha to\'lov usullari', 'Yagona hisobot']
+    },
+    faq: [],
+    icon: '🌐',
+    color: 'from-green-500 to-green-600',
+    relatedPages: ['integrations/payme', 'integrations/click'],
+    schemaType: 'SoftwareApplication'
+  },
+  {
+    slug: 'integrations/atmos',
+    category: 'integration',
+    subcategory: 'payment',
+    title: {
+      ru: 'Интеграция Atmos с Delever — быстрые платежи',
+      en: 'Atmos Integration with Delever — Fast Payments',
+      uz: 'Atmos Delever bilan integratsiyasi — tez to\'lovlar'
+    },
+    description: {
+      ru: 'Принимайте оплату через Atmos — популярное приложение для переводов в Узбекистане.',
+      en: 'Accept payments via Atmos — a popular transfer app in Uzbekistan.',
+      uz: 'Atmos orqali to\'lov qabul qiling — O\'zbekistonda mashhur pul o\'tkazish ilovasi.'
+    },
+    keywords: {
+      ru: 'Atmos интеграция, Atmos оплата, Atmos Узбекистан',
+      en: 'Atmos integration, Atmos payment, Atmos Uzbekistan',
+      uz: 'Atmos integratsiya, Atmos to\'lov'
+    },
+    h1: {
+      ru: 'Интеграция Atmos с Delever',
+      en: 'Atmos Integration with Delever',
+      uz: 'Atmos Delever bilan integratsiyasi'
+    },
+    intro: {
+      ru: 'Atmos — быстрорастущее приложение для переводов в Узбекистане. Интеграция позволяет принимать оплату через Atmos на вашем сайте доставки.',
+      en: 'Atmos is a fast-growing transfer app in Uzbekistan. Integration allows you to accept Atmos payments on your delivery website.',
+      uz: 'Atmos — O\'zbekistonda tez rivojlanayotgan pul o\'tkazish ilovasi. Integratsiya yetkazib berish saytingizda Atmos to\'lovlarini qabul qilish imkonini beradi.'
+    },
+    features: {
+      ru: ['Быстрые переводы', 'QR-оплата', 'Моментальные уведомления', 'Низкие комиссии'],
+      en: ['Fast transfers', 'QR payment', 'Instant notifications', 'Low fees'],
+      uz: ['Tez o\'tkazmalar', 'QR-to\'lov', 'Tezkor bildirishnomalar', 'Past komissiyalar']
+    },
+    benefits: {
+      ru: ['Популярно среди молодёжи', 'Быстрые платежи', 'Удобно для клиентов'],
+      en: ['Popular among youth', 'Fast payments', 'Convenient for customers'],
+      uz: ['Yoshlar orasida mashhur', 'Tez to\'lovlar', 'Mijozlar uchun qulay']
+    },
+    faq: [],
+    icon: '⚡',
+    color: 'from-purple-400 to-purple-500',
+    relatedPages: ['integrations/payme', 'integrations/click'],
+    schemaType: 'SoftwareApplication'
+  },
+  {
+    slug: 'integrations/anorbank',
+    category: 'integration',
+    subcategory: 'payment',
+    title: {
+      ru: 'Интеграция Anorbank с Delever — банковские платежи',
+      en: 'Anorbank Integration with Delever — Bank Payments',
+      uz: 'Anorbank Delever bilan integratsiyasi — bank to\'lovlari'
+    },
+    description: {
+      ru: 'Принимайте оплату через Anorbank — цифровой банк Узбекистана. Карты, переводы, QR-оплата.',
+      en: 'Accept payments via Anorbank — a digital bank in Uzbekistan. Cards, transfers, QR payments.',
+      uz: 'Anorbank orqali to\'lov qabul qiling — O\'zbekistondagi raqamli bank. Kartalar, o\'tkazmalar, QR-to\'lov.'
+    },
+    keywords: {
+      ru: 'Anorbank интеграция, Anorbank оплата, Anorbank API',
+      en: 'Anorbank integration, Anorbank payment, Anorbank API',
+      uz: 'Anorbank integratsiya, Anorbank to\'lov'
+    },
+    h1: {
+      ru: 'Интеграция Anorbank с Delever',
+      en: 'Anorbank Integration with Delever',
+      uz: 'Anorbank Delever bilan integratsiyasi'
+    },
+    intro: {
+      ru: 'Anorbank — современный цифровой банк Узбекистана. Интеграция с Delever позволяет принимать платежи картами Anorbank на вашем сайте.',
+      en: 'Anorbank is a modern digital bank in Uzbekistan. Integration with Delever allows you to accept Anorbank card payments on your website.',
+      uz: 'Anorbank — O\'zbekistondagi zamonaviy raqamli bank. Delever bilan integratsiya saytingizda Anorbank kartalaridan to\'lov qabul qilish imkonini beradi.'
+    },
+    features: {
+      ru: ['Карты Anorbank', 'QR-оплата', 'Мгновенные переводы', 'Отчёты'],
+      en: ['Anorbank cards', 'QR payment', 'Instant transfers', 'Reports'],
+      uz: ['Anorbank kartalari', 'QR-to\'lov', 'Tezkor o\'tkazmalar', 'Hisobotlar']
+    },
+    benefits: {
+      ru: ['Цифровой банк', 'Быстрое подключение', 'Низкие комиссии'],
+      en: ['Digital bank', 'Quick setup', 'Low fees'],
+      uz: ['Raqamli bank', 'Tez ulash', 'Past komissiyalar']
+    },
+    faq: [],
+    icon: '🏦',
+    color: 'from-green-600 to-green-700',
+    relatedPages: ['integrations/payme', 'integrations/uzum-bank'],
+    schemaType: 'SoftwareApplication'
+  }
+]
+
+// ============================================
+// ДОПОЛНИТЕЛЬНЫЕ СЛУЖБЫ ДОСТАВКИ
+// ============================================
+export const moreDelivery: SEOPageData[] = [
+  {
+    slug: 'delivery/noor',
+    category: 'integration',
+    subcategory: 'delivery',
+    title: {
+      ru: 'Интеграция Noor с Delever — курьерская доставка',
+      en: 'Noor Integration with Delever — Courier Delivery',
+      uz: 'Noor Delever bilan integratsiyasi — kuryer yetkazib berish'
+    },
+    description: {
+      ru: 'Подключите курьерскую службу Noor к Delever. Автоматическое создание заказов на доставку, отслеживание курьеров.',
+      en: 'Connect Noor courier service to Delever. Automatic delivery order creation, courier tracking.',
+      uz: 'Noor kuryer xizmatini Delever ga ulang. Avtomatik yetkazib berish buyurtmalarini yaratish, kuryerlarni kuzatish.'
+    },
+    keywords: {
+      ru: 'Noor доставка, Noor курьеры, Noor интеграция',
+      en: 'Noor delivery, Noor couriers, Noor integration',
+      uz: 'Noor yetkazib berish, Noor kuryerlar, Noor integratsiya'
+    },
+    h1: {
+      ru: 'Интеграция Noor с Delever',
+      en: 'Noor Integration with Delever',
+      uz: 'Noor Delever bilan integratsiyasi'
+    },
+    intro: {
+      ru: 'Noor — курьерская служба в Узбекистане. Интеграция с Delever позволяет автоматически создавать заявки на доставку и отслеживать курьеров в реальном времени.',
+      en: 'Noor is a courier service in Uzbekistan. Integration with Delever allows you to automatically create delivery requests and track couriers in real-time.',
+      uz: 'Noor — O\'zbekistondagi kuryer xizmati. Delever bilan integratsiya avtomatik ravishda yetkazib berish so\'rovlarini yaratish va kuryerlarni real vaqtda kuzatish imkonini beradi.'
+    },
+    features: {
+      ru: ['Автосоздание заказов', 'Отслеживание в реальном времени', 'Уведомления клиентам', 'История доставок'],
+      en: ['Auto order creation', 'Real-time tracking', 'Customer notifications', 'Delivery history'],
+      uz: ['Avtomatik buyurtma yaratish', 'Real vaqtda kuzatish', 'Mijozlarga bildirishnomalar', 'Yetkazib berish tarixi']
+    },
+    benefits: {
+      ru: ['Не нужны свои курьеры', 'Оплата за доставку', 'Гибкий график'],
+      en: ['No need for own couriers', 'Pay per delivery', 'Flexible schedule'],
+      uz: ['O\'z kuryerlar kerak emas', 'Har bir yetkazib berish uchun to\'lov', 'Moslashuvchan jadval']
+    },
+    faq: [],
+    logo: '/logos/Noor.jpg',
+    color: 'from-blue-500 to-blue-600',
+    relatedPages: ['delivery/yandex-delivery', 'delivery/wolt-drive', 'delivery/millennium'],
+    schemaType: 'SoftwareApplication'
   }
 ]
 
@@ -2117,8 +2629,11 @@ export const allSEOPages: SEOPageData[] = [
   ...posIntegrations,
   ...morePosIntegrations,
   ...aggregatorIntegrations,
+  ...moreAggregators,
   ...paymentIntegrations,
+  ...morePayments,
   ...deliveryIntegrations,
+  ...moreDelivery,
   ...businessSolutions,
   ...moreSolutions,
   ...comparisonPages,

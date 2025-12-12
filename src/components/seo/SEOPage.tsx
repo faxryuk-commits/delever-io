@@ -99,13 +99,14 @@ export function SEOPage({ data }: SEOPageProps) {
   }
   const texts = ctaTexts[language as keyof typeof ctaTexts] || ctaTexts.ru
 
-  // Клиенты с логотипами (как на главной)
+  // Клиенты с логотипами (как на главной — полный список)
   const clientLogos = [
     { name: 'Yaponamama', logo: '/logos/Yaponamama.webp' },
     { name: 'Pizza Hut', logo: '/logos/pizza-hut-logo-png_seeklogo-257097.png' },
     { name: 'Hardees', logo: '/logos/hardees.jpg' },
     { name: 'Pinkberry', logo: '/logos/pinkberry.png' },
     { name: 'Dodo Pizza', logo: '/logos/dodo.png' },
+    { name: 'ABR', logo: '/logos/abr.png' },
     { name: 'EVOS', logo: '/logos/evos.png' },
     { name: 'MAXWAY', logo: '/logos/maxway.png' },
   ]
@@ -317,27 +318,46 @@ export function SEOPage({ data }: SEOPageProps) {
           </div>
         </section>
 
-        {/* Trusted By - с логотипами как на главной */}
-        <section className="container mx-auto px-4 sm:px-6 lg:px-8 mb-16">
-          <div className="max-w-4xl mx-auto text-center">
-            <h3 className="text-sm text-brand-darkBlue/50 uppercase tracking-widest font-medium mb-8">
-              {texts.trustedBy}
-            </h3>
-            <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-6 lg:gap-x-12">
+        {/* Trusted By - как на главной странице */}
+        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-brand-lightBeige/20 mb-16">
+          <div className="container mx-auto max-w-5xl">
+            {/* Title */}
+            <motion.p 
+              className="text-center text-sm text-brand-darkBlue/50 uppercase tracking-widest font-medium mb-8"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              {language === 'ru' ? 'Миллионы доверяют им, а они доверяют нам' : 
+               language === 'en' ? 'Millions trust them, and they trust us' :
+               'Millionlar ularga ishonadi, ular esa bizga ishonadi'}
+            </motion.p>
+
+            {/* Logos Container */}
+            <motion.div 
+              className="flex flex-wrap justify-center items-center gap-x-8 gap-y-6 lg:gap-x-12"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
               {clientLogos.map((client, idx) => (
                 <motion.div
                   key={idx}
+                  className="relative flex items-center justify-center"
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.05 }}
-                  className="relative flex items-center justify-center"
+                  whileHover={{ scale: 1.1 }}
                 >
                   <img
                     src={client.logo}
                     alt={client.name}
-                    className="h-8 lg:h-10 w-auto max-w-[100px] lg:max-w-[120px] object-contain opacity-50 hover:opacity-100 transition-all duration-300"
-                    style={{ filter: 'grayscale(100%)' }}
+                    className="h-8 lg:h-10 w-auto max-w-[100px] lg:max-w-[120px] object-contain grayscale hover:grayscale-0 opacity-50 hover:opacity-100 transition-all duration-300"
+                    style={{
+                      filter: 'grayscale(100%)',
+                    }}
                     onMouseEnter={(e) => {
                       const target = e.target as HTMLImageElement
                       target.style.filter = 'grayscale(0%)'
@@ -352,7 +372,7 @@ export function SEOPage({ data }: SEOPageProps) {
                       const parent = target.parentElement
                       if (parent && !parent.querySelector('span')) {
                         const span = document.createElement('span')
-                        span.className = 'text-lg font-bold text-brand-darkBlue/30'
+                        span.className = 'text-lg font-bold text-brand-darkBlue/30 hover:text-brand-darkBlue/60 transition-colors'
                         span.textContent = client.name
                         parent.appendChild(span)
                       }
@@ -360,7 +380,7 @@ export function SEOPage({ data }: SEOPageProps) {
                   />
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 

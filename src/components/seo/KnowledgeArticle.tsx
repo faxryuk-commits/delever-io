@@ -21,13 +21,16 @@ interface Props {
   article: KnowledgeArticleType
 }
 
-// Клиенты для social proof
+// Клиенты для social proof — полный список как на главной
 const clientLogos = [
-  { name: 'EVOS', logo: '/logos/evos.png' },
   { name: 'Yaponamama', logo: '/logos/Yaponamama.webp' },
-  { name: 'MAXWAY', logo: '/logos/maxway.png' },
   { name: 'Pizza Hut', logo: '/logos/pizza-hut-logo-png_seeklogo-257097.png' },
+  { name: 'Hardees', logo: '/logos/hardees.jpg' },
+  { name: 'Pinkberry', logo: '/logos/pinkberry.png' },
   { name: 'Dodo Pizza', logo: '/logos/dodo.png' },
+  { name: 'ABR', logo: '/logos/abr.png' },
+  { name: 'EVOS', logo: '/logos/evos.png' },
+  { name: 'MAXWAY', logo: '/logos/maxway.png' },
 ]
 
 export function KnowledgeArticlePage({ article }: Props) {
@@ -272,21 +275,51 @@ export function KnowledgeArticlePage({ article }: Props) {
               </section>
             )}
 
-            {/* Trusted By */}
-            <section className="mb-16 text-center">
-              <p className="text-sm text-brand-darkBlue/50 uppercase tracking-widest font-medium mb-6">
-                {t.trustedBy}
-              </p>
-              <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4">
+            {/* Trusted By — как на главной */}
+            <section className="mb-16 py-8 px-4 bg-gradient-to-b from-white to-brand-lightBeige/20 rounded-2xl">
+              <motion.p 
+                className="text-center text-sm text-brand-darkBlue/50 uppercase tracking-widest font-medium mb-8"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                {language === 'ru' ? 'Миллионы доверяют им, а они доверяют нам' : 
+                 language === 'en' ? 'Millions trust them, and they trust us' :
+                 'Millionlar ularga ishonadi, ular esa bizga ishonadi'}
+              </motion.p>
+              <motion.div 
+                className="flex flex-wrap justify-center items-center gap-x-8 gap-y-6 lg:gap-x-12"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
                 {clientLogos.map((client, idx) => (
-                  <img
+                  <motion.div
                     key={idx}
-                    src={client.logo}
-                    alt={client.name}
-                    className="h-8 w-auto object-contain opacity-40 grayscale"
-                  />
+                    className="relative flex items-center justify-center"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.05 }}
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    <img
+                      src={client.logo}
+                      alt={client.name}
+                      className="h-8 lg:h-10 w-auto max-w-[100px] lg:max-w-[120px] object-contain grayscale hover:grayscale-0 opacity-50 hover:opacity-100 transition-all duration-300"
+                      style={{ filter: 'grayscale(100%)' }}
+                      onMouseEnter={(e) => {
+                        const target = e.target as HTMLImageElement
+                        target.style.filter = 'grayscale(0%)'
+                      }}
+                      onMouseLeave={(e) => {
+                        const target = e.target as HTMLImageElement
+                        target.style.filter = 'grayscale(100%)'
+                      }}
+                    />
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </section>
 
             {/* Related Articles */}

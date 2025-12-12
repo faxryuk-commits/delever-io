@@ -39,6 +39,8 @@ const pages = [
   { path: '/integrations/loook', priority: '0.7', changefreq: 'monthly' },
   { path: '/integrations/alipos', priority: '0.7', changefreq: 'monthly' },
   { path: '/integrations/neon-alisa', priority: '0.7', changefreq: 'monthly' },
+  { path: '/integrations/yaros', priority: '0.7', changefreq: 'monthly' },
+  { path: '/integrations/dodo-pizza', priority: '0.7', changefreq: 'monthly' },
   
   // Агрегаторы (SEO)
   { path: '/aggregators/glovo', priority: '0.8', changefreq: 'monthly' },
@@ -46,15 +48,24 @@ const pages = [
   { path: '/aggregators/yandex-eats', priority: '0.8', changefreq: 'monthly' },
   { path: '/aggregators/uzum-tezkor', priority: '0.8', changefreq: 'monthly' },
   { path: '/aggregators/bolt-food', priority: '0.8', changefreq: 'monthly' },
+  { path: '/aggregators/chocofood', priority: '0.7', changefreq: 'monthly' },
+  { path: '/aggregators/foody', priority: '0.7', changefreq: 'monthly' },
   
   // Платежные системы (SEO)
   { path: '/integrations/payme', priority: '0.7', changefreq: 'monthly' },
   { path: '/integrations/click', priority: '0.7', changefreq: 'monthly' },
+  { path: '/integrations/uzum-bank', priority: '0.7', changefreq: 'monthly' },
+  { path: '/integrations/kaspi', priority: '0.7', changefreq: 'monthly' },
+  { path: '/integrations/epay', priority: '0.7', changefreq: 'monthly' },
+  { path: '/integrations/tiptop-pay', priority: '0.7', changefreq: 'monthly' },
+  { path: '/integrations/atmos', priority: '0.7', changefreq: 'monthly' },
+  { path: '/integrations/anorbank', priority: '0.7', changefreq: 'monthly' },
   
   // Службы доставки (SEO)
   { path: '/delivery/yandex-delivery', priority: '0.7', changefreq: 'monthly' },
   { path: '/delivery/wolt-drive', priority: '0.7', changefreq: 'monthly' },
   { path: '/delivery/millennium', priority: '0.7', changefreq: 'monthly' },
+  { path: '/delivery/noor', priority: '0.7', changefreq: 'monthly' },
   
   // Решения по типу бизнеса (SEO)
   { path: '/solutions/pizzeria', priority: '0.8', changefreq: 'monthly' },

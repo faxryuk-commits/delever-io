@@ -147,6 +147,8 @@ const pageGroups = [
       { path: '/integrations/loook', title: 'LOOOK', priority: 'medium' },
       { path: '/integrations/alipos', title: 'AliPos', priority: 'medium' },
       { path: '/integrations/neon-alisa', title: 'Neon Alisa POS', priority: 'medium' },
+      { path: '/integrations/yaros', title: 'Yaros', priority: 'medium' },
+      { path: '/integrations/dodo-pizza', title: 'Dodo IS (Dodo Pizza)', priority: 'medium' },
     ]
   },
   {
@@ -159,6 +161,8 @@ const pageGroups = [
       { path: '/aggregators/yandex-eats', title: 'Яндекс Еда', priority: 'high' },
       { path: '/aggregators/uzum-tezkor', title: 'Uzum Tezkor', priority: 'high' },
       { path: '/aggregators/bolt-food', title: 'Bolt Food', priority: 'medium' },
+      { path: '/aggregators/chocofood', title: 'Chocofood (Казахстан)', priority: 'medium' },
+      { path: '/aggregators/foody', title: 'Foody', priority: 'medium' },
     ]
   },
   {
@@ -168,6 +172,12 @@ const pageGroups = [
     pages: [
       { path: '/integrations/payme', title: 'Payme', priority: 'high' },
       { path: '/integrations/click', title: 'Click', priority: 'high' },
+      { path: '/integrations/uzum-bank', title: 'Uzum Bank', priority: 'high' },
+      { path: '/integrations/kaspi', title: 'Kaspi (Казахстан)', priority: 'high' },
+      { path: '/integrations/epay', title: 'Epay', priority: 'medium' },
+      { path: '/integrations/tiptop-pay', title: 'TipTop Pay', priority: 'medium' },
+      { path: '/integrations/atmos', title: 'Atmos', priority: 'medium' },
+      { path: '/integrations/anorbank', title: 'Anorbank', priority: 'medium' },
     ]
   },
   {
@@ -178,6 +188,7 @@ const pageGroups = [
       { path: '/delivery/yandex-delivery', title: 'Яндекс Доставка', priority: 'high' },
       { path: '/delivery/wolt-drive', title: 'Wolt Drive', priority: 'medium' },
       { path: '/delivery/millennium', title: 'Taxi Millennium', priority: 'medium' },
+      { path: '/delivery/noor', title: 'Noor', priority: 'medium' },
     ]
   },
   {

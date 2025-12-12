@@ -204,6 +204,28 @@
   </url>
 
   <url>
+    <loc>https://delever.io/integrations/yaros</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/integrations/yaros?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/integrations/yaros?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/integrations/yaros?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/integrations/yaros"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/integrations/dodo-pizza</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/integrations/dodo-pizza?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/integrations/dodo-pizza?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/integrations/dodo-pizza?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/integrations/dodo-pizza"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://delever.io/aggregators/glovo</loc>
     <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/aggregators/glovo?lang=ru"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/aggregators/glovo?lang=en"/>
@@ -259,6 +281,28 @@
   </url>
 
   <url>
+    <loc>https://delever.io/aggregators/chocofood</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/aggregators/chocofood?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/aggregators/chocofood?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/aggregators/chocofood?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/aggregators/chocofood"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/aggregators/foody</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/aggregators/foody?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/aggregators/foody?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/aggregators/foody?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/aggregators/foody"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://delever.io/integrations/payme</loc>
     <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/integrations/payme?lang=ru"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/integrations/payme?lang=en"/>
@@ -275,6 +319,72 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/integrations/click?lang=en"/>
     <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/integrations/click?lang=uz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/integrations/click"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/integrations/uzum-bank</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/integrations/uzum-bank?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/integrations/uzum-bank?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/integrations/uzum-bank?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/integrations/uzum-bank"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/integrations/kaspi</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/integrations/kaspi?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/integrations/kaspi?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/integrations/kaspi?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/integrations/kaspi"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/integrations/epay</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/integrations/epay?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/integrations/epay?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/integrations/epay?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/integrations/epay"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/integrations/tiptop-pay</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/integrations/tiptop-pay?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/integrations/tiptop-pay?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/integrations/tiptop-pay?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/integrations/tiptop-pay"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/integrations/atmos</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/integrations/atmos?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/integrations/atmos?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/integrations/atmos?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/integrations/atmos"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/integrations/anorbank</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/integrations/anorbank?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/integrations/anorbank?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/integrations/anorbank?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/integrations/anorbank"/>
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -308,6 +418,17 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/delivery/millennium?lang=en"/>
     <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/delivery/millennium?lang=uz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/delivery/millennium"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/delivery/noor</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/delivery/noor?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/delivery/noor?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/delivery/noor?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/delivery/noor"/>
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
