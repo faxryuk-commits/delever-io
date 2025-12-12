@@ -70,7 +70,7 @@ const pageGroups = [
       { path: '/case-studies/grand-lavash', title: '🌯 Grand Lavash: +45% выручка', priority: 'high' },
       { path: '/case-studies/yaponamama', title: '🍣 Yaponamama: +60% LTV', priority: 'high' },
       { path: '/case-studies/maxway', title: '🚀 MAXWAY: -35% время доставки', priority: 'high' },
-      { path: '/case-studies/gippo', title: '🛒 Gippo: -85% ошибок', priority: 'high' },
+      { path: '/case-studies/gippo', title: '🛒 Gippo: -92% ошибок', priority: 'high' },
     ]
   },
   {

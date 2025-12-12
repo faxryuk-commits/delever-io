@@ -304,7 +304,7 @@ export function Clients() {
                 },
                 { 
                   company: 'Gippo', 
-                  metric: '-85%', 
+                  metric: '-92%', 
                   label: language === 'ru' ? 'ошибок' : 'errors',
                   slug: 'gippo'
                 }
