@@ -435,80 +435,795 @@
   </url>
 
   <url>
-    <loc>https://delever.io/geo/uzbekistan</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/uzbekistan?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/uzbekistan?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/uzbekistan?lang=uz"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/uzbekistan"/>
+    <loc>https://delever.io/geo/open-restaurant-in-tashkent</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-tashkent?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-tashkent?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-tashkent?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-tashkent"/>
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://delever.io/geo/kazakhstan</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/kazakhstan?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/kazakhstan?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/kazakhstan?lang=uz"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/kazakhstan"/>
-    <lastmod>2025-12-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://delever.io/geo/tashkent</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/tashkent?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/tashkent?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/tashkent?lang=uz"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/tashkent"/>
-    <lastmod>2025-12-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://delever.io/geo/samarkand</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/samarkand?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/samarkand?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/samarkand?lang=uz"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/samarkand"/>
+    <loc>https://delever.io/geo/open-restaurant-in-samarkand</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-samarkand?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-samarkand?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-samarkand?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-samarkand"/>
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://delever.io/geo/bukhara</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/bukhara?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/bukhara?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/bukhara?lang=uz"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/bukhara"/>
+    <loc>https://delever.io/geo/open-restaurant-in-bukhara</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-bukhara?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-bukhara?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-bukhara?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-bukhara"/>
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://delever.io/geo/almaty</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/almaty?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/almaty?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/almaty?lang=uz"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/almaty"/>
+    <loc>https://delever.io/geo/open-restaurant-in-fergana</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-fergana?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-fergana?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-fergana?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-fergana"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-namangan</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-namangan?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-namangan?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-namangan?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-namangan"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-andijan</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-andijan?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-andijan?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-andijan?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-andijan"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-nukus</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-nukus?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-nukus?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-nukus?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-nukus"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-karshi</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-karshi?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-karshi?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-karshi?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-karshi"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-jizzakh</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-jizzakh?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-jizzakh?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-jizzakh?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-jizzakh"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-navoi</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-navoi?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-navoi?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-navoi?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-navoi"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-termez</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-termez?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-termez?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-termez?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-termez"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-urgench</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-urgench?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-urgench?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-urgench?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-urgench"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-khiva</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-khiva?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-khiva?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-khiva?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-khiva"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-almaty</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-almaty?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-almaty?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-almaty?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-almaty"/>
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://delever.io/geo/astana</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/astana?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/astana?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/astana?lang=uz"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/astana"/>
+    <loc>https://delever.io/geo/open-restaurant-in-astana</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-astana?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-astana?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-astana?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-astana"/>
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-shymkent</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-shymkent?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-shymkent?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-shymkent?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-shymkent"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-karaganda</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-karaganda?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-karaganda?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-karaganda?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-karaganda"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-aktobe</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-aktobe?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-aktobe?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-aktobe?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-aktobe"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-atyrau</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-atyrau?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-atyrau?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-atyrau?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-atyrau"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-pavlodar</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-pavlodar?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-pavlodar?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-pavlodar?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-pavlodar"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-semey</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-semey?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-semey?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-semey?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-semey"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-taraz</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-taraz?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-taraz?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-taraz?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-taraz"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-kostanay</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-kostanay?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-kostanay?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-kostanay?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-kostanay"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-dubai</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-dubai?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-dubai?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-dubai?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-dubai"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-abu-dhabi</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-abu-dhabi?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-abu-dhabi?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-abu-dhabi?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-abu-dhabi"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-sharjah</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-sharjah?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-sharjah?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-sharjah?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-sharjah"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-doha</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-doha?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-doha?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-doha?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-doha"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-baku</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-baku?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-baku?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-baku?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-baku"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-ganja</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-ganja?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-ganja?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-ganja?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-ganja"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-bishkek</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-bishkek?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-bishkek?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-bishkek?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-bishkek"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-osh</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-osh?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-osh?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-osh?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-osh"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-dushanbe</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-dushanbe?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-dushanbe?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-dushanbe?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-dushanbe"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-tbilisi</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-tbilisi?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-tbilisi?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-tbilisi?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-tbilisi"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/open-restaurant-in-batumi</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/open-restaurant-in-batumi?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/open-restaurant-in-batumi?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/open-restaurant-in-batumi?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/open-restaurant-in-batumi"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/launch-delivery-in-tashkent</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/launch-delivery-in-tashkent?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/launch-delivery-in-tashkent?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/launch-delivery-in-tashkent?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/launch-delivery-in-tashkent"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/launch-delivery-in-samarkand</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/launch-delivery-in-samarkand?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/launch-delivery-in-samarkand?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/launch-delivery-in-samarkand?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/launch-delivery-in-samarkand"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/launch-delivery-in-bukhara</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/launch-delivery-in-bukhara?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/launch-delivery-in-bukhara?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/launch-delivery-in-bukhara?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/launch-delivery-in-bukhara"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/launch-delivery-in-fergana</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/launch-delivery-in-fergana?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/launch-delivery-in-fergana?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/launch-delivery-in-fergana?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/launch-delivery-in-fergana"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/launch-delivery-in-namangan</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/launch-delivery-in-namangan?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/launch-delivery-in-namangan?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/launch-delivery-in-namangan?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/launch-delivery-in-namangan"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/launch-delivery-in-andijan</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/launch-delivery-in-andijan?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/launch-delivery-in-andijan?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/launch-delivery-in-andijan?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/launch-delivery-in-andijan"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/launch-delivery-in-almaty</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/launch-delivery-in-almaty?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/launch-delivery-in-almaty?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/launch-delivery-in-almaty?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/launch-delivery-in-almaty"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/launch-delivery-in-astana</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/launch-delivery-in-astana?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/launch-delivery-in-astana?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/launch-delivery-in-astana?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/launch-delivery-in-astana"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/launch-delivery-in-shymkent</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/launch-delivery-in-shymkent?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/launch-delivery-in-shymkent?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/launch-delivery-in-shymkent?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/launch-delivery-in-shymkent"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/launch-delivery-in-dubai</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/launch-delivery-in-dubai?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/launch-delivery-in-dubai?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/launch-delivery-in-dubai?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/launch-delivery-in-dubai"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/launch-delivery-in-abu-dhabi</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/launch-delivery-in-abu-dhabi?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/launch-delivery-in-abu-dhabi?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/launch-delivery-in-abu-dhabi?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/launch-delivery-in-abu-dhabi"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/launch-delivery-in-doha</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/launch-delivery-in-doha?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/launch-delivery-in-doha?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/launch-delivery-in-doha?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/launch-delivery-in-doha"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/launch-delivery-in-baku</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/launch-delivery-in-baku?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/launch-delivery-in-baku?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/launch-delivery-in-baku?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/launch-delivery-in-baku"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/launch-delivery-in-bishkek</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/launch-delivery-in-bishkek?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/launch-delivery-in-bishkek?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/launch-delivery-in-bishkek?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/launch-delivery-in-bishkek"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/launch-delivery-in-dushanbe</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/launch-delivery-in-dushanbe?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/launch-delivery-in-dushanbe?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/launch-delivery-in-dushanbe?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/launch-delivery-in-dushanbe"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/launch-delivery-in-tbilisi</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/launch-delivery-in-tbilisi?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/launch-delivery-in-tbilisi?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/launch-delivery-in-tbilisi?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/launch-delivery-in-tbilisi"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/dark-kitchen-in-tashkent</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/dark-kitchen-in-tashkent?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/dark-kitchen-in-tashkent?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/dark-kitchen-in-tashkent?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/dark-kitchen-in-tashkent"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/dark-kitchen-in-almaty</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/dark-kitchen-in-almaty?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/dark-kitchen-in-almaty?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/dark-kitchen-in-almaty?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/dark-kitchen-in-almaty"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/dark-kitchen-in-astana</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/dark-kitchen-in-astana?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/dark-kitchen-in-astana?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/dark-kitchen-in-astana?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/dark-kitchen-in-astana"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/dark-kitchen-in-dubai</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/dark-kitchen-in-dubai?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/dark-kitchen-in-dubai?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/dark-kitchen-in-dubai?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/dark-kitchen-in-dubai"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/dark-kitchen-in-doha</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/dark-kitchen-in-doha?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/dark-kitchen-in-doha?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/dark-kitchen-in-doha?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/dark-kitchen-in-doha"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/dark-kitchen-in-baku</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/dark-kitchen-in-baku?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/dark-kitchen-in-baku?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/dark-kitchen-in-baku?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/dark-kitchen-in-baku"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/dark-kitchen-in-bishkek</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/dark-kitchen-in-bishkek?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/dark-kitchen-in-bishkek?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/dark-kitchen-in-bishkek?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/dark-kitchen-in-bishkek"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/dark-kitchen-in-tbilisi</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/dark-kitchen-in-tbilisi?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/dark-kitchen-in-tbilisi?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/dark-kitchen-in-tbilisi?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/dark-kitchen-in-tbilisi"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/increase-sales-in-tashkent</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/increase-sales-in-tashkent?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/increase-sales-in-tashkent?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/increase-sales-in-tashkent?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/increase-sales-in-tashkent"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/increase-sales-in-almaty</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/increase-sales-in-almaty?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/increase-sales-in-almaty?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/increase-sales-in-almaty?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/increase-sales-in-almaty"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/increase-sales-in-dubai</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/increase-sales-in-dubai?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/increase-sales-in-dubai?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/increase-sales-in-dubai?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/increase-sales-in-dubai"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/increase-sales-in-baku</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/increase-sales-in-baku?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/increase-sales-in-baku?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/increase-sales-in-baku?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/increase-sales-in-baku"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/pizza-delivery-in-tashkent</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/pizza-delivery-in-tashkent?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/pizza-delivery-in-tashkent?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/pizza-delivery-in-tashkent?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/pizza-delivery-in-tashkent"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/pizza-delivery-in-samarkand</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/pizza-delivery-in-samarkand?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/pizza-delivery-in-samarkand?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/pizza-delivery-in-samarkand?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/pizza-delivery-in-samarkand"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/pizza-delivery-in-almaty</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/pizza-delivery-in-almaty?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/pizza-delivery-in-almaty?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/pizza-delivery-in-almaty?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/pizza-delivery-in-almaty"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/pizza-delivery-in-astana</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/pizza-delivery-in-astana?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/pizza-delivery-in-astana?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/pizza-delivery-in-astana?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/pizza-delivery-in-astana"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/pizza-delivery-in-dubai</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/pizza-delivery-in-dubai?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/pizza-delivery-in-dubai?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/pizza-delivery-in-dubai?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/pizza-delivery-in-dubai"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/pizza-delivery-in-baku</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/pizza-delivery-in-baku?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/pizza-delivery-in-baku?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/pizza-delivery-in-baku?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/pizza-delivery-in-baku"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/sushi-delivery-in-tashkent</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/sushi-delivery-in-tashkent?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/sushi-delivery-in-tashkent?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/sushi-delivery-in-tashkent?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/sushi-delivery-in-tashkent"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/sushi-delivery-in-almaty</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/sushi-delivery-in-almaty?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/sushi-delivery-in-almaty?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/sushi-delivery-in-almaty?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/sushi-delivery-in-almaty"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/sushi-delivery-in-dubai</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/sushi-delivery-in-dubai?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/sushi-delivery-in-dubai?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/sushi-delivery-in-dubai?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/sushi-delivery-in-dubai"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://delever.io/geo/sushi-delivery-in-tbilisi</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/geo/sushi-delivery-in-tbilisi?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/geo/sushi-delivery-in-tbilisi?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/geo/sushi-delivery-in-tbilisi?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/geo/sushi-delivery-in-tbilisi"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <url>

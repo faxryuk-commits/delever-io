@@ -71,16 +71,117 @@ const pages = [
   { path: '/compare/delever-vs-pos', priority: '0.8', changefreq: 'monthly' },
   { path: '/compare/own-delivery-vs-aggregators', priority: '0.8', changefreq: 'monthly' },
   
-  // Гео-страницы (SEO) - страны
-  { path: '/geo/uzbekistan', priority: '0.8', changefreq: 'monthly' },
-  { path: '/geo/kazakhstan', priority: '0.8', changefreq: 'monthly' },
+  // ============================================
+  // GEO PAGES — PROGRAMMATIC SEO (204+ страниц)
+  // ============================================
   
-  // Гео-страницы (SEO) - города
-  { path: '/geo/tashkent', priority: '0.8', changefreq: 'monthly' },
-  { path: '/geo/samarkand', priority: '0.7', changefreq: 'monthly' },
-  { path: '/geo/bukhara', priority: '0.7', changefreq: 'monthly' },
-  { path: '/geo/almaty', priority: '0.8', changefreq: 'monthly' },
-  { path: '/geo/astana', priority: '0.8', changefreq: 'monthly' },
+  // Узбекистан — открытие ресторана
+  { path: '/geo/open-restaurant-in-tashkent', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-samarkand', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-bukhara', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-fergana', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-namangan', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-andijan', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-nukus', priority: '0.6', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-karshi', priority: '0.6', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-jizzakh', priority: '0.6', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-navoi', priority: '0.6', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-termez', priority: '0.6', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-urgench', priority: '0.6', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-khiva', priority: '0.6', changefreq: 'monthly' },
+  
+  // Казахстан — открытие ресторана
+  { path: '/geo/open-restaurant-in-almaty', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-astana', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-shymkent', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-karaganda', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-aktobe', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-atyrau', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-pavlodar', priority: '0.6', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-semey', priority: '0.6', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-taraz', priority: '0.6', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-kostanay', priority: '0.6', changefreq: 'monthly' },
+  
+  // ОАЭ — открытие ресторана
+  { path: '/geo/open-restaurant-in-dubai', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-abu-dhabi', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-sharjah', priority: '0.7', changefreq: 'monthly' },
+  
+  // Катар
+  { path: '/geo/open-restaurant-in-doha', priority: '0.8', changefreq: 'monthly' },
+  
+  // Азербайджан
+  { path: '/geo/open-restaurant-in-baku', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-ganja', priority: '0.7', changefreq: 'monthly' },
+  
+  // Кыргызстан
+  { path: '/geo/open-restaurant-in-bishkek', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-osh', priority: '0.7', changefreq: 'monthly' },
+  
+  // Таджикистан
+  { path: '/geo/open-restaurant-in-dushanbe', priority: '0.8', changefreq: 'monthly' },
+  
+  // Грузия
+  { path: '/geo/open-restaurant-in-tbilisi', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/open-restaurant-in-batumi', priority: '0.7', changefreq: 'monthly' },
+  
+  // ============================================
+  // LAUNCH DELIVERY по городам
+  // ============================================
+  { path: '/geo/launch-delivery-in-tashkent', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/launch-delivery-in-samarkand', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/launch-delivery-in-bukhara', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/launch-delivery-in-fergana', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/launch-delivery-in-namangan', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/launch-delivery-in-andijan', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/launch-delivery-in-almaty', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/launch-delivery-in-astana', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/launch-delivery-in-shymkent', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/launch-delivery-in-dubai', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/launch-delivery-in-abu-dhabi', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/launch-delivery-in-doha', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/launch-delivery-in-baku', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/launch-delivery-in-bishkek', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/launch-delivery-in-dushanbe', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/launch-delivery-in-tbilisi', priority: '0.8', changefreq: 'monthly' },
+  
+  // ============================================
+  // DARK KITCHEN по городам
+  // ============================================
+  { path: '/geo/dark-kitchen-in-tashkent', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/dark-kitchen-in-almaty', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/dark-kitchen-in-astana', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/dark-kitchen-in-dubai', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/dark-kitchen-in-doha', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/dark-kitchen-in-baku', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/dark-kitchen-in-bishkek', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/dark-kitchen-in-tbilisi', priority: '0.7', changefreq: 'monthly' },
+  
+  // ============================================
+  // INCREASE SALES по городам
+  // ============================================
+  { path: '/geo/increase-sales-in-tashkent', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/increase-sales-in-almaty', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/increase-sales-in-dubai', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/increase-sales-in-baku', priority: '0.7', changefreq: 'monthly' },
+  
+  // ============================================
+  // PIZZA DELIVERY по городам
+  // ============================================
+  { path: '/geo/pizza-delivery-in-tashkent', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/pizza-delivery-in-samarkand', priority: '0.7', changefreq: 'monthly' },
+  { path: '/geo/pizza-delivery-in-almaty', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/pizza-delivery-in-astana', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/pizza-delivery-in-dubai', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/pizza-delivery-in-baku', priority: '0.7', changefreq: 'monthly' },
+  
+  // ============================================
+  // SUSHI DELIVERY по городам
+  // ============================================
+  { path: '/geo/sushi-delivery-in-tashkent', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/sushi-delivery-in-almaty', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/sushi-delivery-in-dubai', priority: '0.8', changefreq: 'monthly' },
+  { path: '/geo/sushi-delivery-in-tbilisi', priority: '0.7', changefreq: 'monthly' },
   
   // Тарифы и калькулятор
   { path: '/pricing', priority: '0.9', changefreq: 'weekly' },

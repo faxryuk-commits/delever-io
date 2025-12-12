@@ -35,10 +35,10 @@ import { IntegrationPage } from './pages/integrations/[slug]'
 import { AggregatorPage } from './pages/aggregators/[slug]'
 import { DeliveryPage } from './pages/delivery/[slug]'
 import { SolutionPage } from './pages/solutions/[slug]'
-import { GeoPage } from './pages/geo/[slug]'
 import { ComparePage } from './pages/compare/[slug]'
 import { GuidesHub } from './pages/guides/index'
 import { GuidePage } from './pages/guides/[slug]'
+import { DynamicGeoPage } from './pages/geo/[slug]'
 
 function App() {
   return (
@@ -85,7 +85,6 @@ function App() {
                 <Route path="/solutions/:slug" element={<SolutionPage />} />
                 
                 {/* SEO Pages - Geo */}
-                <Route path="/geo/:slug" element={<GeoPage />} />
                 
                 {/* SEO Pages - Comparison */}
                 <Route path="/compare/:slug" element={<ComparePage />} />
@@ -93,6 +92,9 @@ function App() {
                 {/* Knowledge Hub - Guides */}
                 <Route path="/guides" element={<GuidesHub />} />
                 <Route path="/guides/*" element={<GuidePage />} />
+                
+                {/* Geo Pages - Programmatic SEO */}
+                <Route path="/geo/*" element={<DynamicGeoPage />} />
                 
                 <Route path="*" element={<NotFound />} />
               </Routes>

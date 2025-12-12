@@ -1,15 +1,17 @@
 import { useParams } from 'react-router-dom'
-import { SEOPage } from '@/components/seo/SEOPage'
-import { getSEOPageBySlug } from '@/data/seo-pages'
+import { GeoArticlePage } from '@/components/seo/GeoArticle'
+import { getGeoArticleBySlug } from '@/data/geo-articles'
 import { NotFound } from '@/pages/NotFound'
 
-export function GeoPage() {
-  const { slug } = useParams<{ slug: string }>()
-  const pageData = getSEOPageBySlug(`geo/${slug}`)
+export function DynamicGeoPage() {
+  const { '*': fullSlug } = useParams()
+  
+  // Получаем гео-статью по slug
+  const article = getGeoArticleBySlug(fullSlug || '')
 
-  if (!pageData) {
+  if (!article) {
     return <NotFound />
   }
 
-  return <SEOPage data={pageData} />
+  return <GeoArticlePage article={article} />
 }

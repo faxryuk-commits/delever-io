@@ -76,6 +76,63 @@ const pageGroups = [
     ]
   },
   {
+    title: 'GEO: Узбекистан',
+    icon: MapPin,
+    color: 'from-cyan-500 to-cyan-600',
+    pages: [
+      { path: '/geo/open-restaurant-in-tashkent', title: '🏪 Ташкент: Открыть ресторан', priority: 'high' },
+      { path: '/geo/launch-delivery-in-tashkent', title: '🚀 Ташкент: Запустить доставку', priority: 'high' },
+      { path: '/geo/dark-kitchen-in-tashkent', title: '🏭 Ташкент: Dark Kitchen', priority: 'high' },
+      { path: '/geo/pizza-delivery-in-tashkent', title: '🍕 Ташкент: Доставка пиццы', priority: 'high' },
+      { path: '/geo/sushi-delivery-in-tashkent', title: '🍣 Ташкент: Доставка суши', priority: 'high' },
+      { path: '/geo/open-restaurant-in-samarkand', title: '🏪 Самарканд: Открыть ресторан', priority: 'medium' },
+      { path: '/geo/open-restaurant-in-bukhara', title: '🏪 Бухара: Открыть ресторан', priority: 'medium' },
+      { path: '/geo/open-restaurant-in-fergana', title: '🏪 Фергана: Открыть ресторан', priority: 'medium' },
+      { path: '/geo/open-restaurant-in-namangan', title: '🏪 Наманган: Открыть ресторан', priority: 'medium' },
+      { path: '/geo/open-restaurant-in-andijan', title: '🏪 Андижан: Открыть ресторан', priority: 'medium' },
+    ]
+  },
+  {
+    title: 'GEO: Казахстан',
+    icon: MapPin,
+    color: 'from-sky-500 to-sky-600',
+    pages: [
+      { path: '/geo/open-restaurant-in-almaty', title: '🏪 Алматы: Открыть ресторан', priority: 'high' },
+      { path: '/geo/launch-delivery-in-almaty', title: '🚀 Алматы: Запустить доставку', priority: 'high' },
+      { path: '/geo/dark-kitchen-in-almaty', title: '🏭 Алматы: Dark Kitchen', priority: 'high' },
+      { path: '/geo/open-restaurant-in-astana', title: '🏪 Астана: Открыть ресторан', priority: 'high' },
+      { path: '/geo/launch-delivery-in-astana', title: '🚀 Астана: Запустить доставку', priority: 'high' },
+      { path: '/geo/open-restaurant-in-shymkent', title: '🏪 Шымкент: Открыть ресторан', priority: 'medium' },
+      { path: '/geo/open-restaurant-in-karaganda', title: '🏪 Караганда: Открыть ресторан', priority: 'medium' },
+    ]
+  },
+  {
+    title: 'GEO: ОАЭ & GCC',
+    icon: MapPin,
+    color: 'from-yellow-500 to-orange-500',
+    pages: [
+      { path: '/geo/open-restaurant-in-dubai', title: '🏪 Дубай: Открыть ресторан', priority: 'high' },
+      { path: '/geo/launch-delivery-in-dubai', title: '🚀 Дубай: Запустить доставку', priority: 'high' },
+      { path: '/geo/dark-kitchen-in-dubai', title: '🏭 Дубай: Dark Kitchen', priority: 'high' },
+      { path: '/geo/open-restaurant-in-abu-dhabi', title: '🏪 Абу-Даби: Открыть ресторан', priority: 'high' },
+      { path: '/geo/open-restaurant-in-doha', title: '🏪 Доха: Открыть ресторан', priority: 'high' },
+      { path: '/geo/dark-kitchen-in-doha', title: '🏭 Доха: Dark Kitchen', priority: 'high' },
+    ]
+  },
+  {
+    title: 'GEO: Кавказ & Центральная Азия',
+    icon: MapPin,
+    color: 'from-rose-500 to-rose-600',
+    pages: [
+      { path: '/geo/open-restaurant-in-baku', title: '🏪 Баку: Открыть ресторан', priority: 'high' },
+      { path: '/geo/launch-delivery-in-baku', title: '🚀 Баку: Запустить доставку', priority: 'high' },
+      { path: '/geo/open-restaurant-in-tbilisi', title: '🏪 Тбилиси: Открыть ресторан', priority: 'high' },
+      { path: '/geo/launch-delivery-in-tbilisi', title: '🚀 Тбилиси: Запустить доставку', priority: 'high' },
+      { path: '/geo/open-restaurant-in-bishkek', title: '🏪 Бишкек: Открыть ресторан', priority: 'high' },
+      { path: '/geo/open-restaurant-in-dushanbe', title: '🏪 Душанбе: Открыть ресторан', priority: 'medium' },
+    ]
+  },
+  {
     title: 'POS Интеграции',
     icon: Layers,
     color: 'from-orange-500 to-orange-600',
