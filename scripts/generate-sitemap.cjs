@@ -89,6 +89,15 @@ const pages = [
   { path: '/ai-marketing', priority: '0.8', changefreq: 'weekly' },
   { path: '/menu-doctor', priority: '0.8', changefreq: 'weekly' },
   
+  // Knowledge Hub - Guides
+  { path: '/guides', priority: '0.9', changefreq: 'weekly' },
+  { path: '/guides/how-to-open-restaurant', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guides/how-to-choose-location', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guides/how-to-launch-delivery', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guides/how-to-hire-couriers', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guides/how-to-increase-restaurant-sales', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guides/reduce-aggregator-commissions', priority: '0.8', changefreq: 'monthly' },
+  
   // Партнёры и компания
   { path: '/clients', priority: '0.8', changefreq: 'weekly' },
   { path: '/partners', priority: '0.7', changefreq: 'monthly' },

@@ -62,6 +62,20 @@ const pageGroups = [
     ]
   },
   {
+    title: 'Knowledge Hub (Гайды)',
+    icon: Package,
+    color: 'from-amber-500 to-amber-600',
+    pages: [
+      { path: '/guides', title: 'Все гайды', priority: 'high' },
+      { path: '/guides/how-to-open-restaurant', title: 'Как открыть ресторан', priority: 'high' },
+      { path: '/guides/how-to-choose-location', title: 'Как выбрать локацию', priority: 'high' },
+      { path: '/guides/how-to-launch-delivery', title: 'Как запустить доставку', priority: 'high' },
+      { path: '/guides/how-to-hire-couriers', title: 'Как нанять курьеров', priority: 'medium' },
+      { path: '/guides/how-to-increase-restaurant-sales', title: 'Как увеличить продажи', priority: 'high' },
+      { path: '/guides/reduce-aggregator-commissions', title: 'Как снизить комиссию агрегаторов', priority: 'high' },
+    ]
+  },
+  {
     title: 'POS Интеграции',
     icon: Layers,
     color: 'from-orange-500 to-orange-600',

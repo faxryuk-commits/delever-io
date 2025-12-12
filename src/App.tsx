@@ -37,6 +37,8 @@ import { DeliveryPage } from './pages/delivery/[slug]'
 import { SolutionPage } from './pages/solutions/[slug]'
 import { GeoPage } from './pages/geo/[slug]'
 import { ComparePage } from './pages/compare/[slug]'
+import { GuidesHub } from './pages/guides/index'
+import { GuidePage } from './pages/guides/[slug]'
 
 function App() {
   return (
@@ -87,6 +89,10 @@ function App() {
                 
                 {/* SEO Pages - Comparison */}
                 <Route path="/compare/:slug" element={<ComparePage />} />
+                
+                {/* Knowledge Hub - Guides */}
+                <Route path="/guides" element={<GuidesHub />} />
+                <Route path="/guides/*" element={<GuidePage />} />
                 
                 <Route path="*" element={<NotFound />} />
               </Routes>
