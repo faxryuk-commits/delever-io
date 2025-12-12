@@ -50,7 +50,22 @@ const validatePhone = (phone: string | undefined): string | undefined => {
   // Строгая проверка для узбекских номеров
   if (digitsOnly.startsWith('998')) {
     // Валидные коды операторов Узбекистана
-    const validUzOperators = ['90', '91', '93', '94', '95', '97', '99', '33', '55', '77', '88', '89', '98', '71', '78']
+    // Beeline: 90, 91, 50, 51
+    // Ucell: 93, 94
+    // UMS/Mobi: 95, 97, 98, 99
+    // Perfectum: 77
+    // Mobiuz: 88, 89
+    // Uztelecom: 33, 55, 71, 78, 62, 65, 66, 67, 69, 70, 72, 73, 74, 75, 76, 79
+    const validUzOperators = [
+      '90', '91', '50', '51',           // Beeline
+      '93', '94',                        // Ucell  
+      '95', '97', '98', '99',           // UMS/Mobi
+      '77',                              // Perfectum
+      '88', '89',                        // Mobiuz
+      '33', '55', '71', '78',           // Uztelecom
+      '62', '65', '66', '67', '69',     // Городские
+      '70', '72', '73', '74', '75', '76', '79'
+    ]
     const operatorCode = digitsOnly.substring(3, 5)
     
     if (!validUzOperators.includes(operatorCode)) {
