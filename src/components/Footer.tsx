@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { MapPin, Linkedin, Send, Instagram, Phone, Mail, BookOpen, Code, Bell, Activity, Users, Leaf, TrendingUp, Sparkles, Stethoscope, Calculator } from 'lucide-react'
+import { MapPin, Linkedin, Send, Instagram, Phone, Mail, BookOpen, Code, Bell, Activity, Users, Leaf, TrendingUp, Sparkles, Stethoscope, Calculator, Map } from 'lucide-react'
 import { Logo } from './Logo'
 import { LocaleSwitcher } from './LocaleSwitcher'
 import { useLocale } from '@/i18n/LocaleContext'
@@ -31,7 +31,7 @@ export function Footer() {
     <footer className="bg-brand-darkBlue text-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         {/* Main Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-10 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-10 mb-12">
           {/* Brand Section */}
           <div className="col-span-2 md:col-span-3 lg:col-span-1">
             <Link to="/" className="inline-block mb-4">
@@ -41,6 +41,31 @@ export function Footer() {
               {t('footer.description')}
             </p>
             
+            {/* Quick Links - Guides, Cases, Sitemap */}
+            <div className="flex flex-wrap items-center gap-2 mb-4 text-xs">
+              <Link 
+                to="/guides" 
+                className="flex items-center gap-1.5 px-2.5 py-1.5 bg-white/10 rounded-lg hover:bg-white/20 transition-colors text-white/70 hover:text-white"
+              >
+                <BookOpen className="h-3.5 w-3.5 text-emerald-400" />
+                Гайды
+              </Link>
+              <Link 
+                to="/case-studies" 
+                className="flex items-center gap-1.5 px-2.5 py-1.5 bg-white/10 rounded-lg hover:bg-white/20 transition-colors text-white/70 hover:text-white"
+              >
+                <TrendingUp className="h-3.5 w-3.5 text-blue-400" />
+                Кейсы
+              </Link>
+              <Link 
+                to="/sitemap-preview" 
+                className="flex items-center gap-1.5 px-2.5 py-1.5 bg-white/10 rounded-lg hover:bg-white/20 transition-colors text-white/70 hover:text-white"
+              >
+                <Map className="h-3.5 w-3.5 text-amber-400" />
+                Карта
+              </Link>
+            </div>
+
             {/* Social Media */}
             <div className="flex space-x-2 mb-4">
               <a 
@@ -175,37 +200,6 @@ export function Footer() {
                 </Link>
               </li>
             </ul>
-          </div>
-
-          {/* Guides & Cases - CTA Style */}
-          <div>
-            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Полезное</h3>
-            <div className="space-y-3">
-              <Link 
-                to="/guides" 
-                className="flex items-center gap-3 p-3 bg-white/10 rounded-xl hover:bg-white/20 transition-colors group"
-              >
-                <div className="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center">
-                  <BookOpen className="h-5 w-5 text-emerald-400" />
-                </div>
-                <div>
-                  <div className="text-white font-medium text-sm">Гайды для бизнеса</div>
-                  <div className="text-white/50 text-xs">50+ статей</div>
-                </div>
-              </Link>
-              <Link 
-                to="/case-studies" 
-                className="flex items-center gap-3 p-3 bg-white/10 rounded-xl hover:bg-white/20 transition-colors group"
-              >
-                <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                  <TrendingUp className="h-5 w-5 text-blue-400" />
-                </div>
-                <div>
-                  <div className="text-white font-medium text-sm">Истории успеха</div>
-                  <div className="text-white/50 text-xs">Реальные кейсы</div>
-                </div>
-              </Link>
-            </div>
           </div>
 
           {/* Resources */}
