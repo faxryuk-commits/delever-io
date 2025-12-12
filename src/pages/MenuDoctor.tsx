@@ -775,6 +775,26 @@ export function MenuDoctor() {
   const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     console.log('Lead submitted:', leadForm)
+    
+    // Отправляем данные лида в Telegram через API
+    try {
+      await fetch('/api/send-telegram', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: leadForm.venueName || 'Menu Doctor Lead',
+          phone: leadForm.email, // Используем email как основной контакт
+          email: leadForm.email,
+          company: leadForm.venueName,
+          message: `Страна: ${leadForm.country}\nХочет импорт в Delever: ${leadForm.wantImport ? 'Да' : 'Нет'}`,
+          tag: 'menu-doctor-lead',
+          language: language,
+        }),
+      })
+    } catch (err) {
+      console.error('Failed to submit lead:', err)
+    }
+    
     setLeadSubmitted(true)
   }
 

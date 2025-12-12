@@ -779,6 +779,7 @@ export default async function handler(request: Request) {
               continue
             }
           } catch (openrouterError) {
+            clearTimeout(timeout) // Очищаем timeout при ошибке
             console.log(`AI Marketing: ${model} error`)
             continue
           }
@@ -815,7 +816,8 @@ export default async function handler(request: Request) {
   } catch (error) {
     console.error('AI Marketing API error:', error)
     
-    const fallbackBody: MarketingRequest = (body as MarketingRequest) || {
+    // Безопасный fallback - проверяем body на undefined явно
+    const defaultBody: MarketingRequest = {
       brandName: '',
       cuisine: '',
       promoDescription: '',
@@ -823,6 +825,9 @@ export default async function handler(request: Request) {
       channels: ['instagram', 'telegram', 'stories'],
       language: 'ru' as const
     }
+    const fallbackBody: MarketingRequest = body && typeof body === 'object' && 'brandName' in body
+      ? body as MarketingRequest
+      : defaultBody
     
     const fallbackResponse = getFallbackMarketingResponse(fallbackBody, undefined)
     return new Response(JSON.stringify({

@@ -542,6 +542,7 @@ export default async function handler(request: Request) {
         console.log('Menu Doctor: Jina Reader failed:', jinaResponse.status)
       }
     } catch (jinaError) {
+      clearTimeout(jinaTimeout) // Очищаем timeout при ошибке
       console.log('Menu Doctor: Jina Reader error, falling back to direct fetch')
     }
 
