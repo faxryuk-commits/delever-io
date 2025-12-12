@@ -145,31 +145,6 @@ function BikeScene() {
   )
 }
 
-function TypingScene() {
-  const texts = ['Привет!', 'Заказ?', 'Готово!', '🍕🍔🍜']
-  const [textIndex, setTextIndex] = useState(0)
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTextIndex(i => (i + 1) % texts.length)
-    }, 1500)
-    return () => clearInterval(interval)
-  }, [])
-  
-  return (
-    <div className="w-8 h-8 flex items-center justify-center">
-      <motion.div
-        key={textIndex}
-        initial={{ opacity: 0, y: 5 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -5 }}
-        className="text-white text-xs font-bold text-center"
-      >
-        {texts[textIndex]}
-      </motion.div>
-    </div>
-  )
-}
 
 function BellScene() {
   return (
@@ -267,17 +242,56 @@ function PizzaScene() {
   )
 }
 
+// Сцена с иконкой чата
+function ChatIconScene() {
+  return (
+    <svg viewBox="0 0 40 40" className="w-8 h-8">
+      <motion.g
+        animate={{ scale: [1, 1.1, 1] }}
+        transition={{ duration: 1.5, repeat: Infinity }}
+      >
+        {/* Пузырь сообщения */}
+        <path
+          d="M8 12 Q8 8 12 8 L28 8 Q32 8 32 12 L32 22 Q32 26 28 26 L18 26 L12 32 L12 26 L12 26 Q8 26 8 22 Z"
+          fill="#fff"
+        />
+        {/* Точки печати */}
+        <motion.circle cx="15" cy="17" r="2" fill="#10B981"
+          animate={{ opacity: [0.3, 1, 0.3] }}
+          transition={{ duration: 1, repeat: Infinity, delay: 0 }}
+        />
+        <motion.circle cx="20" cy="17" r="2" fill="#10B981"
+          animate={{ opacity: [0.3, 1, 0.3] }}
+          transition={{ duration: 1, repeat: Infinity, delay: 0.2 }}
+        />
+        <motion.circle cx="25" cy="17" r="2" fill="#10B981"
+          animate={{ opacity: [0.3, 1, 0.3] }}
+          transition={{ duration: 1, repeat: Infinity, delay: 0.4 }}
+        />
+      </motion.g>
+    </svg>
+  )
+}
+
 // Компонент анимированной кнопки
-function AnimatedChatButton({ onClick }: { onClick: () => void }) {
+function AnimatedChatButton({ onClick, language }: { onClick: () => void; language: string }) {
   const [sceneIndex, setSceneIndex] = useState(0)
+  const [showTooltip, setShowTooltip] = useState(true)
+  
   const scenes = [
+    <ChatIconScene key="chat" />,
     <DeliveryCarScene key="car" />,
     <BurgerScene key="burger" />,
     <BikeScene key="bike" />,
-    <BellScene key="bell" />,
     <PizzaScene key="pizza" />,
-    <TypingScene key="typing" />,
+    <BellScene key="bell" />,
   ]
+  
+  const tooltipText = language === 'uz' 
+    ? "Yozing!" 
+    : language === 'en' 
+    ? "Chat with us!" 
+    : "Напишите нам!"
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -286,44 +300,87 @@ function AnimatedChatButton({ onClick }: { onClick: () => void }) {
     return () => clearInterval(interval)
   }, [])
   
+  // Показываем тултип периодически
+  useEffect(() => {
+    const showInterval = setInterval(() => {
+      setShowTooltip(true)
+      setTimeout(() => setShowTooltip(false), 3000)
+    }, 10000)
+    
+    // Скрыть первый тултип через 5 секунд
+    const hideTimeout = setTimeout(() => setShowTooltip(false), 5000)
+    
+    return () => {
+      clearInterval(showInterval)
+      clearTimeout(hideTimeout)
+    }
+  }, [])
+  
   return (
-    <motion.button
-      onClick={onClick}
-      className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-gradient-to-br from-brand-blue via-brand-green to-brand-blue shadow-xl flex items-center justify-center overflow-hidden"
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.95 }}
-      initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
-      transition={{ type: 'spring', stiffness: 300 }}
-    >
-      {/* Фоновое свечение */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-brand-yellow/30 to-transparent"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-      />
-      
-      {/* Сцена */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={sceneIndex}
-          initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          exit={{ opacity: 0, scale: 0.5, rotate: 10 }}
-          transition={{ duration: 0.3 }}
-          className="relative z-10"
-        >
-          {scenes[sceneIndex]}
-        </motion.div>
+    <div className="fixed bottom-6 right-6 z-50">
+      {/* Тултип */}
+      <AnimatePresence>
+        {showTooltip && (
+          <motion.div
+            initial={{ opacity: 0, x: 10, scale: 0.9 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: 10, scale: 0.9 }}
+            className="absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap"
+          >
+            <div className="bg-white text-brand-darkBlue px-4 py-2 rounded-xl shadow-lg text-sm font-medium flex items-center gap-2">
+              <span>💬</span>
+              {tooltipText}
+              {/* Стрелка */}
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-full">
+                <div className="border-8 border-transparent border-l-white" />
+              </div>
+            </div>
+          </motion.div>
+        )}
       </AnimatePresence>
       
-      {/* Пульсирующий индикатор */}
-      <motion.span 
-        className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full"
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 1, repeat: Infinity }}
-      />
-    </motion.button>
+      <motion.button
+        onClick={onClick}
+        className="relative w-16 h-16 rounded-full bg-gradient-to-br from-brand-blue via-brand-green to-brand-blue shadow-xl flex items-center justify-center overflow-hidden"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ type: 'spring', stiffness: 300 }}
+        onMouseEnter={() => setShowTooltip(true)}
+        onMouseLeave={() => setShowTooltip(false)}
+      >
+        {/* Фоновое свечение */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-brand-yellow/30 to-transparent"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+        />
+        
+        {/* Сцена */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={sceneIndex}
+            initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            exit={{ opacity: 0, scale: 0.5, rotate: 10 }}
+            transition={{ duration: 0.3 }}
+            className="relative z-10"
+          >
+            {scenes[sceneIndex]}
+          </motion.div>
+        </AnimatePresence>
+        
+        {/* Пульсирующий индикатор */}
+        <motion.span 
+          className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center"
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ duration: 1, repeat: Infinity }}
+        >
+          <span className="text-[8px] text-white font-bold">1</span>
+        </motion.span>
+      </motion.button>
+    </div>
   )
 }
 
@@ -460,7 +517,7 @@ export function ChatWidget() {
   return (
     <>
       {/* Анимированная кнопка чата */}
-      {!isOpen && <AnimatedChatButton onClick={() => setIsOpen(true)} />}
+      {!isOpen && <AnimatedChatButton onClick={() => setIsOpen(true)} language={language} />}
 
       {/* Окно чата */}
       <AnimatePresence>
