@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import { ContactForm } from '@/components/ContactForm'
@@ -10,7 +11,8 @@ import {
   Building2,
   MapPin,
   Star,
-  Filter
+  Filter,
+  TrendingUp
 } from 'lucide-react'
 import {
   allClients,
@@ -269,6 +271,61 @@ export function Clients() {
                 : `Показано ${filteredClients.length} из ${allClients.length} клиентов`
               }
             </p>
+          </div>
+        </section>
+
+        {/* Case Studies Section */}
+        <section className="container mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-2xl font-bold text-brand-darkBlue mb-8 flex items-center gap-3">
+              <TrendingUp className="w-6 h-6 text-green-500" />
+              {language === 'en' ? 'Success Stories' : 'Истории успеха'}
+            </h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { 
+                  company: 'EVOS', 
+                  metric: '+45%', 
+                  label: language === 'ru' ? 'выручка' : 'revenue',
+                  slug: 'evos'
+                },
+                { 
+                  company: 'Yaponamama', 
+                  metric: '+60%', 
+                  label: language === 'ru' ? 'повторные заказы' : 'repeat orders',
+                  slug: 'yaponamama'
+                },
+                { 
+                  company: 'MAXWAY', 
+                  metric: '-35%', 
+                  label: language === 'ru' ? 'время доставки' : 'delivery time',
+                  slug: 'maxway'
+                }
+              ].map((cs, idx) => (
+                <Link 
+                  key={cs.slug}
+                  to={`/case-studies/${cs.slug}`}
+                  className="block"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1 }}
+                    className="p-6 bg-gradient-to-br from-brand-lightBlue/20 to-white rounded-2xl border border-brand-lightTeal/30 hover:border-brand-blue/50 hover:shadow-lg transition-all group"
+                  >
+                    <div className="text-xl font-bold text-brand-darkBlue mb-2">{cs.company}</div>
+                    <div className="text-3xl font-bold text-green-500 mb-1">{cs.metric}</div>
+                    <div className="text-sm text-brand-darkBlue/60 mb-4">{cs.label}</div>
+                    <span className="inline-flex items-center text-brand-blue text-sm group-hover:underline">
+                      {language === 'ru' ? 'Читать кейс' : 'Read case'}
+                      <ArrowRight className="h-4 w-4 ml-1" />
+                    </span>
+                  </motion.div>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 

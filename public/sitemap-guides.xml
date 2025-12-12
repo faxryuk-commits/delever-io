@@ -97,6 +97,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://delever.io/guides/coffee-shop-delivery</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://delever.io/guides/grocery-delivery</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://delever.io/guides/how-to-launch-delivery</loc>
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
@@ -133,6 +145,30 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://delever.io/guides/restaurant-website-development</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://delever.io/guides/telegram-bot-restaurant</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://delever.io/guides/mobile-app-restaurant</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://delever.io/guides/how-to-choose-delivery-platform</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://delever.io/guides/how-to-increase-restaurant-sales</loc>
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
@@ -161,6 +197,18 @@
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://delever.io/guides/restaurant-marketing-strategy</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://delever.io/guides/loyalty-program-restaurant</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://delever.io/guides/reduce-aggregator-commissions</loc>
@@ -227,6 +275,12 @@
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://delever.io/guides/restaurant-analytics-guide</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://delever.io/guides/courier-salary-models</loc>

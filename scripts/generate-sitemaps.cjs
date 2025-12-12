@@ -107,6 +107,14 @@ const comparisons = [
   { path: '/compare/delever-vs-rkeeper', priority: '0.7', changefreq: 'monthly' },
 ];
 
+// Case Studies
+const caseStudies = [
+  { path: '/case-studies', priority: '0.8', changefreq: 'weekly' },
+  { path: '/case-studies/evos', priority: '0.85', changefreq: 'monthly' },
+  { path: '/case-studies/yaponamama', priority: '0.85', changefreq: 'monthly' },
+  { path: '/case-studies/maxway', priority: '0.85', changefreq: 'monthly' },
+];
+
 // Knowledge Hub (Guides) - Hubs
 const guideHubs = [
   { path: '/guides', priority: '0.9', changefreq: 'weekly' },
@@ -122,27 +130,35 @@ const guideHubs = [
   { path: '/guides/hr-restaurant', priority: '0.8', changefreq: 'weekly' },
 ];
 
-// Knowledge Hub - Все 32 статьи
+// Knowledge Hub - Все 40+ статей
 const guideArticles = [
-  // Открытие ресторана (5)
+  // Открытие ресторана (7)
   { path: '/guides/how-to-open-restaurant', priority: '0.85', changefreq: 'monthly' },
   { path: '/guides/how-to-choose-location', priority: '0.8', changefreq: 'monthly' },
   { path: '/guides/restaurant-business-plan', priority: '0.85', changefreq: 'monthly' },
   { path: '/guides/restaurant-concept-development', priority: '0.8', changefreq: 'monthly' },
   { path: '/guides/restaurant-equipment-guide', priority: '0.8', changefreq: 'monthly' },
-  // Запуск доставки (5)
+  { path: '/guides/coffee-shop-delivery', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guides/grocery-delivery', priority: '0.8', changefreq: 'monthly' },
+  // Запуск доставки (8)
   { path: '/guides/how-to-launch-delivery', priority: '0.85', changefreq: 'monthly' },
   { path: '/guides/how-to-hire-couriers', priority: '0.8', changefreq: 'monthly' },
   { path: '/guides/delivery-zones-setup', priority: '0.8', changefreq: 'monthly' },
   { path: '/guides/delivery-packaging-guide', priority: '0.75', changefreq: 'monthly' },
   { path: '/guides/telegram-bot-for-restaurant', priority: '0.85', changefreq: 'monthly' },
   { path: '/guides/restaurant-website-guide', priority: '0.85', changefreq: 'monthly' },
-  // Рост продаж (5)
+  { path: '/guides/restaurant-website-development', priority: '0.85', changefreq: 'monthly' },
+  { path: '/guides/telegram-bot-restaurant', priority: '0.85', changefreq: 'monthly' },
+  { path: '/guides/mobile-app-restaurant', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guides/how-to-choose-delivery-platform', priority: '0.85', changefreq: 'monthly' },
+  // Рост продаж (7)
   { path: '/guides/how-to-increase-restaurant-sales', priority: '0.85', changefreq: 'monthly' },
   { path: '/guides/restaurant-loyalty-program', priority: '0.8', changefreq: 'monthly' },
   { path: '/guides/restaurant-promotions-guide', priority: '0.8', changefreq: 'monthly' },
   { path: '/guides/upselling-cross-selling-restaurant', priority: '0.8', changefreq: 'monthly' },
   { path: '/guides/restaurant-marketing-channels', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guides/restaurant-marketing-strategy', priority: '0.85', changefreq: 'monthly' },
+  { path: '/guides/loyalty-program-restaurant', priority: '0.85', changefreq: 'monthly' },
   // Агрегаторы (4)
   { path: '/guides/reduce-aggregator-commissions', priority: '0.8', changefreq: 'monthly' },
   { path: '/guides/glovo-for-restaurants', priority: '0.8', changefreq: 'monthly' },
@@ -153,10 +169,11 @@ const guideArticles = [
   { path: '/guides/restaurant-unit-economics', priority: '0.8', changefreq: 'monthly' },
   { path: '/guides/restaurant-profit-margins', priority: '0.8', changefreq: 'monthly' },
   { path: '/guides/restaurant-kpis', priority: '0.8', changefreq: 'monthly' },
-  // Операции (3)
+  // Операции (4)
   { path: '/guides/restaurant-automation-guide', priority: '0.85', changefreq: 'monthly' },
   { path: '/guides/kitchen-display-system', priority: '0.75', changefreq: 'monthly' },
   { path: '/guides/inventory-management-restaurant', priority: '0.75', changefreq: 'monthly' },
+  { path: '/guides/restaurant-analytics-guide', priority: '0.85', changefreq: 'monthly' },
   // Курьеры (3)
   { path: '/guides/courier-salary-models', priority: '0.8', changefreq: 'monthly' },
   { path: '/guides/courier-app-features', priority: '0.75', changefreq: 'monthly' },
@@ -271,17 +288,23 @@ const geoXML = generateSitemapXML(geoPages);
 fs.writeFileSync(path.join(publicDir, 'sitemap-geo.xml'), geoXML);
 console.log(`✅ sitemap-geo.xml (${geoPages.length} pages)`);
 
-// 6. Sitemap Index
+// 6. Case Studies
+const caseStudiesXML = generateSitemapXML(caseStudies);
+fs.writeFileSync(path.join(publicDir, 'sitemap-cases.xml'), caseStudiesXML);
+console.log(`✅ sitemap-cases.xml (${caseStudies.length} pages)`);
+
+// 7. Sitemap Index
 const sitemapIndex = generateSitemapIndex([
   'sitemap-static.xml',
   'sitemap-integrations.xml',
   'sitemap-solutions.xml',
   'sitemap-guides.xml',
-  'sitemap-geo.xml'
+  'sitemap-geo.xml',
+  'sitemap-cases.xml'
 ]);
 fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapIndex);
 console.log(`✅ sitemap.xml (index)`);
 
 // Total count
-const totalPages = staticPages.length + integrationsPages.length + solutionsPages.length + guidesPages.length + geoPages.length;
-console.log(`\n📊 Всего: ${totalPages} страниц в ${5} sitemap файлах`);
+const totalPages = staticPages.length + integrationsPages.length + solutionsPages.length + guidesPages.length + geoPages.length + caseStudies.length;
+console.log(`\n📊 Всего: ${totalPages} страниц в ${6} sitemap файлах`);

@@ -9,6 +9,7 @@ import { MiniCases } from '@/components/home/MiniCases'
 import { FinalCTA } from '@/components/home/FinalCTA'
 import { FAQ } from '@/components/home/FAQ'
 import { SEO } from '@/components/SEO'
+import { OrganizationSchema, WebSiteSchema, SoftwareSchema } from '@/components/seo/SchemaOrg'
 import { useLocale } from '@/i18n/LocaleContext'
 
 /**
@@ -41,6 +42,11 @@ export function Home() {
           : 'платформа доставки, ПО для ресторанов, интеграция POS, доставка еды, агрегаторы'
         }
       />
+      
+      {/* Schema.org структурированные данные */}
+      <OrganizationSchema />
+      <WebSiteSchema />
+      <SoftwareSchema />
       
       {/* 1. Hero */}
       <Hero />

@@ -1272,6 +1272,210 @@ export const moreOperationsArticles: KnowledgeArticle[] = [
 ]
 
 // ============================================
+// СТАТЬИ ПРО МАРКЕТИНГ
+// ============================================
+export const marketingArticles: KnowledgeArticle[] = [
+  {
+    slug: 'restaurant-marketing-strategy',
+    hub: 'grow-sales',
+    title: { ru: 'Маркетинг для ресторана: полный гайд', en: 'Restaurant Marketing Strategy: Complete Guide', uz: 'Restoran marketingi: to\'liq qo\'llanma' },
+    h1: { ru: 'Как построить маркетинг ресторана с нуля', en: 'How to Build Restaurant Marketing from Scratch', uz: 'Restoran marketingini qanday boshlash' },
+    description: { ru: 'Digital-маркетинг для ресторанов: социальные сети, email-рассылки, таргетинг, ретаргетинг. Увеличьте поток клиентов в 2 раза.', en: 'Digital marketing for restaurants: social media, email, targeting. Double your customer flow.', uz: 'Restoranlar uchun digital marketing: ijtimoiy tarmoqlar, email, targeting.' },
+    keywords: { ru: 'маркетинг ресторана, реклама ресторана, продвижение ресторана', en: 'restaurant marketing, restaurant advertising, restaurant promotion', uz: 'restoran marketingi, restoran reklamasi' },
+    intro: { ru: 'В 2024 году более 70% решений о заказе еды принимаются онлайн. Без грамотного digital-маркетинга ваш ресторан теряет 60-80% потенциальных клиентов.', en: 'In 2024, over 70% of food ordering decisions are made online. Without proper digital marketing, your restaurant loses 60-80% of potential customers.', uz: '2024 yilda ovqat buyurtma berish qarorlarining 70% dan ortig\'i onlayn qabul qilinadi.' },
+    sections: [
+      { title: { ru: 'Социальные сети', en: 'Social Media', uz: 'Ijtimoiy tarmoqlar' }, content: { ru: 'Instagram, TikTok, Facebook — какой контент работает. Food-съёмка, Reels, Stories. Оптимальная частота постинга: 5-7 раз в неделю.', en: 'Instagram, TikTok, Facebook — what content works. Food photography, Reels, Stories. Optimal posting frequency: 5-7 times per week.', uz: 'Instagram, TikTok, Facebook — qanday kontent ishlaydi.' } },
+      { title: { ru: 'Email и Push', en: 'Email & Push', uz: 'Email va Push' }, content: { ru: 'Сегментация базы, триггерные рассылки, персонализация. Open rate хороших рассылок — 25%+.', en: 'Database segmentation, trigger campaigns, personalization. Good email open rate — 25%+.', uz: 'Bazani segmentatsiya qilish, trigger kampaniyalar, personalizatsiya.' } },
+      { title: { ru: 'Таргетированная реклама', en: 'Targeted Ads', uz: 'Maqsadli reklama' }, content: { ru: 'Геотаргетинг по районам доставки, Look-alike аудитории, ретаргетинг по посетителям сайта.', en: 'Geo-targeting by delivery zones, Look-alike audiences, website visitor retargeting.', uz: 'Yetkazib berish zonalari bo\'yicha geo-targeting.' } }
+    ],
+    cta: { text: { ru: 'Запустить маркетинг с Delever', en: 'Launch Marketing with Delever', uz: 'Delever bilan marketingni boshlang' }, link: '/products/marketing' },
+    faq: [
+      { q: { ru: 'Сколько стоит маркетинг для ресторана?', en: 'How much does restaurant marketing cost?', uz: 'Restoran marketingi qancha turadi?' }, a: { ru: 'Минимальный бюджет — $500/месяц на рекламу + инструменты автоматизации. ROI при правильной настройке — 300-500%.', en: 'Minimum budget — $500/month for ads + automation tools. ROI with proper setup — 300-500%.', uz: 'Minimal byudjet — $500/oy reklama uchun + avtomatlashtirish vositalari.' } }
+    ],
+    relatedArticles: ['increase-average-check', 'loyalty-program-restaurant'],
+    relatedProducts: ['products/marketing', 'products/analytics']
+  },
+  {
+    slug: 'loyalty-program-restaurant',
+    hub: 'grow-sales',
+    title: { ru: 'Программа лояльности для ресторана', en: 'Restaurant Loyalty Program', uz: 'Restoran uchun sodiqlik dasturi' },
+    h1: { ru: 'Как создать программу лояльности, которая работает', en: 'How to Create a Loyalty Program That Works', uz: 'Ishlayotgan sodiqlik dasturini qanday yaratish' },
+    description: { ru: 'Кэшбэк, бонусы, уровни — какая программа лояльности лучше для вашего ресторана. Кейсы роста LTV на 100%.', en: 'Cashback, bonuses, tiers — which loyalty program is best for your restaurant. Cases of 100% LTV growth.', uz: 'Keshbek, bonuslar, darajalar — qaysi sodiqlik dasturi sizning restoraningiz uchun eng yaxshisi.' },
+    keywords: { ru: 'программа лояльности ресторан, бонусы ресторан, кэшбэк ресторан', en: 'restaurant loyalty program, restaurant bonuses, restaurant cashback', uz: 'restoran sodiqlik dasturi, restoran bonuslari' },
+    intro: { ru: 'Удержание клиента в 5 раз дешевле привлечения нового. Программа лояльности увеличивает частоту заказов на 30-50% и средний чек на 15-20%.', en: 'Retaining a customer is 5x cheaper than acquiring a new one. A loyalty program increases order frequency by 30-50% and average check by 15-20%.', uz: 'Mijozni saqlab qolish yangi mijozni jalb qilishdan 5 barobar arzon.' },
+    sections: [
+      { title: { ru: 'Типы программ лояльности', en: 'Types of Loyalty Programs', uz: 'Sodiqlik dasturlari turlari' }, content: { ru: 'Кэшбэк (5-10% на баланс) — самый популярный. Накопительные баллы — мотивируют больше тратить. Уровневая система — создаёт VIP-ощущение.', en: 'Cashback (5-10% to balance) — most popular. Points accumulation — motivates spending more. Tier system — creates VIP feeling.', uz: 'Keshbek (5-10% balansga) — eng mashhur.' } },
+      { title: { ru: 'Бонусы на день рождения', en: 'Birthday Bonuses', uz: 'Tug\'ilgan kun bonuslari' }, content: { ru: 'Персональные акции на день рождения увеличивают конверсию в 10 раз. Оптимально: скидка 20% или бесплатное блюдо.', en: 'Personalized birthday offers increase conversion 10x. Optimal: 20% discount or free dish.', uz: 'Shaxsiylashtirilgan tug\'ilgan kun takliflari konversiyani 10 marta oshiradi.' } },
+      { title: { ru: 'Автоматизация', en: 'Automation', uz: 'Avtomatlashtirish' }, content: { ru: 'Delever автоматически начисляет кэшбэк, отправляет push-уведомления и сегментирует клиентов по RFM.', en: 'Delever automatically awards cashback, sends push notifications and segments customers by RFM.', uz: 'Delever avtomatik ravishda keshbek beradi, push-bildirishnomalar yuboradi.' } }
+    ],
+    cta: { text: { ru: 'Запустить программу лояльности', en: 'Launch Loyalty Program', uz: 'Sodiqlik dasturini ishga tushiring' }, link: '/products/marketing' },
+    faq: [
+      { q: { ru: 'Какой процент кэшбэка оптимален?', en: 'What cashback percentage is optimal?', uz: 'Qanday keshbek foizi optimal?' }, a: { ru: '5% для большинства ресторанов. 7-10% для суши и пиццы с высокой маржой.', en: '5% for most restaurants. 7-10% for sushi and pizza with high margins.', uz: 'Ko\'pchilik restoranlar uchun 5%.' } }
+    ],
+    relatedArticles: ['increase-average-check', 'restaurant-marketing-strategy'],
+    relatedProducts: ['products/marketing', 'products/channels']
+  }
+]
+
+// ============================================
+// СТАТЬИ ПРО ТЕХНОЛОГИИ
+// ============================================
+export const techArticles: KnowledgeArticle[] = [
+  {
+    slug: 'restaurant-website-development',
+    hub: 'launch-delivery',
+    title: { ru: 'Создание сайта для ресторана', en: 'Restaurant Website Development', uz: 'Restoran uchun sayt yaratish' },
+    h1: { ru: 'Как создать продающий сайт ресторана', en: 'How to Create a Converting Restaurant Website', uz: 'Sotuvchi restoran saytini qanday yaratish' },
+    description: { ru: 'Что должен включать сайт ресторана: меню, корзина, онлайн-оплата. Стоимость разработки и готовые решения.', en: 'What a restaurant website should include: menu, cart, online payment. Development cost and ready solutions.', uz: 'Restoran sayti nimalarni o\'z ichiga olishi kerak: menyu, savatcha, onlayn to\'lov.' },
+    keywords: { ru: 'сайт ресторана, разработка сайта доставки, заказать сайт ресторана', en: 'restaurant website, delivery website development, order restaurant website', uz: 'restoran sayti, yetkazib berish sayti ishlab chiqish' },
+    intro: { ru: 'Собственный сайт — это 0% комиссии (против 25-30% у агрегаторов). При среднем чеке $15 и 1000 заказов/месяц экономия составит $3750-4500.', en: 'Your own website means 0% commission (vs 25-30% from aggregators). With $15 average check and 1000 orders/month, savings are $3750-4500.', uz: 'O\'z saytingiz — 0% komissiya (agregatorlardagi 25-30% o\'rniga).' },
+    sections: [
+      { title: { ru: 'Обязательные элементы', en: 'Must-Have Elements', uz: 'Majburiy elementlar' }, content: { ru: 'Меню с фото, корзина, онлайн-оплата (Payme, Click), интеграция с POS, отслеживание заказа, адаптивный дизайн.', en: 'Menu with photos, cart, online payment, POS integration, order tracking, responsive design.', uz: 'Rasmli menyu, savatcha, onlayn to\'lov, POS integratsiyasi.' } },
+      { title: { ru: 'Стоимость разработки', en: 'Development Cost', uz: 'Ishlab chiqish narxi' }, content: { ru: 'Разработка с нуля: $3000-10000. Готовое решение от Delever: от $0 (включено в тариф).', en: 'Custom development: $3000-10000. Ready solution from Delever: from $0 (included in plan).', uz: 'Noldan ishlab chiqish: $3000-10000. Deleverdan tayyor yechim: $0 dan (tarifga kiritilgan).' } },
+      { title: { ru: 'SEO для ресторана', en: 'Restaurant SEO', uz: 'Restoran SEO' }, content: { ru: 'Локальное SEO: Google Maps, Яндекс.Карты. Ключевые слова: "доставка суши [город]", "пицца на дом [район]".', en: 'Local SEO: Google Maps. Keywords: "sushi delivery [city]", "pizza delivery [district]".', uz: 'Mahalliy SEO: Google Maps. Kalit so\'zlar: "sushi yetkazib berish [shahar]".' } }
+    ],
+    cta: { text: { ru: 'Получить сайт бесплатно', en: 'Get Website Free', uz: 'Saytni bepul oling' }, link: '/products/channels' },
+    faq: [
+      { q: { ru: 'Сколько времени занимает создание сайта?', en: 'How long does website creation take?', uz: 'Sayt yaratish qancha vaqt oladi?' }, a: { ru: 'С Delever — 1-2 дня. Кастомная разработка — 2-4 недели.', en: 'With Delever — 1-2 days. Custom development — 2-4 weeks.', uz: 'Delever bilan — 1-2 kun. Maxsus ishlab chiqish — 2-4 hafta.' } }
+    ],
+    relatedArticles: ['telegram-bot-restaurant', 'mobile-app-restaurant'],
+    relatedProducts: ['products/channels', 'integrations/payme']
+  },
+  {
+    slug: 'telegram-bot-restaurant',
+    hub: 'launch-delivery',
+    title: { ru: 'Telegram-бот для ресторана', en: 'Telegram Bot for Restaurant', uz: 'Restoran uchun Telegram-bot' },
+    h1: { ru: 'Как создать Telegram-бот для заказа еды', en: 'How to Create a Telegram Bot for Food Ordering', uz: 'Ovqat buyurtma berish uchun Telegram-bot qanday yaratish' },
+    description: { ru: 'Telegram-бот для ресторана: меню, корзина, оплата, отслеживание. 40% заказов в СНГ идут через Telegram.', en: 'Telegram bot for restaurant: menu, cart, payment, tracking. 40% of orders in CIS go through Telegram.', uz: 'Restoran uchun Telegram-bot: menyu, savatcha, to\'lov, kuzatish.' },
+    keywords: { ru: 'телеграм бот ресторан, бот доставки еды, заказ еды телеграм', en: 'telegram bot restaurant, food delivery bot, order food telegram', uz: 'restoran telegram bot, ovqat yetkazib berish bot' },
+    intro: { ru: 'В Узбекистане 15+ млн пользователей Telegram. Бот позволяет принимать заказы прямо в мессенджере без комиссий агрегаторов.', en: 'Uzbekistan has 15+ million Telegram users. Bot allows taking orders directly in messenger without aggregator commissions.', uz: 'O\'zbekistonda 15+ million Telegram foydalanuvchilari bor.' },
+    sections: [
+      { title: { ru: 'Функции бота', en: 'Bot Features', uz: 'Bot funksiyalari' }, content: { ru: 'Интерактивное меню, модификаторы (без лука, соус), корзина, онлайн-оплата, реферальная программа, push-уведомления.', en: 'Interactive menu, modifiers (no onion, sauce), cart, online payment, referral program, push notifications.', uz: 'Interaktiv menyu, modifikatorlar, savatcha, onlayn to\'lov.' } },
+      { title: { ru: 'Преимущества', en: 'Advantages', uz: 'Afzalliklar' }, content: { ru: 'Нет нужды устанавливать приложение. Мгновенные push-уведомления. Легко делиться с друзьями. Open rate — 90%+.', en: 'No need to install app. Instant push notifications. Easy to share with friends. Open rate — 90%+.', uz: 'Ilova o\'rnatish shart emas. Tezkor push-bildirishnomalar.' } },
+      { title: { ru: 'Интеграция', en: 'Integration', uz: 'Integratsiya' }, content: { ru: 'Бот синхронизируется с POS, CRM и курьерским приложением. Заказы автоматически попадают на кухню.', en: 'Bot syncs with POS, CRM and courier app. Orders automatically go to kitchen.', uz: 'Bot POS, CRM va kuryer ilovasi bilan sinxronlashadi.' } }
+    ],
+    cta: { text: { ru: 'Получить Telegram-бот', en: 'Get Telegram Bot', uz: 'Telegram-bot oling' }, link: '/products/channels' },
+    faq: [
+      { q: { ru: 'Сколько стоит Telegram-бот для ресторана?', en: 'How much does a Telegram bot for restaurant cost?', uz: 'Restoran uchun Telegram-bot qancha turadi?' }, a: { ru: 'От $0 — включен в тариф Delever. Кастомная разработка — $1000-3000.', en: 'From $0 — included in Delever plan. Custom development — $1000-3000.', uz: '$0 dan — Delever tarifiga kiritilgan.' } }
+    ],
+    relatedArticles: ['restaurant-website-development', 'mobile-app-restaurant'],
+    relatedProducts: ['products/channels', 'integrations/telegram']
+  },
+  {
+    slug: 'mobile-app-restaurant',
+    hub: 'launch-delivery',
+    title: { ru: 'Мобильное приложение для ресторана', en: 'Mobile App for Restaurant', uz: 'Restoran uchun mobil ilova' },
+    h1: { ru: 'Нужно ли ресторану своё мобильное приложение?', en: 'Does Your Restaurant Need Its Own Mobile App?', uz: 'Restoraningizga o\'z mobil ilovasi kerakmi?' },
+    description: { ru: 'Когда ресторану нужно приложение: критерии выбора, стоимость, альтернативы. ROI мобильного приложения.', en: 'When restaurant needs an app: selection criteria, cost, alternatives. Mobile app ROI.', uz: 'Restoranga ilova qachon kerak: tanlov mezonlari, narxi, alternativalar.' },
+    keywords: { ru: 'мобильное приложение ресторан, приложение доставки еды, разработка приложения ресторан', en: 'restaurant mobile app, food delivery app, restaurant app development', uz: 'restoran mobil ilovasi, ovqat yetkazib berish ilovasi' },
+    intro: { ru: 'Мобильное приложение стоит $10000-50000. Но есть альтернативы: Telegram-бот и PWA дают 80% функций при нулевых затратах.', en: 'Mobile app costs $10000-50000. But there are alternatives: Telegram bot and PWA give 80% functionality at zero cost.', uz: 'Mobil ilova $10000-50000 turadi. Lekin alternativalar bor.' },
+    sections: [
+      { title: { ru: 'Когда нужно приложение', en: 'When You Need an App', uz: 'Ilova qachon kerak' }, content: { ru: 'Более 3000 заказов/месяц. Сеть из 5+ точек. Бюджет на маркетинг $5000+/месяц. Развитая программа лояльности.', en: 'More than 3000 orders/month. Chain of 5+ locations. Marketing budget $5000+/month. Developed loyalty program.', uz: 'Oyiga 3000 dan ortiq buyurtma. 5+ filialdan iborat tarmoq.' } },
+      { title: { ru: 'Альтернативы', en: 'Alternatives', uz: 'Alternativalar' }, content: { ru: 'Telegram-бот: 90% функций, 0 затрат. PWA: работает как приложение, не требует установки. White Label: готовое брендированное приложение.', en: 'Telegram bot: 90% features, 0 cost. PWA: works like app, no installation. White Label: ready branded app.', uz: 'Telegram-bot: 90% funksiyalar, 0 xarajat. PWA: ilova kabi ishlaydi.' } },
+      { title: { ru: 'White Label от Delever', en: 'White Label from Delever', uz: 'Deleverdan White Label' }, content: { ru: 'Готовое приложение в App Store и Google Play с вашим брендингом. Срок: 2 недели. Стоимость: от $2000.', en: 'Ready app in App Store and Google Play with your branding. Timeline: 2 weeks. Cost: from $2000.', uz: 'App Store va Google Playda sizning brendingiz bilan tayyor ilova.' } }
+    ],
+    cta: { text: { ru: 'Заказать White Label', en: 'Order White Label', uz: 'White Label buyurtma qiling' }, link: '/white-label' },
+    faq: [
+      { q: { ru: 'Сколько стоит разработка приложения?', en: 'How much does app development cost?', uz: 'Ilova ishlab chiqish qancha turadi?' }, a: { ru: 'Кастомная разработка: $15000-50000. White Label: от $2000. Telegram-бот: бесплатно.', en: 'Custom development: $15000-50000. White Label: from $2000. Telegram bot: free.', uz: 'Maxsus ishlab chiqish: $15000-50000. White Label: $2000 dan.' } }
+    ],
+    relatedArticles: ['telegram-bot-restaurant', 'restaurant-website-development'],
+    relatedProducts: ['white-label', 'products/channels']
+  }
+]
+
+// ============================================
+// СТАТЬИ ПРО ПРОДУКТЫ
+// ============================================
+export const productArticles: KnowledgeArticle[] = [
+  {
+    slug: 'how-to-choose-delivery-platform',
+    hub: 'launch-delivery',
+    title: { ru: 'Как выбрать платформу для доставки', en: 'How to Choose a Delivery Platform', uz: 'Yetkazib berish platformasini qanday tanlash' },
+    h1: { ru: 'Сравнение платформ для управления доставкой', en: 'Comparison of Delivery Management Platforms', uz: 'Yetkazib berish boshqaruv platformalarini taqqoslash' },
+    description: { ru: 'Delever vs iiko vs R-Keeper — что выбрать? Критерии выбора платформы: интеграции, функции, цены.', en: 'Delever vs iiko vs R-Keeper — what to choose? Platform selection criteria: integrations, features, prices.', uz: 'Delever vs iiko vs R-Keeper — nimani tanlash kerak?' },
+    keywords: { ru: 'платформа доставки, управление доставкой, delever vs iiko', en: 'delivery platform, delivery management, delever vs iiko', uz: 'yetkazib berish platformasi, yetkazib berishni boshqarish' },
+    intro: { ru: 'iiko и R-Keeper — это POS-системы (учёт, касса). Delever — это слой доставки поверх POS: принимает заказы, управляет курьерами, интегрирует агрегаторы.', en: 'iiko and R-Keeper are POS systems (accounting, cash register). Delever is a delivery layer on top of POS: takes orders, manages couriers, integrates aggregators.', uz: 'iiko va R-Keeper — POS tizimlari. Delever — POS ustidagi yetkazib berish qatlami.' },
+    sections: [
+      { title: { ru: 'Что делает POS', en: 'What POS Does', uz: 'POS nima qiladi' }, content: { ru: 'Касса, учёт товаров, склад, себестоимость, финансовая отчётность. Не предназначена для онлайн-заказов и доставки.', en: 'Cash register, inventory, warehouse, cost calculation, financial reporting. Not designed for online orders and delivery.', uz: 'Kassa, tovarlar hisobi, ombor, tannarx, moliyaviy hisobot.' } },
+      { title: { ru: 'Что делает Delever', en: 'What Delever Does', uz: 'Delever nima qiladi' }, content: { ru: 'Сайт, Telegram-бот, приложение, интеграция с Glovo/Wolt/Uzum, CRM, программа лояльности, курьерское приложение, аналитика.', en: 'Website, Telegram bot, app, Glovo/Wolt/Uzum integration, CRM, loyalty program, courier app, analytics.', uz: 'Sayt, Telegram-bot, ilova, Glovo/Wolt/Uzum integratsiyasi, CRM.' } },
+      { title: { ru: 'Как это работает вместе', en: 'How It Works Together', uz: 'Bu qanday birga ishlaydi' }, content: { ru: 'Delever принимает заказ → отправляет в iiko/R-Keeper → кухня готовит → Delever распределяет курьера → клиент получает заказ.', en: 'Delever takes order → sends to iiko/R-Keeper → kitchen prepares → Delever assigns courier → customer receives order.', uz: 'Delever buyurtma qabul qiladi → iiko/R-Keeperga yuboradi → oshxona tayyorlaydi.' } }
+    ],
+    cta: { text: { ru: 'Подключить Delever к POS', en: 'Connect Delever to POS', uz: 'Delever ni POS ga ulang' }, link: '/integrations' },
+    faq: [
+      { q: { ru: 'Можно ли использовать Delever без POS?', en: 'Can Delever be used without POS?', uz: 'Deleverdan POS siz foydalanish mumkinmi?' }, a: { ru: 'Да, Delever может работать автономно для небольших заведений.', en: 'Yes, Delever can work standalone for small establishments.', uz: 'Ha, Delever kichik korxonalar uchun mustaqil ishlashi mumkin.' } }
+    ],
+    relatedArticles: ['iiko-integration-guide', 'rkeeper-vs-iiko'],
+    relatedProducts: ['integrations/iiko', 'integrations/rkeeper']
+  },
+  {
+    slug: 'restaurant-analytics-guide',
+    hub: 'operations',
+    title: { ru: 'Аналитика для ресторана', en: 'Restaurant Analytics', uz: 'Restoran tahlili' },
+    h1: { ru: 'Какие метрики отслеживать ресторану', en: 'What Metrics Should Restaurant Track', uz: 'Restoran qanday ko\'rsatkichlarni kuzatishi kerak' },
+    description: { ru: 'Ключевые KPI ресторанного бизнеса: выручка, средний чек, food cost, время доставки. Как анализировать и улучшать.', en: 'Key restaurant business KPIs: revenue, average check, food cost, delivery time. How to analyze and improve.', uz: 'Restoran biznesining asosiy KPI lari: daromad, o\'rtacha chek, food cost.' },
+    keywords: { ru: 'аналитика ресторана, KPI ресторана, метрики доставки', en: 'restaurant analytics, restaurant KPI, delivery metrics', uz: 'restoran tahlili, restoran KPI' },
+    intro: { ru: 'Без аналитики вы управляете вслепую. 73% успешных ресторанов используют data-driven подход к принятию решений.', en: 'Without analytics you\'re managing blind. 73% of successful restaurants use data-driven decision making.', uz: 'Tahlilsiz siz ko\'r-ko\'rona boshqarasiz.' },
+    sections: [
+      { title: { ru: 'Финансовые метрики', en: 'Financial Metrics', uz: 'Moliyaviy ko\'rsatkichlar' }, content: { ru: 'Выручка (общая, по каналам), средний чек, food cost (цель: 25-30%), labor cost (цель: 20-25%), чистая прибыль (цель: 10-15%).', en: 'Revenue (total, by channel), average check, food cost (target: 25-30%), labor cost (target: 20-25%), net profit (target: 10-15%).', uz: 'Daromad, o\'rtacha chek, food cost (maqsad: 25-30%), labor cost (maqsad: 20-25%).' } },
+      { title: { ru: 'Операционные метрики', en: 'Operational Metrics', uz: 'Operatsion ko\'rsatkichlar' }, content: { ru: 'Время доставки (цель: <40 мин), время приготовления (<15 мин), % опозданий (<5%), отмены заказов (<3%).', en: 'Delivery time (target: <40 min), prep time (<15 min), late delivery rate (<5%), order cancellations (<3%).', uz: 'Yetkazib berish vaqti (maqsad: <40 daq), tayyorlash vaqti (<15 daq).' } },
+      { title: { ru: 'Клиентские метрики', en: 'Customer Metrics', uz: 'Mijoz ko\'rsatkichlari' }, content: { ru: 'LTV клиента, частота заказов, % повторных заказов, NPS, retention rate, CAC.', en: 'Customer LTV, order frequency, repeat order rate, NPS, retention rate, CAC.', uz: 'Mijoz LTV, buyurtma chastotasi, takroriy buyurtmalar foizi.' } }
+    ],
+    cta: { text: { ru: 'Подключить аналитику', en: 'Connect Analytics', uz: 'Tahlilni ulang' }, link: '/products/analytics' },
+    faq: [
+      { q: { ru: 'Как часто смотреть аналитику?', en: 'How often to check analytics?', uz: 'Tahlilni qanchalik tez-tez tekshirish kerak?' }, a: { ru: 'Ежедневно: выручка, заказы. Еженедельно: каналы, курьеры. Ежемесячно: food cost, LTV, unit-экономика.', en: 'Daily: revenue, orders. Weekly: channels, couriers. Monthly: food cost, LTV, unit economics.', uz: 'Kundalik: daromad, buyurtmalar. Haftalik: kanallar, kuryerlar.' } }
+    ],
+    relatedArticles: ['unit-economics-restaurant', 'food-cost-optimization'],
+    relatedProducts: ['products/analytics', 'products/operations']
+  }
+]
+
+// ============================================
+// СТАТЬИ ПРО СПЕЦИАЛИЗАЦИИ
+// ============================================
+export const specialtyArticles: KnowledgeArticle[] = [
+  {
+    slug: 'coffee-shop-delivery',
+    hub: 'open-restaurant',
+    title: { ru: 'Доставка из кофейни', en: 'Coffee Shop Delivery', uz: 'Kofe do\'konidan yetkazib berish' },
+    h1: { ru: 'Как запустить доставку из кофейни', en: 'How to Launch Coffee Shop Delivery', uz: 'Kofe do\'konidan yetkazib berishni qanday boshlash' },
+    description: { ru: 'Особенности доставки кофе и десертов: упаковка, температура, скорость. Как сохранить качество продукта.', en: 'Coffee and dessert delivery specifics: packaging, temperature, speed. How to maintain product quality.', uz: 'Qahva va desertlarni yetkazib berishning o\'ziga xos xususiyatlari.' },
+    keywords: { ru: 'доставка кофе, доставка кофейня, кофе на дом', en: 'coffee delivery, coffee shop delivery, coffee at home', uz: 'qahva yetkazib berish, kofe do\'konidan yetkazib berish' },
+    intro: { ru: 'Рынок доставки кофе вырос на 180% за 2023 год. Средний чек доставки из кофейни на 40% выше чем в зале.', en: 'Coffee delivery market grew 180% in 2023. Average delivery check from coffee shop is 40% higher than in-store.', uz: '2023 yilda qahva yetkazib berish bozori 180% ga o\'sdi.' },
+    sections: [
+      { title: { ru: 'Упаковка', en: 'Packaging', uz: 'Qadoqlash' }, content: { ru: 'Термостаканы с двойной стенкой. Герметичные крышки. Отдельная сумка-термос для курьера. Время доставки кофе: максимум 20 минут.', en: 'Double-wall thermal cups. Leak-proof lids. Separate thermal bag for courier. Coffee delivery time: max 20 minutes.', uz: 'Ikki devorli termo stakanlar. Germetik qopqoqlar.' } },
+      { title: { ru: 'Ассортимент', en: 'Assortment', uz: 'Assortiment' }, content: { ru: 'Добавьте десерты и выпечку: увеличивают средний чек на 60%. Cold brew и Ice Latte — лучшие позиции для доставки (не требуют температуры).', en: 'Add desserts and pastries: increase average check by 60%. Cold brew and Ice Latte — best delivery items (no temperature required).', uz: 'Desertlar va pishiriqlar qo\'shing: o\'rtacha chekni 60% ga oshiradi.' } },
+      { title: { ru: 'Зона доставки', en: 'Delivery Zone', uz: 'Yetkazib berish zonasi' }, content: { ru: 'Оптимальный радиус для кофе: 2-3 км. Время от заказа до получения: 15-20 минут. Бесплатная доставка от 200 000 сум.', en: 'Optimal radius for coffee: 2-3 km. Time from order to receipt: 15-20 minutes. Free delivery from 200,000 sum.', uz: 'Qahva uchun optimal radius: 2-3 km.' } }
+    ],
+    cta: { text: { ru: 'Запустить доставку кофе', en: 'Launch Coffee Delivery', uz: 'Qahva yetkazib berishni boshlang' }, link: '/solutions/coffee-shop' },
+    faq: [
+      { q: { ru: 'Как сохранить кофе горячим?', en: 'How to keep coffee hot?', uz: 'Qahvani issiq saqlash qanday?' }, a: { ru: 'Термостаканы + сумка-термос + доставка до 20 минут. Предупреждайте клиента о температуре.', en: 'Thermal cups + thermal bag + delivery under 20 minutes. Warn customer about temperature.', uz: 'Termo stakanlar + termo sumka + 20 daqiqagacha yetkazib berish.' } }
+    ],
+    relatedArticles: ['bakery-delivery', 'dessert-shop-delivery'],
+    relatedProducts: ['solutions/coffee-shop', 'products/channels']
+  },
+  {
+    slug: 'grocery-delivery',
+    hub: 'open-restaurant',
+    title: { ru: 'Доставка продуктов', en: 'Grocery Delivery', uz: 'Oziq-ovqat yetkazib berish' },
+    h1: { ru: 'Как запустить доставку продуктов', en: 'How to Launch Grocery Delivery', uz: 'Oziq-ovqat yetkazib berishni qanday boshlash' },
+    description: { ru: 'Grocery delivery для магазинов: особенности логистики, температурный режим, управление запасами.', en: 'Grocery delivery for stores: logistics specifics, temperature control, inventory management.', uz: 'Do\'konlar uchun oziq-ovqat yetkazib berish: logistika xususiyatlari.' },
+    keywords: { ru: 'доставка продуктов, grocery delivery, доставка из магазина', en: 'grocery delivery, store delivery, product delivery', uz: 'oziq-ovqat yetkazib berish, do\'kondan yetkazib berish' },
+    intro: { ru: 'Рынок grocery delivery в СНГ растёт на 35% ежегодно. Средний чек: $25-40. Маржинальность: 15-25%.', en: 'Grocery delivery market in CIS grows 35% annually. Average check: $25-40. Margin: 15-25%.', uz: 'MDHda oziq-ovqat yetkazib berish bozori yiliga 35% o\'smoqda.' },
+    sections: [
+      { title: { ru: 'Температурный режим', en: 'Temperature Control', uz: 'Harorat rejimi' }, content: { ru: 'Три зоны: охлаждённые (молочка, мясо), замороженные (мороженое, полуфабрикаты), сухие (консервы, напитки). Сумки-термосы обязательны.', en: 'Three zones: chilled (dairy, meat), frozen (ice cream, semi-finished), dry (canned, drinks). Thermal bags required.', uz: 'Uch zona: sovutilgan (sut, go\'sht), muzlatilgan, quruq.' } },
+      { title: { ru: 'Сборка заказа', en: 'Order Picking', uz: 'Buyurtma yig\'ish' }, content: { ru: 'Пикер собирает заказ за 10-15 минут. WMS-система с местоположением товаров. Проверка сроков годности обязательна.', en: 'Picker collects order in 10-15 minutes. WMS system with product locations. Expiry date check required.', uz: 'Pikker buyurtmani 10-15 daqiqada yig\'adi.' } },
+      { title: { ru: 'Интеграция', en: 'Integration', uz: 'Integratsiya' }, content: { ru: 'Delever синхронизирует остатки с 1С, автоматически обновляет стоп-листы, управляет курьерами.', en: 'Delever syncs inventory with 1C, automatically updates stop-lists, manages couriers.', uz: 'Delever qoldiqlarni 1C bilan sinxronlaydi.' } }
+    ],
+    cta: { text: { ru: 'Запустить grocery delivery', en: 'Launch Grocery Delivery', uz: 'Oziq-ovqat yetkazib berishni boshlang' }, link: '/solutions/grocery' },
+    faq: [
+      { q: { ru: 'Какой минимальный заказ для доставки продуктов?', en: 'What is minimum order for grocery delivery?', uz: 'Oziq-ovqat yetkazib berish uchun minimal buyurtma qancha?' }, a: { ru: 'Рекомендуем от $15-20 или бесплатная доставка от $30.', en: 'Recommend from $15-20 or free delivery from $30.', uz: '$15-20 dan yoki $30 dan bepul yetkazib berishni tavsiya qilamiz.' } }
+    ],
+    relatedArticles: ['pharmacy-delivery', 'marketplace-delivery'],
+    relatedProducts: ['solutions/grocery', 'products/operations']
+  }
+]
+
+// ============================================
 // ВСЕ СТАТЬИ
 // ============================================
 export const allKnowledgeArticles: KnowledgeArticle[] = [
@@ -1290,7 +1494,11 @@ export const allKnowledgeArticles: KnowledgeArticle[] = [
   ...posArticles,
   ...darkKitchenArticles,
   ...hrArticles,
-  ...moreCourierArticles
+  ...moreCourierArticles,
+  ...marketingArticles,
+  ...techArticles,
+  ...productArticles,
+  ...specialtyArticles
 ]
 
 // Получить статью по slug

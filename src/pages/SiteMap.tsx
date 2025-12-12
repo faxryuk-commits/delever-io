@@ -62,6 +62,17 @@ const pageGroups = [
     ]
   },
   {
+    title: 'Case Studies',
+    icon: Building2,
+    color: 'from-emerald-500 to-emerald-600',
+    pages: [
+      { path: '/case-studies', title: '📊 Все кейсы', priority: 'high' },
+      { path: '/case-studies/evos', title: '🍔 EVOS: +45% выручка', priority: 'high' },
+      { path: '/case-studies/yaponamama', title: '🍣 Yaponamama: +60% LTV', priority: 'high' },
+      { path: '/case-studies/maxway', title: '🚀 MAXWAY: -35% время доставки', priority: 'high' },
+    ]
+  },
+  {
     title: 'Knowledge Hub (Гайды)',
     icon: Package,
     color: 'from-amber-500 to-amber-600',
@@ -443,15 +454,27 @@ export function SiteMap() {
               </div>
             </div>
 
+            {/* Status Section */}
+            <div className="mt-8 p-4 bg-green-50 rounded-xl border border-green-200">
+              <h3 className="font-medium text-green-800 mb-3">✅ Реализовано</h3>
+              <ul className="text-sm text-green-700 space-y-1">
+                <li>• 312 SEO страниц в sitemap</li>
+                <li>• 52 статьи в Knowledge Hub</li>
+                <li>• 198 GEO страниц (33 города × 6 шаблонов)</li>
+                <li>• Case Studies (EVOS, Yaponamama, Maxway)</li>
+                <li>• Schema.org разметка (Article, FAQ, HowTo, LocalBusiness)</li>
+                <li>• Многоуровневая sitemap структура</li>
+              </ul>
+            </div>
+            
             {/* TODO Section */}
-            <div className="mt-8 p-4 bg-amber-50 rounded-xl border border-amber-200">
-              <h3 className="font-medium text-amber-800 mb-3">📋 Что ещё добавить</h3>
+            <div className="mt-4 p-4 bg-amber-50 rounded-xl border border-amber-200">
+              <h3 className="font-medium text-amber-800 mb-3">📋 В планах</h3>
               <ul className="text-sm text-amber-700 space-y-1">
-                <li>• Больше POS интеграций (Paloma, Clopos, AliPos, Loook, Neon Alisa)</li>
-                <li>• Города (Ташкент, Алматы, Астана, Самарканд, Бухара)</li>
-                <li>• Case Studies для топ клиентов (EVOS, Yaponamama, Maxway)</li>
-                <li>• Страницы сравнения (Delever vs iiko vs R-Keeper)</li>
-                <li>• Больше решений (Кондитерская, Кофейня, Продукты)</li>
+                <li>• Добавить больше логотипов интеграций</li>
+                <li>• Image sitemap для скриншотов продуктов</li>
+                <li>• Hreflang для мультиязычности (RU/EN/UZ)</li>
+                <li>• Ещё больше Case Studies</li>
               </ul>
             </div>
           </div>

@@ -28,6 +28,8 @@ import { AIMarketing } from './pages/AIMarketing'
 import { MenuDoctor } from './pages/MenuDoctor'
 import { Clients } from './pages/Clients'
 import { SiteMap } from './pages/SiteMap'
+import { CaseStudies } from './pages/CaseStudies'
+import { CaseStudyRoute } from './pages/case-studies/[slug]'
 import { NotFound } from './pages/NotFound'
 import { AnnouncementBar } from './components/AnnouncementBar'
 
@@ -72,6 +74,8 @@ function App() {
                 <Route path="/ai-marketing" element={<AIMarketing />} />
                 <Route path="/menu-doctor" element={<MenuDoctor />} />
                 <Route path="/clients" element={<Clients />} />
+                <Route path="/case-studies" element={<CaseStudies />} />
+                <Route path="/case-studies/:slug" element={<CaseStudyRoute />} />
                 <Route path="/sitemap-preview" element={<SiteMap />} />
                 
                 {/* SEO Pages - Integrations */}
