@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
 import { 
   ShoppingCart, 
@@ -24,6 +25,7 @@ export function ProcessFlow() {
       itemKeys: ['flow.channelsItem1', 'flow.channelsItem2', 'flow.channelsItem3', 'flow.channelsItem4'],
       color: 'text-blue-600',
       bgColor: 'bg-blue-50',
+      link: '/products/channels',
     },
     {
       id: 'delever',
@@ -32,6 +34,7 @@ export function ProcessFlow() {
       itemKeys: ['flow.deleverItem1', 'flow.deleverItem2', 'flow.deleverItem3'],
       color: 'text-brand-darkBlue',
       bgColor: 'bg-brand-lightBlue',
+      link: '/products',
     },
     {
       id: 'integrations',
@@ -40,6 +43,7 @@ export function ProcessFlow() {
       itemKeys: ['flow.integrationsItem1', 'flow.integrationsItem2', 'flow.integrationsItem3'],
       color: 'text-green-600',
       bgColor: 'bg-green-50',
+      link: '/integrations',
     },
     {
       id: 'operations',
@@ -48,6 +52,7 @@ export function ProcessFlow() {
       itemKeys: ['flow.operationsItem1', 'flow.operationsItem2', 'flow.operationsItem3'],
       color: 'text-purple-600',
       bgColor: 'bg-purple-50',
+      link: '/products/operations',
     },
     {
       id: 'delivery',
@@ -56,6 +61,7 @@ export function ProcessFlow() {
       itemKeys: ['flow.deliveryItem1', 'flow.deliveryItem2', 'flow.deliveryItem3'],
       color: 'text-orange-600',
       bgColor: 'bg-orange-50',
+      link: '/aggregators',
     },
     {
       id: 'analytics',
@@ -64,6 +70,7 @@ export function ProcessFlow() {
       itemKeys: ['flow.analyticsItem1', 'flow.analyticsItem2', 'flow.analyticsItem3'],
       color: 'text-indigo-600',
       bgColor: 'bg-indigo-50',
+      link: '/products/analytics',
     },
   ]
 
@@ -132,10 +139,10 @@ export function ProcessFlow() {
                 </div>
               )}
 
-              <div className="bg-white rounded-xl p-4 border border-brand-lightTeal/30 hover:border-brand-darkBlue/20 hover:shadow-md transition-all duration-300 h-full">
+              <Link to={step.link} className="block bg-white rounded-xl p-4 border border-brand-lightTeal/30 hover:border-brand-darkBlue/20 hover:shadow-md transition-all duration-300 h-full group/card">
                 {/* Icon */}
                 <motion.div 
-                  className={`w-12 h-12 ${step.bgColor} rounded-xl flex items-center justify-center ${step.color} mb-3 group-hover:scale-110 transition-transform duration-300`}
+                  className={`w-12 h-12 ${step.bgColor} rounded-xl flex items-center justify-center ${step.color} mb-3 group-hover/card:scale-110 transition-transform duration-300`}
                   whileHover={{ rotate: [0, -5, 5, 0] }}
                   transition={{ duration: 0.3 }}
                 >
@@ -143,7 +150,7 @@ export function ProcessFlow() {
                 </motion.div>
 
                 {/* Title */}
-                <h3 className="text-sm font-semibold text-brand-darkBlue mb-2">
+                <h3 className="text-sm font-semibold text-brand-darkBlue mb-2 group-hover/card:text-brand-blue transition-colors">
                   {t(step.titleKey)}
                 </h3>
 
@@ -161,7 +168,7 @@ export function ProcessFlow() {
                     </motion.li>
                   ))}
                 </ul>
-              </div>
+              </Link>
             </motion.div>
           ))}
         </motion.div>

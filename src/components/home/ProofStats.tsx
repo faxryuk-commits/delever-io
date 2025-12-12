@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useInView } from 'framer-motion'
@@ -20,6 +21,7 @@ const stats = [
     value: 1000,
     suffix: '+',
     labelKey: 'stats.restaurants',
+    link: '/clients',
   },
   {
     id: 'countries',
@@ -27,6 +29,7 @@ const stats = [
     value: 7,
     suffix: '',
     labelKey: 'stats.countries',
+    link: '/about',
   },
   {
     id: 'orders',
@@ -34,6 +37,7 @@ const stats = [
     value: 13,
     suffix: 'M+',
     labelKey: 'stats.ordersProcessed',
+    link: '/case-studies',
   },
   {
     id: 'speed',
@@ -41,6 +45,7 @@ const stats = [
     value: 35,
     suffix: '%',
     labelKey: 'stats.speedUp',
+    link: '/products/operations',
   },
 ]
 
@@ -151,22 +156,22 @@ export function ProofStats() {
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
               >
-                <div className="text-center p-4 rounded-xl bg-white border border-brand-lightTeal/30 shadow-md shadow-brand-blue/5 hover:shadow-lg hover:border-brand-blue/30 transition-all">
+                <Link to={stat.link} className="block text-center p-4 rounded-xl bg-white border border-brand-lightTeal/30 shadow-md shadow-brand-blue/5 hover:shadow-lg hover:border-brand-blue/30 transition-all group-hover:scale-105">
                   {/* Иконка */}
-                  <div className="w-10 h-10 mx-auto mb-2 rounded-lg bg-gradient-to-br from-brand-blue/10 to-brand-green/10 flex items-center justify-center">
+                  <div className="w-10 h-10 mx-auto mb-2 rounded-lg bg-gradient-to-br from-brand-blue/10 to-brand-green/10 flex items-center justify-center group-hover:from-brand-blue/20 group-hover:to-brand-green/20 transition-colors">
                     <Icon className="h-5 w-5 text-brand-blue" />
                   </div>
 
                   {/* Число */}
-                  <div className="text-2xl lg:text-3xl font-bold text-brand-darkBlue mb-1">
+                  <div className="text-2xl lg:text-3xl font-bold text-brand-darkBlue mb-1 group-hover:text-brand-blue transition-colors">
                     <AnimatedNumber value={stat.value} suffix={stat.suffix} />
                   </div>
 
                   {/* Подпись */}
-                  <div className="text-brand-darkBlue/60 text-xs">
+                  <div className="text-brand-darkBlue/60 text-xs group-hover:text-brand-blue/70 transition-colors">
                     {t(stat.labelKey)}
                   </div>
-                </div>
+                </Link>
               </motion.div>
             )
           })}

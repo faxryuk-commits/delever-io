@@ -1,16 +1,17 @@
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useLocale } from '@/i18n/LocaleContext'
 
 // Клиенты с логотипами (порядок по запросу)
 const clients = [
-  { name: 'Yaponamama', logo: '/logos/Yaponamama.webp' },
+  { name: 'Yaponamama', logo: '/logos/Yaponamama.webp', caseStudy: '/case-studies/yaponamama' },
   { name: 'Pizza Hut', logo: '/logos/pizza-hut-logo-png_seeklogo-257097.png' },
   { name: 'Hardees', logo: '/logos/hardees.jpg' },
   { name: 'Pinkberry', logo: '/logos/pinkberry.png' },
   { name: 'Dodo Pizza', logo: '/logos/dodo.png' },
   { name: 'ABR', logo: '/logos/abr.png' },
   { name: 'EVOS', logo: '/logos/evos.png' },
-  { name: 'MAXWAY', logo: '/logos/maxway.png' },
+  { name: 'MAXWAY', logo: '/logos/maxway.png', caseStudy: '/case-studies/maxway' },
 ]
 
 export function Clients() {
@@ -37,46 +38,53 @@ export function Clients() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          {clients.map((client, idx) => (
-            <motion.div
-              key={idx}
-              className="relative flex items-center justify-center"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.05 }}
-              whileHover={{ scale: 1.1 }}
-            >
-              <img
-                src={client.logo}
-                alt={client.name}
-                className="h-8 lg:h-10 w-auto max-w-[100px] lg:max-w-[120px] object-contain grayscale hover:grayscale-0 opacity-50 hover:opacity-100 transition-all duration-300"
-                style={{
-                  filter: 'grayscale(100%)',
-                }}
-                onMouseEnter={(e) => {
-                  const target = e.target as HTMLImageElement
-                  target.style.filter = 'grayscale(0%)'
-                }}
-                onMouseLeave={(e) => {
-                  const target = e.target as HTMLImageElement
-                  target.style.filter = 'grayscale(100%)'
-                }}
-                onError={(e) => {
-                  // Fallback на текст если логотип не найден
-                  const target = e.target as HTMLImageElement
-                  target.style.display = 'none'
-                  const parent = target.parentElement
-                  if (parent && !parent.querySelector('span')) {
-                    const span = document.createElement('span')
-                    span.className = 'text-lg font-bold text-brand-darkBlue/30 hover:text-brand-darkBlue/60 transition-colors'
-                    span.textContent = client.name
-                    parent.appendChild(span)
-                  }
-                }}
-              />
-            </motion.div>
-          ))}
+          {clients.map((client, idx) => {
+            const Wrapper = client.caseStudy ? Link : 'div'
+            const wrapperProps = client.caseStudy ? { to: client.caseStudy } : {}
+            
+            return (
+              <motion.div
+                key={idx}
+                className="relative flex items-center justify-center"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.05 }}
+                whileHover={{ scale: 1.1 }}
+              >
+                <Wrapper {...wrapperProps as any} className={client.caseStudy ? 'cursor-pointer' : ''}>
+                  <img
+                    src={client.logo}
+                    alt={client.name}
+                    className="h-8 lg:h-10 w-auto max-w-[100px] lg:max-w-[120px] object-contain grayscale hover:grayscale-0 opacity-50 hover:opacity-100 transition-all duration-300"
+                    style={{
+                      filter: 'grayscale(100%)',
+                    }}
+                    onMouseEnter={(e) => {
+                      const target = e.target as HTMLImageElement
+                      target.style.filter = 'grayscale(0%)'
+                    }}
+                    onMouseLeave={(e) => {
+                      const target = e.target as HTMLImageElement
+                      target.style.filter = 'grayscale(100%)'
+                    }}
+                    onError={(e) => {
+                      // Fallback на текст если логотип не найден
+                      const target = e.target as HTMLImageElement
+                      target.style.display = 'none'
+                      const parent = target.parentElement
+                      if (parent && !parent.querySelector('span')) {
+                        const span = document.createElement('span')
+                        span.className = 'text-lg font-bold text-brand-darkBlue/30 hover:text-brand-darkBlue/60 transition-colors'
+                        span.textContent = client.name
+                        parent.appendChild(span)
+                      }
+                    }}
+                  />
+                </Wrapper>
+              </motion.div>
+            )
+          })}
         </motion.div>
       </div>
     </section>
