@@ -164,7 +164,7 @@ export function SmartCalculator() {
   const brands = 1 // Фиксированное значение (убрано из UI)
   const [kiosks, setKiosks] = useState(0)
   const [monthlyOrders, setMonthlyOrders] = useState(500)
-  const [avgCheck, setAvgCheck] = useState(50000)
+  const [avgCheck, setAvgCheck] = useState(150000) // ~$14 по умолчанию
   
   // Тариф
   const [selectedPlanId, setSelectedPlanId] = useState('medium')
