@@ -330,10 +330,10 @@ export function KnowledgeArticlePage({ article }: Props) {
                   {article.relatedArticles.map((slug, idx) => (
                     <Link
                       key={idx}
-                      to={`/${slug}`}
+                      to={`/guides/${slug}`}
                       className="px-4 py-2 bg-brand-lightBlue/20 text-brand-darkBlue rounded-full hover:bg-brand-lightBlue/40 transition-colors text-sm"
                     >
-                      {slug.split('/').pop()?.replace(/-/g, ' ')}
+                      {slug.replace(/-/g, ' ')}
                     </Link>
                   ))}
                 </div>
