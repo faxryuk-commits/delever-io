@@ -25,6 +25,7 @@ import { ESG } from './pages/ESG'
 import { Investors } from './pages/Investors'
 import { AIMarketing } from './pages/AIMarketing'
 import { MenuDoctor } from './pages/MenuDoctor'
+import { Clients } from './pages/Clients'
 import { NotFound } from './pages/NotFound'
 import { AnnouncementBar } from './components/AnnouncementBar'
 
@@ -64,6 +65,7 @@ function App() {
                 <Route path="/investors" element={<Investors />} />
                 <Route path="/ai-marketing" element={<AIMarketing />} />
                 <Route path="/menu-doctor" element={<MenuDoctor />} />
+                <Route path="/clients" element={<Clients />} />
                 
                 {/* SEO Pages - Integrations */}
                 <Route path="/integrations/:slug" element={<IntegrationPage />} />

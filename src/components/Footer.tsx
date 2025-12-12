@@ -226,6 +226,12 @@ export function Footer() {
                 </a>
               </li>
               <li>
+                <Link to="/clients" className="text-white/60 hover:text-white transition-colors flex items-center gap-2">
+                  <Users className="h-3.5 w-3.5" />
+                  {t('nav.clients') || 'Клиенты'}
+                </Link>
+              </li>
+              <li>
                 <Link to="/partners" className="text-white/60 hover:text-white transition-colors flex items-center gap-2">
                   <Users className="h-3.5 w-3.5" />
                   {t('nav.partners')}

@@ -380,6 +380,17 @@
   </url>
 
   <url>
+    <loc>https://delever.io/clients</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/clients?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/clients?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uz" href="https://delever.io/clients?lang=uz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://delever.io/clients"/>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://delever.io/partners</loc>
     <xhtml:link rel="alternate" hreflang="ru" href="https://delever.io/partners?lang=ru"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://delever.io/partners?lang=en"/>

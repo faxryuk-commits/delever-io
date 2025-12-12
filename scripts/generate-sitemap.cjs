@@ -71,6 +71,7 @@ const pages = [
   { path: '/menu-doctor', priority: '0.8', changefreq: 'weekly' },
   
   // Партнёры и компания
+  { path: '/clients', priority: '0.8', changefreq: 'weekly' },
   { path: '/partners', priority: '0.7', changefreq: 'monthly' },
   { path: '/about', priority: '0.7', changefreq: 'monthly' },
   { path: '/white-label', priority: '0.8', changefreq: 'monthly' },
