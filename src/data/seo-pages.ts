@@ -1498,19 +1498,19 @@ export const morePosIntegrations: SEOPageData[] = [
     category: 'integration',
     subcategory: 'pos',
     title: {
-      ru: 'Интеграция с Neon Alisa — автоматизация ресторана',
-      en: 'Neon Alisa Integration — Restaurant Automation',
-      uz: 'Neon Alisa integratsiyasi — restoran avtomatizatsiyasi'
+      ru: 'Интеграция с Neon Alisa POS — автоматизация ресторана',
+      en: 'Neon Alisa POS Integration — Restaurant Automation',
+      uz: 'Neon Alisa POS integratsiyasi — restoran avtomatizatsiyasi'
     },
     description: {
-      ru: 'Neon Alisa интеграция с Delever: голосовой помощник для приёма заказов, автоматизация колл-центра.',
-      en: 'Neon Alisa integration with Delever: voice assistant for order intake, call center automation.',
-      uz: 'Neon Alisa Delever bilan integratsiyasi: buyurtma qabul qilish uchun ovozli yordamchi, call-center avtomatizatsiyasi.'
+      ru: 'Neon Alisa POS интеграция с Delever: автоматический приём заказов, синхронизация меню. Популярная POS-система.',
+      en: 'Neon Alisa POS integration with Delever: automatic order intake, menu sync. Popular POS system.',
+      uz: 'Neon Alisa POS Delever bilan integratsiyasi: avtomatik buyurtma qabul qilish, menyu sinxronizatsiyasi. Mashhur POS tizimi.'
     },
     keywords: {
-      ru: 'Neon Alisa интеграция, голосовой бот ресторан, автоматизация колл-центра',
-      en: 'Neon Alisa integration, voice bot restaurant, call center automation',
-      uz: 'Neon Alisa integratsiya, ovozli bot restoran'
+      ru: 'Neon Alisa интеграция, Neon Alisa POS, Neon Alisa доставка',
+      en: 'Neon Alisa integration, Neon Alisa POS, Neon Alisa delivery',
+      uz: 'Neon Alisa integratsiya, Neon Alisa POS'
     },
     h1: {
       ru: 'Интеграция Neon Alisa с Delever',
@@ -1518,23 +1518,23 @@ export const morePosIntegrations: SEOPageData[] = [
       uz: 'Neon Alisa Delever bilan integratsiyasi'
     },
     intro: {
-      ru: 'Neon Alisa — голосовой помощник для ресторанов. Автоматически принимает заказы по телефону и передаёт в Delever.',
-      en: 'Neon Alisa is a voice assistant for restaurants. Automatically takes phone orders and transfers to Delever.',
-      uz: 'Neon Alisa — restoranlar uchun ovozli yordamchi. Avtomatik telefon orqali buyurtmalarni qabul qiladi va Delever ga uzatadi.'
+      ru: 'Neon Alisa — POS-система для ресторанов и кафе. Delever обеспечивает полную интеграцию для автоматизации онлайн-заказов.',
+      en: 'Neon Alisa is a POS system for restaurants and cafes. Delever provides full integration for online order automation.',
+      uz: 'Neon Alisa — restoranlar va kafeler uchun POS tizimi. Delever onlayn buyurtmalarni avtomatlashtirish uchun to\'liq integratsiyani ta\'minlaydi.'
     },
     features: {
-      ru: ['Голосовой бот', 'Приём заказов 24/7', 'Интеграция с POS', 'Снижение нагрузки на колл-центр'],
-      en: ['Voice bot', '24/7 order intake', 'POS integration', 'Reduce call center load'],
-      uz: ['Ovozli bot', '24/7 buyurtma qabul qilish', 'POS integratsiyasi', 'Call-center yukini kamaytirish']
+      ru: ['Синхронизация меню', 'Автопередача заказов', 'Стоп-листы', 'Отчёты по продажам'],
+      en: ['Menu sync', 'Auto order transfer', 'Stop-lists', 'Sales reports'],
+      uz: ['Menyu sinxronizatsiyasi', 'Avtomatik buyurtma uzatish', 'Stop-listlar', 'Savdo hisobotlari']
     },
     benefits: {
-      ru: ['Экономия на операторах', 'Работает 24/7', 'Без ошибок в заказах'],
-      en: ['Save on operators', 'Works 24/7', 'No order errors'],
-      uz: ['Operatorlarda tejash', '24/7 ishlaydi', 'Buyurtmalarda xatolar yo\'q']
+      ru: ['Современный интерфейс', 'Простая настройка', 'Локальная поддержка'],
+      en: ['Modern interface', 'Easy setup', 'Local support'],
+      uz: ['Zamonaviy interfeys', 'Oddiy sozlash', 'Mahalliy qo\'llab-quvvatlash']
     },
     faq: [],
     color: 'from-purple-500 to-purple-600',
-    relatedPages: ['integrations/iiko', 'products/channels'],
+    relatedPages: ['integrations/iiko', 'integrations/jowi', 'integrations/poster'],
     schemaType: 'SoftwareApplication'
   }
 ]

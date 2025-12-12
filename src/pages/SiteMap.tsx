@@ -75,7 +75,7 @@ const pageGroups = [
       { path: '/integrations/clopos', title: 'Clopos', priority: 'medium' },
       { path: '/integrations/loook', title: 'LOOOK', priority: 'medium' },
       { path: '/integrations/alipos', title: 'AliPos', priority: 'medium' },
-      { path: '/integrations/neon-alisa', title: 'Neon Alisa (голосовой бот)', priority: 'medium' },
+      { path: '/integrations/neon-alisa', title: 'Neon Alisa POS', priority: 'medium' },
     ]
   },
   {
