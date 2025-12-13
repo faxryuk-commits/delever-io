@@ -92,7 +92,7 @@ export const featuredClients: Client[] = [
   { name: 'Gippo', slug: 'gippo', logo: '/logos/gippo.png', caseStudy: '/case-studies/gippo', featured: true, category: 'store', locations: 42 },
   { name: 'Okadzaki', slug: 'okadzaki', logo: '/logos/okadzaki.png', caseStudy: '/case-studies/okadzaki', featured: true, category: 'sushi', locations: 10 },
   { name: 'Grand Lavash', slug: 'grand-lavash', logo: '/logos/grand-lavash.png', caseStudy: '/case-studies/grand-lavash', featured: true, category: 'lavash', locations: 5 },
-  { name: 'Bellissimo', slug: 'bellissimo', logo: '/logos/bellissimo.png', featured: true, category: 'pizza', locations: 20 },
+  { name: 'ABR', slug: 'abr', logo: '/logos/abr.png', featured: true, category: 'national', locations: 50 },
   { name: 'Brasserie', slug: 'brasserie', logo: '/logos/brasserie.webp', featured: true, category: 'cafe', locations: 3 },
 ]
 
