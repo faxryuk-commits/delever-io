@@ -267,8 +267,10 @@ export function Clients() {
 
             <p className="text-center text-sm text-brand-darkBlue/50 mt-6">
               {language === 'en' 
-                ? `Showing ${filteredClients.length} of ${allClients.length} clients`
-                : `Показано ${filteredClients.length} из ${allClients.length} клиентов`
+                ? `Showing ${filteredClients.length} of 1000+ clients`
+                : language === 'uz'
+                ? `${filteredClients.length} / 1000+ mijoz ko'rsatilmoqda`
+                : `Показано ${filteredClients.length} из 1000+ клиентов`
               }
             </p>
           </div>
