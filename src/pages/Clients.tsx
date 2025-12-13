@@ -32,13 +32,13 @@ export function Clients() {
   const texts = {
     ru: {
       title: 'Наши клиенты',
-      subtitle: '500+ ресторанов доверяют Delever',
+      subtitle: '1000+ бизнесов доверяют Delever',
       description: 'От локальных кафе до крупнейших сетей — мы помогаем бизнесу расти',
       stats: {
-        clients: 'клиентов',
-        locations: 'точек',
-        countries: 'страны',
-        orders: 'заказов в день'
+        clients: 'Бизнесов',
+        orders: 'Заказов',
+        countries: 'Стран',
+        integrations: 'Интеграций'
       },
       categories: 'Категории',
       all: 'Все',
@@ -46,17 +46,17 @@ export function Clients() {
       viewAll: 'Все клиенты',
       locations: 'точек',
       cta: 'Присоединиться к ним',
-      ctaDesc: 'Запустите доставку за 1 день и присоединитесь к 500+ успешным ресторанам'
+      ctaDesc: 'Запустите доставку за 1 день и присоединитесь к 1000+ успешным бизнесам'
     },
     en: {
       title: 'Our Clients',
-      subtitle: '500+ restaurants trust Delever',
+      subtitle: '1000+ businesses trust Delever',
       description: 'From local cafes to major chains — we help businesses grow',
       stats: {
-        clients: 'clients',
-        locations: 'locations',
-        countries: 'countries',
-        orders: 'orders per day'
+        clients: 'Businesses',
+        orders: 'Orders',
+        countries: 'Countries',
+        integrations: 'Integrations'
       },
       categories: 'Categories',
       all: 'All',
@@ -64,17 +64,17 @@ export function Clients() {
       viewAll: 'All Clients',
       locations: 'locations',
       cta: 'Join Them',
-      ctaDesc: 'Launch delivery in 1 day and join 500+ successful restaurants'
+      ctaDesc: 'Launch delivery in 1 day and join 1000+ successful businesses'
     },
     uz: {
       title: 'Bizning mijozlar',
-      subtitle: '500+ restoran Delever ga ishonadi',
+      subtitle: '1000+ biznes Delever ga ishonadi',
       description: 'Mahalliy kafelerdan yirik tarmoqlargacha — biz biznesga o\'sishga yordam beramiz',
       stats: {
-        clients: 'mijozlar',
-        locations: 'nuqtalar',
-        countries: 'mamlakatlar',
-        orders: 'kunlik buyurtmalar'
+        clients: 'Bizneslar',
+        orders: 'Buyurtmalar',
+        countries: 'Mamlakatlar',
+        integrations: 'Integratsiyalar'
       },
       categories: 'Kategoriyalar',
       all: 'Hammasi',
@@ -82,7 +82,7 @@ export function Clients() {
       viewAll: 'Barcha mijozlar',
       locations: 'nuqtalar',
       cta: 'Ularga qo\'shiling',
-      ctaDesc: '1 kunda yetkazib berishni ishga tushiring va 500+ muvaffaqiyatli restoranlarga qo\'shiling'
+      ctaDesc: '1 kunda yetkazib berishni ishga tushiring va 1000+ muvaffaqiyatli bizneslarga qo\'shiling'
     }
   }
   const t = texts[language as keyof typeof texts] || texts.ru
@@ -158,10 +158,10 @@ export function Clients() {
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {[
-                { value: '500+', label: t.stats.clients, icon: Building2 },
-                { value: `${clientStats.totalLocations}+`, label: t.stats.locations, icon: MapPin },
-                { value: '3', label: t.stats.countries, icon: Star },
-                { value: '50K+', label: t.stats.orders, icon: ArrowRight },
+                { value: '1000+', label: t.stats.clients, icon: Building2 },
+                { value: '13M+', label: t.stats.orders, icon: TrendingUp },
+                { value: '7', label: t.stats.countries, icon: MapPin },
+                { value: '40+', label: t.stats.integrations, icon: Star },
               ].map((stat, idx) => (
                 <motion.div
                   key={idx}
